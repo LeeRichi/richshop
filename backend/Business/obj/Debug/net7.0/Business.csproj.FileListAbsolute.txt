@@ -1,0 +1,15 @@
+/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Business/bin/Debug/net7.0/Business.deps.json
+/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Business/bin/Debug/net7.0/Business.dll
+/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Business/bin/Debug/net7.0/Business.pdb
+/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Business/bin/Debug/net7.0/Domain.dll
+/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Business/bin/Debug/net7.0/Domain.pdb
+/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Business/obj/Debug/net7.0/Business.csproj.AssemblyReference.cache
+/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Business/obj/Debug/net7.0/Business.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Business/obj/Debug/net7.0/Business.AssemblyInfoInputs.cache
+/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Business/obj/Debug/net7.0/Business.AssemblyInfo.cs
+/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Business/obj/Debug/net7.0/Business.csproj.CoreCompileInputs.cache
+/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Business/obj/Debug/net7.0/Business.csproj.CopyComplete
+/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Business/obj/Debug/net7.0/Business.dll
+/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Business/obj/Debug/net7.0/refint/Business.dll
+/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Business/obj/Debug/net7.0/Business.pdb
+/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Business/obj/Debug/net7.0/ref/Business.dll
