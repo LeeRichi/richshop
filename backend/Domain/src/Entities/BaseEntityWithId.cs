@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Domain.src.Entities
 {
-    public class BaseEntityWithId
+    public class BaseEntityWithId : BaseEntity
     {
-        
+        public Guid Id { get; set; }
     }
 }
