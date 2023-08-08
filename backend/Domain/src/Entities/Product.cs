@@ -11,5 +11,7 @@ namespace Domain.src.Entities
         public string Descreption { get; set; }
         public float Price { get; set; }
         public int Inventory { get; set; }
+        public List<Image> Images { get; set; }
+
     }
 }

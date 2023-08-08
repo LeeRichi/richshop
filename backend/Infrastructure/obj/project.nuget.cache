@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "oojSYSvJN9yE/0Wbk6oF38hgSki88OrqM+teo7rs7aUo+Z+FntdwAOLBtYP5q1gYnSwN5YnMwg6pTyVlhT2XIg==",
+  "dgSpecHash": "zdZJg1Et6ReH2vjr0bceCYIBWJ/YKTTFFA25RhmAoFC7xCGN8xcRQsc4p2NxGvQorSo1tPZd9tQO6NlsyQkuHg==",
   "success": true,
   "projectFilePath": "/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Infrastructure/Infrastructure.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/ichr/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
+    "/Users/ichr/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512"
+  ],
   "logs": []
 }

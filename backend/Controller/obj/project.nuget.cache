@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "qb7yAzq356iVVSG8eQ8+HvNjpoIvALelL4skIAES3zg58wuNvOCE8vBfhUgGjFC70rURdQHa432BpWsCyWJPMg==",
+  "dgSpecHash": "cEu2Is/BvKGnIQCvHcTUwmJMFEtCmDVhTYuTblpx26T4hf9KClu5fpa1GcSbThQOwf+MxeDNupBBpUfvi6l/6g==",
   "success": true,
   "projectFilePath": "/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Controller/Controller.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/ichr/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
+    "/Users/ichr/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512"
+  ],
   "logs": []
 }

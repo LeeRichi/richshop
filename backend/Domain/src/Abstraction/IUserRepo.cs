@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain.src.Entities;
 
-namespace Domain.src.Entities
+
+namespace Domain.src.Abstraction
 {
-    public class BaseEntityWithId : BaseEntity
+    public interface IUserRepo : IBaseRepo<User>
     {
-        public Guid Id { get; set; }
+        User CreateAdmin(User user);
     }
 }
