@@ -12,20 +12,20 @@ using Domain.src.Abstraction;
 
 namespace Business.src.Implementations
 {
-    public class UserService : BaseService<User, UserDto>, IUserService
+    public class UserService : BaseService<T, UserReadDto, UserCreateDto, UserUpdateDto>, IUserService
     {
         private readonly IUserRepo _userRepo;
 
         public UserService(IUserRepo baseRepo, IMapper mapper) : base(baseRepo, mapper){
-            
+            _userRepo = userRepo;
         }
 
-        public UserDto UpdatePassword(string id, string newPassword){
-            var foundUser = _userRepo.GetOneById(id);
+        public async Task<UserReadDto> UpdatePassword(string id, string newPassword){
+            var foundUser = await _userRepo.GetOneById(id);
             if (foundUser == null) {
                 throw new Exception ("user not found");
             }
-            return _mapper.Map<UserDto>(_userRepo.UpdatePassword(foundUser, newPassword));
+            return _mapper.Map<UserReadDto>(await _userRepo.UpdatePassword(foundUser, newPassword));
         }
     } 
 }
