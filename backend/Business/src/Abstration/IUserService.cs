@@ -11,6 +11,6 @@ namespace Business.src.Abstration
     public interface IUserService : IBaseService<User, UserDto>
     {
         UserDto UpdatePassword(string id, string newPassword);
-        // UserDto GetProfile(string id);
+        // UserDto GetProfile(string id); only need it controller because logic is the same
     }
 } 

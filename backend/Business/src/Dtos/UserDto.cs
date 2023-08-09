@@ -12,7 +12,9 @@ namespace Business.src.Dtos
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Avatar { get; set; }  
-        // public string Password { get; set; }
+        // public string Password { get; set; } no need in Dto //should be be allow to change the password
         public Role Role { get; set; }
     }
+
+
 }
