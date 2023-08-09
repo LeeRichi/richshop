@@ -6,11 +6,11 @@ using Domain.src.Entities;
 using Business.src.Dtos;
 
 
-namespace Business.src.Abstration
+namespace Business.src.Abstraction
 {
     public interface IUserService : IBaseService<User, UserDto>
     {
         UserDto UpdatePassword(string id, string newPassword);
         // UserDto GetProfile(string id); only need it controller because logic is the same
     }
-} 
+}

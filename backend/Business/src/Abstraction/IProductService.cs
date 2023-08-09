@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Domain.src.Entities;
 using Business.src.Dtos;
 
-namespace Business.src.Abstration
+namespace Business.src.Abstraction
 {
     public interface IProductService : IBaseService<Product, ProductDto>
     {

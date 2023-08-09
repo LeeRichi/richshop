@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Domain.src.Entities;
 
 
-namespace Business.src.Abstration
+namespace Business.src.Abstraction
 {
     public interface IBaseService<T, TDto>
     {
