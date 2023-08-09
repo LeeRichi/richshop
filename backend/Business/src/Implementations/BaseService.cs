@@ -12,7 +12,7 @@ using AutoMapper;
 
 namespace Business.src.Implementations
 {
-    public class BaseService<T, TDto> : IBaseService<T, TDto>
+    public class BaseService<<T, TReadDto, TCreateDto, TupdateDto>> : IBaseService<<T, TReadDto, TCreateDto, TupdateDto>>
     {
         private readonly IBaseRepo<T> _baseRepo;
         protected readonly IMapper _mapper;
@@ -22,33 +22,38 @@ namespace Business.src.Implementations
             _mapper = mapper;
         }
         
-        public bool DeleteOneById(string id){
-            var foundItem = _baseRepo.GetOneById(id);
+        public Task<bool> DeleteOneById(string id){
+            var foundItem = await _baseRepo.GetOneById(id);
             if(foundItem != null){
-                _baseRepo.DeleteOneById(id);
+                await _baseRepo.DeleteOneById(id);
                 return true;
             }
             return false;
         }
 
-        public  IEnumerable<TDto> GetAll(QueryOptions queryOptions){
-            return _mapper.Map<IEnumerable<TDto>>(_baseRepo.GetAll(queryOptions));
+        public async Task<IEnumerable<TReadDto>> GetAll(QueryOptions queryOptions){
+            return _mapper.Map<IEnumerable<TReadDto>>(await _baseRepo.GetAll(queryOptions));
         }
 
-        public TDto GetOneById(string id){
-            return _mapper.Map<TDto>(_baseRepo.GetOneById(id));
+        public async Task<TReadDto> GetOneById(string id){
+            return _mapper.Map<TReadDto>(await _baseRepo.GetOneById(id));
         }
 
-        public TDto UpdateOneById(string id, TDto updated){
+        public Task<TReadDto> UpdateOneById(string id, TDto TupdateDto){
             var foundItem = _baseRepo.GetOneById(id);
             if(foundItem == null){
-                // _baseRepo.UpdateOneById(UpdateOneById);
+                await _baseRepo.DeleteOneById(foundItem);
                 throw new Exception("Item not found"); //modify later
             }
             _baseRepo.UpdateOneById(foundItem, _mapper.Map<T>(updated));
 
             var updatedEntity = _baseRepo.UpdateOneById(foundItem, _mapper.Map<T>(updated));
             return _mapper.Map<TDto>(updatedEntity);
+        }
+        
+        public Task<TReadDto> CreateOne(TCreateDto dto){
+            var entity = await _baseRepo.CreateOne(_mapper.Map<T>(dto));
+            return _mapper.Map<TReadDto>(entity);
         }
     }
 }

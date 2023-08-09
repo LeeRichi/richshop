@@ -7,11 +7,15 @@ using Domain.src.Entities;
 
 namespace Business.src.Abstraction
 {
-    public interface IBaseService<T, TDto>
+    public interface IBaseService<T, TReadDto, TCreateDto, TupdateDto>
     {
-        IEnumerable<TDto> GetAll(QueryOptions queryOptions);
-        TDto GetOneById(string id);
-        TDto UpdateOneById(string id, TDto updated);
-        bool DeleteOneById(string id);
+        Task<IEnumerable<TReadDto>> GetAll(QueryOptions queryOptions);
+        Task<TReadDto> GetOneById(string id);
+        Task<TReadDto> UpdateOneById(string id, TupdateDto updated);
+        Task<bool> DeleteOneById(string id);
+        Task<TReadDto> CreateOne(TCreateDto dto);
     }
 }
+
+
+//create user: name, email, password
