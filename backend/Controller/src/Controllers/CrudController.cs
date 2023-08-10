@@ -2,7 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+// using Microsoft.AspNetCore.Mvc;
+using Business.src.Abstraction;
+using Domain.src.Shared;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace Controller.src.Controllers
 {
@@ -27,9 +31,9 @@ namespace Controller.src.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TReadDto>> CreateOne([FromBody] TupdateDto dto){
+        public async Task<ActionResult<TReadDto>> CreateOne([FromBody] TCreateDto dto){
             var createObj = await _baseService.CreateOne(dto);
-            return CreateAtAction("Created", createObj);
+            return CreatedAtAction("Created", createObj); //be aware for later
         }
 
         [HttpPatch("{id}")]
