@@ -22,24 +22,24 @@ namespace Controller.src.Controllers
         }
 
         [HttpGet("{id}")]
-        public async TaskTask<ActionResult<TReadDto>> GetOneById ([FromRoute]string id){
+        public async Task<ActionResult<TReadDto>> GetOneById ([FromRoute]string id){
             return Ok(await _baseService.GetOneById(id));
         }
 
         [HttpPost]
         public async Task<ActionResult<TReadDto>> CreateOne([FromBody] TupdateDto dto){
-            var createObj = _baseService.CreateOne(dto);
+            var createObj = await _baseService.CreateOne(dto);
             return CreateAtAction("Created", createObj);
         }
 
         [HttpPatch("{id}")]
         public async Task<ActionResult<TReadDto>> UpdateOneById([FromRoute] string id,[FromForm] TupdateDto update){
             var updateObj = await _baseService.UpdateOneById(id, update);
-            return Ok(UpdateOneById);
+            return Ok(updateObj);
         }
 
         [HttpDelete("{id}")]
-        public async Tasl<ActionResult<bool>> DeleteOneById([FromRoute] string id){
+        public async Task<ActionResult<bool>> DeleteOneById([FromRoute] string id){
             return StatusCode(204, await _baseService.DeleteOneById(id));
         }
 
