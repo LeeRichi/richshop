@@ -108,14 +108,14 @@ obj/
 bin/
 
 #each layer
-/backend/Controller/obj
-/backend/Controller/bin
+backend/Controller/obj
+backend/Controller/bin
 
-/backend/Business/bin/
-/backend/Business/bin/
+backend/Business/bin/
+backend/Business/bin/
 
-/backend/Domain/bin/
-/backend/Domain/bin/
+backend/Domain/bin/
+backend/Domain/bin/
 
-/backend/infrastructure/bin/
-/backend/infrastructure/bin/
+backend/infrastructure/bin/
+backend/infrastructure/bin/
