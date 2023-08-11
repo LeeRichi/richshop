@@ -111,5 +111,5 @@ obj/
 bin/
 
 
-backend/Controller/bin/
-backend/Controller/obj/
+# backend/Controller/bin/
+/backend/Controller/obj/
