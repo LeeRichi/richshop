@@ -8,9 +8,9 @@ using Business.src.Dtos;
 
 namespace Business.src.Abstraction
 {
-    public interface IUserService : IBaseService<User, UserDto>
+    public interface IUserService : IBaseService<User, UserReadDto, UserCreateDto, UserUpdateDto>
     {
-        UserDto UpdatePassword(string id, string newPassword);
+        Task<UserReadDto> UpdatePassword(string id, string newPassword);
         // UserDto GetProfile(string id); only need it controller because logic is the same
     }
 }

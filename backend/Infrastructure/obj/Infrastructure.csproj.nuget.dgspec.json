@@ -91,6 +91,9 @@
             "projectReferences": {
               "/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Business/Business.csproj": {
                 "projectPath": "/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Business/Business.csproj"
+              },
+              "/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Domain/Domain.csproj": {
+                "projectPath": "/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Domain/Domain.csproj"
               }
             }
           }
@@ -104,6 +107,12 @@
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Mvc": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

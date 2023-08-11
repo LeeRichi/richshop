@@ -7,7 +7,7 @@ using Business.src.Dtos;
 
 namespace Business.src.Abstraction
 {
-    public interface IProductService : IBaseService<Product, ProductDto>
+    public interface IProductService : IBaseService<Product, ProductReadDto, ProductCreateDto, ProductUpdateDto>
     {
         
     }

@@ -12,11 +12,11 @@ using Domain.src.Abstraction;
 
 namespace Business.src.Implementations
 {
-    public class UserService : BaseService<T, UserReadDto, UserCreateDto, UserUpdateDto>, IUserService
+    public class UserService : BaseService<User, UserReadDto, UserCreateDto, UserUpdateDto>, IUserService
     {
         private readonly IUserRepo _userRepo;
 
-        public UserService(IUserRepo baseRepo, IMapper mapper) : base(baseRepo, mapper){
+        public UserService(IUserRepo userRepo, IMapper mapper) : base(userRepo, mapper){
             _userRepo = userRepo;
         }
 
