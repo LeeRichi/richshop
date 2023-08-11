@@ -98,3 +98,9 @@ frontend/package-*.json
 .DS_Store
 .AppleDouble
 .LSOverride
+
+
+#
+**/obj/
+**/bin/
+
