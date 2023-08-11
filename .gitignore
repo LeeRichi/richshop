@@ -111,22 +111,22 @@ frontend/package-*.json
 .LSOverride
 
 
-#root
-**/obj/
-**/bin/
+backend/appsettings.*.json
 
-obj/
-bin/
+backend/obj/
+backend/bin/
 
-#each layer
+
 backend/Controller/obj
 backend/Controller/bin
 
-backend/Business/bin/
+backend/Business/obj/
 backend/Business/bin/
 
-backend/Domain/bin/
+backend/Domain/obj/
 backend/Domain/bin/
 
+backend/infrastructure/obj/
 backend/infrastructure/bin/
-backend/infrastructure/bin/
+
+
