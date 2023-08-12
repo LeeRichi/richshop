@@ -9,7 +9,6 @@ using Business.src.Abstraction;
 using Domain.src.Abstraction;
 
 
-
 namespace Business.src.Implementations
 {
     public class UserService : BaseService<User, UserReadDto, UserCreateDto, UserUpdateDto>, IUserService
