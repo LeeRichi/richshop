@@ -26,5 +26,14 @@ namespace Business.src.Implementations
             }
             return _mapper.Map<UserReadDto>(await _userRepo.UpdatePassword(foundUser, newPassword));
         }
+
+        public override async Task<TReadDto> CreateOne(UserCreateDto dto){
+            var entity = _mapper.Map<User>(dto);
+            PasswordService.HashPassword(dto.Password, out var hashedPassword, out var salt);
+            entity.Password = hashedPassword;
+            entity.salt;
+            var created = await _userReop.CreateOne(entity);
+            return _mapper.Map<UserReadDto>(created); 
+        }
     } 
 }
