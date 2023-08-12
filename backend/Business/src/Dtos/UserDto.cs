@@ -32,4 +32,10 @@ namespace Business.src.Dtos
         public string Email { get; set; }
         public string Password { get; set; }
     }
+
+    // public class UserCredentialsDto
+    // {
+    //     public string Email { get; set; }
+    //     public string Password { get; set; }
+    // }
 }
