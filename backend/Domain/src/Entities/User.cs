@@ -15,6 +15,8 @@ namespace Domain.src.Entities
         public byte[] Salt { get; set; }
         public Role Role { get; set; }
     }
+    
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum Role
     {
         Admin,

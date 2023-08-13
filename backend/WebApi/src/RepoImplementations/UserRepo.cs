@@ -44,10 +44,10 @@ namespace WebApi.src.RepoImplementations
             return user;
         }
 
-        // public override Task<User> CreateOne(User entity)
-        // {
-        //     entity.Role = Role.User;
-        //     return base.CreateOne(entity);
-        // }
+        public override Task<User> CreateOne(User entity)
+        {
+            entity.Role = Role.User;
+            return base.CreateOne(entity);
+        }
     }
 }

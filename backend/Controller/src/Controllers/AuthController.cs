@@ -11,7 +11,9 @@ using Business.src.Abstraction;
 namespace Controller.src.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    // [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
+
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;

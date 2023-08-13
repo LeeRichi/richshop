@@ -41,7 +41,7 @@ namespace Business.src.Shared
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Role, user.Role.ToString()),
             };
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my-secret-key"));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my-secret-key-fkwpkfpwkrfkrwpkgfgergr"));
             var SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
             var securityTokenDescriptor = new SecurityTokenDescriptor{
                 Issuer = "ecommerce-backend",
