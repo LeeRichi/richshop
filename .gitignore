@@ -129,4 +129,4 @@ backend/Domain/bin/
 backend/infrastructure/obj/
 backend/infrastructure/bin/
 
-
+# *.http

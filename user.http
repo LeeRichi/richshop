@@ -1,0 +1,10 @@
+POST http://localhost:5052/api/v1/users
+Content-Type: application/json
+
+{
+  "firstName": "Dog",
+  "lastName": "Chi",
+  "email": "456@gmail.com",
+  "avatar": "dogdog",
+  "password": "123"
+}

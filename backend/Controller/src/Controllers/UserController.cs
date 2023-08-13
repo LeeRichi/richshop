@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Controller.src.Controllers
 {
-    [Authorize]
+    // [Authorize]
     public class UserController: CrudController<User, UserReadDto, UserCreateDto, UserUpdateDto>
     {
         private readonly IUserService _userService;

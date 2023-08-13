@@ -33,7 +33,7 @@ namespace Controller.src.Controllers
         [HttpPost]
         public async Task<ActionResult<TReadDto>> CreateOne([FromBody] TCreateDto dto){
             var createObj = await _baseService.CreateOne(dto);
-            return CreatedAtAction("Created", createObj); //be aware for later
+            return CreatedAtAction(nameof(CreateOne), createObj); //be aware for later
         }
 
         [HttpPatch("{id:Guid}")]
