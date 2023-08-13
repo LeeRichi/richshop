@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
+
 
 namespace Domain.src.Entities
 {
@@ -15,7 +17,7 @@ namespace Domain.src.Entities
         public byte[] Salt { get; set; }
         public Role Role { get; set; }
     }
-    
+
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum Role
     {

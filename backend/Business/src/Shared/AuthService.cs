@@ -51,7 +51,10 @@ namespace Business.src.Shared
             };
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
             var token = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
-            return token.ToString();
+            // return token.ToString();
+            return jwtSecurityTokenHandler.WriteToken(token);
+
+
             // return Task.FromResult(token.ToString()); // Use Task.FromResult to wrap the result
         }
     }

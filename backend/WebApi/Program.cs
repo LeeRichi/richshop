@@ -60,7 +60,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         ValidIssuer = "ecommerce-backend",
         // SignatureValidator = new JsonWebKey("my-secret-key");
         // IssuerSigningKey = new JsonWebKey("my-secret-key"),
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my-secret-key")),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my-secret-key-fkwpkfpwkrfkrwpkgfgergr")),
         ValidateIssuerSigningKey = true  
     };
 });

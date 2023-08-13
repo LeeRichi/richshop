@@ -2,9 +2,27 @@ POST http://localhost:5052/api/v1/users
 Content-Type: application/json
 
 {
-  "firstName": "Dog",
+  "firstName": "cat",
   "lastName": "Chi",
-  "email": "456@gmail.com",
+  "email": "789@gmail.com",
   "avatar": "dogdog",
   "password": "123"
 }
+
+
+### login user
+POST http://localhost:5052/api/v1/auth
+Content-Type: application/json
+
+{
+  "email": "789@gmail.com",
+  "password": "123"
+}
+
+
+
+
+### get all users
+GET http://localhost:5052/api/v1/users
+Content-Type: application/json
+Authorization: : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3OGZmMDk2YS1iNzY0LTRhMjYtOTVmYS02YjA3Yjk1YWM5MjkiLCJyb2xlIjoiVXNlciIsIm5iZiI6MTY5MTk2Mjg0OCwiZXhwIjoxNjkxOTYzNDQ4LCJpYXQiOjE2OTE5NjI4NDgsImlzcyI6ImVjb21tZXJjZS1iYWNrZW5kIn0.kbwBdwL009uQvLeXxWggOShWHjr9mjRR5FJS0wBrE8E
