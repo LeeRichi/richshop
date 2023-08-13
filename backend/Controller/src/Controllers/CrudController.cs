@@ -25,7 +25,7 @@ namespace Controller.src.Controllers
             return Ok(await _baseService.GetAll(queryOptions));
         }
 
-        [HttpGet("{id: Guid}")]
+        [HttpGet("{id:Guid}")]
         public async Task<ActionResult<TReadDto>> GetOneById ([FromRoute]Guid id){
             return Ok(await _baseService.GetOneById(id));
         }
@@ -36,13 +36,13 @@ namespace Controller.src.Controllers
             return CreatedAtAction("Created", createObj); //be aware for later
         }
 
-        [HttpPatch("{id: Guid}")]
+        [HttpPatch("{id:Guid}")]
         public async Task<ActionResult<TReadDto>> UpdateOneById([FromRoute] Guid id,[FromForm] TupdateDto update){
             var updateObj = await _baseService.UpdateOneById(id, update);
             return Ok(updateObj);
         }
 
-        [HttpDelete("{id: Guid}")]
+        [HttpDelete("{id:Guid}")]
         public async Task<ActionResult<bool>> DeleteOneById([FromRoute] Guid id){
             return StatusCode(204, await _baseService.DeleteOneById(id));
         }

@@ -1,12 +1,36 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using Domain.src.Abstraction;
+// using Business.src.RepoImplementations;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
+using Business.src.Abstraction;
+using Business.src.Implementations;
+using Business.src.Shared;
+using Domain.src.Abstraction;
+using WebApi.src.Database;
+using WebApi.src.RepoImplementations;
 
-using System.Text; // Add this for the Encoding class
-using Microsoft.IdentityModel.Tokens; // Add this for TokenValidationParameters
-using System.IdentityModel.Tokens.Jwt; // Add this for JsonWebKey
+
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add Automapper DI
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
+// Add db context
+builder.Services.AddDbContext<DatabaseContext>();
+
+// Add service DI
+builder.Services
+.AddScoped<IUserRepo, UserRepo>()
+.AddScoped<IUserService, UserService>()
+.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

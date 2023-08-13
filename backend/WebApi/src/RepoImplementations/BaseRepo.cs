@@ -36,20 +36,21 @@ namespace WebApi.src.RepoImplementations
 
             if (!string.IsNullOrEmpty(queryOptions.Search))
             {
-                // Modify search logic based on the entity
                 if (typeof(T) == typeof(Product))
                 {
-                    query = query.Where(e => ((Product)(object)e).ProductName.Contains(queryOptions.Search));
+                    query = query.Where(e => ((Product)(object)e).Title.Contains(queryOptions.Search));
                 }
                 else if (typeof(T) == typeof(User))
                 {
-                    query = query.Where(e => ((User)(object)e).UserName.Contains(queryOptions.Search));
+                    query = query.Where(e =>
+                        ((User)(object)e).FirstName.Contains(queryOptions.Search) ||
+                        ((User)(object)e).LastName.Contains(queryOptions.Search)
+                    );
                 }
                 else if (typeof(T) == typeof(Order))
                 {
-                    query = query.Where(e => ((Order)(object)e).OrderName.Contains(queryOptions.Search));
+                    query = query.Where(e => ((Order)(object)e).OderStatus.ToString().Contains(queryOptions.Search));
                 }
-                // Add similar conditions for other entity types
             }
 
             if (queryOptions.OrderByDescendign)
