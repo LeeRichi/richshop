@@ -10,9 +10,9 @@ namespace WebApi.src.RepoImplementations
     {
         private readonly DbSet<T> _dbSet;
         private readonly DatabaseContext _context;
-        
+
         public BaseRepo(DatabaseContext dbContext)
-        {
+        { 
             _dbSet = dbContext.Set<T>();
             _context = dbContext;
         }
@@ -32,21 +32,67 @@ namespace WebApi.src.RepoImplementations
 
         public async Task<IEnumerable<T>> GetAll(QueryOptions queryOptions)
         {
-            /* not the right logic yet */
-/*             if(typeof(T) == typeof(User))
-            {
-                
-            }
-            else if (typeof(T) == typeof(Product))
-            {
+            var query = _dbSet.AsQueryable();
 
-            }
-            else if (typeof(T) == typeof(Order))
+            if (!string.IsNullOrEmpty(queryOptions.Search))
             {
+                // Modify search logic based on the entity
+                if (typeof(T) == typeof(Product))
+                {
+                    query = query.Where(e => ((Product)(object)e).ProductName.Contains(queryOptions.Search));
+                }
+                else if (typeof(T) == typeof(User))
+                {
+                    query = query.Where(e => ((User)(object)e).UserName.Contains(queryOptions.Search));
+                }
+                else if (typeof(T) == typeof(Order))
+                {
+                    query = query.Where(e => ((Order)(object)e).OrderName.Contains(queryOptions.Search));
+                }
+                // Add similar conditions for other entity types
+            }
 
-            } */
-            return await _dbSet.ToArrayAsync();
+            if (queryOptions.OrderByDescendign)
+            {
+                // Modify sorting logic based on the entity
+                if (typeof(T) == typeof(Product))
+                {
+                    query = query.OrderByDescending(e => EF.Property<DateTime>((Product)(object)e, queryOptions.Order));
+                }
+                else if (typeof(T) == typeof(User))
+                {
+                    query = query.OrderByDescending(e => EF.Property<DateTime>((User)(object)e, queryOptions.Order));
+                }
+                else if (typeof(T) == typeof(Order))
+                {
+                    query = query.OrderByDescending(e => EF.Property<DateTime>((Order)(object)e, queryOptions.Order));
+                }
+                // Add similar conditions for other entity types
+            }
+            else
+            {
+                // Modify sorting logic based on the entity
+                if (typeof(T) == typeof(Product))
+                {
+                    query = query.OrderBy(e => EF.Property<DateTime>((Product)(object)e, queryOptions.Order));
+                }
+                else if (typeof(T) == typeof(User))
+                {
+                    query = query.OrderBy(e => EF.Property<DateTime>((User)(object)e, queryOptions.Order));
+                }
+                else if (typeof(T) == typeof(Order))
+                {
+                    query = query.OrderBy(e => EF.Property<DateTime>((Order)(object)e, queryOptions.Order));
+                }
+                // Add similar conditions for other entity types
+            }
+
+            query = query.Skip((queryOptions.PageNumber - 1) * queryOptions.PerPage)
+                        .Take(queryOptions.PerPage);
+
+            return await query.ToListAsync();
         }
+
 
         public async Task<T?> GetOneById(Guid id)
         {

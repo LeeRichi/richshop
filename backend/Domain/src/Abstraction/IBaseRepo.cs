@@ -11,8 +11,8 @@ namespace Domain.src.Abstraction
     public interface IBaseRepo<T> 
     {
         Task<IEnumerable<T>> GetAll(QueryOptions queryOptions);
-        Task<T> GetOneById(string id);
-        Task<T> UpdateOneById(T originalEntity, T updatedEntity);
+        Task<T?> GetOneById(string id);
+        Task<T> UpdateOneById(T updatedEntity);
         Task<bool> DeleteOneById(string id);
         Task<T> CreateOne(T entity);
     }

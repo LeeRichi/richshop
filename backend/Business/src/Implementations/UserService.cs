@@ -25,7 +25,10 @@ namespace Business.src.Implementations
             if (foundUser == null) {
                 throw new Exception ("user not found");
             }
-            return _mapper.Map<UserReadDto>(await _userRepo.UpdatePassword(foundUser, newPassword));
+            PasswordService.HashPassword(newPassword, out var hashedPassword, out var salt);
+            foundUser.Password = hashedPassword;
+            foundUser.Salt = salt;
+            return _mapper.Map<UserReadDto>(await _userRepo.UpdatePassword(foundUser));
         }
 
         public override async Task<UserReadDto> CreateOne(UserCreateDto dto){
