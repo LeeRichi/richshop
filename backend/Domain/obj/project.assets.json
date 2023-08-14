@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Domain/Domain.csproj",
+      "projectUniqueName": "/Users/ichr/Desktop/fs15_Fullstack/backend/Domain/Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Domain/Domain.csproj",
+      "projectPath": "/Users/ichr/Desktop/fs15_Fullstack/backend/Domain/Domain.csproj",
       "packagesPath": "/Users/ichr/.nuget/packages/",
-      "outputPath": "/Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Domain/obj/",
+      "outputPath": "/Users/ichr/Desktop/fs15_Fullstack/backend/Domain/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/ichr/.nuget/NuGet/NuGet.Config"

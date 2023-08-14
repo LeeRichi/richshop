@@ -7,11 +7,11 @@ namespace Domain.src.Entities
 {
     public class Order: BaseEntityWithId
     {
-        public OderStatus OderStatus { get; set; }
+        public OrderStatus OrderStatus { get; set; }
         public User User{ get; set; }   
         public List<OrderProduct> OrderProducts{ get; set; }   
     }
-    public enum OderStatus {
+    public enum OrderStatus {
         Pending,
         Shipped,
         Arrived,

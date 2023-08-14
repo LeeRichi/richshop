@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Controller
-build_property.ProjectDir = /Users/ichr/Desktop/integrify/fs15_Fullstack/backend/Controller/
+build_property.ProjectDir = /Users/ichr/Desktop/fs15_Fullstack/backend/Controller/

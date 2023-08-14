@@ -21,7 +21,7 @@ namespace Controller.src.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TReadDto>>> GetAll([FromQuery]QueryOptions queryOptions){
+        public virtual async Task<ActionResult<IEnumerable<TReadDto>>> GetAll([FromQuery]QueryOptions queryOptions){
             return Ok(await _baseService.GetAll(queryOptions));
         }
 
@@ -37,7 +37,7 @@ namespace Controller.src.Controllers
         }
 
         [HttpPatch("{id:Guid}")]
-        public async Task<ActionResult<TReadDto>> UpdateOneById([FromRoute] Guid id,[FromForm] TupdateDto update){
+        public virtual async Task<ActionResult<TReadDto>> UpdateOneById([FromRoute] Guid id,[FromForm] TupdateDto update){
             var updateObj = await _baseService.UpdateOneById(id, update);
             return Ok(updateObj);
         }

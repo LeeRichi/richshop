@@ -1,13 +1,15 @@
-POST http://localhost:5052/api/v1/users
-Content-Type: application/json
 
-{
-  "firstName": "cat",
-  "lastName": "Chi",
-  "email": "789@gmail.com",
-  "avatar": "dogdog",
-  "password": "123"
-}
+# ##create one admin
+# POST http://localhost:5052/api/v1/users/admin
+# Content-Type: application/json
+
+# {
+#   "firstName": "Rich",
+#   "lastName": "Lee",
+#   "email": "rich6@gmail.com",
+#   "avatar": "rich",
+#   "password": "123"
+# }
 
 
 ### login user
@@ -15,14 +17,27 @@ POST http://localhost:5052/api/v1/auth
 Content-Type: application/json
 
 {
-  "email": "789@gmail.com",
+  "email": "rich6@gmail.com",
   "password": "123"
 }
 
+
+
+# ##create one admin
+# POST http://localhost:5052/api/v1/users/admin
+# Content-Type: application/json
+
+# {
+#   "firstName": "Rich",
+#   "lastName": "Lee",
+#   "email": "rich6@gmail.com",
+#   "avatar": "rich",
+#   "password": "123"
+# }
 
 
 
 ### get all users
 GET http://localhost:5052/api/v1/users
 Content-Type: application/json
-Authorization: : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI3OGZmMDk2YS1iNzY0LTRhMjYtOTVmYS02YjA3Yjk1YWM5MjkiLCJyb2xlIjoiVXNlciIsIm5iZiI6MTY5MTk2Mjg0OCwiZXhwIjoxNjkxOTYzNDQ4LCJpYXQiOjE2OTE5NjI4NDgsImlzcyI6ImVjb21tZXJjZS1iYWNrZW5kIn0.kbwBdwL009uQvLeXxWggOShWHjr9mjRR5FJS0wBrE8E
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI4M2M4NmZjMC00MjU0LTRkYmYtYTBmZS1mNGYxMDdiOGU1ZTMiLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE2OTIwNDEwNTMsImV4cCI6MTY5MjA0MTY1MywiaWF0IjoxNjkyMDQxMDUzLCJpc3MiOiJlY29tbWVyY2UtYmFja2VuZCJ9.Vjf588ycr1FU3ygsDAEFgnY3TH6KeQb3pqynG1ouN0E
