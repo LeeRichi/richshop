@@ -2,6 +2,8 @@ using AutoMapper;
 using Business.src.Abstraction;
 using Domain.src.Abstraction;
 using Domain.src.Shared;
+using Business.src.Shared;
+
 
 namespace Business.src.Implementations
 {
@@ -58,7 +60,8 @@ namespace Business.src.Implementations
             var foundItem = await _baseRepo.GetOneById(id);
             if (foundItem == null)
             {
-                throw new Exception("Item not found");
+                // throw new Exception("Item not found");
+                throw CustomException.NotFoundException();
             }
 
             _mapper.Map(updated, foundItem); // Update the entity with the properties from the updated DTO

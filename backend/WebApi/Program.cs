@@ -16,6 +16,7 @@ using Domain.src.Abstraction;
 using WebApi.src.Database;
 using WebApi.src.RepoImplementations;
 using WebApi.src.AuthorizationRequirement;
+using WebApi.src.MiddleWare;
 
 
 
@@ -49,7 +50,7 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services
 // .AddSingleton<MinimumAgeRequirementHandler>()
-// .AddSingleton<ErrorHandlerMiddleware>()
+.AddSingleton<ErrorHandlerMiddleware>()
 .AddSingleton<OwnerOnlyRequirementHandler>();
 
 //config route
@@ -97,6 +98,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
 
 app.UseAuthorization();
 
