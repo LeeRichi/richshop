@@ -49,7 +49,7 @@ namespace WebApi.src.RepoImplementations
                 }
                 else if (typeof(T) == typeof(Order))
                 {
-                    query = query.Where(e => ((Order)(object)e).OderStatus.ToString().Contains(queryOptions.Search));
+                    query = query.Where(e => ((Order)(object)e).OrderStatus.ToString().Contains(queryOptions.Search));
                 }
             }
 

@@ -15,6 +15,7 @@ using Business.src.Shared;
 using Domain.src.Abstraction;
 using WebApi.src.Database;
 using WebApi.src.RepoImplementations;
+using WebApi.src.AuthorizationRequirement;
 
 
 
@@ -45,6 +46,12 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
+
+builder.Services
+// .AddSingleton<MinimumAgeRequirementHandler>()
+// .AddSingleton<ErrorHandlerMiddleware>()
+.AddSingleton<OwnerOnlyRequirementHandler>();
+
 //config route
 builder.Services.Configure<RouteOptions>(options =>{
     options.LowercaseUrls = true;
@@ -56,13 +63,28 @@ builder.Services.Configure<RouteOptions>(options =>{
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options => {
     options.TokenValidationParameters = new TokenValidationParameters{
+        //pre
+        // ValidateIssuer = true,
+        // ValidIssuer = "ecommerce-backend",
+        // // SignatureValidator = new JsonWebKey("my-secret-key");
+        // // IssuerSigningKey = new JsonWebKey("my-secret-key"),
+        // IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my-secret-key-fkwpkfpwkrfkrwpkgfgergr")),
+        // ValidateIssuerSigningKey = true  
+
         ValidateIssuer = true,
         ValidIssuer = "ecommerce-backend",
-        // SignatureValidator = new JsonWebKey("my-secret-key");
-        // IssuerSigningKey = new JsonWebKey("my-secret-key"),
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my-secret-key-fkwpkfpwkrfkrwpkgfgergr")),
-        ValidateIssuerSigningKey = true  
+        ValidateAudience = false,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my-secrete-key-jsdguyfsdgcjsdbchjsdb jdhscjysdcsdj")),
+        ValidateIssuerSigningKey = true
     };
+});
+
+
+builder.Services.AddAuthorization(options =>
+{
+    // options.AddPolicy("EmailWhiteList", policy => policy.RequireClaim(ClaimTypes.Email, "alia@mail.com", "john@mail.com", "dave@mail.com"));
+    // options.AddPolicy("Minimum18Years", policy => policy.Requirements.Add(new MinimumAgeRequirement(18)));
+    options.AddPolicy("OwnerOnly", policy => policy.Requirements.Add(new OwnerOnlyRequirement()));
 });
 
 var app = builder.Build();
