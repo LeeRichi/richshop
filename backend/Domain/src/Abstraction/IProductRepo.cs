@@ -9,6 +9,6 @@ namespace Domain.src.Abstraction
 {
     public interface IProductRepo : IBaseRepo<Product>
     {
-        
+       
     }
 }

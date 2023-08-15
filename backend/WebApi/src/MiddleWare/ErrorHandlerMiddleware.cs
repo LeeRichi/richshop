@@ -21,11 +21,11 @@ namespace WebApi.src.MiddleWare
                 context.Response.StatusCode = 500;
                 await context.Response.WriteAsJsonAsync(e.InnerException!.Message);
             }
-            catch (Exception e)
-            {
-                context.Response.StatusCode = 500;
-                await context.Response.WriteAsJsonAsync("Internal server error");
-            }
+            // catch (Exception e)
+            // {
+            //     context.Response.StatusCode = 500;
+            //     await context.Response.WriteAsJsonAsync("Internal server error");
+            // }
         }
     }
 }

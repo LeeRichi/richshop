@@ -32,7 +32,10 @@ builder.Services.AddDbContext<DatabaseContext>();
 builder.Services
 .AddScoped<IUserRepo, UserRepo>()
 .AddScoped<IUserService, UserService>()
-.AddScoped<IAuthService, AuthService>();
+.AddScoped<IAuthService, AuthService>()
+.AddScoped<IProductService, ProductService>()
+.AddScoped<IProductRepo, ProductRepo>(); // Register the implementation
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

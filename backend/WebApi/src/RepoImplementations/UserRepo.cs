@@ -35,7 +35,7 @@ namespace WebApi.src.RepoImplementations
         {
             /* Where, FirstOrDefault, Find */
             // _users.FindAsync(email);
-            return await _users.FirstOrDefaultAsync(u => u.Email == email);
+            return await _users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
         }
 
         public async Task<User> UpdatePassword(User user)
