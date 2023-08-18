@@ -33,10 +33,16 @@ builder.Services
 .AddScoped<IUserRepo, UserRepo>()
 .AddScoped<IUserService, UserService>()
 .AddScoped<IAuthService, AuthService>()
+
 .AddScoped<IProductService, ProductService>()
 .AddScoped<IProductRepo, ProductRepo>()
+
 .AddScoped<IOrderService, OrderService>()
-.AddScoped<IOrderRepo, OrderRepo>(); // Register the implementation
+.AddScoped<IOrderRepo, OrderRepo>()
+
+.AddScoped<IOrderProductService, OrderProductService>()
+.AddScoped<IOrderProductRepo, OrderProductRepo>();
+// Register the implementation
 
 
 // Configure CORS
