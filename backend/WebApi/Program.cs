@@ -34,7 +34,21 @@ builder.Services
 .AddScoped<IUserService, UserService>()
 .AddScoped<IAuthService, AuthService>()
 .AddScoped<IProductService, ProductService>()
-.AddScoped<IProductRepo, ProductRepo>(); // Register the implementation
+.AddScoped<IProductRepo, ProductRepo>()
+.AddScoped<IOrderService, OrderService>()
+.AddScoped<IOrderRepo, OrderRepo>(); // Register the implementation
+
+
+// Configure CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", builder =>
+    {
+        builder.WithOrigins("http://localhost:3000") // Add your frontend URL here
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 
 builder.Services.AddControllers();
@@ -101,6 +115,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowFrontend");
+
 
 app.UseMiddleware<ErrorHandlerMiddleware>();
 

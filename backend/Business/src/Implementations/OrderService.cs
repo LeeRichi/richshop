@@ -12,8 +12,11 @@ namespace Business.src.Implementations
 {
     public class OrderService : BaseService<Order, OrderReadDto, OrderCreateDto, OrderUpdateDto>, IOrderService
     {
-        public OrderService(IBaseRepo<Order> baseRepo, IMapper mapper) : base(baseRepo, mapper)
+        private readonly IOrderRepo _orderRepo;
+
+        public OrderService(IOrderRepo orderRepo, IMapper mapper) : base(orderRepo, mapper)
         {
+            _orderRepo = orderRepo;
         }
     }
 }

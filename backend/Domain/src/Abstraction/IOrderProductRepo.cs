@@ -7,7 +7,7 @@ using Domain.src.Entities;
 
 namespace Domain.src.Abstraction
 {
-    public interface IOrderProduct : IBaseRepo<OrderProduct>
+    public interface IOrderProductRepo : IBaseRepo<OrderProduct>
     {
         
     }

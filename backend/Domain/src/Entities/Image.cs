@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Domain.src.Entities
 {
-    public class Image : BaseEntityWithId
+    public class Image: BaseEntityWithId
     {
         public string Link { get; set; }
     }

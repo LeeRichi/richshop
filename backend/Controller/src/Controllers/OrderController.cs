@@ -6,16 +6,20 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Business.src.Abstraction;
 using Business.src.Dtos;
+using Business.src.Implementations;
 using Domain.src.Entities;
 
 namespace Controller.src.Controllers
 {
     public class OrderController : CrudController<Order, OrderReadDto, OrderCreateDto, OrderUpdateDto>
     {
-        private readonly IAuthorizationService _authorizationService;
+       private readonly IAuthorizationService _authorizationService;
         private readonly IOrderService _orderService;
-        public OrderController(IBaseService<Order, OrderReadDto, OrderCreateDto, OrderUpdateDto> baseService, IAuthorizationService authService) : base(baseService)
+        
+        public OrderController(IOrderService baseService, IAuthorizationService authService)
+            : base(baseService)
         {
+            _orderService = baseService;
             _authorizationService = authService;
         }
 
@@ -26,7 +30,7 @@ namespace Controller.src.Controllers
             var order = await _orderService.GetOneById(id);
             /* resource based authorization here */
             var authorizeOwner = await _authorizationService.AuthorizeAsync(user, order, "OwnerOnly");
-            if(authorizeOwner.Succeeded)
+            if (authorizeOwner.Succeeded)
             {
                 return await base.UpdateOneById(id, update);
             }
@@ -35,5 +39,10 @@ namespace Controller.src.Controllers
                 return new ForbidResult();
             }
         }
+
+        // public override async Task<ActionResult<OrderReadDto>> CreateOne([FromBody] OrderCreateDto dto){
+        //     var createObj = await _orderService.CreateOne(dto);
+        //     return CreatedAtAction(nameof(CreateOne), createObj); //be aware for later
+        // }
     }
 }

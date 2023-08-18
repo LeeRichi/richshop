@@ -21,5 +21,23 @@ namespace Controller.src.Controllers
             _productService = baseService;
         }
 
+        [AllowAnonymous]
+        public override async Task<ActionResult<IEnumerable<ProductReadDto>>> GetAll([FromQuery] QueryOptions queryOptions)
+        {
+            return Ok(await _productService.GetAll(queryOptions));
+        }
+
+        [Authorize(Roles = "Admin")]
+        public override async Task<ActionResult<ProductReadDto>> CreateOne([FromBody] ProductCreateDto dto){
+            var createObj = await _productService.CreateOne(dto);
+            return CreatedAtAction(nameof(CreateOne), createObj); //be aware for later
+        }
+
+        [AllowAnonymous]
+        // [HttpGet("{id:Guid}")]
+        public override async Task<ActionResult<ProductReadDto>> GetOneById ([FromRoute]Guid id){
+            return Ok(await _productService.GetOneById(id));
+        }
+
     }    
 }

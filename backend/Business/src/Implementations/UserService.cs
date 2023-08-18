@@ -30,7 +30,7 @@ namespace Business.src.Implementations
             foundUser.Salt = salt;
             return _mapper.Map<UserReadDto>(await _userRepo.UpdatePassword(foundUser));
         }
-
+        
         public override async Task<UserReadDto> CreateOne(UserCreateDto dto){
             var entity = _mapper.Map<User>(dto);
             PasswordService.HashPassword(dto.Password, out var hashedPassword, out var salt);

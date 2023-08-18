@@ -22,17 +22,10 @@ namespace Business.src.Implementations
 
         public override async Task<ProductReadDto> CreateOne(ProductCreateDto dto)
         {
-            // Map the DTO to the entity
             var productEntity = _mapper.Map<Product>(dto);
 
-            // Perform any additional processing or validation before creating
-            // For example:
-            // Check if the product already exists, perform validation, etc.
-
-            // Call the repository to create the product
             var createdProduct = await _productRepo.CreateOne(productEntity);
 
-            // Map the created entity back to DTO and return
             var createdProductDto = _mapper.Map<ProductReadDto>(createdProduct);
             return createdProductDto;
         }

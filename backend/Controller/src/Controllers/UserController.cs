@@ -23,7 +23,8 @@ namespace Controller.src.Controllers
         {
             _userService = baseService;
         }
-        
+
+        // [AllowAnonymous]
         [Authorize(Roles = "Admin")]
         [HttpPost("admin")]
         public async Task<ActionResult<UserReadDto>> CreateAdmin([FromBody] UserCreateDto dto)
@@ -32,10 +33,22 @@ namespace Controller.src.Controllers
         }
 
 
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public override async Task<ActionResult<IEnumerable<UserReadDto>>> GetAll([FromQuery] QueryOptions queryOptions)
         {
             return Ok(await _userService.GetAll(queryOptions));
+        }
+
+        [AllowAnonymous]
+        public override async Task<ActionResult<UserReadDto>> CreateOne([FromBody] UserCreateDto dto){
+            var createObj = await _userService.CreateOne(dto);
+            return CreatedAtAction(nameof(CreateOne), createObj); //be aware for later
+        }
+
+        [AllowAnonymous]
+        public override async Task<ActionResult<UserReadDto>> UpdateOneById([FromRoute] Guid id,[FromForm] UserUpdateDto update){
+            var updateObj = await _userService.UpdateOneById(id, update);
+            return Ok(updateObj);
         }
     }    
 }

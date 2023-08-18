@@ -7,9 +7,13 @@ using Business.src.Abstraction;
 using Domain.src.Shared;
 using Microsoft.AspNetCore.Mvc;
 
+using Microsoft.AspNetCore.Authorization;
+
+
 
 namespace Controller.src.Controllers
 {
+    // [Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/v1/[controller]s")]
     public class CrudController<T, TReadDto, TCreateDto, TupdateDto> : ControllerBase
@@ -26,12 +30,12 @@ namespace Controller.src.Controllers
         }
 
         [HttpGet("{id:Guid}")]
-        public async Task<ActionResult<TReadDto>> GetOneById ([FromRoute]Guid id){
+        public virtual async Task<ActionResult<TReadDto>> GetOneById ([FromRoute]Guid id){
             return Ok(await _baseService.GetOneById(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<TReadDto>> CreateOne([FromBody] TCreateDto dto){
+        public virtual async Task<ActionResult<TReadDto>> CreateOne([FromBody] TCreateDto dto){
             var createObj = await _baseService.CreateOne(dto);
             return CreatedAtAction(nameof(CreateOne), createObj); //be aware for later
         }

@@ -55,7 +55,6 @@ namespace WebApi.src.RepoImplementations
 
             if (queryOptions.OrderByDescendign)
             {
-                // Modify sorting logic based on the entity
                 if (typeof(T) == typeof(Product))
                 {
                     query = query.OrderByDescending(e => EF.Property<DateTime>((Product)(object)e, queryOptions.Order));
@@ -68,11 +67,9 @@ namespace WebApi.src.RepoImplementations
                 {
                     query = query.OrderByDescending(e => EF.Property<DateTime>((Order)(object)e, queryOptions.Order));
                 }
-                // Add similar conditions for other entity types
             }
             else
             {
-                // Modify sorting logic based on the entity
                 if (typeof(T) == typeof(Product))
                 {
                     query = query.OrderBy(e => EF.Property<DateTime>((Product)(object)e, queryOptions.Order));
@@ -85,7 +82,6 @@ namespace WebApi.src.RepoImplementations
                 {
                     query = query.OrderBy(e => EF.Property<DateTime>((Order)(object)e, queryOptions.Order));
                 }
-                // Add similar conditions for other entity types
             }
 
             query = query.Skip((queryOptions.PageNumber - 1) * queryOptions.PerPage)
