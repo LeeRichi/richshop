@@ -17,9 +17,8 @@ This project involves creating a Fullstack project with React and Redux on the f
 1. [Features](#features)
    - [Mandatory features](#mandatory-features)
    - [Extra features](#extra-features)
-2. [Requirements](#requirements)
-3. [Getting Started](#getting-started)
-4. [Testing](#testing)
+2. [Getting Started](#getting-started)
+
 
 ## Features
 
