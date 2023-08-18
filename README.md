@@ -53,7 +53,8 @@ Frontend: in folder /frontend, run npm start
 It will start server running on http://localhost:3000
 
 ## ERD diagram
-/Users/ichr/Desktop/fs15_Fullstack/erd_diagram.png
+![erd_diagram](https://github.com/LeeRichi/fs15_Fullstack/assets/86901868/05eaa3e8-c324-4687-bb6f-fccb18e84c6a)
 
 ## Backend design
-/Users/ichr/Desktop/fs15_Fullstack/backend_design.png
+![backend_design](https://github.com/LeeRichi/fs15_Fullstack/assets/86901868/23648c54-68c3-4ddc-9f91-fc4a5bcfee23)
+
