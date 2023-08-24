@@ -43,8 +43,7 @@ namespace WebApi.src.RepoImplementations
                 else if (typeof(T) == typeof(User))
                 {
                     query = query.Where(e =>
-                        ((User)(object)e).FirstName.Contains(queryOptions.Search) ||
-                        ((User)(object)e).LastName.Contains(queryOptions.Search)
+                        ((User)(object)e).Name.Contains(queryOptions.Search)
                     );
                 }
                 else if (typeof(T) == typeof(Order))

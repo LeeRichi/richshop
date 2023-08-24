@@ -13,7 +13,7 @@ using WebApi.src.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230816154517_Create")]
+    [Migration("20230824160808_Create")]
     partial class Create
     {
         /// <inheritdoc />
@@ -52,12 +52,12 @@ namespace WebApi.Migrations
                         .HasColumnName("updated_at");
 
                     b.HasKey("Id")
-                        .HasName("pk_images");
+                        .HasName("pk_image");
 
                     b.HasIndex("ProductId")
-                        .HasDatabaseName("ix_images_product_id");
+                        .HasDatabaseName("ix_image_product_id");
 
-                    b.ToTable("images", (string)null);
+                    b.ToTable("image", (string)null);
                 });
 
             modelBuilder.Entity("Domain.src.Entities.Order", b =>
@@ -175,15 +175,10 @@ namespace WebApi.Migrations
                         .HasColumnType("text")
                         .HasColumnName("email");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("first_name");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("last_name");
+                        .HasColumnName("name");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -218,13 +213,13 @@ namespace WebApi.Migrations
                     b.HasOne("Domain.src.Entities.Product", null)
                         .WithMany("Images")
                         .HasForeignKey("ProductId")
-                        .HasConstraintName("fk_images_products_product_id");
+                        .HasConstraintName("fk_image_products_product_id");
                 });
 
             modelBuilder.Entity("Domain.src.Entities.Order", b =>
                 {
                     b.HasOne("Domain.src.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -236,7 +231,7 @@ namespace WebApi.Migrations
             modelBuilder.Entity("Domain.src.Entities.OrderProduct", b =>
                 {
                     b.HasOne("Domain.src.Entities.Order", "Order")
-                        .WithMany("OrderProducts")
+                        .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -254,14 +249,14 @@ namespace WebApi.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Domain.src.Entities.Order", b =>
-                {
-                    b.Navigation("OrderProducts");
-                });
-
             modelBuilder.Entity("Domain.src.Entities.Product", b =>
                 {
                     b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("Domain.src.Entities.User", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

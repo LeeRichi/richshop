@@ -37,8 +37,7 @@ namespace WebApi.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
-                    first_name = table.Column<string>(type: "text", nullable: false),
-                    last_name = table.Column<string>(type: "text", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false),
                     email = table.Column<string>(type: "text", nullable: false),
                     avatar = table.Column<string>(type: "text", nullable: false),
                     password = table.Column<string>(type: "text", nullable: false),
@@ -53,7 +52,7 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "images",
+                name: "image",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -64,9 +63,9 @@ namespace WebApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_images", x => x.id);
+                    table.PrimaryKey("pk_image", x => x.id);
                     table.ForeignKey(
-                        name: "fk_images_products_product_id",
+                        name: "fk_image_products_product_id",
                         column: x => x.product_id,
                         principalTable: "products",
                         principalColumn: "id");
@@ -77,8 +76,8 @@ namespace WebApi.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
-                    order_status = table.Column<int>(type: "integer", nullable: false),
                     user_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    order_status = table.Column<int>(type: "integer", nullable: false),
                     create_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
@@ -119,8 +118,8 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "ix_images_product_id",
-                table: "images",
+                name: "ix_image_product_id",
+                table: "image",
                 column: "product_id");
 
             migrationBuilder.CreateIndex(
@@ -144,7 +143,7 @@ namespace WebApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "images");
+                name: "image");
 
             migrationBuilder.DropTable(
                 name: "order_products");

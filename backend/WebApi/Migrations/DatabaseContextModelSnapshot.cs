@@ -172,15 +172,10 @@ namespace WebApi.Migrations
                         .HasColumnType("text")
                         .HasColumnName("email");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("first_name");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("last_name");
+                        .HasColumnName("name");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -221,7 +216,7 @@ namespace WebApi.Migrations
             modelBuilder.Entity("Domain.src.Entities.Order", b =>
                 {
                     b.HasOne("Domain.src.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -254,6 +249,11 @@ namespace WebApi.Migrations
             modelBuilder.Entity("Domain.src.Entities.Product", b =>
                 {
                     b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("Domain.src.Entities.User", b =>
+                {
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }
