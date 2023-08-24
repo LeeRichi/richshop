@@ -25,7 +25,7 @@ namespace Controller.src.Controllers
         }
 
         // [AllowAnonymous]
-        [Authorize(Roles = "Admin")]
+        // [Authorize(Roles = "Admin")]
         [HttpPost("admin")]
         public async Task<ActionResult<UserReadDto>> CreateAdmin([FromBody] UserCreateDto dto)
         {

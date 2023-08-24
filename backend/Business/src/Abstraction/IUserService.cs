@@ -9,5 +9,6 @@ namespace Business.src.Abstraction
         Task<UserReadDto> UpdatePassword(Guid id, string newPassword);
         // UserDto GetProfile(Guid id); --> only have this method in controller because logic is same as in service
         Task<UserReadDto> CreateAdmin(UserCreateDto dto);
+        Task<bool> DeleteOneById(Guid id);
     }
 }
