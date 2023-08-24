@@ -16,6 +16,8 @@ namespace Domain.src.Entities
         public string Password { get; set; }
         public byte[] Salt { get; set; }
         public Role Role { get; set; }
+        public ICollection<Order> Orders { get; set; } = new List<Order>();
+
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]

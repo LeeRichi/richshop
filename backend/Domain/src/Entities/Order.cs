@@ -20,6 +20,5 @@ namespace Domain.src.Entities
         Shipped,
         Arrived,
         PickedUp,
-        
     }
 }

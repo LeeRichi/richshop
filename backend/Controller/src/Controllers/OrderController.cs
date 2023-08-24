@@ -23,21 +23,22 @@ namespace Controller.src.Controllers
             _authorizationService = authService;
         }
 
-        [Authorize]
+        // [Authorize]
+        [AllowAnonymous]
         public override async Task<ActionResult<OrderReadDto>> UpdateOneById([FromRoute] Guid id, [FromBody] OrderUpdateDto update)
         {
             var user = HttpContext.User;
             var order = await _orderService.GetOneById(id);
             /* resource based authorization here */
-            var authorizeOwner = await _authorizationService.AuthorizeAsync(user, order, "OwnerOnly");
-            if (authorizeOwner.Succeeded)
-            {
+            // var authorizeOwner = await _authorizationService.AuthorizeAsync(user, order, "OwnerOnly");
+            // if (authorizeOwner.Succeeded)
+            // {
                 return await base.UpdateOneById(id, update);
-            }
-            else
-            {
-                return new ForbidResult();
-            }
+            // }
+            // else
+            // {
+            //     return new ForbidResult();
+            // }
         }
 
         // public override async Task<ActionResult<OrderReadDto>> CreateOne([FromBody] OrderCreateDto dto){
