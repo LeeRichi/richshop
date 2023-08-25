@@ -22,6 +22,7 @@ function Home({ cartItems, setCartItems }: { cartItems: Product[]; setCartItems:
         console.log(cartItems);
 
     };
+  
 
   useEffect(() => {
     axios.get('http://localhost:5052/api/v1/products')
@@ -58,3 +59,5 @@ function Home({ cartItems, setCartItems }: { cartItems: Product[]; setCartItems:
 }
 
 export default Home;
+
+

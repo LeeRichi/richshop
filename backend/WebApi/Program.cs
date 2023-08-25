@@ -49,7 +49,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", builder =>
     {
-        builder.WithOrigins("https://richshop.netlify.app/") // Add your frontend URL here
+        builder.WithOrigins("http://localhost:3000") // Add your frontend URL here
             .AllowAnyHeader()
             .AllowAnyMethod();
     });

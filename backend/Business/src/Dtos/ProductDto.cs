@@ -8,6 +8,7 @@ namespace Business.src.Dtos
 {
     public class ProductReadDto
     {
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public string Descreption { get; set; }
         public float Price { get; set; }
