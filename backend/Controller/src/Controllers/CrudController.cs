@@ -50,21 +50,5 @@ namespace Controller.src.Controllers
         public async Task<ActionResult<bool>> DeleteOneById([FromRoute] Guid id){
             return StatusCode(204, await _baseService.DeleteOneById(id));
         }
-
-        // [HttpDelete("{id:Guid}")]
-        // public async Task<ActionResult<bool>> DeleteOneById([FromRoute] Guid id)
-        // {
-        //     var deleted = await _baseService.DeleteOneById(id);
-        //     if (deleted)
-        //     {
-        //         return NoContent();
-        //     }
-        //     else
-        //     {
-        //         return NotFound();
-        //     }
-        // }
     }
-
-    
 }

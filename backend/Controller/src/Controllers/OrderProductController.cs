@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Controller.src.Controllers
 {
+    [AllowAnonymous]
     public class OrderProductController: CrudController<OrderProduct, OrderProductReadDto, OrderProductCreateDto, OrderProductUpdateDto>
     {
         private readonly IOrderProductService _orderProductService;

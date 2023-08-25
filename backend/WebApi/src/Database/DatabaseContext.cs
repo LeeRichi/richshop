@@ -51,16 +51,6 @@ namespace WebApi.src.Database
                 .WithMany(u => u.Orders)
                 .HasForeignKey(o => o.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            // Configure the many-to-many relationship between Order and OrderProduct
-            // modelBuilder.Entity<OrderProduct>()
-            //     .HasKey(op => new { op.order_id, op.id });
-
-            // modelBuilder.Entity<Order>()
-            //     .HasMany(o => o.OrderProducts)  // One Order has many OrderProducts
-            //     .WithOne(op => op.Order)        // Each OrderProduct belongs to one Order
-            //     .HasForeignKey(op => op.OrderId) 
-            //     .OnDelete(DeleteBehavior.Restrict);
             
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
             base.OnModelCreating(modelBuilder);

@@ -9,11 +9,13 @@ export interface Product {
   title: string;
   price: number;
   description: string;
-  image: string;
+  images: string;
 }
 
 function Home({ cartItems, setCartItems }: { cartItems: Product[]; setCartItems: React.Dispatch<React.SetStateAction<Product[]>> }) {
-    const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  
+  console.log(products);
     
     const addToCart = (product: Product) => {
         setCartItems(prevItems => [...prevItems, product]);
@@ -34,7 +36,6 @@ function Home({ cartItems, setCartItems }: { cartItems: Product[]; setCartItems:
 
   return (
       <Container sx={{ paddingTop: '10vh' }}>
-      
       <Grid container spacing={5}>
         {products.map(product => (
           <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
@@ -43,7 +44,7 @@ function Home({ cartItems, setCartItems }: { cartItems: Product[]; setCartItems:
                 <Typography variant="h6">{product.title}</Typography>
                 <Typography variant="subtitle1">${product.price}</Typography>
                 <Typography>{product.description}</Typography>
-                <img src={product.image} alt={product.title} style={{ maxWidth: '100%', height: 'auto' }} />
+                <img src={product.images} alt={product.title} style={{ maxWidth: '100%', height: 'auto' }} />
                 <Button variant="contained" color="primary" fullWidth onClick={() => addToCart(product)}>
                   Add to Cart
                 </Button>

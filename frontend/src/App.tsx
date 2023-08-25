@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Home from './components/Home';
+import Home from './pages/Home';
 import Cart from './pages/Cart';
 import React, { useState } from 'react';
-import { Product } from './components/Home';
+import { Product } from './pages/Home';
 import Auth from './pages/Auth'
 
 

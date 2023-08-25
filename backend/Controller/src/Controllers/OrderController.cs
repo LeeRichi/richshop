@@ -11,6 +11,7 @@ using Domain.src.Entities;
 
 namespace Controller.src.Controllers
 {
+    [AllowAnonymous]
     public class OrderController : CrudController<Order, OrderReadDto, OrderCreateDto, OrderUpdateDto>
     {
        private readonly IAuthorizationService _authorizationService;
@@ -29,21 +30,7 @@ namespace Controller.src.Controllers
         {
             var user = HttpContext.User;
             var order = await _orderService.GetOneById(id);
-            /* resource based authorization here */
-            // var authorizeOwner = await _authorizationService.AuthorizeAsync(user, order, "OwnerOnly");
-            // if (authorizeOwner.Succeeded)
-            // {
-                return await base.UpdateOneById(id, update);
-            // }
-            // else
-            // {
-            //     return new ForbidResult();
-            // }
+            return await base.UpdateOneById(id, update);
         }
-
-        // public override async Task<ActionResult<OrderReadDto>> CreateOne([FromBody] OrderCreateDto dto){
-        //     var createObj = await _orderService.CreateOne(dto);
-        //     return CreatedAtAction(nameof(CreateOne), createObj); //be aware for later
-        // }
     }
 }

@@ -39,5 +39,7 @@ namespace Controller.src.Controllers
             return Ok(await _productService.GetOneById(id));
         }
 
+        
+
     }    
 }

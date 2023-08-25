@@ -9,7 +9,7 @@ function Navbar() {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" component={Link} sx={{ flexGrow: 1 }} to="/">
-          Ecommerce Logo
+          FullStackShop
         </Typography>
         <IconButton color="inherit" component={Link} to="/auth">
           <AccountCircle />

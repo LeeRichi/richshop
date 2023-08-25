@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Typography, Button } from '@mui/material';
-import {Product} from '../components/Home';
+import {Product} from './Home';
 
 
 function Cart({ cartItems, setCartItems }: { cartItems: any[],  setCartItems: React.Dispatch<React.SetStateAction<Product[]>> })

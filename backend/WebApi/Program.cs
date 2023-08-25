@@ -43,18 +43,13 @@ builder.Services
 .AddScoped<IOrderProductService, OrderProductService>()
 .AddScoped<IOrderProductRepo, OrderProductRepo>();
 
-// .AddScoped<IImageRepo, ImageRepo>()
-// .AddScoped<IImageService, ImageService>();
-
-// Register the implementation
-
 
 // Configure CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", builder =>
     {
-        builder.WithOrigins("http://localhost:3000") // Add your frontend URL here
+        builder.WithOrigins("http://localhost:3000/api/v1/auth") // Add your frontend URL here
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
