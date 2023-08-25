@@ -160,6 +160,8 @@ const LoginForm: React.FC = () => {
   const [token, setToken] = useState("");
   const [message, setMessage] = useState("");
 
+  const [isLoggedIn, setisLoggedIn] = useState(false)
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -180,6 +182,7 @@ const LoginForm: React.FC = () => {
       if (response.status === 200) {
         setToken(response.data.token); // Assuming the token is in the response data
         setMessage("Login successful!");
+        setisLoggedIn(true);
       } else {
         setMessage("Login failed. Please check your credentials.");
       }
