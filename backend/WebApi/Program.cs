@@ -42,6 +42,10 @@ builder.Services
 
 .AddScoped<IOrderProductService, OrderProductService>()
 .AddScoped<IOrderProductRepo, OrderProductRepo>();
+
+// .AddScoped<IImageRepo, ImageRepo>()
+// .AddScoped<IImageService, ImageService>();
+
 // Register the implementation
 
 

@@ -9,9 +9,11 @@ namespace Domain.src.Entities
 {
     public class Order: BaseEntityWithId
     {
-        public Guid UserId { get; set; } // Foreign key property
         public OrderStatus OrderStatus { get; set; }
-        public User User{ get; set; }   
+        public ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
+        public List<Guid> OrderProductId { get; set; }
+        public Guid UserId {get; set;}
+        public User User {get; set;}
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]

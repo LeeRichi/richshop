@@ -26,6 +26,14 @@ namespace WebApi.src.Configuration
             CreateMap<Order, OrderReadDto>();
             CreateMap<OrderCreateDto, Order>();
             CreateMap<OrderUpdateDto, Order>();
+
+            CreateMap<OrderProduct, OrderProductReadDto>();
+            CreateMap<OrderProductCreateDto, OrderProduct>();
+            CreateMap<OrderProductUpdateDto, OrderProduct>();
+
+            // CreateMap<Image, ImageReadDto>();
+            // CreateMap<ImageCreateDto, Image>();
+            // CreateMap<ImageUpdateDto, Image>();
         }
     }
 }

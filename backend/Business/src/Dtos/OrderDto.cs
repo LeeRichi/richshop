@@ -8,27 +8,24 @@ namespace Business.src.Dtos
 {
     public class OrderReadDto
     {
-        public OrderStatus OrderStatus { get; set; }
-        public UserReadDto User { get; set; }
-        public List<OrderProductReadDto> OrderProducts { get; set; } //OrderProductReadDto
+        public OrderStatus OrderStatus { get; set; }        
+        public List<OrderProductReadDto> OrderProducts { get; set; }
+        public List<Guid> ProductId { get; set; }
+        public Guid UserId {get; set;}
+        public User User {get; set;}
     }
 
     public class OrderCreateDto
     {
         public OrderStatus OrderStatus { get; set; }
-        public Guid UserId { get; set; }
-        public List<OrderProduct> OrderProducts { get; set; } //OrderProductCreateDto
+        public List<Guid> ProductId { get; set; }
+        public Guid UserId {get; set;}
     }
-
-    // public class OrderCreateDto
-    // {
-    //     public OrderStatus OrderStatus { get; set; }
-    //     public Guid UserId { get; set; }
-    //     public List<OrderProduct> OrderProducts { get; set; } //OrderProductCreateDto
-    // }
 
     public class OrderUpdateDto
     {
         public OrderStatus OrderStatus { get; set; }
+        public List<Guid> ProductId { get; set; }
+        public Guid UserId {get; set;}
     }
 }

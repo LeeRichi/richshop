@@ -5,10 +5,13 @@ using System.Threading.Tasks;
 
 namespace Domain.src.Entities
 {
-    public class OrderProduct
+    public class OrderProduct : BaseEntityWithId
     {
-        public Order Order { get; set; }  
-        public Product Product{ get; set; }
-        public int Amount {get; set; }
+        public Guid ProductId { get; set; } // Foreign key to Product
+        public int Amount { get; set; }
+
+        public Product Product { get; set; } // Navigation property
+
+        // Other properties if needed
     }
 }

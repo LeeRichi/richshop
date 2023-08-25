@@ -9,20 +9,18 @@ namespace Business.src.Dtos
 {
     public class OrderProductReadDto
     {
-        public Order Order { get; set; }  
-        public Product Product{ get; set; }
-        public int Amount {get; set; }
+        public Guid id { get; set; }
+        public Guid ProductId { get; set; }
+        public int Amount { get; set; }
     }
     public class OrderProductCreateDto
     {
-        public Order Order { get; set; }  
-        public Product Product{ get; set; }
-        public int Amount {get; set; }
+        public Guid ProductId { get; set; }
+        public int Amount { get; set; }
     }
     public class OrderProductUpdateDto
     {
-        public Order Order { get; set; }  
-        public Product Product{ get; set; }
-        public int Amount {get; set; }
+        public Guid ProductId { get; set; }
+        public int Amount { get; set; }
     }
 }

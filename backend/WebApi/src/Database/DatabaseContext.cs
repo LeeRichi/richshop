@@ -17,7 +17,6 @@ namespace WebApi.src.Database
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderProduct> OrderProducts { get; set; }
-        // public DbSet<Image> Images { get; set; }
 
         public DatabaseContext(DbContextOptions options, IConfiguration config) : base(options)
         {
@@ -41,14 +40,13 @@ namespace WebApi.src.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasPostgresEnum<Role>();
-            modelBuilder.Entity<OrderProduct>().HasKey("OrderId", "ProductId");
+            // modelBuilder.Entity<OrderProduct>().HasKey("ProductId");
+            modelBuilder.Entity<OrderProduct>()
+                .HasOne(op => op.Product)       // OrderProduct has one Product
+                .WithMany()                     // Product can have many OrderProducts
+                .HasForeignKey(op => op.ProductId) // Use ProductId as the foreign key
+                .OnDelete(DeleteBehavior.Restrict); // Define delete behavior if needed
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
-            // modelBuilder.Entity<Order>()
-            // .HasOne(o => o.User) // Order entity has a User navigation property
-            // .WithMany(u => u.Orders) // User entity has an Orders navigation property
-            // .HasForeignKey(o => o.UserId) // Foreign key in Order entity
-            // .OnDelete(DeleteBehavior.Cascade); // Define the behavior when a user is deleted
-
             base.OnModelCreating(modelBuilder);
         }
     }
