@@ -10,7 +10,7 @@ namespace Business.src.Dtos
     {
         public OrderStatus OrderStatus { get; set; }        
         public List<OrderProductReadDto> OrderProducts { get; set; }
-        public List<Guid> ProductId { get; set; }
+        public List<Guid> OrderProductId { get; set; }
         public Guid UserId {get; set;}
         public User User {get; set;}
     }
@@ -18,14 +18,14 @@ namespace Business.src.Dtos
     public class OrderCreateDto
     {
         public OrderStatus OrderStatus { get; set; }
-        public List<Guid> ProductId { get; set; }
+        public List<Guid> OrderProductId { get; set; }
         public Guid UserId {get; set;}
     }
 
     public class OrderUpdateDto
     {
         public OrderStatus OrderStatus { get; set; }
-        public List<Guid> ProductId { get; set; }
+        public List<Guid> OrderProductId { get; set; }
         public Guid UserId {get; set;}
     }
 }

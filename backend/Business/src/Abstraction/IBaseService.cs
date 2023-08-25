@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using Domain.src.Entities;
 using Domain.src.Shared;
 
-
-
 namespace Business.src.Abstraction
 {
     public interface IBaseService<T, TReadDto, TCreateDto, TUpdateDto>
@@ -18,6 +16,3 @@ namespace Business.src.Abstraction
         Task<TReadDto> CreateOne(TCreateDto dto);
     }
 }
-
-
-//create user: name, email, password

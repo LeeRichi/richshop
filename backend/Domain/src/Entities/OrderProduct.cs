@@ -12,6 +12,9 @@ namespace Domain.src.Entities
 
         public Product Product { get; set; } // Navigation property
 
+        // public List<Guid> OrderId {get; set;}
+        // public List<Order> Orders {get; set;}
+
         // Other properties if needed
     }
 }
