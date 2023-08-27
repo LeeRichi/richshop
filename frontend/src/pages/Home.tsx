@@ -25,7 +25,7 @@ function Home({ cartItems, setCartItems }: { cartItems: Product[]; setCartItems:
   
 
   useEffect(() => {
-    axios.get('http://localhost:5052/api/v1/products')
+    axios.get('https://fullstackshop.azurewebsites.net/api/v1/products')
       .then(response => {
           setProducts(response.data);
         //   console.log(response.data)
