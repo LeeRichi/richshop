@@ -159,12 +159,12 @@ const LoginForm: React.FC = () => {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [message, setMessage] = useState("");
+  const [role, setRole] = useState("");
 
   const [isLoggedIn, setisLoggedIn] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
       const response = await axios.post(
         "https://fullstackshop.azurewebsites.net/api/v1/auth",
@@ -178,10 +178,29 @@ const LoginForm: React.FC = () => {
           },
         }
       );
-
       if (response.status === 200) {
         setToken(response.data.token); // Assuming the token is in the response data
         setMessage("Login successful!");
+        try {
+          const response = await fetch("https://fullstackshop.azurewebsites.net/api/v1/users");
+          if (response.ok) {
+            const userData = await response.json();
+            const user = userData.find((user: any) => user.email === email);
+
+            if (user) {
+              setRole(user.role);
+              setMessage(`User found. Role: ${user.role}`);
+            } else {
+              setMessage("User not found.");
+            }
+          } else {
+            setMessage("Failed to fetch user data.");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          setMessage("An error occurred while processing your request.");
+        }
+
         setisLoggedIn(true);
       } else {
         setMessage("Login failed. Please check your credentials.");
@@ -215,6 +234,7 @@ const LoginForm: React.FC = () => {
         <button type="submit">Login</button>
       </form>
       <p>{message}</p>
+      {role && <p>Role: {role}</p>}
     </div>
   );
 };
