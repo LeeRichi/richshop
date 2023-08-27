@@ -1,5 +1,5 @@
-# Links of backend and frontend
-backend: https://fullstackshop.azurewebsites.net/api/v1
+# Links
+backend: https://fullstackshop.azurewebsites.net/api/v1 <br>
 frontend: https://richshop.netlify.app/
 
 # Fullstack Project
