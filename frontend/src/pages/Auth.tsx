@@ -167,7 +167,7 @@ const LoginForm: React.FC = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5052/api/v1/auth",
+        "https://fullstackshop.azurewebsites.net/api/v1/auth",
         {
           email: email,
           password: password,
