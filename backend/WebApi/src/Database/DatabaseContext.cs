@@ -40,17 +40,31 @@ namespace WebApi.src.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasPostgresEnum<Role>();
+
+            modelBuilder.Entity<OrderProduct>()
+                .HasKey(op => new { op.OrderId, op.ProductId }); // Define composite key
+
             modelBuilder.Entity<OrderProduct>()
                 .HasOne(op => op.Product)       // OrderProduct has one Product
                 .WithMany()                     // Product can have many OrderProducts
                 .HasForeignKey(op => op.ProductId) // Use ProductId as the foreign key
                 .OnDelete(DeleteBehavior.Restrict); // Define delete behavior if needed
 
+            modelBuilder.Entity<OrderProduct>()
+                .HasOne(op => op.Order)
+                .WithMany(o => o.OrderProducts)
+                .HasForeignKey(op => op.OrderId);
+
             modelBuilder.Entity<Order>()
                 .HasOne(o => o.User)  // Assuming you have a User navigation property
                 .WithMany(u => u.Orders)
                 .HasForeignKey(o => o.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Order>()
+                .HasMany(o => o.OrderProducts)
+                .WithOne(op => op.Order)
+                .HasForeignKey(op => op.OrderId);
             
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
 
@@ -61,5 +75,8 @@ namespace WebApi.src.Database
 
             base.OnModelCreating(modelBuilder);
         }
+
+        
     }
 }
+

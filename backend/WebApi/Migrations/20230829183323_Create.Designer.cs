@@ -14,7 +14,7 @@ using WebApi.src.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230825063146_Create")]
+    [Migration("20230829183323_Create")]
     partial class Create
     {
         /// <inheritdoc />
@@ -39,11 +39,6 @@ namespace WebApi.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("create_at");
 
-                    b.Property<List<Guid>>("OrderProductId")
-                        .IsRequired()
-                        .HasColumnType("uuid[]")
-                        .HasColumnName("order_product_id");
-
                     b.Property<int>("OrderStatus")
                         .HasColumnType("integer")
                         .HasColumnName("order_status");
@@ -67,8 +62,11 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("Domain.src.Entities.OrderProduct", b =>
                 {
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("order_id");
+
                     b.Property<Guid>("ProductId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("product_id");
 
@@ -76,27 +74,11 @@ namespace WebApi.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("amount");
 
-                    b.Property<DateTime>("CreateAt")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("create_at");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<Guid?>("OrderId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("order_id");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("updated_at");
-
-                    b.HasKey("ProductId")
+                    b.HasKey("OrderId", "ProductId")
                         .HasName("pk_order_products");
 
-                    b.HasIndex("OrderId")
-                        .HasDatabaseName("ix_order_products_order_id");
+                    b.HasIndex("ProductId")
+                        .HasDatabaseName("ix_order_products_product_id");
 
                     b.ToTable("order_products", (string)null);
                 });
@@ -107,6 +89,11 @@ namespace WebApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("category");
 
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("timestamp without time zone")
@@ -151,6 +138,11 @@ namespace WebApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("address");
 
                     b.Property<string>("Avatar")
                         .IsRequired()
@@ -204,7 +196,7 @@ namespace WebApi.Migrations
                     b.HasOne("Domain.src.Entities.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired()
                         .HasConstraintName("fk_orders_users_user_id");
 
@@ -213,10 +205,23 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("Domain.src.Entities.OrderProduct", b =>
                 {
-                    b.HasOne("Domain.src.Entities.Order", null)
+                    b.HasOne("Domain.src.Entities.Order", "Order")
                         .WithMany("OrderProducts")
                         .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
                         .HasConstraintName("fk_order_products_orders_order_id");
+
+                    b.HasOne("Domain.src.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired()
+                        .HasConstraintName("fk_order_products_products_product_id");
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Domain.src.Entities.Order", b =>

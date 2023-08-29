@@ -59,19 +59,6 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("Domain.src.Entities.OrderProduct", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("integer")
-                        .HasColumnName("amount");
-
-                    b.Property<DateTime>("CreateAt")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("create_at");
-
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uuid")
                         .HasColumnName("order_id");
@@ -80,15 +67,12 @@ namespace WebApi.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("product_id");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("updated_at");
+                    b.Property<int>("Amount")
+                        .HasColumnType("integer")
+                        .HasColumnName("amount");
 
-                    b.HasKey("Id")
+                    b.HasKey("OrderId", "ProductId")
                         .HasName("pk_order_products");
-
-                    b.HasIndex("OrderId")
-                        .HasDatabaseName("ix_order_products_order_id");
 
                     b.HasIndex("ProductId")
                         .HasDatabaseName("ix_order_products_product_id");
@@ -151,6 +135,11 @@ namespace WebApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("address");
 
                     b.Property<string>("Avatar")
                         .IsRequired()

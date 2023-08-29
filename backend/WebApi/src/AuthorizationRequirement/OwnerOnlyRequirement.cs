@@ -14,17 +14,17 @@ namespace WebApi.src.AuthorizationRequirement
         
     }
 
-    public class OwnerOnlyRequirementHandler : AuthorizationHandler<OwnerOnlyRequirement, OrderReadDto>
-    {
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, OwnerOnlyRequirement requirement, OrderReadDto resource)
-        {
-            var authenticatedUser = context.User;
-            var userId = authenticatedUser.FindFirst(ClaimTypes.NameIdentifier)!.Value;
-            if(resource.User.Id.ToString() == userId)
-            {
-                context.Succeed(requirement);
-            }
-            return Task.CompletedTask;
-        }
-    }
+    // public class OwnerOnlyRequirementHandler : AuthorizationHandler<OwnerOnlyRequirement, OrderReadDto>
+    // {
+    //     protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, OwnerOnlyRequirement requirement, OrderReadDto resource)
+    //     {
+    //         var authenticatedUser = context.User;
+    //         var userId = authenticatedUser.FindFirst(ClaimTypes.NameIdentifier)!.Value;
+    //         if(resource.User.Id.ToString() == userId)
+    //         {
+    //             context.Succeed(requirement);
+    //         }
+    //         return Task.CompletedTask;
+    //     }
+    // }
 }

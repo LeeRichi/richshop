@@ -11,29 +11,35 @@ using Domain.src.Entities;
 namespace WebApi.src.Configuration
 {
     public class MapperProfile : Profile
+{
+    public MapperProfile()
     {
-        public MapperProfile(){
-            CreateMap<User, UserReadDto>();
-            CreateMap<UserUpdateDto, User>();
-            CreateMap<UserCreateDto, User>();
+        CreateMap<User, UserReadDto>();
+        CreateMap<UserUpdateDto, User>();
+        CreateMap<UserCreateDto, User>();
 
-            CreateMap<Product, ProductReadDto>();
-            CreateMap<ProductCreateDto, Product>();
-            CreateMap<ProductUpdateDto, Product>();
+        CreateMap<Product, ProductReadDto>();
+        CreateMap<ProductCreateDto, Product>();
+        CreateMap<ProductUpdateDto, Product>();
 
-            //order:
-            // CreateMap<User, UserReadDto>();
-            CreateMap<Order, OrderReadDto>();
-            CreateMap<OrderCreateDto, Order>();
-            CreateMap<OrderUpdateDto, Order>();
+        CreateMap<Order, OrderReadDto>()
+            .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.OrderProducts));
 
-            CreateMap<OrderProduct, OrderProductReadDto>();
-            CreateMap<OrderProductCreateDto, OrderProduct>();
-            CreateMap<OrderProductUpdateDto, OrderProduct>();
+        CreateMap<OrderCreateDto, Order>()
+            .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.OrderProducts));
 
-            // CreateMap<Image, ImageReadDto>();
-            // CreateMap<ImageCreateDto, Image>();
-            // CreateMap<ImageUpdateDto, Image>();
-        }
+        // CreateMap<Order, OrderCreateDto>()
+        //     .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.OrderProducts));
+
+        CreateMap<OrderCreateDto, Order>()
+            .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.OrderProducts));
+
+        CreateMap<OrderUpdateDto, Order>();
+
+        CreateMap<OrderProduct, OrderProductReadDto>();
+        CreateMap<OrderProductReadDto, OrderProduct>();
+        CreateMap<OrderProductCreateDto, OrderProduct>();
     }
+}
+
 }

@@ -18,6 +18,10 @@ using WebApi.src.RepoImplementations;
 using WebApi.src.AuthorizationRequirement;
 using WebApi.src.MiddleWare;
 
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -74,15 +78,13 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services
 // .AddSingleton<MinimumAgeRequirementHandler>()
-.AddSingleton<ErrorHandlerMiddleware>()
-.AddSingleton<OwnerOnlyRequirementHandler>();
+.AddSingleton<ErrorHandlerMiddleware>();
+// .AddSingleton<OwnerOnlyRequirementHandler>();
 
 //config route
 builder.Services.Configure<RouteOptions>(options =>{
     options.LowercaseUrls = true;
 });
-
-
     
 //config the authentictaion
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -113,6 +115,8 @@ builder.Services.AddAuthorization(options =>
 });
 
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 // if (app.Environment.IsDevelopment())

@@ -38,6 +38,7 @@ const LoginForm: React.FC = () =>
           );
           if (response.ok) {
             const userData = await response.json();
+            console.log(userData)
             const user = userData.find(
               (user: any) => user.email === email
             );
