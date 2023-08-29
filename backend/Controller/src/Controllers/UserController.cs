@@ -46,7 +46,7 @@ namespace Controller.src.Controllers
         }
 
         // [AllowAnonymous]
-        public override async Task<ActionResult<UserReadDto>> UpdateOneById([FromRoute] Guid id,[FromForm] UserUpdateDto update){
+        public override async Task<ActionResult<UserReadDto>> UpdateOneById([FromRoute] Guid id,[FromBody] UserUpdateDto update){
             var updateObj = await _userService.UpdateOneById(id, update);
             return Ok(updateObj);
         }
