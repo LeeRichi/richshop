@@ -53,6 +53,12 @@ namespace WebApi.src.Database
                 .OnDelete(DeleteBehavior.Restrict);
             
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Category)
+                .HasConversion<string>(); 
+
+
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -12,6 +12,7 @@ namespace Business.src.Dtos
         public string Title { get; set; }
         public string Descreption { get; set; }
         public float Price { get; set; }
+        public Category Category { get; set; }
         public List<string> Images { get; set; } // List of associated image IDs
     }
 
@@ -20,6 +21,7 @@ namespace Business.src.Dtos
         public string Title { get; set; }
         public string Descreption { get; set; }
         public float Price { get; set; }
+        public Category Category { get; set; }
         public List<string> Images { get; set; } // List of associated image IDs
         public int Inventory { get; set; }
     }
@@ -29,6 +31,7 @@ namespace Business.src.Dtos
         public string Title { get; set; }
         public string Descreption { get; set; }
         public float Price { get; set; }
+        public Category Category { get; set; }
         public List<string> Images { get; set; } // List of associated image IDs
         public int Inventory { get; set; }
     }

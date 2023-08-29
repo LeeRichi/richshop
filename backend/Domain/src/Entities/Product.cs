@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
+
 
 namespace Domain.src.Entities
 {
@@ -11,6 +13,14 @@ namespace Domain.src.Entities
         public string Descreption { get; set; }
         public float Price { get; set; }
         public int Inventory { get; set; }
+        public Category Category { get; set; }
         public List<string> Images { get; set; }
+    }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum Category {
+        Footwear,
+        Apparel,
+        Accessories,
     }
 }

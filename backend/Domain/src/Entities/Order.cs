@@ -11,7 +11,7 @@ namespace Domain.src.Entities
     {
         public OrderStatus OrderStatus { get; set; }
         public ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
-        public List<Guid> OrderProductId { get; set; }
+        // public List<Guid> OrderProductId { get; set; }
         public Guid UserId {get; set;}
         public User User {get; set;}
     }
