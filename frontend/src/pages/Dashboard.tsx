@@ -1,5 +1,8 @@
 import React from "react";
 import { Container, Typography, Button } from "@mui/material";
+import { Link } from 'react-router-dom'; // Import Link
+
+
 interface DashboardProps {
   name: string;
 }
@@ -59,6 +62,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ name }) => {
         color="primary"
         fullWidth
         style={{ marginBottom: "1rem" }}
+        component={Link} to="/orders"
       >
         View all orders
       </Button>

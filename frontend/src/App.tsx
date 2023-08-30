@@ -5,6 +5,7 @@ import Cart from './pages/Cart';
 import React, { useState } from 'react';
 import { Product } from './pages/Home';
 import Auth from './pages/Auth'
+import Orders from './pages/Orders';
 
 
 function App()
@@ -19,6 +20,7 @@ function App()
           <Route path="/" element={<Home cartItems={cartItems} setCartItems={setCartItems} />} />
           <Route path="/cart" element={<Cart cartItems={cartItems} setCartItems={setCartItems} />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/orders" element={<Orders />} />
         </Routes>
       </div>
     </Router>

@@ -12,7 +12,7 @@ namespace Business.src.Dtos
         public OrderStatus OrderStatus { get; set; }        
         public List<OrderProductReadDto> OrderProducts { get; set; }
         public Guid UserId {get; set;}
-        // public User User {get; set;}
+        public User User {get; set;}
     }
 
     public class OrderCreateDto
@@ -26,6 +26,6 @@ namespace Business.src.Dtos
     {
         public OrderStatus OrderStatus { get; set; }
         public List<OrderProductReadDto> OrderProducts { get; set; }
-        public Guid UserId {get; set;}
+        // public Guid UserId {get; set;}
     }
 }

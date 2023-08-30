@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Card, CardContent, Typography, Button, Grid } from '@mui/material';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Test from '../pages/test';
+// import Test from '../components/test';
 
 
 export interface Product {
@@ -38,7 +38,6 @@ function Home({ cartItems, setCartItems }: { cartItems: Product[]; setCartItems:
 
   return (
     <Container sx={{ paddingTop: '10vh' }}>
-      <Test />
       <Grid container spacing={5}>
         {products.map(product => (
           <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
