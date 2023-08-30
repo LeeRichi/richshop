@@ -8,6 +8,7 @@ import Auth from './pages/Auth'
 import Orders from './pages/OrderCrud/Orders';
 import CheckAllUsers from './pages/UserCrud/Users';
 import UserOrderPage from './pages/UserOrderPage';
+import Products from './pages/ProductCrud/Products';
 
 
 function App()
@@ -25,6 +26,7 @@ function App()
           <Route path="/orders" element={<Orders />} />
           <Route path="/users" element={<CheckAllUsers />} />
           <Route path="/userOrderPath/:userId" element={<UserOrderPage />} />
+          <Route path="/products" element={<Products />} />
         </Routes>
       </div>
     </Router>

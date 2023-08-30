@@ -10,29 +10,30 @@ namespace Business.src.Dtos
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
-        public string Descreption { get; set; }
+        public string Description { get; set; }
         public float Price { get; set; }
         public Category Category { get; set; }
-        public List<string> Images { get; set; } // List of associated image IDs
+        public List<string> Images { get; set; }
+        public int Inventory { get; set; }
     }
 
     public class ProductCreateDto
     {
         public string Title { get; set; }
-        public string Descreption { get; set; }
+        public string Description { get; set; }
         public float Price { get; set; }
         public Category Category { get; set; }
-        public List<string> Images { get; set; } // List of associated image IDs
+        public List<string> Images { get; set; }
         public int Inventory { get; set; }
     }
 
     public class ProductUpdateDto
     {
         public string Title { get; set; }
-        public string Descreption { get; set; }
+        public string Description { get; set; }
         public float Price { get; set; }
         public Category Category { get; set; }
-        public List<string> Images { get; set; } // List of associated image IDs
+        public List<string> Images { get; set; }
         public int Inventory { get; set; }
     }
 }

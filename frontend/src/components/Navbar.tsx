@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AppBar, Toolbar, Typography, IconButton } from '@mui/material';
 import { AccountCircle, ShoppingCart } from '@mui/icons-material';
 import { Link } from 'react-router-dom'; // Import Link
 
 
-function Navbar() {
+function Navbar()
+{
+  const [avatar, setAvatar] = useState('');
   return (
     <AppBar position="static">
       <Toolbar>

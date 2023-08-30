@@ -7,11 +7,13 @@ const LoginForm: React.FC = () =>
 {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [avatar, setAvatar] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [message, setMessage] = useState("");
   const [role, setRole] = useState("");
   const [isLoggedIn, setisLoggedIn] = useState(false);
+  const [userId, setUserId] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) =>
   {
@@ -34,7 +36,8 @@ const LoginForm: React.FC = () =>
         setMessage("Login successful!");
         try {
           const response = await fetch(
-            "https://fullstackshop.azurewebsites.net/api/v1/users"
+            // "https://fullstackshop.azurewebsites.net/api/v1/users"
+            "http://localhost:5052/api/v1/users"
           );
           if (response.ok) {
             const userData = await response.json();
@@ -46,7 +49,10 @@ const LoginForm: React.FC = () =>
             if (user) {
               setRole(user.role);
               await setName(user.name);
-              console.log(name)
+              await setAvatar(user.avatar);
+              await setRole(user.role)
+              await setUserId(user.id);
+              console.log(avatar)
               setMessage(`User found. Role: ${user.role}`);
             } else {
               setMessage("User not found.");
@@ -112,7 +118,7 @@ const LoginForm: React.FC = () =>
         </Typography>
       )}
     </Container>) : (
-      <Dashboard name={name} />
+      <Dashboard name={name} avatar={avatar} role={role} userId={userId} />
     );
 };
 
