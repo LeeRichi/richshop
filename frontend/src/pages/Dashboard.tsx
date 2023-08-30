@@ -30,22 +30,23 @@ export const Dashboard: React.FC<DashboardProps> = ({ name }) => {
       >
         Edit Product
       </Button>
-      <Button variant="contained" color="secondary" fullWidth style={{ marginBottom: "1rem" }}>
+      {/* <Button variant="contained" color="secondary" fullWidth style={{ marginBottom: "1rem" }}>
         Update Product
       </Button>
       <Button variant="contained" color="secondary" fullWidth style={{ marginBottom: "5rem" }}>
         Delete Product
-      </Button>
+      </Button> */}
 
       <Button
         variant="contained"
         color="primary"
         fullWidth
         style={{ marginBottom: "1rem" }}
+        component={Link} to="/users"
       >
         Check all users
       </Button>
-      <Button
+      {/* <Button
         variant="contained"
         color="primary"
         fullWidth
@@ -55,7 +56,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ name }) => {
       </Button>
       <Button variant="contained" color="secondary" fullWidth style={{ marginBottom: "5rem" }}>
         Delete User
-      </Button>
+      </Button> */}
 
       <Button
         variant="contained"

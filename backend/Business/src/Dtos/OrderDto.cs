@@ -13,6 +13,8 @@ namespace Business.src.Dtos
         public List<OrderProductReadDto> OrderProducts { get; set; }
         public Guid UserId {get; set;}
         public User User {get; set;}
+        public DateTime CreateAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
     }
 
     public class OrderCreateDto

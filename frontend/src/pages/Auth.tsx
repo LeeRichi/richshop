@@ -18,7 +18,7 @@ const LoginForm: React.FC = () =>
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://fullstackshop.azurewebsites.net/api/v1/auth",
+        "http://localhost:5052/api/v1/auth",
         {
           email: email,
           password: password,
@@ -45,8 +45,8 @@ const LoginForm: React.FC = () =>
 
             if (user) {
               setRole(user.role);
-              setName(user.name);
-              console.log(user)
+              await setName(user.name);
+              console.log(name)
               setMessage(`User found. Role: ${user.role}`);
             } else {
               setMessage("User not found.");
