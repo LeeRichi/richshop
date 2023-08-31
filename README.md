@@ -46,7 +46,6 @@ Redux will be implemented befroe 10.9.
 3. Order Management: Admins should be able to view all orders [done]
 
 ### Extra features
-
 ## User Functionalities:
 1. Order Management: Users should be able to view their order history, track the status of their orders, and potentially cancel orders within a certain timeframe.
 
