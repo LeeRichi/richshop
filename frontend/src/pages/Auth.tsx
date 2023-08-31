@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container, Typography, TextField, Button } from "@mui/material";
 import { Dashboard } from './Dashboard';
@@ -18,6 +18,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ setUserIdRef }) =>
   const [role, setRole] = useState("");
   const [isLoggedIn, setisLoggedIn] = useState(false);
   const [userId, setUserId] = useState("");
+
+  useEffect(() => {
+    const savedIsLoggedIn = localStorage.getItem("isLoggedIn");
+    if (savedIsLoggedIn === "true") {
+      setisLoggedIn(true);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) =>
   {
@@ -80,6 +87,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setUserIdRef }) =>
           );
         }
         setisLoggedIn(true);
+        localStorage.setItem("isLoggedIn", "true");
       } else {
         setMessage("Login failed. Please check your credentials.");
       }

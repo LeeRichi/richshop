@@ -13,6 +13,10 @@ frontend: https://richshop.netlify.app/
 
 ## Key Concepts
 This project involves creating a Fullstack project with React and Redux on the frontend and ASP.NET Core 7 on the backend. The goal is to provide a seamless experience for users, along with robust management system for administrators.
+
+31.8 Update:
+Redux will be implemented befroe 10.9.
+
 ## Tech Stack
 - Frontend: SASS, TypeScript, React, Redux Toolkit
 - Backend: ASP .NET Core, Entity Framework Core, PostgreSQL
@@ -33,19 +37,23 @@ This project involves creating a Fullstack project with React and Redux on the f
 1. User Management: Users should be able to register for an account and log in. Users cannot register themselves as admin.[done]
 2. Browse Products: Users should be able to view all available products and single product, search and sort products.[done]
 3. Add to Cart: Users should be able to add products to a shopping cart, and manage cart.[done]
-4. Checkout: Users should be able to place order.[pending]
+4. Checkout: Users should be able to place order.[done]
 
 #### Admin Functionalities
 
 1. User Management: Admins should be able to view and delete users.[done]
 2. Product Management: Admins should be able to view, edit, delete and add new products.[done]
-3. Order Management: Admins should be able to view all orders [pending]
+3. Order Management: Admins should be able to view all orders [done]
 
 ### Extra features
 
-#### Admin Functionalities
+## User Functionalities:
+1. Order Management: Users should be able to view their order history, track the status of their orders, and potentially cancel orders within a certain timeframe.
 
+## Admin Functionalities
 1. User Management: Admins should be able to edit users' role and create new users.
+2. Order Management: Admins should be able to update order status, view order details, handle returns/refunds, and cancel orders.
+
 
 ## Getting Started
 Backend: in folder /backend/WebApi, run dotnet watch.

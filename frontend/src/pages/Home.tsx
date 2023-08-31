@@ -48,7 +48,9 @@ function Home({ cartItems, setCartItems }: { cartItems: Product[]; setCartItems:
                 <Typography variant="h6">{product.title}</Typography>
                 <Typography variant="subtitle1">${product.price}</Typography>
                 <Typography>{product.description}</Typography>
-                <img src={product.images} alt={product.title} style={{ maxWidth: '100%', height: 'auto' }} />
+                <div style={{ height: '250px', overflow: 'hidden' }}>
+                  <img src={product.images} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
                 <Button variant="contained" color="primary" fullWidth onClick={() => addToCart(product)}>
                   Add to Cart
                 </Button>
@@ -57,6 +59,7 @@ function Home({ cartItems, setCartItems }: { cartItems: Product[]; setCartItems:
           </Grid>
         ))}
       </Grid>
+
     </Container>
   );
 }
