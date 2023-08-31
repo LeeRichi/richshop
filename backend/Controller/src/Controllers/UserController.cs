@@ -45,7 +45,7 @@ namespace Controller.src.Controllers
             return CreatedAtAction(nameof(CreateOne), createObj); //be aware for later
         }
 
-        // [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public override async Task<ActionResult<UserReadDto>> UpdateOneById([FromRoute] Guid id,[FromBody] UserUpdateDto update){
             var updateObj = await _userService.UpdateOneById(id, update);
             return Ok(updateObj);

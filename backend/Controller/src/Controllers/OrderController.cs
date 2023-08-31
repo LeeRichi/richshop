@@ -66,7 +66,7 @@ namespace Controller.src.Controllers
         }
 
         // [Authorize]
-        [AllowAnonymous]
+        // [AllowAnonymous]
         public override async Task<ActionResult<OrderReadDto>> UpdateOneById([FromRoute] Guid id, [FromBody] OrderUpdateDto update)
         {
             var user = HttpContext.User;

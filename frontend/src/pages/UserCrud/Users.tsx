@@ -52,31 +52,52 @@ function Users() {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5052/api/v1/users');
+      const response = await axios.get('https://fullstackshop.azurewebsites.net/api/v1/users');
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
     }
   };
 
-  const handleDeleteUser = async (userId: string) =>
-  {
-    const confirmed = window.confirm('Are you sure you want to delete this user?');
-    if (confirmed) {
-      try {
-        await axios.delete(`http://localhost:5052/api/v1/users/${userId}`);
-        fetchUsers();
-      } catch (error) {
-        console.error('Error deleting user:', error);
-      }
+  // const handleDeleteUser = async (userId: string) =>
+  // {
+  //   const confirmed = window.confirm('Are you sure you want to delete this user?');
+  //   if (confirmed) {
+  //     try {
+  //       await axios.delete(`http://localhost:5052/api/v1/users/${userId}`);
+  //       fetchUsers();
+  //     } catch (error) {
+  //       console.error('Error deleting user:', error);
+  //     }
+  //   }
+  // };
+  // const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0YWY4OGFkNi1hMzQzLTRhYzAtOTEwMi03NWUzNjYyNGMyMDAiLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE2OTM0NDIyOTcsImV4cCI6MTY5MzQ0Mjg5NywiaWF0IjoxNjkzNDQyMjk3LCJpc3MiOiJlY29tbWVyY2UtYmFja2VuZCJ9.1CElZ4rCFXc5dnFZzBXmW6NQjJXYo8CayePIJ3qi1NE';
+  const handleDeleteUser = async (userId: string) => {
+  const confirmed = window.confirm('Are you sure you want to delete this user?');
+  
+  if (confirmed) {
+    try {
+      const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0YWY4OGFkNi1hMzQzLTRhYzAtOTEwMi03NWUzNjYyNGMyMDAiLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE2OTM0NDIyOTcsImV4cCI6MTY5MzQ0Mjg5NywiaWF0IjoxNjkzNDQyMjk3LCJpc3MiOiJlY29tbWVyY2UtYmFja2VuZCJ9.1CElZ4rCFXc5dnFZzBXmW6NQjJXYo8CayePIJ3qi1NE';
+      // const url = `http://localhost:5052/api/v1/users/${userId}`;
+      const url = `https://fullstackshop.azurewebsites.net/api/v1/users/${userId}`;
+      const headers = {
+        'Authorization': `Bearer ${authToken}`
+      };
+
+      await axios.delete(url, { headers });
+      
+      fetchUsers(); // You need to have a definition for fetchUsers() function.
+    } catch (error) {
+      console.error('Error deleting user:', error);
     }
-  };
+  }
+};
 
   const handleCreateUser = async () =>
   {
     setIsCreating(true);
     try {
-      const response = await axios.post('http://localhost:5052/api/v1/users', {
+      const response = await axios.post('https://fullstackshop.azurewebsites.net/api/v1/users', {
         name: newUserName,
         address: newUserAddress,
         email: newUserEmail,
@@ -109,7 +130,7 @@ function Users() {
       password: newUserPassword,
     };
     try {
-      await axios.patch(`http://localhost:5052/api/v1/users/${userId}`, updatedData);
+      await axios.patch(`https://fullstackshop.azurewebsites.net/api/v1/users/${userId}`, updatedData);
       fetchUsers();
     } catch (error) {
       console.error('Error updating user:', error);

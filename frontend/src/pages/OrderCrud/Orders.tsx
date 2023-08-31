@@ -26,7 +26,7 @@ function Orders() {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get('http://localhost:5052/api/v1/orders');
+      const response = await axios.get('https://fullstackshop.azurewebsites.net/api/v1/orders');
       setOrders(response.data);
     } catch (error) {
       console.error('Error fetching orders:', error);
@@ -39,7 +39,7 @@ function Orders() {
 
   const fetchOrderProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:5052/api/v1/orderproducts');
+      const response = await axios.get('https://fullstackshop.azurewebsites.net/api/v1/orderproducts');
       setOrderProducts(response.data);
     } catch (error) {
       console.error('Error fetching orders:', error);
@@ -59,7 +59,7 @@ function Orders() {
     const confirmed = window.confirm('Are you sure you want to delete this order?');
     if (confirmed) {
       try {
-        await axios.delete(`http://localhost:5052/api/v1/orders/${orderId}`);
+        await axios.delete(`https://fullstackshop.azurewebsites.net/api/v1/orders/${orderId}`);
         fetchOrders();
       } catch (error) {
         console.error('Error deleting order:', error);
@@ -81,7 +81,7 @@ function Orders() {
 
   const updateOrder = async () => {
     try {
-      await axios.patch(`http://localhost:5052/api/v1/orders/${currentOrderId}`, {
+      await axios.patch(`https://fullstackshop.azurewebsites.net/api/v1/orders/${currentOrderId}`, {
         orderStatus: updatedOrderStatus
       });
       closeDialog(); // Close the dialog

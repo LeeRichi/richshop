@@ -46,6 +46,7 @@ namespace Controller.src.Controllers
             return Ok(updateObj);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:Guid}")]
         public async Task<ActionResult<bool>> DeleteOneById([FromRoute] Guid id){
             return StatusCode(204, await _baseService.DeleteOneById(id));

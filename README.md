@@ -1,5 +1,5 @@
 # Links
-backend: https://fullstackshop.azurewebsites.net/api/v1/{endpoints}<br>
+backend: https://fullstackshop.azurewebsites.net/swagger/index.html<br>
 frontend: https://richshop.netlify.app/
 
 # Fullstack Project

@@ -58,7 +58,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ name, avatar, role, userId
 
   const fetchUserDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:5052/api/v1/users/${userId}`);
+      const response = await axios.get(`https://fullstackshop.azurewebsites.net/api/v1/users/${userId}`);
       setUserDetails(response.data);
     } catch (error) {
       console.error('Error fetching user details:', error);
@@ -74,7 +74,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ name, avatar, role, userId
         avatar: editedAvatar,
       };
 
-      const response = await axios.patch(`http://localhost:5052/api/v1/users/${userId}`, updatedData);
+      const response = await axios.patch(`https://fullstackshop.azurewebsites.net/api/v1/users/${userId}`, updatedData);
 
       if (response.status === 200) {
         fetchUserDetails();
@@ -89,7 +89,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ name, avatar, role, userId
 
   const handleViewAllOrders = async () => {
     try {
-      const ordersResponse = await axios.get(`http://localhost:5052/api/v1/orders?userId=${userId}`);
+      const ordersResponse = await axios.get(`https://fullstackshop.azurewebsites.net/api/v1/orders?userId=${userId}`);
       const fetchedUserOrders: Order[] = ordersResponse.data;
       setUserOrders(fetchedUserOrders);
       console.log(userOrders);
@@ -97,7 +97,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ name, avatar, role, userId
       const orderIds = fetchedUserOrders.map(order => order.id);
       console.log(orderIds)
       const orderProductsResponse = await axios.get(
-        `http://localhost:5052/api/v1/orderProducts?orderIds=${orderIds.join(",")}`
+        `https://fullstackshop.azurewebsites.net/api/v1/orderProducts?orderIds=${orderIds.join(",")}`
       );
       const fetchedOrderProducts: OrderProduct[] = orderProductsResponse.data;
       setOrderProducts(fetchedOrderProducts);

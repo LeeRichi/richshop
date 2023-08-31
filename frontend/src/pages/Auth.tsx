@@ -3,7 +3,11 @@ import axios from "axios";
 import { Container, Typography, TextField, Button } from "@mui/material";
 import { Dashboard } from './Dashboard';
 
-const LoginForm: React.FC = () =>
+interface LoginFormProps {
+  setUserIdRef: (userId: string) => void;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ setUserIdRef }) => 
 {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -20,7 +24,8 @@ const LoginForm: React.FC = () =>
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5052/api/v1/auth",
+        // "http://localhost:5052/api/v1/auth",
+        "https://fullstackshop.azurewebsites.net/api/v1/auth",
         {
           email: email,
           password: password,
@@ -32,12 +37,19 @@ const LoginForm: React.FC = () =>
         }
       );
       if (response.status === 200) {
-        setToken(response.data.token); // Assuming the token is in the response data
+        console.log(response.data);
+        setToken(response.data)
+
+        const authToken = response.data;
+        console.log(authToken);
+
+        setToken(authToken);
+        console.log(token)
         setMessage("Login successful!");
         try {
           const response = await fetch(
-            // "https://fullstackshop.azurewebsites.net/api/v1/users"
-            "http://localhost:5052/api/v1/users"
+            "https://fullstackshop.azurewebsites.net/api/v1/users"
+            // "http://localhost:5052/api/v1/users"
           );
           if (response.ok) {
             const userData = await response.json();
@@ -52,6 +64,7 @@ const LoginForm: React.FC = () =>
               await setAvatar(user.avatar);
               await setRole(user.role)
               await setUserId(user.id);
+              await setUserIdRef(user.id);
               console.log(avatar)
               setMessage(`User found. Role: ${user.role}`);
             } else {
@@ -66,7 +79,6 @@ const LoginForm: React.FC = () =>
             "An error occurred while processing your request."
           );
         }
-
         setisLoggedIn(true);
       } else {
         setMessage("Login failed. Please check your credentials.");

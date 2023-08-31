@@ -14,6 +14,9 @@ import Products from './pages/ProductCrud/Products';
 function App()
 {
   const [cartItems, setCartItems] = useState<Product[]>([]);
+  const [userIdRef, setUserIdRef] = useState('');
+
+  console.log(userIdRef);
 
   return (
     <Router>
@@ -21,8 +24,8 @@ function App()
         <Navbar />
         <Routes>
           <Route path="/" element={<Home cartItems={cartItems} setCartItems={setCartItems} />} />
-          <Route path="/cart" element={<Cart cartItems={cartItems} setCartItems={setCartItems} />} />
-          <Route path="/auth" element={<Auth />} />
+          <Route path="/cart" element={<Cart cartItems={cartItems} setCartItems={setCartItems} userIdRef={userIdRef} />} />
+          <Route path="/auth" element={<Auth setUserIdRef={setUserIdRef} />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/users" element={<CheckAllUsers />} />
           <Route path="/userOrderPath/:userId" element={<UserOrderPage />} />

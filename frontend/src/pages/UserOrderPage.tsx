@@ -37,8 +37,8 @@ function UserOrderPage() {
 
   const fetchUserOrders = async () => {
     try {
-      const ordersResponse = await axios.get(`http://localhost:5052/api/v1/orders/`);
-      const orderProductsResponse = await axios.get(`http://localhost:5052/api/v1/orderproducts/`);
+      const ordersResponse = await axios.get(`https://fullstackshop.azurewebsites.net/api/v1/orders/`);
+      const orderProductsResponse = await axios.get(`https://fullstackshop.azurewebsites.net/api/v1/orderproducts/`);
       
       const orders = ordersResponse.data.filter((order: Order) => order.userId === userId);
       const orderProducts = orderProductsResponse.data;

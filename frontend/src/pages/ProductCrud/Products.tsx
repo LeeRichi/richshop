@@ -46,7 +46,7 @@ const Products: React.FC = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:5052/api/v1/products');
+      const response = await axios.get('https://fullstackshop.azurewebsites.net/api/v1/products');
       setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -58,7 +58,7 @@ const Products: React.FC = () => {
     console.log(productId)
     if (confirmed) {
       try {
-        await axios.delete(`http://localhost:5052/api/v1/products/${productId}`);
+        await axios.delete(`https://fullstackshop.azurewebsites.net/api/v1/products/${productId}`);
         fetchProducts();
       } catch (error) {
         console.error('Error deleting product:', error);
@@ -86,7 +86,7 @@ const Products: React.FC = () => {
   const handleCreateDialogSubmit = async () => {
     try {
     console.log(newProduct)
-    const response = await axios.post('http://localhost:5052/api/v1/products', {
+    const response = await axios.post('https://fullstackshop.azurewebsites.net/api/v1/products', {
       Title: newProduct.title,
       Description: newProduct.description,
       Price: newProduct.price, 
@@ -132,7 +132,7 @@ const Products: React.FC = () => {
       Inventory: newProduct.inventory,
     };
     try {
-      const response = await axios.patch(`http://localhost:5052/api/v1/products/${updatedId}`, updatedData, {
+      const response = await axios.patch(`https://fullstackshop.azurewebsites.net/api/v1/products/${updatedId}`, updatedData, {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
