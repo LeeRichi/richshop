@@ -2,6 +2,14 @@
 backend: https://fullstackshop.azurewebsites.net/swagger/index.html<br>
 frontend: https://richshop.netlify.app/
 
+# Accounts for testing
+Admin user(with authroity to Crud users, products and orders):
+Email: admin@gmail.com password: 123
+
+Normal user(with basic user functions):
+Email: user@gmail.com   password
+
+
 # Fullstack Project
 ![TypeScript](https://img.shields.io/badge/TypeScript-v.4-green)
 ![SASS](https://img.shields.io/badge/SASS-v.4-hotpink)
