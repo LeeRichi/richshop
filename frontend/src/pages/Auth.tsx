@@ -72,7 +72,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ setUserIdRef }) =>
               await setRole(user.role)
               await setUserId(user.id);
               await setUserIdRef(user.id);
-              console.log(avatar)
               setMessage(`User found. Role: ${user.role}`);
             } else {
               setMessage("User not found.");
@@ -138,7 +137,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setUserIdRef }) =>
         </Typography>
       )}
     </Container>) : (
-      <Dashboard name={name} avatar={avatar} role={role} userId={userId} />
+      <Dashboard name={name} avatar={avatar} role={role} userId={userId} isLoggedIn={isLoggedIn} setisLoggedIn={setisLoggedIn} />
     );
 };
 

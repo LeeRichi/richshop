@@ -20,6 +20,10 @@ import PersonIcon from '@mui/icons-material/Person';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import { IoMdHand } from 'react-icons/io';
 
+// import { isLoggedIn, setisLoggedIn } from './Auth'
+
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+
 interface Order {
   id: string;
   orderStatus: string;
@@ -38,9 +42,11 @@ interface DashboardProps {
   avatar: string;
   role: string;
   userId: string;
+  isLoggedIn: boolean; // Add the isLoggedIn prop
+  setisLoggedIn: (value: boolean) => void; // Add the setisLoggedIn prop
 }
 
-export const Dashboard: React.FC<DashboardProps> = ({ name, avatar, role, userId }) => {
+export const Dashboard: React.FC<DashboardProps> = ({ name, avatar, role, userId, isLoggedIn, setisLoggedIn }) => {
   const [userDetails, setUserDetails] = useState<any>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editedName, setEditedName] = useState('');
@@ -111,7 +117,18 @@ export const Dashboard: React.FC<DashboardProps> = ({ name, avatar, role, userId
 
    const closeViewOrdersDialog = () => {
     setIsOrdersDialogOpen(false);
+   };
+  
+  
+  const handleLogout = () => {
+    // Remove isLoggedIn and userId from localStorage
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userId");
+
+    // Set isLoggedIn to false
+    setisLoggedIn(false);
   };
+
 
 
   return (
@@ -251,6 +268,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ name, avatar, role, userId
             </DialogActions>
           </Dialog>
         </>
+      )}
+      {isLoggedIn && (
+        <IconButton
+          onClick={handleLogout}
+          color="primary"
+          sx={{ marginTop: '1rem' }}
+        >
+          <ExitToAppIcon />
+          <Typography variant="button">Log Out</Typography>
+        </IconButton>
       )}
     </Container>
   );
