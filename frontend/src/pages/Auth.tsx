@@ -21,8 +21,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ setUserIdRef }) =>
 
   useEffect(() => {
     const savedIsLoggedIn = localStorage.getItem("isLoggedIn");
-    if (savedIsLoggedIn === "true") {
+    const savedUserId = localStorage.getItem("userId");
+    if (savedUserId) {
+      setUserId(savedUserId);
       setisLoggedIn(true);
+      console.log(savedUserId)
     }
   }, []);
 
@@ -49,6 +52,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ setUserIdRef }) =>
 
         const authToken = response.data;
         console.log(authToken);
+        localStorage.setItem("authToken", authToken); // This line sets the authToken in localStorage.
+
 
         setToken(authToken);
         console.log(token)
@@ -61,6 +66,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ setUserIdRef }) =>
           if (response.ok) {
             const userData = await response.json();
             console.log(userData)
+            localStorage.setItem("userData", userData);
+            const dataFromLocalStorage = localStorage.getItem("userData");
+            console.log(dataFromLocalStorage)
+
             const user = userData.find(
               (user: any) => user.email === email
             );
@@ -70,8 +79,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ setUserIdRef }) =>
               await setName(user.name);
               await setAvatar(user.avatar);
               await setRole(user.role)
+              setisLoggedIn(true);
+              localStorage.setItem("isLoggedIn", "true");
               await setUserId(user.id);
               await setUserIdRef(user.id);
+              localStorage.setItem("userId", user.id);
               setMessage(`User found. Role: ${user.role}`);
             } else {
               setMessage("User not found.");

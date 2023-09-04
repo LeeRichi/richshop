@@ -20,8 +20,6 @@ import PersonIcon from '@mui/icons-material/Person';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import { IoMdHand } from 'react-icons/io';
 
-// import { isLoggedIn, setisLoggedIn } from './Auth'
-
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 interface Order {
@@ -56,20 +54,36 @@ export const Dashboard: React.FC<DashboardProps> = ({ name, avatar, role, userId
   const [userOrders, setUserOrders] = useState<Order[]>([]);
   const [orderProducts, setOrderProducts] = useState<OrderProduct[]>([]);
 
-  useEffect(() => {
-    if (role === 'User') {
-      fetchUserDetails();
-    }
-  }, [role, userId]);
+  localStorage.setItem("id", userId);
+  const idFromLocalStorage = localStorage.getItem("id");
+  console.log(idFromLocalStorage)
 
-  const fetchUserDetails = async () => {
+  const dataFromLocalStorage = localStorage.getItem("userData");
+  console.log(dataFromLocalStorage)
+
+  console.log(userId)
+
+  useEffect(() =>
+  {
+    // if (role === 'User') {
+      fetchUserDetails(userId);
+    // }
+  }, []);
+
+  const fetchUserDetails = async (userId: any) =>
+  {
     try {
       const response = await axios.get(`https://fullstackshop.azurewebsites.net/api/v1/users/${userId}`);
       setUserDetails(response.data);
+      console.log(userDetails)
+      console.log(idFromLocalStorage)
     } catch (error) {
       console.error('Error fetching user details:', error);
     }
   };
+
+  const authToken = localStorage.getItem("authToken");
+  console.log(authToken)
 
   const handleUpdateProfile = async () =>
   {
@@ -79,11 +93,20 @@ export const Dashboard: React.FC<DashboardProps> = ({ name, avatar, role, userId
         address: editedAddress,
         avatar: editedAvatar,
       };
+      
+      const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${authToken}`,
+      };
 
-      const response = await axios.patch(`https://fullstackshop.azurewebsites.net/api/v1/users/${userId}`, updatedData);
+      const response = await axios.patch(
+        `https://fullstackshop.azurewebsites.net/api/v1/users/${userId}`,
+        updatedData,
+        { headers }
+      );      
 
       if (response.status === 200) {
-        fetchUserDetails();
+        fetchUserDetails(userId);
         setIsEditDialogOpen(false);
       } else {
         console.error('Unexpected response:', response);
@@ -119,17 +142,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ name, avatar, role, userId
     setIsOrdersDialogOpen(false);
    };
   
-  
   const handleLogout = () => {
-    // Remove isLoggedIn and userId from localStorage
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("userId");
 
-    // Set isLoggedIn to false
     setisLoggedIn(false);
   };
-
-
 
   return (
     <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "5rem" }}>
@@ -182,9 +200,9 @@ export const Dashboard: React.FC<DashboardProps> = ({ name, avatar, role, userId
             Your UserID: {userId}
           </Typography>
           <Typography variant="body1" align="center" gutterBottom>
-            Name: {userDetails.name}
+            Name: {name}
           </Typography>
-          <img src={userDetails.avatar} alt={`avatar`} width="100" style={{ cursor: 'pointer' }} />
+          <img src={avatar} alt={`avatar`} width="100" style={{ cursor: 'pointer' }} />
           <Typography variant="body1" align="center" gutterBottom>
             Address: {userDetails.address}
           </Typography>
