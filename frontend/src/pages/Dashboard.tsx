@@ -82,6 +82,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ name, avatar, role, userId
       console.error('Error fetching user details:', error);
     }
   };
+  
+  useEffect(() => {
+    console.log(userDetails); // This will log the updated userDetails
+  }, [userDetails])
 
   const authToken = localStorage.getItem("authToken");
   console.log(authToken)
@@ -153,11 +157,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ name, avatar, role, userId
   return (
     <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "5rem" }}>
       {userDetails != null ? ( <>
-        {role === 'Admin' ? (
+        {userDetails.role === 'Admin' ? (
           <>
             <Typography variant="h4" align="center" gutterBottom sx={{ marginBottom: "3rem" }}>
-              <IoMdHand /> Hi, <img src={avatar} alt={`avatar`} width="50" style={{ verticalAlign: 'middle' }} />
-              {name}, what are you thinking?
+              <IoMdHand /> Hi, <img src={userDetails.avatar} alt={`avatar`} width="50" style={{ verticalAlign: 'middle' }} />
+              {userDetails.name}, what are you thinking?
             </Typography>
             <IconButton
               color="primary"
@@ -192,19 +196,19 @@ export const Dashboard: React.FC<DashboardProps> = ({ name, avatar, role, userId
           </>
         ) : (
           <Typography variant="h4" align="center" gutterBottom sx={{marginBottom: "3rem"}}>
-            Hi, <img src={avatar} alt={`avatar`} width="50" style={{ verticalAlign: 'middle' }} />{userDetails.name}, welcome back!
+            Hi, <img src={userDetails.avatar} alt={`avatar`} width="50" style={{ verticalAlign: 'middle' }} />{userDetails.name}, welcome back!
           </Typography>
         )}
-
-        {role === 'User' && userDetails && (
+ 
+        {userDetails.role === 'User' && userDetails && (
           <>
             <Typography variant="h6" align="center" gutterBottom>
-              Your UserID: {userId}
+              Your UserID: {userDetails.id}
             </Typography>
             <Typography variant="body1" align="center" gutterBottom>
-              Name: {name}
+              Name: {userDetails.name}
             </Typography>
-            <img src={avatar} alt={`avatar`} width="100" style={{ cursor: 'pointer' }} />
+            <img src={userDetails.avatar} alt={`avatar`} width="100" style={{ cursor: 'pointer' }} />
             <Typography variant="body1" align="center" gutterBottom>
               Address: {userDetails.address}
             </Typography>
