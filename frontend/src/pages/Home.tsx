@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Card, CardContent, Typography, Button, Grid } from '@mui/material';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-// import Test from '../components/test';
+import { BASE_API_URL } from '../constants'; // Adjust the import path based on your project structure
 
 
 export interface Product {
@@ -26,15 +26,17 @@ function Home({ cartItems, setCartItems }: { cartItems: Product[]; setCartItems:
   
 
   useEffect(() => {
-    axios.get('https://fullstackshop.azurewebsites.net/api/v1/products')
-      // axios.get('http://localhost:5052/api/v1/products')
-
+    axios.get(`${BASE_API_URL}/products`)
       .then(response => {
           setProducts(response.data);
-        //   console.log(response.data)
+          console.log(response.data)
       })
       .catch(error => {
+        // console.error('Error fetching products:', error);
         console.error('Error fetching products:', error);
+        if (error.response) {
+          console.error('Response data:', error.response.data);
+        }
       });
   }, []);
 

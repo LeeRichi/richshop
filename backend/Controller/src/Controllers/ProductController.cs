@@ -38,8 +38,5 @@ namespace Controller.src.Controllers
         public override async Task<ActionResult<ProductReadDto>> GetOneById ([FromRoute]Guid id){
             return Ok(await _productService.GetOneById(id));
         }
-
-        
-
     }    
 }

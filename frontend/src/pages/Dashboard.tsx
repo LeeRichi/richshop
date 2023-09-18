@@ -69,17 +69,16 @@ export const Dashboard: React.FC<DashboardProps> = ({ name, avatar, role, userId
       const response = await axios.get(`https://fullstackshop.azurewebsites.net/api/v1/users/${userId}`);
       setUserDetails(response.data);
       console.log(userDetails)
-    } catch (error) {
+    } catch (error) {  
       console.error('Error fetching user details:', error);
     }
   };
 
   useEffect(() => {
-    console.log(userDetails); // This will log the updated userDetails
+    console.log(userDetails);
   }, [userDetails])
 
   const authToken = localStorage.getItem("authToken");
-  // console.log(authToken)
 
   const handleUpdateProfile = async () =>
   {
