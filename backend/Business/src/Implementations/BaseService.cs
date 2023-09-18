@@ -4,7 +4,6 @@ using Domain.src.Abstraction;
 using Domain.src.Shared;
 using Business.src.Shared;
 
-
 namespace Business.src.Implementations
 {
     public class BaseService<T, TReadDto, TCreateDto, TUpdateDto> : IBaseService<T, TReadDto, TCreateDto, TUpdateDto>
@@ -16,6 +15,11 @@ namespace Business.src.Implementations
         {
             _baseRepo = baseRepo;
             _mapper = mapper;
+        }
+
+        public async Task<TReadDto> GetOneById(Guid id)
+        {
+            return _mapper.Map<TReadDto>(await _baseRepo.GetOneById(id));
         }
 
         public async Task<bool> DeleteOneById(Guid id)
@@ -35,21 +39,15 @@ namespace Business.src.Implementations
             return _mapper.Map<IEnumerable<TReadDto>>(await _baseRepo.GetAll(queryOptions));
         }
 
-        public async Task<TReadDto> GetOneById(Guid id)
-        {
-            return _mapper.Map<TReadDto>(await _baseRepo.GetOneById(id));
-        }
-
         public async Task<TReadDto> UpdateOneById(Guid id, TUpdateDto updated)
         {
             var foundItem = await _baseRepo.GetOneById(id);
             if (foundItem == null)
             {
-                // throw new Exception("Item not found");
                 throw CustomException.NotFoundException();
             }
-            _mapper.Map(updated, foundItem); // Update the entity with the properties from the updated DTO
-            var updatedEntity = await _baseRepo.UpdateOneById(foundItem); // Call the UpdateOneById method with the entity instance
+            _mapper.Map(updated, foundItem);
+            var updatedEntity = await _baseRepo.UpdateOneById(foundItem);
             return _mapper.Map<TReadDto>(updatedEntity);
         }
 

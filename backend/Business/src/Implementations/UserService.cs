@@ -9,7 +9,6 @@ using Business.src.Abstraction;
 using Domain.src.Abstraction;
 using Business.src.Shared;
 
-
 namespace Business.src.Implementations
 {
     public class UserService : BaseService<User, UserReadDto, UserCreateDto, UserUpdateDto>, IUserService
@@ -40,9 +39,7 @@ namespace Business.src.Implementations
             return _mapper.Map<UserReadDto>(created); 
         }
 
-        // public override async Task<UserReadDto> CreateAdmin (UserCreateDto dto){
         public async Task<UserReadDto> CreateAdmin (UserCreateDto dto){
-
             var entity = _mapper.Map<User>(dto);
             PasswordService.HashPassword(dto.Password, out var hashedPassword, out var salt);
             entity.Password = hashedPassword;

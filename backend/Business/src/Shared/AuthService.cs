@@ -4,17 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Business.src.Dtos;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt; // For JwtSecurityTokenHandler
-using System.Security.Claims; // For Claim, ClaimTypes
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims; 
 using Business.src.Abstraction;
 using Domain.src.Abstraction;
 using Domain.src.Entities;
-
 using System.Security.Cryptography;
 using System.Text;
 using Business.src.Shared;
-
-
 
 namespace Business.src.Shared
 {
@@ -51,11 +48,7 @@ namespace Business.src.Shared
             };
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
             var token = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
-            // return token.ToString();
             return jwtSecurityTokenHandler.WriteToken(token);
-
-
-            // return Task.FromResult(token.ToString()); // Use Task.FromResult to wrap the result
         }
     }
 }

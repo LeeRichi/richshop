@@ -12,6 +12,5 @@ namespace Domain.src.Abstraction
         Task<User> CreateAdmin(User user);
         Task<User> UpdatePassword(User user);
         Task<User?> FindOneByEmail(string email);
-        // Task<User> CreateOne(string email);
     }
 }
