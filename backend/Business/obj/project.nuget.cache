@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Y0kB3S+JkpiSTZBwNtXAvajAoja6i45YhMn7hGpTI8R0wgHEdlLR+UfxgBGYXs1ZLqOwMBoGV9a2lS8KewcUGw==",
+  "dgSpecHash": "8wUaLFYSOao4MW4otV8ynQXm+O2sZ26AYNb/sxjDSDyOGjCyB6tIVoMIe2TQq0Pwz/vz7b10QEhW3A3l8CPPkw==",
   "success": true,
-  "projectFilePath": "/Users/ichr/Desktop/fs15_Fullstack/backend/Business/Business.csproj",
+  "projectFilePath": "/Users/ichr/Desktop/ftForFullStack/backend/Business/Business.csproj",
   "expectedPackageFiles": [
     "/Users/ichr/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
     "/Users/ichr/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xgjGTpsOFkIyi617bvDe1C4YIGUU3Xn4rUWyPyBqdoAxa/2/prFnuGCKSRcnmFiB/A72+eNPflNf1X0uwJFpHA==",
+  "dgSpecHash": "MmFTAgFKaIKzl6BTee7nMiojWWQC8npt9O7wEmNgqQZ5PUoQyMgUdNbOHvY5lV5UWy/XNrGINau2iKRlu+iWEQ==",
   "success": true,
-  "projectFilePath": "/Users/ichr/Desktop/fs15_Fullstack/backend/Domain/Domain.csproj",
+  "projectFilePath": "/Users/ichr/Desktop/ftForFullStack/backend/Domain/Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

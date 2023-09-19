@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/SPCNhcn7+CJFQFIvDWCSe02KzP+o0FSuVaq3fkf5uNWlxxbbMr+PMF3z8DT77sy+Za2x4u9gnseBNR0Mc2NNw==",
+  "dgSpecHash": "QF54Pv8c2iZ6zly/zCZU1VIRnuUwdaE3RIThZyWrvPhwdWJArJ2pvHjbj9Jda4SKjdPNac4YY+EmuMQa/bbOkg==",
   "success": true,
-  "projectFilePath": "/Users/ichr/Desktop/fs15_Fullstack/backend/Controller/Controller.csproj",
+  "projectFilePath": "/Users/ichr/Desktop/ftForFullStack/backend/Controller/Controller.csproj",
   "expectedPackageFiles": [
     "/Users/ichr/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
     "/Users/ichr/.nuget/packages/microsoft.aspnetcore.antiforgery/2.2.0/microsoft.aspnetcore.antiforgery.2.2.0.nupkg.sha512",

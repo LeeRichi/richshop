@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/ichr/Desktop/fs15_Fullstack/backend/Business/Business.csproj": {}
+    "/Users/ichr/Desktop/ftForFullStack/backend/Business/Business.csproj": {}
   },
   "projects": {
-    "/Users/ichr/Desktop/fs15_Fullstack/backend/Business/Business.csproj": {
+    "/Users/ichr/Desktop/ftForFullStack/backend/Business/Business.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/ichr/Desktop/fs15_Fullstack/backend/Business/Business.csproj",
+        "projectUniqueName": "/Users/ichr/Desktop/ftForFullStack/backend/Business/Business.csproj",
         "projectName": "Business",
-        "projectPath": "/Users/ichr/Desktop/fs15_Fullstack/backend/Business/Business.csproj",
+        "projectPath": "/Users/ichr/Desktop/ftForFullStack/backend/Business/Business.csproj",
         "packagesPath": "/Users/ichr/.nuget/packages/",
-        "outputPath": "/Users/ichr/Desktop/fs15_Fullstack/backend/Business/obj/",
+        "outputPath": "/Users/ichr/Desktop/ftForFullStack/backend/Business/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/ichr/.nuget/NuGet/NuGet.Config"
@@ -26,8 +26,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/ichr/Desktop/fs15_Fullstack/backend/Domain/Domain.csproj": {
-                "projectPath": "/Users/ichr/Desktop/fs15_Fullstack/backend/Domain/Domain.csproj"
+              "/Users/ichr/Desktop/ftForFullStack/backend/Domain/Domain.csproj": {
+                "projectPath": "/Users/ichr/Desktop/ftForFullStack/backend/Domain/Domain.csproj"
               }
             }
           }
@@ -71,14 +71,14 @@
         }
       }
     },
-    "/Users/ichr/Desktop/fs15_Fullstack/backend/Domain/Domain.csproj": {
+    "/Users/ichr/Desktop/ftForFullStack/backend/Domain/Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/ichr/Desktop/fs15_Fullstack/backend/Domain/Domain.csproj",
+        "projectUniqueName": "/Users/ichr/Desktop/ftForFullStack/backend/Domain/Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "/Users/ichr/Desktop/fs15_Fullstack/backend/Domain/Domain.csproj",
+        "projectPath": "/Users/ichr/Desktop/ftForFullStack/backend/Domain/Domain.csproj",
         "packagesPath": "/Users/ichr/.nuget/packages/",
-        "outputPath": "/Users/ichr/Desktop/fs15_Fullstack/backend/Domain/obj/",
+        "outputPath": "/Users/ichr/Desktop/ftForFullStack/backend/Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/ichr/.nuget/NuGet/NuGet.Config"
