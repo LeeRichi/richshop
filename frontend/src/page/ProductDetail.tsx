@@ -8,7 +8,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { addToFavorites, removeFromFavorites, selectFavorites } from '../features/favorite/favoriteSlice';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-// import '../components/index.css'
+import { setFavoriteCount } from '../features/favorite/favoriteSlice';
 
 
 const ProductDetail = () =>
@@ -32,13 +32,14 @@ const ProductDetail = () =>
 
   const handleToggleFavorite = () => {
     if (isFavorite) {
-      // Product is already a favorite, remove it from favorites
       dispatch(removeFromFavorites(id));
     } else {
-      // Product is not a favorite, add it to favorites
       dispatch(addToFavorites(product));
     }
   };
+
+  const newFavoriteCount = favorites.length;
+  dispatch(setFavoriteCount(newFavoriteCount));
 
 
   if (!product) {
