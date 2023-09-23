@@ -5,6 +5,7 @@ import { Product } from '../interface/ProductInterface';
 import { addToFavorites, removeFromFavorites, selectFavorites } from '../features/favorite/favoriteSlice';
 import CloseIcon from '@mui/icons-material/Close';
 import { Typography } from '@mui/material';
+import { setFavoriteCount } from '../features/favorite/favoriteSlice';
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,9 @@ const ProductDetail = () => {
       dispatch(addToFavorites(product));
     }
   };
+
+  const newFavoriteCount = favorites.length;
+  dispatch(setFavoriteCount(newFavoriteCount));
 
   return (
     <div style={{marginLeft: '6%'}}>
