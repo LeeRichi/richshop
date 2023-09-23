@@ -8,7 +8,13 @@ import selectProducts from '../app/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../app/rootReducer';
 import { setProducts } from '../features/product/productSlice'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import {Link} from 'react-router-dom';
 
+const footwearBanner = require('../assets/footwearBanner.png');
+
+
+console.log(footwearBanner)
 
 
 const Home = () => {
@@ -36,26 +42,44 @@ const Home = () => {
         width: '100%',
         minHeight: '300px',
         backgroundColor: '#f5a623',
-        cursor: 'pointer',
         marginBottom: '20px',
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-start',
         alignItems: 'center',
         padding: '20px',
         borderRadius: '10px',
-        marginTop: '10px'
+        marginTop: '10px',
       }}>
-        <div>
-          Seasonal Sale!
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: '24px', fontWeight: 'bold' }}>
+            Step into Style!
+          </div>
+          <div style={{ fontSize: '20px', marginTop: '15px' }}>
+            Back to School - Discover the Latest Trends
+          </div>
+          <Button
+            variant="contained"
+            style={{
+              cursor: 'pointer',
+              marginTop: '15px',
+              backgroundColor: 'transparent',
+              boxShadow: 'none',
+            }}
+          >
+            Shop Footwear
+            <ArrowForwardIcon style={{ marginLeft: '5px' }} />
+          </Button>
         </div>
-        <Button variant="text" style={{ cursor: 'pointer' }}>
-          Shop Now
-        </Button>
+        <div style={{ flex: 1, textAlign: 'right' }}>
+          <img src={footwearBanner} alt="Your Image" style={{ width: '60%', marginRight: '10%', marginBottom: '-25px' }} />
+        </div>
       </div>
       <Grid container spacing={2}>
         {products.products.map((product: any) => (
           <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
-            <ProductCard product={product} />
+            <Link to={`/product/${product.id}`}>
+              <ProductCard product={product} />
+            </Link>
           </Grid>
         ))}
       </Grid>

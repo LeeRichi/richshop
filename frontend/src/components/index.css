@@ -1,0 +1,14 @@
+.heartIcon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  border: 1px solid black;
+  background-color: white;
+  padding: 5px;
+  transition: background-color 0.1s;
+}
+
+.heartIcon:hover {
+  background-color: darkgrey;
+}

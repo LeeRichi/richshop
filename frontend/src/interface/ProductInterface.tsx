@@ -4,6 +4,6 @@ export interface Product {
   description: string;
   price: number;
   category: string;
-  images: string; // assuming images is an array of strings (URLs)
+  images: string[]; // assuming images is an array of strings (URLs)
   inventory: number;
 }
