@@ -32,8 +32,8 @@ const ProductDetail = () => {
             </div>
             <div style={{ marginTop: '10px' }}>
               <Typography variant="h6">{favorite.title}</Typography>
-              <Typography variant="subtitle1">{`$${favorite.price}`}</Typography>
               <Typography>{favorite.description}</Typography>
+              <Typography variant="subtitle1">{`$${favorite.price}`}</Typography>
             </div>
           </div>
         ))}
