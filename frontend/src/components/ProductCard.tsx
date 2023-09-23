@@ -4,7 +4,7 @@ import { Product } from '../interface/ProductInterface'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToFavorites, removeFromFavorites, selectFavorites } from '../features/favorite/favoriteSlice';
+import { addToFavorites, removeFromFavorites, selectFavorites, setFavoriteCount } from '../features/favorite/favoriteSlice';
 import './index.css';
 
 
@@ -25,6 +25,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) =>
       dispatch(addToFavorites(product));
     }
   };
+
+  const newFavoriteCount = favorites.length;
+  dispatch(setFavoriteCount(newFavoriteCount));
 
   const handleHeartIconClick = (event: React.MouseEvent) => {
     event.stopPropagation(); 
