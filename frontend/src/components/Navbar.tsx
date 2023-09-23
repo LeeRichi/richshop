@@ -22,13 +22,11 @@ function Navbar()
           <Badge badgeContent={favoriteCount} color="secondary">
             <FavoriteBorderIcon />
           </Badge>
-          {/* <FavoriteBorderIcon /> */}
-          {/* {favoriteCount > 0 && <span>{favoriteCount}</span>} */}
         </IconButton>
         <IconButton color="inherit" component={Link} to="/auth">
           <AccountCircle />
         </IconButton>
-        <IconButton color="inherit" component={Link} to="/cart"> {/* Use Link to navigate */}
+        <IconButton color="inherit" component={Link} to="/cart">
           <ShoppingCart />
         </IconButton>
       </Toolbar>
