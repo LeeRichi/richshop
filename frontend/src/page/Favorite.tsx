@@ -4,6 +4,7 @@ import { RootState } from '../app/rootReducer';
 import { Product } from '../interface/ProductInterface';
 import { addToFavorites, removeFromFavorites, selectFavorites } from '../features/favorite/favoriteSlice';
 import CloseIcon from '@mui/icons-material/Close';
+import { Typography } from '@mui/material';
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
@@ -20,18 +21,19 @@ const ProductDetail = () => {
   };
 
   return (
-    <div>
+    <div style={{marginLeft: '6%'}}>
       <h2>Favorites</h2>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
         {favorites.map((favorite) => (
           <div key={favorite.id} style={{ flex: '0 0 30%', position: 'relative' }}>
             <img src={favorite.images[0]} alt={favorite.title} style={{ width: '100%' }} />
-            <div style={{ position: 'absolute', top: '5px', right: '5px' }}>
+            <div style={{ position: 'absolute', top: '5px', right: '5px', border: '1px solid black', cursor: 'pointer' }}>
               <CloseIcon onClick={() => handleToggleFavorite(favorite)} />
             </div>
             <div style={{ marginTop: '10px' }}>
-              <h3>{favorite.title}</h3>
-              <p>{favorite.description}</p>
+              <Typography variant="h6">{favorite.title}</Typography>
+              <Typography variant="subtitle1">{`$${favorite.price}`}</Typography>
+              <Typography>{favorite.description}</Typography>
             </div>
           </div>
         ))}
