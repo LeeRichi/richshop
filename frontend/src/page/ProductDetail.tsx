@@ -41,7 +41,6 @@ const ProductDetail = () =>
   const newFavoriteCount = favorites.length;
   dispatch(setFavoriteCount(newFavoriteCount));
 
-
   if (!product) {
     return <div>Product not found</div>;
   }

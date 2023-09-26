@@ -13,10 +13,6 @@ import {Link} from 'react-router-dom';
 
 const footwearBanner = require('../assets/footwearBanner.png');
 
-
-console.log(footwearBanner)
-
-
 const Home = () => {
   const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.products);
@@ -35,6 +31,9 @@ const Home = () => {
 
     fetchProducts();
   }, []);
+
+  const categories = Array.from(new Set(products.products.map((product: Product) => product.category)));
+  console.log(categories)
 
   return (
     <Container>
