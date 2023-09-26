@@ -12,3 +12,16 @@
 .heartIcon:hover {
   background-color: darkgrey;
 }
+
+
+.buttonContainer {
+  background-color: transparent;
+  color: black;
+  border: none;
+  transition: transform 0.3s ease-in-out;
+}
+
+.buttonContainer:hover {
+  transform: translateX(5px);
+  background-color: transparent;
+}

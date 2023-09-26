@@ -43,15 +43,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <Typography variant="subtitle1">{`$${product.price}`}</Typography>
         <Typography>{product.description}</Typography>
         <div style={{ position: 'absolute', bottom: '5px', right: '5px' }}>
-          <Button
-            color="primary"
-            style={{
-              backgroundColor: 'transparent',
-              color: 'black',
-              border: 'none',
-            }}
-            endIcon={<ArrowForwardIcon />}
-          >
+          <Button className="buttonContainer" endIcon={<ArrowForwardIcon />}>
+            {/* Add to Cart */}
           </Button>
         </div>
       </CardContent>
