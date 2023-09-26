@@ -4,6 +4,7 @@ import Home from './page/Home'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import ProductDetail from './page/ProductDetail';
 import Favorite from './page/Favorite'
+import SecondaryNavbar from './components/SecondaryNavbar';
 
 
 const App = () => {
@@ -11,6 +12,7 @@ const App = () => {
     <Router>
       <div>
         <Navbar />
+        <SecondaryNavbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetail />} />

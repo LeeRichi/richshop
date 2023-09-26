@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, CardContent, Typography, CardActions, Button } from '@mui/material';
 import { Product } from '../interface/ProductInterface';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -29,24 +29,26 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   dispatch(setFavoriteCount(newFavoriteCount));
 
   return (
-    <Card style={{ position: 'relative' }}>
-      <CardContent>
-        <div style={{ height: '250px', overflow: 'hidden', position: 'relative' }}>
-          <img src={product.images[0]} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          {isFavorite ? (
-            <FavoriteIcon style={{ position: 'absolute', top: '5px', right: '5px', color: 'red' }} className="heartIcon" onClick={(e) => { e.stopPropagation(); handleToggleFavorite(); }} />
-          ) : (
-            <FavoriteBorderIcon style={{ position: 'absolute', top: '5px', right: '5px' }} className='heartIcon' onClick={(e) => { e.stopPropagation(); handleToggleFavorite(); }} />
-          )}
-        </div>
+    <Card style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ height: '250px', overflow: 'hidden', position: 'relative' }}>
+        <img src={product.images[0]} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        {isFavorite ? (
+          <FavoriteIcon style={{ position: 'absolute', top: '5px', right: '5px', color: 'red' }} className="heartIcon" onClick={(e) => { e.stopPropagation(); handleToggleFavorite(); }} />
+        ) : (
+          <FavoriteBorderIcon style={{ position: 'absolute', top: '5px', right: '5px' }} className='heartIcon' onClick={(e) => { e.stopPropagation(); handleToggleFavorite(); }} />
+        )}
+      </div>
+      <CardContent style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <Typography variant="h6">{product.title}</Typography>
         <Typography variant="subtitle1">{`$${product.price}`}</Typography>
         <Typography>{product.description}</Typography>
-        <div style={{ position: 'absolute', bottom: '5px', right: '5px' }}>
+      </CardContent>
+      <CardActions>
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
           <Button className="buttonContainer" endIcon={<ArrowForwardIcon />}>
           </Button>
         </div>
-      </CardContent>
+      </CardActions>
     </Card>
   );
 };
