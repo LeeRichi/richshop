@@ -35,63 +35,42 @@ const Home = () => {
   const categories = Array.from(new Set(products.products.map((product: Product) => product.category)));
 
   return (
-    <Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
-      <div style={{ width: '100px', marginTop: '20px', textAlign: 'center', marginLeft: '-5rem', marginRight: '3rem'}}>
+    <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '10px' }}>
         {categories.map((category, index) => (
-          <Typography variant="h6" key={index} style={{ marginBottom: '10px' }}>
+          <Typography variant="h6" key={index} style={{ margin: '15px' }}>
             <Link to={`/category/${category}`} style={{ color: 'inherit', textDecoration: 'none' }}>
               {category}
             </Link>
           </Typography>
         ))}
       </div>
-      <div style={{ flex: 1 }}>
-        <div style={{
-          width: '100%',
-          minHeight: '300px',
-          backgroundColor: '#f5a623',
-          marginBottom: '20px',
-          display: 'flex',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
-          padding: '20px',
-          borderRadius: '10px',
-          marginTop: '10px',
-        }}>
-          <div style={{ flex: 1 }}>
-            <div style={{ fontSize: '24px', fontWeight: 'bold' }}>
-              Step into Style!
-            </div>
-            <div style={{ fontSize: '20px', marginTop: '15px' }}>
-              Back to School - Discover the Latest Trends
-            </div>
-            <Button
-              variant="contained"
-              style={{
-                cursor: 'pointer',
-                marginTop: '15px',
-                backgroundColor: 'transparent',
-                boxShadow: 'none',
-              }}
-            >
-              Shop Footwear
-              <ArrowForwardIcon style={{ marginLeft: '5px' }} />
-            </Button>
+      <div style={{ width: '100%', minHeight: '300px', backgroundColor: '#f5a623', marginBottom: '20px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', padding: '20px', borderRadius: '10px', marginTop: '10px', }}>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: '24px', fontWeight: 'bold' }}>
+            Step into Style!
           </div>
-          <div style={{ flex: 1, textAlign: 'right' }}>
-            <img src={footwearBanner} alt="Your Image" style={{ width: '60%', marginRight: '10%', marginBottom: '-25px' }} />
+          <div style={{ fontSize: '20px', marginTop: '15px' }}>
+            Back to School - Discover the Latest Trends
           </div>
+          <Button variant="contained" style={{ cursor: 'pointer', marginTop: '15px', backgroundColor: 'transparent', boxShadow: 'none', }}>
+            Shop Footwear
+            <ArrowForwardIcon style={{ marginLeft: '5px' }} />
+          </Button>
         </div>
-        <Grid container spacing={2}>
-          {products.products.map((product: any) => (
-            <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
-              <Link to={`/product/${product.id}`}>
-                <ProductCard product={product} />
-              </Link>
-            </Grid>
-          ))}
-        </Grid>
+        <div style={{ flex: 1, textAlign: 'right' }}>
+          <img src={footwearBanner} alt="Your Image" style={{ width: '60%', marginRight: '10%', marginBottom: '-25px' }} />
+        </div>
       </div>
+      <Grid container spacing={2}>
+        {products.products.map((product: any) => (
+          <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
+            {/* <Link to={`/product/${product.id}`}> */}
+              <ProductCard product={product} />
+            {/* </Link> */}
+          </Grid>
+        ))}
+      </Grid>
     </Container>
   );
 };

@@ -11,7 +11,7 @@ function Navbar() {
   const favoriteCount = useSelector((state: RootState) => state.favorites.favoriteCount);
 
   return (
-    <AppBar position="static" style={{ backgroundColor: 'black' }}>
+    <AppBar position="static" style={{ backgroundColor: '#2d2d2d' }}>
       <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <IconButton color="inherit">
@@ -23,9 +23,8 @@ function Navbar() {
             style={{ borderBottom: '1px solid white', width: '300px', backgroundColor: 'transparent', color: 'white' }}
           />
         </div>
-        <Typography variant="h6" component={Link} to="/" style={{ backgroundColor: 'transparent', width: '120px', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', color: 'white'}}>
-          <Storefront style={{ marginRight: '5px' }} />
-            RICH
+        <Typography variant="h6" component={Link} to="/" style={{ backgroundColor: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', color: 'white', border: '1px solid white', marginRight: '15rem', padding: '5px'}}>
+          <span style={{ verticalAlign: 'middle' }}>RICH</span>
         </Typography>
         <div>
           <IconButton color="inherit" component={Link} to="/favorite">
