@@ -19,11 +19,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const isFavorite = favorites.some((favProduct) => favProduct.id === product.id);
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
-    e.stopPropagation(); 
     if (isFavorite) {
       dispatch(removeFromFavorites(product.id));
     } else {
       dispatch(addToFavorites(product));
+      console.log('fired')
     }
   };
   
@@ -31,34 +31,39 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   dispatch(setFavoriteCount(newFavoriteCount));
 
   return (
-    <Card style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Link to={`/product/${product.id}`}> {/* Link to the product page */}
-        <div style={{ height: '250px', overflow: 'hidden', position: 'relative' }}>
+    <Card style={{ height: '100%', display: 'flex', flexDirection: 'column', position: 'relative' }}>
+      <Link to={`/product/${product.id}`}>
+        <div style={{ height: '250px', overflow: 'hidden' }}>
           <img src={product.images[0]} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          {isFavorite ? (
-            <FavoriteIcon
-              style={{ position: 'absolute', top: '5px', right: '5px', color: 'red' }}
-              className="heartIcon"
-              onClick={(e) => handleToggleFavorite(e)}
-            />
-          ) : (
-            <FavoriteBorderIcon
-              style={{ position: 'absolute', top: '5px', right: '5px' }}
-              className="heartIcon"
-              onClick={(e) => handleToggleFavorite(e)}
-            />
-          )}
         </div>
         <CardContent style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <Typography variant="h6">{product.title}</Typography>
           <Typography variant="subtitle1">{`$${product.price}`}</Typography>
           <Typography>{product.description}</Typography>
         </CardContent>
-      </Link>
-      <CardActions>
-        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+        <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', position: 'absolute', bottom: '10px', right: '10px' }}>
           <Button className="buttonContainer" endIcon={<ArrowForwardIcon />}>
           </Button>
+        </div>
+      </Link>
+      <CardActions>
+        <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: '100' }}>
+          {isFavorite ? (
+            <FavoriteIcon
+              className="heartIcon"
+              style={{color: 'red'}}
+              onClick={(e) => {
+                handleToggleFavorite(e);
+              }}
+            />
+          ) : (
+            <FavoriteBorderIcon
+              className="heartIcon"
+              onClick={(e) => {
+                handleToggleFavorite(e);
+              }}
+            />
+          )}
         </div>
       </CardActions>
     </Card>
