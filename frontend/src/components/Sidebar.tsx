@@ -4,19 +4,7 @@ import {
   Box,
   Typography,
   TextField,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Input,
-  InputAdornment, // Add this import
 } from '@mui/material';
-
-type SelectChangeEvent = {
-  target: {
-    value: unknown;
-  };
-};
 
 const generateRandomBrands = () => {
   const brands = [];
@@ -26,9 +14,22 @@ const generateRandomBrands = () => {
   return brands;
 };
 
+const predefinedColors = [
+  'red',
+  'blue',
+  'green',
+  'yellow',
+  'orange',
+  'purple',
+  'pink',
+  'brown',
+  'cyan',
+  'gray',
+];
+
 const Sidebar = () => {
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
-  const [selectedBrand, setSelectedBrand] = useState('');
+  const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [brandSearch, setBrandSearch] = useState('');
   const brands = generateRandomBrands();
 
@@ -36,66 +37,84 @@ const Sidebar = () => {
     setPriceRange(newValue as [number, number]);
   };
 
-  const handleBrandSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setBrandSearch(event.target.value);
-  };
-
-  const filteredBrands = brands.filter((brand) =>
-    brand.toLowerCase().includes(brandSearch.toLowerCase())
-  );
-
-  const handleBrandClick = (brand: string) => {
-    setSelectedBrand(brand);
+  const handleColorSelection = (color: string) => {
+    setSelectedColors((prevSelectedColors) => {
+      if (prevSelectedColors.includes(color)) {
+        return prevSelectedColors.filter((c) => c !== color);
+      } else {
+        return [...prevSelectedColors, color];
+      }
+    });
   };
 
   return (
-    <div style={{width:'20%'}}>
+    <div style={{ width: '20%', marginTop: '10rem' }}>
       <h2>Price</h2>
       <Box width="100%" px={2} style={{ display: 'flex', alignItems: 'center' }}>
-  <Slider
-    value={priceRange}
-    onChange={handlePriceChange}
-    valueLabelDisplay="auto"
-    valueLabelFormat={(value) => {
-      const isMin = value === priceRange[0];
-      return isMin ? `Min: $${value}` : `Max: $${value}`;
-    }}
-    min={0}
-    max={100}
-    aria-labelledby="range-slider"
-  />
-</Box>
-
-
+        <Slider
+          value={priceRange}
+          style={{ margin: '2rem' }}
+          onChange={handlePriceChange}
+          valueLabelDisplay="on"
+          valueLabelFormat={(value) => (
+            <Typography>
+              {`€${value}`}
+            </Typography>
+          )}
+          min={0}
+          max={100}
+          aria-labelledby="range-slider"
+        />
+      </Box>
       <h2>Brand</h2>
       <TextField
         label="Search Brand"
         value={brandSearch}
-        onChange={handleBrandSearchChange}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => setBrandSearch(e.target.value)}
       />
+      {/* Display brands based on the search */}
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {filteredBrands.map((brand, index) => (
-          <div
-            key={index}
-            style={{
-              cursor: 'pointer',
-              padding: '8px',
-              border: '1px solid #ccc',
-              marginRight: '10px',
-              marginBottom: '10px',
-              backgroundColor:
-                selectedBrand === brand ? '#f0f0f0' : 'transparent',
-            }}
-            onClick={() => handleBrandClick(brand)}
-          >
-            {brand}
-          </div>
-        ))}
+        {brands
+          .filter((brand) => brand.toLowerCase().includes(brandSearch.toLowerCase()))
+          .map((brand, index) => (
+            <div
+              key={index}
+              style={{
+                cursor: 'pointer',
+                padding: '8px',
+                border: '1px solid #ccc',
+                marginRight: '10px',
+                marginBottom: '10px',
+                backgroundColor: selectedColors.includes(brand) ? '#f0f0f0' : 'transparent',
+              }}
+              onClick={() => handleColorSelection(brand)}
+            >
+              {brand}
+            </div>
+          ))}
       </div>
 
       <h2>Color</h2>
-
-      <h2>Sale</h2>
+      <div style={{ display: 'flex' }}>
+        {predefinedColors.map((color) => (
+          <div
+            key={color}
+            style={{
+              backgroundColor: color,
+              width: '30px',
+              height: '30px',
+              marginRight: '10px',
+              border: selectedColors.includes(color) ? '2px solid black' : 'none',
+            }}
+              onClick={() => handleColorSelection(color)}
+          />
+        ))}
+      </div>
+          
+      <h2 style={{ marginTop: '2rem' }}>Sale</h2>
+      <div style={{ display: 'flex' }}>
+        <button style={{ cursor:'pointer', color: 'red', border: 'none', backgroundColor: 'transparent'}}>Sale</button>
+      </div>
     </div>
   );
 };
