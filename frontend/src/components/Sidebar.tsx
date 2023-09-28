@@ -48,7 +48,8 @@ const Sidebar = () => {
   };
 
   return (
-    <div style={{ width: '20%', marginTop: '10rem' }}>
+    <div style={{ width: '20%', marginTop: '5rem' }}>
+      <h1>Filter</h1>
       <h2>Price</h2>
       <Box width="100%" px={2} style={{ display: 'flex', alignItems: 'center' }}>
         <Slider
