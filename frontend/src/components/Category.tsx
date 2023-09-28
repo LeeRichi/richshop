@@ -7,16 +7,11 @@ import { Link } from 'react-router-dom';
 
 const Category = () =>
 {
-//   const dispatch = useDispatch();
-
-    const products = useSelector((state: RootState) => state.products);
-    
-    console.log(products)
-
+  const products = useSelector((state: RootState) => state.products);
   const categories = Array.from(new Set(products.products.map((product: Product) => product.category)));
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '10px' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '10px', borderBottom: '1px solid #ccc' }}>
         {categories.map((category, index) => (
           <Typography variant="h6" key={index} style={{ margin: '15px' }}>
             <Link to={`/category/${category}`} style={{ color: 'inherit', textDecoration: 'none' }}>
@@ -24,7 +19,7 @@ const Category = () =>
             </Link>
           </Typography>
         ))}
-      </div>
+    </div>
   )
 }
 

@@ -33,19 +33,8 @@ const Home = () => {
     fetchProducts();
   }, []);
 
-  const categories = Array.from(new Set(products.products.map((product: Product) => product.category)));
-
   return (
     <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      {/* <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '10px' }}>
-        {categories.map((category, index) => (
-          <Typography variant="h6" key={index} style={{ margin: '15px' }}>
-            <Link to={`/category/${category}`} style={{ color: 'inherit', textDecoration: 'none' }}>
-              {category}
-            </Link>
-          </Typography>
-        ))}
-      </div> */}
       <Category />
       <div style={{ width: '100%', minHeight: '300px', backgroundColor: '#f5a623', marginBottom: '20px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', padding: '20px', borderRadius: '10px', marginTop: '10px', }}>
         <div style={{ flex: 1 }}>

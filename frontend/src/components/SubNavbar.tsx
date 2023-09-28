@@ -33,7 +33,7 @@ const SubNavbar = () => {
   }
 
   return (
-    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 20px', borderBottom: '1px solid #ccc' }}>
+    <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 20px' }}>
       <h1>{currentPage}</h1>
       <Button variant="outlined" onClick={handleSortClick} style={{marginRight: '5rem'}}
 >
