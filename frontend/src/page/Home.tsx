@@ -10,6 +10,7 @@ import { RootState } from '../app/rootReducer';
 import { setProducts } from '../features/product/productSlice';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Link } from 'react-router-dom';
+import Category from '../components/Category';
 
 const footwearBanner = require('../assets/footwearBanner.png');
 
@@ -36,7 +37,7 @@ const Home = () => {
 
   return (
     <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '10px' }}>
+      {/* <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '10px' }}>
         {categories.map((category, index) => (
           <Typography variant="h6" key={index} style={{ margin: '15px' }}>
             <Link to={`/category/${category}`} style={{ color: 'inherit', textDecoration: 'none' }}>
@@ -44,7 +45,8 @@ const Home = () => {
             </Link>
           </Typography>
         ))}
-      </div>
+      </div> */}
+      <Category />
       <div style={{ width: '100%', minHeight: '300px', backgroundColor: '#f5a623', marginBottom: '20px', display: 'flex', justifyContent: 'flex-start', alignItems: 'center', padding: '20px', borderRadius: '10px', marginTop: '10px', }}>
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: '24px', fontWeight: 'bold' }}>
@@ -65,9 +67,7 @@ const Home = () => {
       <Grid container spacing={2}>
         {products.products.map((product: any) => (
           <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
-            {/* <Link to={`/product/${product.id}`}> */}
               <ProductCard product={product} />
-            {/* </Link> */}
           </Grid>
         ))}
       </Grid>
