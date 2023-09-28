@@ -1,5 +1,16 @@
 import React, { useState, ChangeEvent } from 'react';
-import { Slider, Box, Typography, TextField, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import {
+  Slider,
+  Box,
+  Typography,
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  Input,
+  InputAdornment, // Add this import
+} from '@mui/material';
 
 type SelectChangeEvent = {
   target: {
@@ -19,88 +30,72 @@ const Sidebar = () => {
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
   const [selectedBrand, setSelectedBrand] = useState('');
   const [brandSearch, setBrandSearch] = useState('');
-
+  const brands = generateRandomBrands();
 
   const handlePriceChange = (event: Event, newValue: number | number[]) => {
     setPriceRange(newValue as [number, number]);
   };
 
-  const handleMinInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const minValue = parseFloat(event.target.value);
-    setPriceRange([minValue, priceRange[1]]);
+  const handleBrandSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setBrandSearch(event.target.value);
   };
-
-  const handleMaxInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const maxValue = parseFloat(event.target.value);
-    setPriceRange([priceRange[0], maxValue]);
-  };
-
-  const handleBrandChange = (event: SelectChangeEvent) => {
-    setSelectedBrand(event.target.value as string);
-  };
-
-  const brands = generateRandomBrands();
 
   const filteredBrands = brands.filter((brand) =>
     brand.toLowerCase().includes(brandSearch.toLowerCase())
   );
 
+  const handleBrandClick = (brand: string) => {
+    setSelectedBrand(brand);
+  };
+
   return (
-    <div>
+    <div style={{width:'20%'}}>
       <h2>Price</h2>
-      <Box width="20%" px={2}>
-        <Slider
-          value={priceRange}
-          onChange={handlePriceChange}
-          valueLabelDisplay="auto"
-          min={0}
-          max={100}
-          aria-labelledby="range-slider"
-        />
-      </Box>
-      <TextField
-        label="Min Price"
-        type="number"
-        value={priceRange[0]}
-        onChange={handleMinInputChange}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <TextField
-        label="Max Price"
-        type="number"
-        value={priceRange[1]}
-        onChange={handleMaxInputChange}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-    
+      <Box width="100%" px={2} style={{ display: 'flex', alignItems: 'center' }}>
+  <Slider
+    value={priceRange}
+    onChange={handlePriceChange}
+    valueLabelDisplay="auto"
+    valueLabelFormat={(value) => {
+      const isMin = value === priceRange[0];
+      return isMin ? `Min: $${value}` : `Max: $${value}`;
+    }}
+    min={0}
+    max={100}
+    aria-labelledby="range-slider"
+  />
+</Box>
+
+
       <h2>Brand</h2>
-      <FormControl style={{ minWidth: 120 }}>
-        {/* <InputLabel>Brand</InputLabel> */}
-        <Select
-          value={selectedBrand}
-          onChange={handleBrandChange}
-          onOpen={() => setBrandSearch('')} // Clear the search when the dropdown opens
-        >
-          <MenuItem value="">
-            <em>All Brands</em>
-          </MenuItem>
-          {filteredBrands.map((brand, index) => (
-            <MenuItem key={index} value={brand}>
-              {brand}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <TextField
+        label="Search Brand"
+        value={brandSearch}
+        onChange={handleBrandSearchChange}
+      />
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        {filteredBrands.map((brand, index) => (
+          <div
+            key={index}
+            style={{
+              cursor: 'pointer',
+              padding: '8px',
+              border: '1px solid #ccc',
+              marginRight: '10px',
+              marginBottom: '10px',
+              backgroundColor:
+                selectedBrand === brand ? '#f0f0f0' : 'transparent',
+            }}
+            onClick={() => handleBrandClick(brand)}
+          >
+            {brand}
+          </div>
+        ))}
+      </div>
 
       <h2>Color</h2>
-      {/* Add color selection UI elements */}
 
       <h2>Sale</h2>
-      {/* Add sale filtering UI elements */}
     </div>
   );
 };
