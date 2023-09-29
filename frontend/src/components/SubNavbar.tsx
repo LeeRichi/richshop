@@ -1,8 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, Menu, MenuItem } from '@mui/material';
 import { useLocation } from 'react-router-dom';
+import { Product } from '../interface/ProductInterface';
 
-const SubNavbar = () => {
+interface SubNavbarProps {
+  categoryProducts: Product[]; 
+  onSortProducts: (sortedProducts: Product[]) => void;
+}
+
+const SubNavbar: React.FC<SubNavbarProps> = ({ categoryProducts, onSortProducts }) => {
   const location = useLocation();
   const currentPageRef = useRef<string | null>(null);
   const [currentPage, setCurrentPage] = useState<string | null>(null);
@@ -24,8 +30,16 @@ const SubNavbar = () => {
   };
 
   const handleSortPrice = (order: string) => {
-    console.log('Sort prices', order);
-    setAnchorEl(null); // Close the dropdown after selecting an option
+    let sortedProducts: Product[] = [];
+
+    if (order === 'lowToHigh') {
+      sortedProducts = [...categoryProducts].sort((a, b) => a.price - b.price);
+    } else if (order === 'highToLow') {
+      sortedProducts = [...categoryProducts].sort((a, b) => b.price - a.price);
+    }
+    onSortProducts(sortedProducts);
+
+    setAnchorEl(null);
   };
 
   if (currentPage === null) {
@@ -34,9 +48,13 @@ const SubNavbar = () => {
 
   return (
     <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 20px' }}>
-      <h1>{currentPage}</h1>
-      <Button variant="outlined" onClick={handleSortClick} style={{marginRight: '5rem'}}
->
+      <h1>
+        {currentPage}
+        <span style={{ color: 'grey', fontSize: '18px' }}>&nbsp;&nbsp;
+          {categoryProducts.length} {categoryProducts.length === 1 ? 'product' : 'products'}
+        </span>
+      </h1>
+      <Button variant="outlined" onClick={handleSortClick} style={{marginRight: '5rem'}}>
         Sort Price
       </Button>
       <Menu

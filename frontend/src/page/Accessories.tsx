@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Sidebar from '../components/Sidebar';
 import SubNavbar from '../components/SubNavbar';
 import { useSelector } from 'react-redux';
@@ -6,20 +6,27 @@ import { selectProducts } from '../features/product/productSlice'; // Replace wi
 import { Container, Grid, Button, Typography } from '@mui/material';
 import ProductCard from '../components/ProductCard';
 import Category from '../components/Category'
+import { Product } from '../interface/ProductInterface';
+
 
 const Accessories = () => {
   const products = useSelector(selectProducts);
-
   const accessoriesProducts = products.filter(product => product.category === 'Accessories');
+
+  const [sortedProducts, setSortedProducts] = useState<Product[]>(accessoriesProducts);
+
+  const handleSortProducts = (sortedProducts: Product[]) => {
+    setSortedProducts(sortedProducts);
+  };
 
   return (
     <>
         <Category />
-        <SubNavbar />
+        <SubNavbar categoryProducts={accessoriesProducts} onSortProducts={handleSortProducts}/>
         <div style={{ display: 'flex' }}>
             <Sidebar />
             <Grid container spacing={2} style={{margin:'5rem'}}>
-                {accessoriesProducts.map((product: any) => (
+                {sortedProducts.map((product: any) => (
                     <Grid item key={product.id} xs={12} sm={6} md={4} lg={3} >
                         <ProductCard product={product} style={{ height: '400px', width: '300px'}} /> 
                     </Grid>
