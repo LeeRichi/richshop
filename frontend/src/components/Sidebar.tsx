@@ -27,14 +27,19 @@ const predefinedColors = [
   'gray',
 ];
 
-const Sidebar = () => {
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
+interface SidebarProps {
+  onPriceRangeChange: (priceRange: [number, number]) => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ onPriceRangeChange }) => {
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 300]);
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [brandSearch, setBrandSearch] = useState('');
   const brands = generateRandomBrands();
 
   const handlePriceChange = (event: Event, newValue: number | number[]) => {
     setPriceRange(newValue as [number, number]);
+    onPriceRangeChange(newValue as [number, number]);
   };
 
   const handleColorSelection = (color: string) => {
@@ -63,7 +68,7 @@ const Sidebar = () => {
             </Typography>
           )}
           min={0}
-          max={100}
+          max={300}
           aria-labelledby="range-slider"
         />
       </Box>

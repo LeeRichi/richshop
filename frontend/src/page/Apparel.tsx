@@ -14,9 +14,15 @@ const Apparel = () => {
   const apparelProducts = products.filter(product => product.category === 'Apparel');
 
   const [sortedProducts, setSortedProducts] = useState<Product[]>(apparelProducts);
+  const [selectedPriceRange, setSelectedPriceRange] = useState<[number, number]>([0, 300]);
+
 
   const handleSortProducts = (sortedProducts: Product[]) => {
     setSortedProducts(sortedProducts);
+  };
+
+  const handlePriceRangeChange = (priceRange: [number, number]) => {
+    setSelectedPriceRange(priceRange);
   };
 
   return (
@@ -24,7 +30,7 @@ const Apparel = () => {
         <Category />
         <SubNavbar categoryProducts={apparelProducts} onSortProducts={handleSortProducts}/>
         <div style={{ display: 'flex' }}>
-            <Sidebar />
+            <Sidebar onPriceRangeChange={handlePriceRangeChange} />
             <Grid container spacing={2} style={{margin:'5rem'}}>
                 {sortedProducts.map((product: any) => (
                     <Grid item key={product.id} xs={12} sm={6} md={4} lg={3} >
