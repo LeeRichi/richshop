@@ -7,11 +7,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import { addToFavorites, removeFromFavorites, selectFavorites } from '../features/favorite/favoriteSlice';
 import { addToCart } from '../features/cart/cartSlice';
-
 import FavoriteIcon from '@mui/icons-material/Favorite';
-
 import { setFavoriteCount } from '../features/favorite/favoriteSlice';
-
 
 const ProductDetail = () =>
 {
@@ -23,7 +20,6 @@ const ProductDetail = () =>
 
   const favorites = useSelector(selectFavorites);
   const isFavorite = favorites.some((favProduct) => favProduct.id === id);
-
 
   if (!id) {
     return <div>No product ID provided.</div>;

@@ -10,9 +10,6 @@ const Cart = () =>
     const dispatch = useDispatch();
     const cartItems = useSelector(selectCartItems);
 
-    // const newCartCount = cartItems.length;
-    // dispatch(setCartCount(newCartCount));
-
     return (
         <>
             <Category />
@@ -32,7 +29,6 @@ const Cart = () =>
                 )}
             </div>
         </>
-      
   );
 };
 

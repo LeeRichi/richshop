@@ -8,7 +8,6 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { updateProductQuantity } from '../features/cart/cartSlice';
 
-
 const CartItem: React.FC<{ item: Product }> = ({ item }) =>
 {
   const dispatch = useDispatch();
