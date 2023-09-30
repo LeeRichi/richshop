@@ -7,6 +7,7 @@ import Favorite from './page/Favorite'
 import Footwear from './page/Footwear'
 import Accessories from './page/Accessories'
 import Apparel from './page/Apparel'
+import Cart from '../src/page/Cart'
 
 import { useSelector } from 'react-redux';
 import { RootState } from '../src/app/rootReducer';
@@ -30,10 +31,9 @@ const App = () =>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path='/favorite' element={<Favorite />} />
+          <Route path='/cart' element={<Cart />} />
+          
 
-          {/* <Route path='/category/Footwear' element={<Footwear />} />
-          <Route path='/category/Accessories' element={<Accessories />} />
-          <Route path='/category/Apparel' element={<Apparel />} /> */}
           {categories.map(category => (
             <Route key={category} path={`/category/${category}`} element={<CategoryPage category={category} />} />
           ))}

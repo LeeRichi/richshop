@@ -6,6 +6,8 @@ import { Button, Typography, Grid, Divider } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import { addToFavorites, removeFromFavorites, selectFavorites } from '../features/favorite/favoriteSlice';
+import { addToCart } from '../features/cart/cartSlice';
+
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import { setFavoriteCount } from '../features/favorite/favoriteSlice';
@@ -38,6 +40,11 @@ const ProductDetail = () =>
     }
   };
 
+  const handleAddToCart = () =>
+  {
+    dispatch(addToCart(product))
+  }
+
   const newFavoriteCount = favorites.length;
   dispatch(setFavoriteCount(newFavoriteCount));
 
@@ -49,11 +56,9 @@ const ProductDetail = () =>
     <div style={{ padding: '20px' }}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          {/* Product Image */}
           <img src={product.images[0]} alt={product.title} style={{ width: '50%' }} />
         </Grid>
         <Grid item xs={12} md={6}>
-          {/* Product Details */}
           <Typography variant="h5" gutterBottom>
             {product.title}
           </Typography>
@@ -64,7 +69,7 @@ const ProductDetail = () =>
           <Typography variant="h6" gutterBottom>
             Price: ${product.price}
           </Typography>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={handleAddToCart}>
             Add to Cart
           </Button>
           <Button style={{ backgroundColor: 'white', color: 'black', marginTop: '-35px' }}>
