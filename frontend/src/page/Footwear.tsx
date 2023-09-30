@@ -27,7 +27,7 @@ const Footwear = () => {
   const handlePriceRangeChange = (priceRange: [number, number]) =>
   {
     setSelectedPriceRange(priceRange);
-    handleSortProducts(sortedProducts); // Call the sorting function when price range changes
+    handleSortProducts(sortedProducts); 
   };
 
   console.log(selectedPriceRange)

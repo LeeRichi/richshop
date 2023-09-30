@@ -65,7 +65,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onPriceRangeChange }) => {
 
   return (
     <div style={{ width: '20%', marginTop: '0rem' }}>
-      <Accordion>
+      <Accordion style={{border: 'none', boxShadow: 'none', }}>
         <AccordionSummary expandIcon={isFilterOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}>
           <h1>Filter</h1>
         </AccordionSummary>
@@ -95,7 +95,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onPriceRangeChange }) => {
           </Accordion>
 
           <Accordion>
-            <AccordionSummary>
+           <AccordionSummary expandIcon={isBrandOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}>
               <h2>Brand</h2>
             </AccordionSummary>
             <AccordionDetails>
@@ -128,7 +128,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onPriceRangeChange }) => {
           </Accordion>
 
           <Accordion>
-            <AccordionSummary>
+           <AccordionSummary expandIcon={isColorOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}>
               <h2>Color</h2>
             </AccordionSummary>
             <AccordionDetails>
@@ -151,7 +151,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onPriceRangeChange }) => {
           </Accordion>
 
           <Accordion>
-            <AccordionSummary>
+           <AccordionSummary expandIcon={isSaleOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}>
               <h2>Sale</h2>
             </AccordionSummary>
             <AccordionDetails>
