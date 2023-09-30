@@ -27,7 +27,7 @@ const Cart = () => {
     <>
       <Category />
       <div style={{ padding: '20px', marginLeft: '20rem', display: 'flex', marginRight: '20rem'}}>
-        <div style={{border: '1px solid black', width: '80%'}}>
+        <div style={{ width: '80%' }}>
             {cartItems.length === 0 ? (
                 <p>Your cart is empty.</p>
                 ) : (
@@ -38,27 +38,61 @@ const Cart = () => {
                 </div>
             )}
         </div>
-        <div style={{ border: '1px solid black', marginLeft: '10px', padding: '10px', width: '40%', }}>
+        <div style={{marginLeft: '50px', padding: '10px', width: '40%', }}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Typography variant="h4">Summary</Typography>
-              <Typography variant="body1">Subtotal: ${subtotal.toFixed(2)}</Typography>
-              <Typography variant="body1">Shipping: $10.00</Typography>
-              <Typography variant="h5">Order Total: ${orderTotal.toFixed(2)}</Typography>
-              <Button variant="contained" color="primary">
-                Checkout
-              </Button>
+            <Grid
+                item
+                xs={12}
+                style={{
+                    height: '200px',
+                    margin: '20px 0',
+                    border: '1px solid rgba(0, 0, 0, 0.1)',
+                    borderRadius: '8px',
+                    padding: '16px',
+                    background: 'rgba(200, 200, 200, 0.1)',
+                    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+                }}
+                >
+                <Typography variant="h4">Summary</Typography>
+                <Typography variant="body1">Subtotal: ${subtotal.toFixed(2)}</Typography>
+                <Typography variant="body1">Shipping: $10.00</Typography>
+                <Typography variant="h5">Order Total: ${orderTotal.toFixed(2)}</Typography>
+                <Button variant="contained" color="primary">
+                    Checkout
+                </Button>
             </Grid>
-
-            <Grid item xs={12}>
+            <Grid
+                item xs={12}
+                style={{
+                    height: '150px',
+                    margin: '20px 0',
+                    border: '1px solid rgba(0, 0, 0, 0.1)',
+                    borderRadius: '8px',
+                    padding: '16px',
+                    background: 'rgba(200, 200, 200, 0.1)',
+                    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+                }}>
               <Typography variant="h4">Promotion Code</Typography>
-              <TextField label="Enter code" variant="outlined" style={{ marginRight: '10px' }} />
-              <Button variant="contained" color="primary">
+              <TextField
+                label="Enter code"
+                variant="outlined"
+                style={{ marginRight: '10px', height: '40px' }} 
+                />
+                <Button
+                variant="contained"
+                color="primary"
+                style={{ height: '54px' }} 
+                >
                 Apply
-              </Button>
+                </Button>
             </Grid>
-
-            <Grid item xs={12}>
+            <Grid
+            item
+            xs={12}
+            style={{
+                height: '150px',
+                margin: '20px 0',
+            }}>
               <Typography variant="h4">Payment Methods</Typography>
               <Typography variant="body1">We accept Visa and Mastercard.</Typography>
             </Grid>
