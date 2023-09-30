@@ -1,23 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { Product } from '../interface/ProductInterface';
-import { useDispatch } from 'react-redux';
-import { deleteFromCart } from '../features/cart/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteFromCart, setCartCount, selectCartItems } from '../features/cart/cartSlice';
 import { Grid, Typography, Button, IconButton } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { updateProductQuantity } from '../features/cart/cartSlice';
 
-const CartItem: React.FC<{ item: Product }> = ({ item }) => {
+
+const CartItem: React.FC<{ item: Product }> = ({ item }) =>
+{
   const dispatch = useDispatch();
-    const [quantity, setQuantity] = useState(1);
+  const cartItems = useSelector(selectCartItems);
+
+  const [quantity, setQuantity] = useState(item.quantity || 1);
     
-    console.log(quantity)
+  useEffect(() => {
+    const totalQuantity = cartItems.reduce((total, cartItem) => total + (cartItem.quantity || 1), 0);
+    dispatch(setCartCount(totalQuantity));
+  }, [cartItems, dispatch]);
     
   const handleQuantityChange = (amount: number) => {
-    setQuantity(prevQuantity => {
-    const newQuantity = prevQuantity + amount;
-    return newQuantity > 0 ? newQuantity : prevQuantity;
-    });
+    const newQuantity = quantity + amount;
+    if (newQuantity > 0) {
+      setQuantity(newQuantity);
+      dispatch(updateProductQuantity({ productId: item.id, quantity: newQuantity })); // Dispatch action to update quantity
+    }
   };
 
   const handleDeleteFromCart = () => {
