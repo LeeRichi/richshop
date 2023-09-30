@@ -1,12 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectCartItems } from '../features/cart/cartSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectCartItems, setCartCount } from '../features/cart/cartSlice';
 import { Button } from '@mui/material';
 import CartItem from '../components/CartItem'; // You would need to create this component
 import Category from '../components/Category';
 
-const Cart = () => {
-  const cartItems = useSelector(selectCartItems);
+const Cart = () =>
+{
+    const dispatch = useDispatch();
+    const cartItems = useSelector(selectCartItems);
+
+    // const newCartCount = cartItems.length;
+    // dispatch(setCartCount(newCartCount));
 
     return (
         <>

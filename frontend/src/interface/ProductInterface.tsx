@@ -1,9 +1,10 @@
 export interface Product {
-  id: string; // assuming the id is a string, adjust this if it's a different type
+  id: string;
   title: string;
   description: string;
   price: number;
   category: string;
-  images: string[]; // assuming images is an array of strings (URLs)
+  images: string[]; 
   inventory: number;
+  quantity?: number;
 }

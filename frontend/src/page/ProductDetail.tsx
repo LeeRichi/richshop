@@ -24,6 +24,7 @@ const ProductDetail = () =>
   const favorites = useSelector(selectFavorites);
   const isFavorite = favorites.some((favProduct) => favProduct.id === id);
 
+
   if (!id) {
     return <div>No product ID provided.</div>;
   }

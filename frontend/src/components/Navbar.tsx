@@ -9,6 +9,7 @@ import { RootState } from '../app/rootReducer';
 
 function Navbar() {
   const favoriteCount = useSelector((state: RootState) => state.favorites.favoriteCount);
+  const cartCount = useSelector((state: RootState) => state.cart.cartCount);
 
   return (
     <AppBar position="static" style={{ backgroundColor: '#2d2d2d' }}>
@@ -36,7 +37,9 @@ function Navbar() {
             <AccountCircle />
           </IconButton>
           <IconButton color="inherit" component={Link} to="/cart">
-            <ShoppingCart />
+            <Badge badgeContent={cartCount} color="primary">
+              <ShoppingCart />
+            </Badge>
           </IconButton>
         </div>
       </Toolbar>
