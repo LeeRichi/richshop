@@ -32,21 +32,20 @@ const cartSlice = createSlice({
     //   state.cartCount += 1;
     // },
     addToCart: (state, action: PayloadAction<Product>) => {
-      const existingProduct = state.cartItems.find(item => item.id === action.payload.id);
+  const { id } = action.payload;
+  const existingProduct = state.cartItems.find(item => item.id === id);
 
-      if (existingProduct) {
-        if (existingProduct.quantity !== undefined) {
-          existingProduct.quantity += 1;
-        } else {
-          existingProduct.quantity = 1;
-        }
-      } else {
-        const productWithQuantity = { ...action.payload, quantity: 1 };
-        state.cartItems.push(productWithQuantity);
-      }
+  if (existingProduct) {
+    // If the product exists in the cart, increment its quantity
+    existingProduct.quantity = (existingProduct.quantity || 1) + 1;
+  } else {
+    // If the product is not in the cart, add it with a quantity of 1
+    const productWithQuantity = { ...action.payload, quantity: 1 };
+    state.cartItems.push(productWithQuantity);
+  }
 
-      state.cartCount += 1;
-    },
+  state.cartCount += 1; // Increment cartCount when an item is added
+},
     deleteFromCart: (state, action) => {
       const productIdToRemove = action.payload;
       state.cartItems = state.cartItems.filter(item => item.id !== productIdToRemove.id);

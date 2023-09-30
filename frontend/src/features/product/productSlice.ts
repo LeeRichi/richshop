@@ -3,7 +3,7 @@ import { Product } from '../../interface/ProductInterface';
 
 interface ProductState {
   products: Product[];
-  categories: string[]; // Add categories
+  categories: string[];
 
 }
 
@@ -18,7 +18,6 @@ const productSlice = createSlice({
   reducers: {
     setProducts: (state, action: PayloadAction<Product[]>) => {
       state.products = action.payload;
-
       state.categories = Array.from(new Set(action.payload.map(product => product.category)));
     },
   },

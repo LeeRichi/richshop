@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Product } from '../interface/ProductInterface';
 import { useDispatch } from 'react-redux';
 import { deleteFromCart } from '../features/cart/cartSlice';
@@ -9,13 +9,15 @@ import RemoveIcon from '@mui/icons-material/Remove';
 
 const CartItem: React.FC<{ item: Product }> = ({ item }) => {
   const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState(1);
-
+    const [quantity, setQuantity] = useState(1);
+    
+    console.log(quantity)
+    
   const handleQuantityChange = (amount: number) => {
-    const newQuantity = quantity + amount;
-    if (newQuantity > 0) {
-      setQuantity(newQuantity);
-    }
+    setQuantity(prevQuantity => {
+    const newQuantity = prevQuantity + amount;
+    return newQuantity > 0 ? newQuantity : prevQuantity;
+    });
   };
 
   const handleDeleteFromCart = () => {
