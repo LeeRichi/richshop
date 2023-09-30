@@ -34,18 +34,18 @@ const Footwear = () => {
 
   return (
     <>
-        <Category />
-        <SubNavbar categoryProducts={footwearProducts} onSortProducts={handleSortProducts}/>
-        <div style={{ display: 'flex' }}>
-            <Sidebar onPriceRangeChange={handlePriceRangeChange} />
-            <Grid container spacing={2} style={{margin:'5rem'}}>
-                {sortedProducts.map((product: any) => (
-                    <Grid item key={product.id} xs={12} sm={6} md={4} lg={3} >
-                        <ProductCard product={product} style={{ height: '400px', width: '300px'}} /> 
-                    </Grid>
-                ))}
+      <Category />
+      <SubNavbar categoryProducts={footwearProducts} onSortProducts={handleSortProducts}/>
+      <div style={{ display: 'flex'}}>
+        <Sidebar onPriceRangeChange={handlePriceRangeChange} />
+        <Grid container spacing={2} style={{ margin: '5rem', flexGrow: 1 }}>
+          {sortedProducts.map((product: any) => (
+            <Grid item key={product.id} xs={12} sm={6} md={4} lg={3} style={{ width: '100%', boxSizing: 'border-box' }}>
+              <ProductCard product={product} style={{ width: '100%' }} />
             </Grid>
-        </div>
+          ))}
+        </Grid>
+      </div>
     </>
   );
 };
