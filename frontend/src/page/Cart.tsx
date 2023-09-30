@@ -22,12 +22,17 @@ const Cart = () => {
 
   const subtotal = calculateSubtotal(cartItems);
   const orderTotal = calculateOrderTotal(cartItems);
+    
+  const handlePromotionButton = () =>
+  {
+    alert('Promotion code not found')
+  }
 
   return (
     <>
       <Category />
-      <div style={{ padding: '20px', marginLeft: '20rem', display: 'flex', marginRight: '20rem'}}>
-        <div style={{ width: '80%' }}>
+      <div style={{ padding: '20px', marginLeft: '10rem', display: 'flex', }}>
+        <div style={{ width: '60%' }}>
             {cartItems.length === 0 ? (
                 <p>Your cart is empty.</p>
                 ) : (
@@ -38,7 +43,7 @@ const Cart = () => {
                 </div>
             )}
         </div>
-        <div style={{marginLeft: '50px', padding: '10px', width: '40%', }}>
+        <div style={{marginLeft: '50px', padding: '10px', width: '60%', }}>
           <Grid container spacing={2}>
             <Grid
                 item
@@ -46,11 +51,11 @@ const Cart = () => {
                 style={{
                     height: '200px',
                     margin: '20px 0',
-                    border: '1px solid rgba(0, 0, 0, 0.1)',
-                    borderRadius: '8px',
-                    padding: '16px',
-                    background: 'rgba(200, 200, 200, 0.1)',
-                    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+                    // border: '1px solid rgba(0, 0, 0, 0.1)',
+                    // borderRadius: '8px',
+                    // padding: '16px',
+                    // background: 'rgba(200, 200, 200, 0.1)',
+                    // boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
                 }}
                 >
                 <Typography variant="h4">Summary</Typography>
@@ -66,22 +71,36 @@ const Cart = () => {
                 style={{
                     height: '150px',
                     margin: '20px 0',
-                    border: '1px solid rgba(0, 0, 0, 0.1)',
-                    borderRadius: '8px',
-                    padding: '16px',
-                    background: 'rgba(200, 200, 200, 0.1)',
-                    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+                    // border: '1px solid rgba(0, 0, 0, 0.1)',
+                    // borderRadius: '8px',
+                    // padding: '16px',
+                    // background: 'rgba(200, 200, 200, 0.1)',
+                    // boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
                 }}>
               <Typography variant="h4">Promotion Code</Typography>
               <TextField
                 label="Enter code"
                 variant="outlined"
-                style={{ marginRight: '10px', height: '40px' }} 
-                />
+                sx={{ mr: '10px', '& input': { height: 10 } }}
+              />
                 <Button
-                variant="contained"
-                color="primary"
-                style={{ height: '54px' }} 
+                    variant="contained"
+                    color="primary"
+                    onClick={handlePromotionButton}
+                    style={{
+                        height: '42px',
+                        backgroundColor: 'transparent',
+                        color: 'rgba(33, 150, 243, 1)',  
+                        border: '1px solid rgba(33, 150, 243, 1)', 
+                                        }}
+                        onMouseOver={(e) => {
+                            e.currentTarget.style.backgroundColor = 'rgba(33, 150, 243, 1)';
+                            e.currentTarget.style.color = 'white';
+                        }}
+                        onMouseOut={(e) => {
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                            e.currentTarget.style.color = 'rgba(33, 150, 243, 1)';
+                        }}
                 >
                 Apply
                 </Button>

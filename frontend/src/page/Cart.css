@@ -1,0 +1,30 @@
+.cart-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.cart-items {
+  width: 60%;
+}
+
+.cart-summary {
+  width: 40%;
+}
+
+.promotion-input {
+  margin-right: 10px;
+  height: 40px;
+}
+
+.apply-button {
+  height: 42px;
+  background-color: transparent;
+  color: rgba(33, 150, 243, 1);
+  border: 1px solid rgba(33, 150, 243, 1);
+}
+
+.apply-button:hover {
+  background-color: rgba(33, 150, 243, 1);
+  color: white;
+}
