@@ -14,6 +14,7 @@ import { RootState } from '../src/app/rootReducer';
 import { Product } from '../src/interface/ProductInterface';
 
 import CategoryPage from './page/CategoryPage';
+import LoginForm from './page/LoginForm';
 
 
 
@@ -32,6 +33,7 @@ const App = () =>
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path='/favorite' element={<Favorite />} />
           <Route path='/cart' element={<Cart />} />
+          <Route path='/auth' element={<LoginForm />} />
           
 
           {categories.map(category => (
