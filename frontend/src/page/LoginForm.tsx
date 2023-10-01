@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Container, Typography, TextField, Button } from "@mui/material";
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -7,13 +8,12 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
     try {
       const response = await axios.post(
-        'https://fullstackshop.azurewebsites.net/api/v1/auth',
+        'http://localhost:5052/api/v1/auth',
         {
-          email,
-          password,
+          email: email,
+          password: password,
         },
         {
           headers: {
@@ -21,37 +21,53 @@ const LoginForm = () => {
           },
         }
       );
-
       console.log('Login successful:', response.data);
-      // Handle successful login, redirect, etc.
     } catch (error) {
       console.error('Login failed:', error);
-      // Handle login failure, show error message, etc.
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
+    <Container maxWidth="sm" style={{marginTop:'10rem'}}>
+      <Typography variant="h4" align="center" gutterBottom>
+        Login
+      </Typography>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          label="Email"
+          fullWidth
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
+          margin="normal"
         />
-      </div>
-      <div>
-        <label htmlFor="password">Password:</label>
-        <input
+        <TextField
+          label="Password"
+          fullWidth
           type="password"
-          id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
+          margin="normal"
         />
-      </div>
-      <button type="submit" onClick={handleSubmit}>Login</button>
-    </form>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          fullWidth
+        >
+          Log In
+        </Button>
+      </form>
+      {/* <Typography variant="body1" align="center" gutterBottom>
+        {message}
+      </Typography>
+      {role && (
+        <Typography variant="body1" align="center">
+          Role: {role}
+        </Typography>
+      )} */}
+    </Container>
   );
 };
 
