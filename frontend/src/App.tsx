@@ -4,9 +4,6 @@ import Home from './page/Home'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import ProductDetail from './page/ProductDetail';
 import Favorite from './page/Favorite'
-import Footwear from './page/Footwear'
-import Accessories from './page/Accessories'
-import Apparel from './page/Apparel'
 import Cart from '../src/page/Cart'
 
 import { useSelector } from 'react-redux';

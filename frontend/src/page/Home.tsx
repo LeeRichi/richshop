@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Grid, Button, Typography } from '@mui/material';
 import axios from 'axios';
-import { BASE_API_URL } from '../constants';
+import { BASE_API_URL } from '../utils/constants';
 import ProductCard from '../components/ProductCard';
 import { Product } from '../interface/ProductInterface';
 import selectProducts from '../app/store';

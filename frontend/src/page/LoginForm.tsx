@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button } from "@mui/material";
-import { storeToken } from '../tokenStorage';
+import { storeToken } from '../utils/tokenStorage';
 import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
