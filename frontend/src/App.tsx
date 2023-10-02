@@ -12,7 +12,7 @@ import { Product } from '../src/interface/ProductInterface';
 
 import CategoryPage from './page/CategoryPage';
 import LoginForm from './page/LoginForm';
-import Dashboard from './page/Dashboard';
+import Dashboard from './page/Dashboard/Dashboard';
 
 
 const App = () =>
