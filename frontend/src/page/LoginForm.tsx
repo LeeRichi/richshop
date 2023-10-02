@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button } from "@mui/material";
+import { storeToken } from '../tokenStorage';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');  // State to hold the error message
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const response = await axios.post(
@@ -22,16 +26,25 @@ const LoginForm = () => {
         }
       );
       console.log('Login successful:', response.data);
+      const token = response.data;
+      storeToken(token);
+      navigate('/dashboard');
     } catch (error) {
       console.error('Login failed:', error);
+      setError('Login failed. Please check your credentials.'); // Set the error message
     }
   };
 
   return (
-    <Container maxWidth="sm" style={{marginTop:'10rem'}}>
+    <Container maxWidth="sm" style={{ marginTop: '10rem' }}>
       <Typography variant="h4" align="center" gutterBottom>
         Login
       </Typography>
+      {error && (
+        <Typography variant="body2" color="error" align="center" gutterBottom>
+          {error}
+        </Typography>
+      )}
       <form onSubmit={handleSubmit}>
         <TextField
           label="Email"
@@ -59,14 +72,6 @@ const LoginForm = () => {
           Log In
         </Button>
       </form>
-      {/* <Typography variant="body1" align="center" gutterBottom>
-        {message}
-      </Typography>
-      {role && (
-        <Typography variant="body1" align="center">
-          Role: {role}
-        </Typography>
-      )} */}
     </Container>
   );
 };
