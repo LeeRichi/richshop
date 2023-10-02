@@ -25,13 +25,14 @@ const LoginForm = () => {
           },
         }
       );
-      console.log('Login successful:', response.data);
+        console.log('Login successful:', response.data);
+        console.log(response)
       const token = response.data;
       storeToken(token);
       navigate('/dashboard');
     } catch (error) {
       console.error('Login failed:', error);
-      setError('Login failed. Please check your credentials.'); // Set the error message
+      setError('Login failed. Please check your credentials.');
     }
   };
 

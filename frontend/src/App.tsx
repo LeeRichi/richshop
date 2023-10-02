@@ -18,8 +18,6 @@ import LoginForm from './page/LoginForm';
 import Dashboard from './page/Dashboard';
 
 
-
-
 const App = () =>
 {
   const products = useSelector((state: RootState) => state.products);
