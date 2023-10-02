@@ -25,8 +25,8 @@ const LoginForm = () => {
           },
         }
       );
-        console.log('Login successful:', response.data);
-        console.log(response)
+      console.log('Login successful:', response.data);
+      console.log(response)
       const token = response.data;
       storeToken(token);
       navigate('/dashboard');

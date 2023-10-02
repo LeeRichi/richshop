@@ -4,7 +4,6 @@ import { Product } from '../../interface/ProductInterface';
 interface ProductState {
   products: Product[];
   categories: string[];
-
 }
 
 const initialState: ProductState = {
@@ -22,9 +21,9 @@ const productSlice = createSlice({
     },
   },
 });
+
 export const { setProducts } = productSlice.actions;
 export const selectProducts = (state: { products: ProductState }): Product[] => state.products.products;
 export const selectCategories = (state: { products: ProductState }) => state.products.categories;
-
 
 export default productSlice.reducer;
