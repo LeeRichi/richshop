@@ -37,7 +37,6 @@ function Navbar()
     localStorage.removeItem('token');
   };
 
-
   return (
     <AppBar position="static" style={{ backgroundColor: '#2d2d2d' }}>
       <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -60,47 +59,51 @@ function Navbar()
               <FavoriteBorderIcon />
             </Badge>
           </IconButton>
-          <IconButton color="inherit" onClick={handleMenuClick}>
-            {userAvatar ? (
-              <img
-                src={userAvatar.avatar}
-                alt="User Avatar"
-                width="32px"
-                style={{ borderRadius: '50%' }}
-              />
-            ) : (
+          {userAvatar ? (
+            <div>
+              <IconButton color="inherit" onClick={handleMenuClick}>
+                <img
+                  src={userAvatar.avatar}
+                  alt="User Avatar"
+                  width="32px"
+                  style={{ borderRadius: '50%' }}
+                />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+              >
+                <MenuItem
+                  component={Link}
+                  to="/dashboard"
+                  onClick={handleMenuClose}
+                >
+                  Dashboard
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    handleLogout();
+                    handleMenuClose();
+                  }}
+                >
+                  Logout
+                </MenuItem>
+              </Menu>
+            </div>
+          ) : (
+            <IconButton color="inherit" component={Link} to="/auth">
               <AccountCircle style={{ fontSize: '32px' }} />
-            )}
-          </IconButton>
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-          >
-            <MenuItem
-              component={Link}
-              to="/dashboard"
-              onClick={handleMenuClose}
-            >
-              Dashboard
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                handleLogout();
-                handleMenuClose();
-              }}
-            >
-              Logout
-            </MenuItem>
-          </Menu>
+            </IconButton>
+          )}
           <IconButton color="inherit" component={Link} to="/cart">
             <Badge badgeContent={cartCount} color="primary">
               <ShoppingCart />
