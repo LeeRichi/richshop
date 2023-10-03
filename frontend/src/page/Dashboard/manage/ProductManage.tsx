@@ -15,6 +15,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  TextField,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -42,7 +43,7 @@ const ProductManage = () =>
       title: 'New Product',
       description: 'string',
       price: 0,
-      category: 'string',
+      category: 'Footwear',
       images: [],
       inventory: 0,
     };
@@ -51,9 +52,13 @@ const ProductManage = () =>
     handleCloseDialog();
     console.log('Adding product:', newProduct);
   };
-  const handleInputChange = (property, value) => {
-    setNewProduct({ ...newProduct, [property]: value });
+  const handleInputChange = (property: string, value: string | number | string[]) => {
+    setNewProduct({
+      ...newProduct,
+      [property]: Array.isArray(value) ? [...value] : value,
+    });
   };
+
 
 
   const onHandleDelete = (productId?: string) => {
@@ -82,55 +87,55 @@ const ProductManage = () =>
         <DialogTitle>Add a New Product</DialogTitle>
         <DialogContent>
           <form>
-          <div>
-            <label>Title:</label>
-            <input
+            <TextField
+              label="Title"
               type="text"
               value={newProduct.title}
               onChange={(e) => handleInputChange('title', e.target.value)}
+              fullWidth
+              margin="normal"
             />
-          </div>
-          <div>
-            <label>Description:</label>
-            <input
+            <TextField
+              label="Description"
               type="text"
               value={newProduct.description}
               onChange={(e) => handleInputChange('description', e.target.value)}
+              fullWidth
+              margin="normal"
             />
-          </div>
-          <div>
-            <label>Price:</label>
-            <input
+            <TextField
+              label="Price"
               type="number"
               value={newProduct.price}
               onChange={(e) => handleInputChange('price', parseFloat(e.target.value))}
+              fullWidth
+              margin="normal"
             />
-          </div>
-          <div>
-            <label>Category:</label>
-            <input
+            <TextField
+              label="Category"
               type="text"
               value={newProduct.category}
               onChange={(e) => handleInputChange('category', e.target.value)}
+              fullWidth
+              margin="normal"
             />
-          </div>
-          <div>
-            <label>Image URL:</label>
-            <input
+            <TextField
+              label="Image URL"
               type="text"
               value={newProduct.images[0]}
               onChange={(e) => handleInputChange('images', [e.target.value])}
+              fullWidth
+              margin="normal"
             />
-          </div>
-          <div>
-            <label>Inventory:</label>
-            <input
+            <TextField
+              label="Inventory"
               type="number"
               value={newProduct.inventory}
               onChange={(e) => handleInputChange('inventory', parseFloat(e.target.value))}
+              fullWidth
+              margin="normal"
             />
-          </div>
-        </form>
+          </form>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog} color="primary">
