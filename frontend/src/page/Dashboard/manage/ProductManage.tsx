@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Container,
@@ -16,21 +16,28 @@ import {
   DialogContent,
   DialogActions,
   TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem, 
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { Product } from '../../../interface/ProductInterface';
 import { RootState } from '../../../app/rootReducer';
 import { deleteProduct, postProduct } from '../../../utils/api/ProductsApi';
+import {setProducts} from '../../../features/product/productSlice'
+
 
 const ProductManage = () =>
 {
+  const dispatch = useDispatch();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [newProduct, setNewProduct] = useState({
     title: '',
     description: '',
     price: 0,
-    category: 'Footwear',
+    category: '',
     images: [''],
     inventory: 0,
   });
@@ -40,18 +47,19 @@ const ProductManage = () =>
   const onHandleAdd = () =>
   {
     const newProductData: Product = {
-      title: 'New Product',
-      description: 'string',
-      price: 0,
-      category: 'Footwear',
-      images: [],
-      inventory: 0,
+      title: newProduct.title,
+      description: newProduct.description,
+      price: newProduct.price,
+      category: newProduct.category,
+      images: newProduct.images,
+      inventory: newProduct.inventory,
     };
 
     postProduct(newProductData);
     handleCloseDialog();
     console.log('Adding product:', newProduct);
   };
+
   const handleInputChange = (property: string, value: string | number | string[]) => {
     setNewProduct({
       ...newProduct,
@@ -59,11 +67,16 @@ const ProductManage = () =>
     });
   };
 
-
-
   const onHandleDelete = (productId?: string) => {
     if (productId) {
+      const confirmDelete = window.confirm('Are you sure you want to delete this product?');
+      if (confirmDelete) {
         deleteProduct(productId);
+        const deletedProduct = products.products.find(product => product.id === productId);
+        if (deletedProduct) {
+          alert(`Product "${deletedProduct.title}" (ID: ${deletedProduct.id}) has been deleted.`);
+        }
+      }
     }
   };
 
@@ -111,14 +124,20 @@ const ProductManage = () =>
               fullWidth
               margin="normal"
             />
-            <TextField
-              label="Category"
-              type="text"
-              value={newProduct.category}
-              onChange={(e) => handleInputChange('category', e.target.value)}
-              fullWidth
-              margin="normal"
-            />
+            <FormControl fullWidth margin="normal">
+              <InputLabel id="category-label">Category</InputLabel>
+              <Select
+                labelId="category-label"
+                id="category"
+                value={newProduct.category}
+                onChange={(e) => handleInputChange('category', e.target.value)}
+                label="Category"
+              >
+                <MenuItem value="Footwear">Footwear</MenuItem>
+                <MenuItem value="Apparel">Apparel</MenuItem>
+                <MenuItem value="Accessories">Accessories</MenuItem>
+              </Select>
+            </FormControl>
             <TextField
               label="Image URL"
               type="text"
