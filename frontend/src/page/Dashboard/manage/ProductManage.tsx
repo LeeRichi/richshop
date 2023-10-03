@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 import {
   Container,
   Typography,
@@ -19,59 +18,107 @@ import {
   FormControl,
   InputLabel,
   Select,
-  MenuItem, 
+  MenuItem,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+
+import { useSelector, useDispatch } from 'react-redux';
+
 import { Product } from '../../../interface/ProductInterface';
 import { RootState } from '../../../app/rootReducer';
-import { deleteProduct, postProduct } from '../../../utils/api/ProductsApi';
-import {setProducts} from '../../../features/product/productSlice'
+import { deleteProduct, postProduct, editProduct } from '../../../utils/api/ProductsApi';
+import { setProducts } from '../../../features/product/productSlice';
 
-const ProductManage = () =>
-{
+const ProductManage = () => {
   const dispatch = useDispatch();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingProductId, setEditingProductId] = useState('');
+  const [editedProduct, setEditedProduct] = useState({
+    title: '',
+    description: '',
+    price: 0,
+    category: 'Footwear',
+    images: [''],
+    inventory: 0,
+  });
+
   const [newProduct, setNewProduct] = useState({
     title: '',
     description: '',
     price: 0,
-    category: '',
+    category: 'Footwear',
     images: [''],
     inventory: 0,
   });
 
   const products = useSelector((state: RootState) => state.products);
-  
-  const onHandleAdd = () =>
-  {
-    const newProductData: Product = {
-      title: newProduct.title,
-      description: newProduct.description,
-      price: newProduct.price,
-      category: newProduct.category,
-      images: newProduct.images,
-      inventory: newProduct.inventory,
+
+  const handleOpenDialog = (isEditing: boolean, productId?: string) => {
+    setIsDialogOpen(true);
+    setIsEditing(isEditing);
+    if (isEditing && productId) {
+      setEditingProductId(productId);
+      const productToEdit = products.products.find(product => product.id === productId);
+      if (productToEdit) {
+        setEditedProduct(productToEdit);
+      }
+    }
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+    setIsEditing(false);
+    setEditingProductId('');
+    setEditedProduct({
+      title: '',
+      description: '',
+      price: 0,
+      category: 'Footwear',
+      images: [''],
+      inventory: 0,
+    });
+  };
+
+  const onHandleAddOrUpdate = () => {
+    const productData = {
+      title: editedProduct.title,
+      description: editedProduct.description,
+      price: editedProduct.price,
+      category: editedProduct.category,
+      images: [editedProduct.images[0]],
+      inventory: editedProduct.inventory,
     };
 
-    postProduct(newProductData).then((response) => {
-      dispatch(setProducts([...products.products, response]));
-      handleCloseDialog();
-      setNewProduct({
-        title: '',
-        description: '',
-        price: 0,
-        category: '',
-        images: [''],
-        inventory: 0,
+    if (isEditing && editingProductId) {
+      editProduct(editingProductId, productData).then(() => {
+        const updatedProducts = products.products.map((product) =>
+          product.id === editingProductId ? { ...product, ...productData } : product
+        );
+        dispatch(setProducts(updatedProducts));
+        setIsEditing(false);
+        handleCloseDialog();
       });
+    } else {
+      postProduct(productData).then((response) => {
+        dispatch(setProducts([...products.products, response]));
+        handleCloseDialog();
+      });
+    }
+    setEditedProduct({
+      title: '',
+      description: '',
+      price: 0,
+      category: 'Footwear',
+      images: [''],
+      inventory: 0,
     });
-    console.log('Adding product:', newProduct);
   };
 
   const handleInputChange = (property: string, value: string | number | string[]) => {
-    setNewProduct({
-      ...newProduct,
+    setEditedProduct({
+      ...editedProduct,
       [property]: Array.isArray(value) ? [...value] : value,
     });
   };
@@ -81,8 +128,8 @@ const ProductManage = () =>
       const confirmDelete = window.confirm('Are you sure you want to delete this product?');
       if (confirmDelete) {
         deleteProduct(productId);
-        const deletedProduct = products.products.find(product => product.id === productId);
-        const updatedProducts = products.products.filter(product => product.id !== productId);
+        const deletedProduct = products.products.find((product) => product.id === productId);
+        const updatedProducts = products.products.filter((product) => product.id !== productId);
         dispatch(setProducts(updatedProducts));
         if (deletedProduct) {
           alert(`Product "${deletedProduct.title}" (ID: ${deletedProduct.id}) has been deleted.`);
@@ -91,30 +138,38 @@ const ProductManage = () =>
     }
   };
 
-  const handleOpenDialog = () => {
-    setIsDialogOpen(true);
-  };
-
-  const handleCloseDialog = () => {
-    setIsDialogOpen(false);
-  };
-
   return (
     <Container maxWidth="md" sx={{ marginTop: '3rem' }}>
       <Typography variant="h4" align="center" gutterBottom>
         Product List
       </Typography>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Button onClick={handleOpenDialog}>Add Product</Button>
+        <Button onClick={() => handleOpenDialog(false)}>Add Product</Button>
       </Box>
+      <List>
+        {products.products.map((product) => (
+          <ListItem key={product.id} sx={{ marginBottom: '1rem' }}>
+            <ListItemAvatar>
+              <Avatar alt={product.title} src={product.images[0]} />
+            </ListItemAvatar>
+            <ListItemText primary={product.title} secondary={`ID: ${product.id}`} />
+            <IconButton color="primary">
+              <EditIcon onClick={() => product.id && handleOpenDialog(true, product.id)} />
+            </IconButton>
+            <IconButton color="secondary" onClick={() => onHandleDelete(product.id)}>
+              <DeleteOutlineIcon />
+            </IconButton>
+          </ListItem>
+        ))}
+      </List>
       <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
-        <DialogTitle>Add a New Product</DialogTitle>
+        <DialogTitle>{isEditing ? 'Edit Product' : 'Add a New Product'}</DialogTitle>
         <DialogContent>
           <form>
             <TextField
               label="Title"
               type="text"
-              value={newProduct.title}
+              value={editedProduct.title}
               onChange={(e) => handleInputChange('title', e.target.value)}
               fullWidth
               margin="normal"
@@ -122,7 +177,7 @@ const ProductManage = () =>
             <TextField
               label="Description"
               type="text"
-              value={newProduct.description}
+              value={editedProduct.description}
               onChange={(e) => handleInputChange('description', e.target.value)}
               fullWidth
               margin="normal"
@@ -130,7 +185,7 @@ const ProductManage = () =>
             <TextField
               label="Price"
               type="number"
-              value={newProduct.price}
+              value={editedProduct.price}
               onChange={(e) => handleInputChange('price', parseFloat(e.target.value))}
               fullWidth
               margin="normal"
@@ -140,7 +195,7 @@ const ProductManage = () =>
               <Select
                 labelId="category-label"
                 id="category"
-                value={newProduct.category}
+                value={editedProduct.category}
                 onChange={(e) => handleInputChange('category', e.target.value)}
                 label="Category"
               >
@@ -152,7 +207,7 @@ const ProductManage = () =>
             <TextField
               label="Image URL"
               type="text"
-              value={newProduct.images[0]}
+              value={editedProduct.images[0]}
               onChange={(e) => handleInputChange('images', [e.target.value])}
               fullWidth
               margin="normal"
@@ -160,7 +215,7 @@ const ProductManage = () =>
             <TextField
               label="Inventory"
               type="number"
-              value={newProduct.inventory}
+              value={editedProduct.inventory}
               onChange={(e) => handleInputChange('inventory', parseFloat(e.target.value))}
               fullWidth
               margin="normal"
@@ -171,33 +226,11 @@ const ProductManage = () =>
           <Button onClick={handleCloseDialog} color="primary">
             Cancel
           </Button>
-          <Button onClick={onHandleAdd} color="primary">
-            Add
+          <Button onClick={onHandleAddOrUpdate} color="primary">
+            {isEditing ? 'Update' : 'Add'}
           </Button>
         </DialogActions>
       </Dialog>
-      <List>
-        {products.products.map((product) => (
-          <ListItem key={product.id} sx={{ marginBottom: '1rem' }}>
-            <ListItemAvatar>
-              <Avatar alt={product.title} src={product.images[0]} />
-            </ListItemAvatar>
-            <ListItemText
-              primary={product.title}
-              secondary={`ID: ${product.id}`}
-            />
-            <IconButton color="primary">
-              <EditIcon />
-            </IconButton>
-            <IconButton
-              color="secondary"
-              onClick={() => onHandleDelete(product.id)}
-            >
-              <DeleteOutlineIcon />
-            </IconButton>
-          </ListItem>
-        ))}
-      </List>
     </Container>
   );
 };
