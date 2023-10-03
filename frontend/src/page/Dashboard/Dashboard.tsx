@@ -8,7 +8,7 @@ import getUserDetails from '../../utils/getUserDetails'; //API call
 import UserDetails from '../../interface/UserDetails';
 import DashboardAdmin from './DashboardAdmin';
 import DashboardUser from './DashboardUser';
-import { updateUserDetails, updateUserDetailsFailure } from '../../features/user/UserSlice';
+import { updateUserDetails } from '../../features/user/userSlice';
 import { useDispatch } from 'react-redux';
 
 const Dashboard = () => {
@@ -23,7 +23,7 @@ const Dashboard = () => {
         try {
           const userDetails = await getUserDetails(token);
           dispatch(updateUserDetails(userDetails)); // Dispatch action with fetched data
-          console.log(userDetails);
+          console.log(userDetails.role);
         } catch (error) {
           console.error('Error fetching user details:', error);
         } finally {
@@ -34,6 +34,8 @@ const Dashboard = () => {
 
     fetchUserDetails();
   }, [token]);
+
+  console.log(userDetails)
 
   return (
     <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "5rem" }}>
