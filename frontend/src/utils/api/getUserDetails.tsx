@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {BASE_API_URL} from './constants'
+import {BASE_API_URL} from '../constants'
     
 const getUserDetails = async (token: string | null | undefined) => {
   if (!token) {

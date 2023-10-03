@@ -19,18 +19,16 @@ import { RootState } from '../../../app/rootReducer';
 const ProductManage = () => {
   const products = useSelector((state: RootState) => state.products);
 
-  console.log(products)
-
   return (
     <Container maxWidth="md" sx={{ marginTop: '3rem' }}>
       <Typography variant="h4" align="center" gutterBottom>
         Product List
       </Typography>
       <List>
-        {/* {products.map((product) => (
+        {products.products.map((product) => (
           <ListItem key={product.id} sx={{ marginBottom: '1rem' }}>
             <ListItemAvatar>
-              <Avatar alt={product.title} src={product.image} />
+              <Avatar alt={product.title} src={product.images[0]} />
             </ListItemAvatar>
             <ListItemText
               primary={product.title}
@@ -43,7 +41,7 @@ const ProductManage = () => {
               <DeleteOutlineIcon />
             </IconButton>
           </ListItem>
-        ))} */}
+        ))}
       </List>
     </Container>
   );

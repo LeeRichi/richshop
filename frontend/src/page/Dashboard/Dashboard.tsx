@@ -4,7 +4,7 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import getUserDetails from '../../utils/getUserDetails'; //API call
+import getUserDetails from '../../utils/api/getUserDetails'; //API call
 import UserDetails from '../../interface/UserDetails';
 import DashboardAdmin from './DashboardAdmin';
 import DashboardUser from './DashboardUser';
