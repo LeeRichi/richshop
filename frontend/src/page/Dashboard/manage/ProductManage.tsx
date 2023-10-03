@@ -29,6 +29,7 @@ import { Product } from '../../../interface/ProductInterface';
 import { RootState } from '../../../app/rootReducer';
 import { deleteProduct, postProduct, editProduct } from '../../../utils/api/ProductsApi';
 import { setProducts } from '../../../features/product/productSlice';
+import { Link } from 'react-router-dom';
 
 const ProductManage = () => {
   const dispatch = useDispatch();
@@ -148,7 +149,7 @@ const ProductManage = () => {
       </Box>
       <List>
         {products.products.map((product) => (
-          <ListItem key={product.id} sx={{ marginBottom: '1rem' }}>
+          <ListItem key={product.id} sx={{ marginBottom: '1rem' }} component={Link} to={`/product/${product.id}`}>
             <ListItemAvatar>
               <Avatar alt={product.title} src={product.images[0]} />
             </ListItemAvatar>
