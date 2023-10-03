@@ -4,22 +4,25 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import getUserDetails from '../../utils/getUserDetails';
+import getUserDetails from '../../utils/getUserDetails'; //API call
 import UserDetails from '../../interface/UserDetails';
 import DashboardAdmin from './DashboardAdmin';
 import DashboardUser from './DashboardUser';
+import { updateUserDetails, updateUserDetailsFailure } from '../../features/user/UserSlice';
+import { useDispatch } from 'react-redux';
 
 const Dashboard = () => {
   const token: string | null | undefined = getToken();
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchUserDetails = async () => {
       if (token) {
         try {
           const userDetails = await getUserDetails(token);
-          setUserDetails(userDetails);
+          dispatch(updateUserDetails(userDetails)); // Dispatch action with fetched data
           console.log(userDetails);
         } catch (error) {
           console.error('Error fetching user details:', error);
