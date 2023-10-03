@@ -61,45 +61,44 @@ function Navbar()
           </IconButton>
           {userAvatar ? (
             <>
-            
-            <IconButton color="inherit" onClick={handleMenuClick}>
-              <img
-                src={userAvatar.avatar}
-                alt="User Avatar"
-                width="32px"
-                style={{ borderRadius: '50%' }}
-              />
-            </IconButton>
-            <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleMenuClose}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-              >
-                <MenuItem
-                  component={Link}
-                  to="/dashboard"
-                  onClick={handleMenuClose}
-                >
-                  Dashboard
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    handleLogout();
-                    handleMenuClose();
+              <IconButton color="inherit" onClick={handleMenuClick}>
+                <img
+                  src={userAvatar.avatar}
+                  alt="User Avatar"
+                  width="32px"
+                  style={{ borderRadius: '50%' }}
+                />
+              </IconButton>
+              <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleMenuClose}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
                   }}
                 >
-                  Logout
-                </MenuItem>
-              </Menu>
-</>
+                  <MenuItem
+                    component={Link}
+                    to="/dashboard"
+                    onClick={handleMenuClose}
+                  >
+                    Dashboard
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      handleLogout();
+                      handleMenuClose();
+                    }}
+                  >
+                    Logout
+                  </MenuItem>
+                </Menu>
+            </>
           ) : (
             <IconButton color="inherit" component={Link} to="/auth">
               <AccountCircle style={{ fontSize: '32px' }} />

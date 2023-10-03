@@ -24,7 +24,7 @@ const DashboardAdmin: React.FC<DashboardAdminProps> = ({ userDetails }) => {
         <IconButton
             color="primary"
             sx={{ borderRadius: 8, marginBottom: "1rem" }}
-            component={Link} to="/products"
+            component={Link} to="/product-manage"
         >
             <EditIcon fontSize="large" />
             <Typography variant="h5" align="center" gutterBottom>
