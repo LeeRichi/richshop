@@ -60,16 +60,17 @@ function Navbar()
             </Badge>
           </IconButton>
           {userAvatar ? (
-            <div>
-              <IconButton color="inherit" onClick={handleMenuClick}>
-                <img
-                  src={userAvatar.avatar}
-                  alt="User Avatar"
-                  width="32px"
-                  style={{ borderRadius: '50%' }}
-                />
-              </IconButton>
-              <Menu
+            <>
+            
+            <IconButton color="inherit" onClick={handleMenuClick}>
+              <img
+                src={userAvatar.avatar}
+                alt="User Avatar"
+                width="32px"
+                style={{ borderRadius: '50%' }}
+              />
+            </IconButton>
+            <Menu
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
@@ -98,7 +99,7 @@ function Navbar()
                   Logout
                 </MenuItem>
               </Menu>
-            </div>
+</>
           ) : (
             <IconButton color="inherit" component={Link} to="/auth">
               <AccountCircle style={{ fontSize: '32px' }} />
