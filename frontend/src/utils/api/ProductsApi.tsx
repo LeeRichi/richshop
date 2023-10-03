@@ -35,8 +35,12 @@ export const postProduct = async (product: Product) =>
 };
 
 export const editProduct = async (productId: string, updatedProductData: Partial<Product>) => {
-  const response = await axios.patch(`${BASE_API_URL}/products/${productId}`, updatedProductData);
-  return response.data;
+  try {
+        const response = await axios.patch(`${BASE_API_URL}/products/${productId}`, updatedProductData);
+        console.log('Response:', response);
+    } catch (error) {
+        console.error('Error:', error);
+    }
 };
 
 export const deleteProduct = async (productId: string) => {
