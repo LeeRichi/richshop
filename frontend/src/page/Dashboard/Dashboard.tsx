@@ -9,13 +9,14 @@ import UserDetails from '../../interface/UserDetails';
 import DashboardAdmin from './DashboardAdmin';
 import DashboardUser from './DashboardUser';
 import { updateUserDetails } from '../../features/user/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../app/rootReducer';
 
 const Dashboard = () => {
   const token: string | null | undefined = getToken();
-  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
+  const userDetails = useSelector((state: RootState) => state.user.userDetails);
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -34,8 +35,6 @@ const Dashboard = () => {
 
     fetchUserDetails();
   }, [token]);
-
-  console.log(userDetails)
 
   return (
     <Container maxWidth="md" sx={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "5rem" }}>
