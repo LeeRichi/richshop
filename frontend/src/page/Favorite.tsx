@@ -14,10 +14,12 @@ const ProductDetail = () => {
   const isFavorite = (product: Product) => favorites.some((favProduct) => favProduct.id === product.id);
 
   const handleToggleFavorite = (product: Product) => {
-    if (isFavorite(product)) {
-      dispatch(removeFromFavorites(product.id));
-    } else {
-      dispatch(addToFavorites(product));
+    if (product.id) {
+      if (isFavorite(product)) {
+        dispatch(removeFromFavorites(product.id));
+      } else {
+        dispatch(addToFavorites(product));
+      }
     }
   };
 

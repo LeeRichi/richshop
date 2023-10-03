@@ -24,7 +24,9 @@ const CartItem: React.FC<{ item: Product }> = ({ item }) =>
     const newQuantity = quantity + amount;
     if (newQuantity > 0) {
       setQuantity(newQuantity);
-      dispatch(updateProductQuantity({ productId: item.id, quantity: newQuantity })); // Dispatch action to update quantity
+      if (item.id) {
+            dispatch(updateProductQuantity({ productId: item.id, quantity: newQuantity }));
+      }
     }
   };
 

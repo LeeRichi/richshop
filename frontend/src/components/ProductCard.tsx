@@ -20,11 +20,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, style }) => {
   const isFavorite = favorites.some((favProduct) => favProduct.id === product.id);
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
-    if (isFavorite) {
-      dispatch(removeFromFavorites(product.id));
-    } else {
-      dispatch(addToFavorites(product));
-      console.log('fired')
+    if (product.id) {
+      if (isFavorite) {
+        dispatch(removeFromFavorites(product.id));
+      } else {
+        dispatch(addToFavorites(product));
+        console.log('fired');
+      }
     }
   };
   
