@@ -28,7 +28,6 @@ import { RootState } from '../../../app/rootReducer';
 import { deleteProduct, postProduct } from '../../../utils/api/ProductsApi';
 import {setProducts} from '../../../features/product/productSlice'
 
-
 const ProductManage = () =>
 {
   const dispatch = useDispatch();
@@ -43,7 +42,7 @@ const ProductManage = () =>
   });
 
   const products = useSelector((state: RootState) => state.products);
-
+  
   const onHandleAdd = () =>
   {
     const newProductData: Product = {
@@ -55,8 +54,18 @@ const ProductManage = () =>
       inventory: newProduct.inventory,
     };
 
-    postProduct(newProductData);
-    handleCloseDialog();
+    postProduct(newProductData).then((response) => {
+      dispatch(setProducts([...products.products, response]));
+      handleCloseDialog();
+      setNewProduct({
+        title: '',
+        description: '',
+        price: 0,
+        category: '',
+        images: [''],
+        inventory: 0,
+      });
+    });
     console.log('Adding product:', newProduct);
   };
 
@@ -73,6 +82,8 @@ const ProductManage = () =>
       if (confirmDelete) {
         deleteProduct(productId);
         const deletedProduct = products.products.find(product => product.id === productId);
+        const updatedProducts = products.products.filter(product => product.id !== productId);
+        dispatch(setProducts(updatedProducts));
         if (deletedProduct) {
           alert(`Product "${deletedProduct.title}" (ID: ${deletedProduct.id}) has been deleted.`);
         }
