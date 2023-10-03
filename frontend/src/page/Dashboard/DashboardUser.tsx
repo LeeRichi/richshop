@@ -18,7 +18,7 @@ const DashboardUser: React.FC<DashboardUserProps> = ({ userDetails }) => {
         <Typography variant="body1" align="center" gutterBottom>
         Name: {userDetails.name}
         </Typography>
-        <img src={userDetails.avatar} alt={`avatar`} width="100" style={{ cursor: 'pointer' }} />
+        <img src={userDetails.avatar} alt={`avatar`} width="100" style={{ cursor: 'pointer', borderRadius: '50%' }} />
         <Typography variant="body1" align="center" gutterBottom>
         Address: {userDetails.address}
         </Typography>

@@ -24,7 +24,7 @@ const Dashboard = () => {
         try {
           const userDetails = await getUserDetails(token);
           dispatch(updateUserDetails(userDetails)); // Dispatch action with fetched data
-          console.log(userDetails.role);
+          console.log(userDetails);
         } catch (error) {
           console.error('Error fetching user details:', error);
         } finally {

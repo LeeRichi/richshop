@@ -18,7 +18,7 @@ const DashboardAdmin: React.FC<DashboardAdminProps> = ({ userDetails }) => {
   return (
     <>
         <Typography variant="h4" align="center" gutterBottom sx={{ marginBottom: "3rem" }}>
-            <IoMdHand /> Hi, <img src={userDetails.avatar} alt={`avatar`} width="50" style={{ verticalAlign: 'middle' }} />
+            <IoMdHand /> Hi, <img src={userDetails.avatar} alt={`avatar`} width="50" style={{ verticalAlign: 'middle',  borderRadius: '50%' }} />
             {userDetails.name}, what are you thinking?
         </Typography>
         <IconButton

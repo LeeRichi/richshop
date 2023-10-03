@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Badge, InputBase } from '@mui/material';
-import { AccountCircle, Storefront, ShoppingCart } from '@mui/icons-material';
+import { AccountCircle, Storefront, ShoppingCart, Roofing } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Search as SearchIcon } from '@mui/icons-material';
@@ -10,6 +10,7 @@ import { RootState } from '../app/rootReducer';
 function Navbar() {
   const favoriteCount = useSelector((state: RootState) => state.favorites.favoriteCount);
   const cartCount = useSelector((state: RootState) => state.cart.cartCount);
+  const userAvatar = useSelector((state: RootState) => state.user.userDetails);
 
   return (
     <AppBar position="static" style={{ backgroundColor: '#2d2d2d' }}>
@@ -34,7 +35,7 @@ function Navbar() {
             </Badge>
           </IconButton>
           <IconButton color="inherit" component={Link} to="/auth">
-            <AccountCircle />
+            {userAvatar ? <img src={userAvatar.avatar} alt="User Avatar" width="15%" style={{borderRadius:'50%'}}/> : <AccountCircle />}
           </IconButton>
           <IconButton color="inherit" component={Link} to="/cart">
             <Badge badgeContent={cartCount} color="primary">
