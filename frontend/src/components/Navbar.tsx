@@ -1,16 +1,42 @@
-import React from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Badge, InputBase } from '@mui/material';
-import { AccountCircle, Storefront, ShoppingCart, Roofing } from '@mui/icons-material';
+import React, {useState} from 'react';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Badge,
+  InputBase,
+  Menu,
+  MenuItem,
+} from '@mui/material';import { AccountCircle, Storefront, ShoppingCart, Roofing } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Search as SearchIcon } from '@mui/icons-material';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../app/rootReducer';
+import { logoutUser } from '../features/user/userSlice';
 
-function Navbar() {
+function Navbar()
+{
+  const dispatch = useDispatch();
   const favoriteCount = useSelector((state: RootState) => state.favorites.favoriteCount);
   const cartCount = useSelector((state: RootState) => state.cart.cartCount);
   const userAvatar = useSelector((state: RootState) => state.user.userDetails);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+    localStorage.removeItem('token');
+  };
+
 
   return (
     <AppBar position="static" style={{ backgroundColor: '#2d2d2d' }}>
@@ -34,9 +60,47 @@ function Navbar() {
               <FavoriteBorderIcon />
             </Badge>
           </IconButton>
-          <IconButton color="inherit" component={Link} to="/auth">
-            {userAvatar ? <img src={userAvatar.avatar} alt="User Avatar" width="15%" style={{borderRadius:'50%'}}/> : <AccountCircle />}
+          <IconButton color="inherit" onClick={handleMenuClick}>
+            {userAvatar ? (
+              <img
+                src={userAvatar.avatar}
+                alt="User Avatar"
+                width="32px"
+                style={{ borderRadius: '50%' }}
+              />
+            ) : (
+              <AccountCircle style={{ fontSize: '32px' }} />
+            )}
           </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+          >
+            <MenuItem
+              component={Link}
+              to="/dashboard"
+              onClick={handleMenuClose}
+            >
+              Dashboard
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleLogout();
+                handleMenuClose();
+              }}
+            >
+              Logout
+            </MenuItem>
+          </Menu>
           <IconButton color="inherit" component={Link} to="/cart">
             <Badge badgeContent={cartCount} color="primary">
               <ShoppingCart />

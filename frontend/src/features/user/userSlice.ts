@@ -18,13 +18,13 @@ const userSlice = createSlice({
     updateUserDetails: (state, action: PayloadAction<UserDetails>) => {
         state.userDetails = action.payload;
     },
-    // updateUserDetailsFailure: (state, action) => {
-    //   state.error = action.payload;
-    // },
+    logoutUser: (state) => {
+      state.userDetails = null;
+    },
   },
 });
 
-export const { updateUserDetails } = userSlice.actions;
+export const { updateUserDetails, logoutUser } = userSlice.actions;
 
 export const selectUserDetails = (state: {user: UserState}) => state.user.userDetails;
 
