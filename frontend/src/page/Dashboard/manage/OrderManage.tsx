@@ -1,14 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Tooltip, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button } from '@mui/material';
-import { Delete, Edit } from '@mui/icons-material';
+import {
+  Container,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Tooltip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Button,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from '@mui/material';import { Delete, Edit } from '@mui/icons-material';
 
 import ManageBar from '../../../components/ManageBar'
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteOrder, fetchOrders } from '../../../utils/api/OrderApi';
+import { deleteOrder, fetchOrders, editOrder } from '../../../utils/api/OrderApi';
 import { setAllOrders } from '../../../features/order/orderSlice';
 import { RootState } from '../../../app/rootReducer';
 import OrderProductsInterface from '../../../interface/OrderProductsInterface';
 import OrderInterface from '../../../interface/OrderInterface';
+
+const orderStatusOptions = ['Pending', 'Shipped', 'Arrived', 'PickedUp'];
+
 
 const OrderManage = () =>
 {
@@ -16,7 +39,7 @@ const OrderManage = () =>
     const [orderProducts, setOrderProducts] = useState<OrderProductsInterface[]>([]);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [updatedOrderStatus, setUpdatedOrderStatus] = useState("");
-    const [currentOrderId, setCurrentOrderId] = useState("");
+    const [currentOrderId, setCurrentOrderId] = useState<undefined | string>("");
 
     useEffect(() => {
         fetchOrders()
@@ -30,7 +53,12 @@ const OrderManage = () =>
      
     const orders = useSelector((state: RootState) => state.order.orders);
 
-    const openDialog = (orderStatus: string, orderId: string) => {
+    const getProductInfoForOrder = (orderId: string | undefined) => {
+        const productsForOrder = orderProducts.filter(product => product.orderId === orderId);
+        return productsForOrder.map(product => `${product.productId} (${product.amount})`).join('\n');
+    };
+
+    const openDialog = (orderStatus: string, orderId: string | undefined) => {
         setUpdatedOrderStatus(orderStatus);
         setCurrentOrderId(orderId);
         setIsDialogOpen(true);
@@ -38,8 +66,21 @@ const OrderManage = () =>
 
     const closeDialog = () => {
         setIsDialogOpen(false);
-        setUpdatedOrderStatus(""); // Reset the order status
+        setUpdatedOrderStatus("");
         setCurrentOrderId("");
+    };
+
+    const handleUpdateOrderStatus = () => {
+        if (currentOrderId && updatedOrderData) {
+            
+            editOrder(currentOrderId, updatedOrderData)
+            .then(() => {
+                closeDialog();
+            })
+            .catch(error => {
+                console.error('Error updating order status:', error);
+            });
+        }
     };
 
     const onHandleDelete = (orderId?: string) =>
@@ -74,7 +115,6 @@ const OrderManage = () =>
                     <TableCell>ID</TableCell>
                     <TableCell>Status</TableCell>
                     <TableCell>User</TableCell>
-                    <TableCell>Order Products</TableCell>
                     <TableCell align="center">Actions</TableCell>
                     </TableRow>
                 </TableHead>
@@ -84,13 +124,6 @@ const OrderManage = () =>
                         <TableCell>{order.id}</TableCell>
                         <TableCell>{order.orderStatus}</TableCell>
                         <TableCell>{order.userId}</TableCell>
-                        <TableCell
-                        sx={{ whiteSpace: 'pre-line' }}
-                        >
-                        {/* <Tooltip title={getProductInfoForOrder(order.id)}>
-                            <span>{getProductInfoForOrder(order.id)}</span>
-                        </Tooltip> */}
-                        </TableCell>
                         <TableCell align="center">
                         <Edit color="primary" onClick={() => openDialog(order.orderStatus, order.id)} />
                         <Delete color="error" onClick={() => onHandleDelete(order.id)} />
@@ -103,18 +136,26 @@ const OrderManage = () =>
             <Dialog open={isDialogOpen} onClose={closeDialog}>
                 <DialogTitle>Update Order Status</DialogTitle>
                 <DialogContent>
-                <TextField
-                    label="New Order Status"
-                    fullWidth
-                    value={updatedOrderStatus}
-                    onChange={(e) => setUpdatedOrderStatus(e.target.value)}
-                />
+                    <FormControl fullWidth style={{marginTop:'10px'}}>
+                        <InputLabel>Select Order Status</InputLabel>
+                        <Select
+                        value={updatedOrderStatus}
+                        onChange={(e) => setUpdatedOrderStatus(e.target.value as string)}
+                        label="Select Order Status"
+                        >
+                        {orderStatusOptions.map((status) => (
+                            <MenuItem key={status} value={status}>
+                            {status}
+                            </MenuItem>
+                        ))}
+                        </Select>
+                    </FormControl>
                 </DialogContent>
                 <DialogActions>
                 <Button onClick={closeDialog} color="primary">
                     Cancel
                 </Button>
-                <Button onClick={} color="primary">
+                <Button onClick={handleUpdateOrderStatus} color="primary">
                     Update
                 </Button>
                 </DialogActions>
