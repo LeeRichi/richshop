@@ -35,13 +35,14 @@ const UserManage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editingUserId, setEditingUserId] = useState('');
-  const [editedUser, setEditedUser] = useState({
+  const [editedUser, setEditedUser] = useState<UserInterface>({
     name: '',
     address: '',
     email: '',
     avatar: '',
-    role: '',
-    orders: '',
+    role: 'User',
+    orders: [],
+    password: '',
   });
 
   useEffect(() => {
@@ -62,10 +63,10 @@ const UserManage = () => {
     if (isEditing && userId) {
       setEditingUserId(userId);
       const UserToEdit = users?.find(user => user.id === userId);
-      // if (UserToEdit) {
-      //   console.log(UserToEdit)
-      //   setEditedUser(UserToEdit);
-      // }
+      if (UserToEdit) {
+        console.log(UserToEdit)
+        setEditedUser(UserToEdit);
+      }
     }
   };
 
@@ -78,54 +79,53 @@ const UserManage = () => {
       address: '',
       email: '',
       avatar: '',
-      role: '',
-      orders: '',
+      role: 'User',
+      orders: [],
+      password: '',
     });
   };
 
   const onHandleAddOrUpdate = () => {
-  //   const userData = {
-  //     name: editedUser.name,
-  //     address: editedUser.address,
-  //     email: editedUser.email,
-  //     avatar: editedUser.avatar,
-  //     role: editedUser.role,
-  //     orders: editedUser.orders,
-  //   };
+    const userData = {
+      name: editedUser.name,
+      address: editedUser.address,
+      email: editedUser.email,
+      avatar: editedUser.avatar,
+      password: editedUser.password,
+    };
 
-  //   if (isEditing && editingUserId) {
-  //     editUser(editingUserId, userData).then(() => {
-  //       const updatedUsers = users?.map((user) =>
-  //         user.id === editingUserId ? { ...user, ...userData } : user
-  //       );
-  //       dispatch(setAllUsers(updatedUsers));
-  //       setIsEditing(false);
-  //       handleCloseDialog();
-  //     });
-  //   } else {
-  //     postUser(userData).then((response) => {
-  //       dispatch(setAllUsers([...users, response]));
-  //       handleCloseDialog();
-  //     });
-  //   }
-  //   setEditedUser({
-  //     name: '',
-  //     address: '',
-  //     email: '',
-  //     avatar: '',
-  //     role: '',
-  //     orders: '',
-  //   });
-  // };
-
-
-  // const handleInputChange = (property: string, value: string | number | string[]) => {
-  //   setEditedUser(prevUser => ({
-  //     ...prevUser,
-  //     [property]: value,
-  //   }));
+    if (isEditing && editingUserId) {
+      editUser(editingUserId, userData).then(response => {
+        const updatedUsers = users?.map((user) =>
+          user.id === editingUserId ? { ...user, ...response } : user
+        ) || [];
+        dispatch(setAllUsers(updatedUsers));
+        setIsEditing(false);
+        handleCloseDialog();
+      });
+    } else {
+      postUser(userData).then((response) => {
+        dispatch(setAllUsers([...(users || []), response]));
+        handleCloseDialog();
+      });
+    }
+    setEditedUser({
+      name: '',
+      address: '',
+      email: '',
+      avatar: '',
+      password: '',
+      orders: [],
+    });
   };
 
+
+  const handleInputChange = (property: keyof UserInterface, value: string | number) => {
+    setEditedUser(prevUser => ({
+      ...prevUser,
+      [property]: value,
+    }));
+  };
 
   const onHandleDelete = (userId?: string) =>
   {
@@ -177,53 +177,58 @@ const UserManage = () => {
             <DialogContent>
               <form>
                 <TextField
-                  label="Title"
+                  label="Name"
                   type="text"
                   value={editedUser.name}
-                  onChange={(e) => handleInputChange('title', e.target.value)}
+                  onChange={(e) => handleInputChange('name', e.target.value)}
                   fullWidth
                   margin="normal"
                 />
                 <TextField
-                  label="Description"
+                  label="Address"
                   type="text"
                   value={editedUser.address}
-                  onChange={(e) => handleInputChange('description', e.target.value)}
+                  onChange={(e) => handleInputChange('address', e.target.value)}
                   fullWidth
                   margin="normal"
                 />
                 <TextField
-                  label="Price"
-                  type="number"
-                  value={editedUser.email}
-                  onChange={(e) => handleInputChange('price', parseFloat(e.target.value))}
-                  fullWidth
-                  margin="normal"
-                />
-                <TextField
-                  label="Price"
-                  type="number"
-                  value={editedUser.avatar}
-                  onChange={(e) => handleInputChange('price', parseFloat(e.target.value))}
-                  fullWidth
-                  margin="normal"
-                />
-                <TextField
-                  label="Image URL"
+                  label="Email"
                   type="text"
-                  value={editedUser.role}
-                  onChange={(e) => handleInputChange('images', [e.target.value])}
+                  value={editedUser.email}
+                  onChange={(e) => handleInputChange('email', e.target.value)}
                   fullWidth
                   margin="normal"
                 />
                 <TextField
-                  label="Inventory"
-                  type="number"
-                  value={editedUser.orders}
-                  onChange={(e) => handleInputChange('inventory', parseFloat(e.target.value))}
+                  label="Avatar"
+                  type="text"
+                  value={editedUser.avatar}
+                  onChange={(e) => handleInputChange('avatar', e.target.value)}
                   fullWidth
                   margin="normal"
                 />
+                <TextField
+                  label="Password"
+                  type="text"
+                  value={editedUser.password}
+                  onChange={(e) => handleInputChange('password', e.target.value)}
+                  fullWidth
+                  margin="normal"
+                />
+                {/* <FormControl fullWidth margin="normal">
+                  <InputLabel id="category-label">Role</InputLabel>
+                  <Select
+                    labelId="Role-label"
+                    id="Role"
+                    value={editedUser.role}
+                    onChange={(e) => handleInputChange('role', e.target.value)}
+                    label="Role"
+                  >
+                    <MenuItem value="Footwear">Admin</MenuItem>
+                    <MenuItem value="Apparel">User</MenuItem>
+                  </Select>
+                </FormControl> */}
               </form>
             </DialogContent>
             <DialogActions>

@@ -14,7 +14,8 @@ export const fetchUsers = () => {
 };
 
 export const postUser = (userData: UserInterface) => {
-  const token = getToken(); // Assuming you have a function to retrieve the token
+  const token = getToken();
+  console.log(userData)
   return axios.post(`${BASE_API_URL}/users`, userData, {
     headers: {
       'Authorization': `Bearer ${token}`
