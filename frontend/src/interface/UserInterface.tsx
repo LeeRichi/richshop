@@ -1,4 +1,4 @@
-interface UserDetails {
+interface UserInterface {
   id: string;
   name: string;
   address: string;
@@ -8,4 +8,4 @@ interface UserDetails {
   role: string;
 }
 
-export default UserDetails;
+export default UserInterface;

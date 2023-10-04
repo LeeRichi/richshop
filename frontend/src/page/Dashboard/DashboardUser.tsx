@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography } from "@mui/material";
-import UserDetails from '../../interface/UserDetails';
+import UserDetails from '../../interface/UserInterface';
 
 interface DashboardUserProps {
   userDetails: UserDetails;

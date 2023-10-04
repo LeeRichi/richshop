@@ -5,7 +5,7 @@ import {
   Typography,
 } from "@mui/material";
 import getUserDetails from '../../utils/api/getUserDetails'; //API call
-import UserDetails from '../../interface/UserDetails';
+import UserDetails from '../../interface/UserInterface';
 import DashboardAdmin from './DashboardAdmin';
 import DashboardUser from './DashboardUser';
 import { updateUserDetails } from '../../features/user/userSlice';

@@ -4,7 +4,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { IoMdHand } from 'react-icons/io';
-import UserDetails from '../../interface/UserDetails';
+import UserDetails from '../../interface/UserInterface';
 import EditIcon from '@mui/icons-material/Edit';
 import PersonIcon from '@mui/icons-material/Person';
 import { Link } from 'react-router-dom';
