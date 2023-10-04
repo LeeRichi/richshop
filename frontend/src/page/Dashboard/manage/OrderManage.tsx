@@ -44,19 +44,14 @@ const OrderManage = () =>
     useEffect(() => {
         fetchOrders()
             .then(orders => {
-            dispatch(setAllOrders(orders));
+                dispatch(setAllOrders(orders));
             })
             .catch(error => {
-            console.error('Error fetching users:', error);
+                console.error('Error fetching users:', error);
             });
     }, [dispatch]);
      
     const orders = useSelector((state: RootState) => state.order.orders);
-
-    const getProductInfoForOrder = (orderId: string | undefined) => {
-        const productsForOrder = orderProducts.filter(product => product.orderId === orderId);
-        return productsForOrder.map(product => `${product.productId} (${product.amount})`).join('\n');
-    };
 
     const openDialog = (orderStatus: string, orderId: string | undefined) => {
         setUpdatedOrderStatus(orderStatus);
@@ -71,15 +66,33 @@ const OrderManage = () =>
     };
 
     const handleUpdateOrderStatus = () => {
-        if (currentOrderId && updatedOrderData) {
+        if (currentOrderId && updatedOrderStatus) {
+            const orderToUpdate = orders?.find((order) => order.id === currentOrderId);
             
+            if (orderToUpdate) {
+            const updatedOrderData: OrderInterface = {
+                ...orderToUpdate,
+                orderStatus: updatedOrderStatus,
+            };
+
             editOrder(currentOrderId, updatedOrderData)
-            .then(() => {
+                .then((response) => {
+                const updatedOrders = orders?.map((order) => {
+                    if (order.id === currentOrderId) {
+                    return { ...order, ...response };
+                    } else {
+                    return order;
+                    }
+                }) || [];
+
+                dispatch(setAllOrders(updatedOrders));
+
                 closeDialog();
-            })
-            .catch(error => {
+                })
+                .catch((error) => {
                 console.error('Error updating order status:', error);
-            });
+                });
+            }
         }
     };
 
@@ -99,7 +112,7 @@ const OrderManage = () =>
             }
         }
         }
-      };
+    };
     
   return (
     <>
@@ -145,7 +158,7 @@ const OrderManage = () =>
                         >
                         {orderStatusOptions.map((status) => (
                             <MenuItem key={status} value={status}>
-                            {status}
+                                {status}
                             </MenuItem>
                         ))}
                         </Select>

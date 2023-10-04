@@ -5,7 +5,11 @@ import OrderInterface from '../../interface/OrderInterface';
 
 export const fetchOrders = () => {
   return axios.get(`${BASE_API_URL}/orders`)
-      .then(response => response.data)
+    .then(response => response.data)
+    .catch(error => {
+      console.error('Error fetching orders:', error);
+      throw error;
+    });
 };
 
 export const postOrder = (orderData: OrderInterface) => {
@@ -23,12 +27,12 @@ export const postOrder = (orderData: OrderInterface) => {
 };
 
 export const editOrder = (orderId: string, updatedOrderData: OrderInterface) => {
-  const token = getToken();
-  return axios.patch(`${BASE_API_URL}/orders/${orderId}`, updatedOrderData, {
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  })
+    const token = getToken();
+    return axios.patch(`${BASE_API_URL}/orders/${orderId}`, updatedOrderData, {
+        headers: {
+        'Authorization': `Bearer ${token}`
+        }
+    })
     .then(response => response.data)
     .catch(error => {
       console.error(`Error editing order with ID ${orderId}:`, error);
