@@ -4,7 +4,7 @@ import { Product } from '../../interface/ProductInterface';
 import { getToken } from '../tokenStorage';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateUserDetails } from '../../features/user/userSlice';
+import { setAllUsers } from '../../features/user/allUserSlice';
 
 export const FetchUsers = async () =>
 {
@@ -12,7 +12,7 @@ export const FetchUsers = async () =>
     try {
         const response = await axios.get(`${BASE_API_URL}/users`);
         console.log(response.data);
-        dispatch(updateUserDetails(response.data));
+        dispatch(setAllUsers(response.data));
     } catch (error) {
         console.error('Error fetching products:', error);
     }

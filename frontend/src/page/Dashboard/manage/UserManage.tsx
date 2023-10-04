@@ -38,11 +38,12 @@ const UserManage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingUserId, setEditingUserId] = useState('');
 
-  useEffect(() => {
-    FetchUsers();
-  }, [])
+
+  FetchUsers()
+
   
-  const users: UserInterface[] = useSelector(selectUserDetails);
+  const users = useSelector((state: RootState) => state.allUser.users);
+
   console.log(users)
 
   const handleOpenDialog = (isEditing: boolean, userId?: string) => {
@@ -74,7 +75,7 @@ const UserManage = () => {
             <Button onClick={() => handleOpenDialog(false)}>Add User</Button>
           </Box>
           <List>
-            {users.map((user: UserInterface) => (
+            {/* {users?.map((user: UserInterface) => (
               <ListItem key={user.id} sx={{ marginBottom: '1rem' }}>
                 <ListItemAvatar>
                   <Avatar alt={user.name} />
@@ -87,7 +88,7 @@ const UserManage = () => {
                   <DeleteOutlineIcon />
                 </IconButton>
               </ListItem>
-            ))}
+            ))} */}
           </List>
           <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
           </Dialog>

@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import UserDetails from '../../interface/UserInterface';
+import UserInterface from '../../interface/UserInterface';
 
 interface UserState {
-  userDetails: UserDetails | null;
+  userDetails: UserInterface | null;
   error: null;
 }
 
@@ -15,7 +15,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    updateUserDetails: (state, action: PayloadAction<UserDetails>) => {
+    updateUserDetails: (state, action: PayloadAction<UserInterface>) => {
         state.userDetails = action.payload;
     },
     logoutUser: (state) => {
