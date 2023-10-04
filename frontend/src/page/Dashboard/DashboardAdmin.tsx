@@ -17,40 +17,40 @@ interface DashboardAdminProps {
 const DashboardAdmin: React.FC<DashboardAdminProps> = ({ userDetails }) => {
   return (
     <>
-        <Typography variant="h4" align="center" gutterBottom sx={{ marginBottom: "3rem" }}>
-            <IoMdHand /> Hi, <img src={userDetails.avatar} alt={`avatar`} width="50" style={{ verticalAlign: 'middle',  borderRadius: '50%' }} />
-            {userDetails.name}, what are you thinking?
-        </Typography>
-        <IconButton
-            color="primary"
-            sx={{ borderRadius: 8, marginBottom: "1rem" }}
-            component={Link} to="/product-manage"
-        >
-            <EditIcon fontSize="large" />
-            <Typography variant="h5" align="center" gutterBottom>
-            Manage Products
-            </Typography>
-        </IconButton><br />
-        <IconButton
-            color="primary"
-            sx={{ borderRadius: 8, marginBottom: "1rem" }}
-            component={Link} to="/users"
-        >
-            <PersonIcon fontSize="large" />
-            <Typography variant="h5" align="center" gutterBottom>
-            Manage Users
-            </Typography>
-        </IconButton><br />
-        <IconButton
-            color="primary"
-            sx={{ borderRadius: 8, marginBottom: "1rem" }}
-            component={Link} to="/orders"
-        >
-            <ShoppingBasketIcon fontSize="large" />
-            <Typography variant="h5" align="center" gutterBottom>
-            Manage Orders
-            </Typography>
-        </IconButton>
+      <Typography variant="h4" align="center" gutterBottom sx={{ marginBottom: "3rem" }}>
+          <IoMdHand /> Hi, <img src={userDetails.avatar} alt={`avatar`} width="50" style={{ verticalAlign: 'middle',  borderRadius: '50%' }} />
+          {userDetails.name}, what are you thinking?
+      </Typography>
+      <IconButton
+          color="primary"
+          sx={{ borderRadius: 8, marginBottom: "1rem" }}
+          component={Link} to="/product-manage"
+      >
+          <EditIcon fontSize="large" />
+          <Typography variant="h5" align="center" gutterBottom>
+          Manage Products
+          </Typography>
+      </IconButton><br />
+      <IconButton
+          color="primary"
+          sx={{ borderRadius: 8, marginBottom: "1rem" }}
+          component={Link} to="/users"
+      >
+          <PersonIcon fontSize="large" />
+          <Typography variant="h5" align="center" gutterBottom>
+          Manage Users
+          </Typography>
+      </IconButton><br />
+      <IconButton
+          color="primary"
+          sx={{ borderRadius: 8, marginBottom: "1rem" }}
+          component={Link} to="/orders"
+      >
+          <ShoppingBasketIcon fontSize="large" />
+          <Typography variant="h5" align="center" gutterBottom>
+          Manage Orders
+          </Typography>
+      </IconButton>
     </>
   )
 }
