@@ -45,15 +45,6 @@ const ProductManage = () => {
     inventory: 0,
   });
 
-  const [newProduct, setNewProduct] = useState({
-    title: '',
-    description: '',
-    price: 0,
-    category: 'Footwear',
-    images: [''],
-    inventory: 0,
-  });
-
   const products = useSelector((state: RootState) => state.products);
 
   const handleOpenDialog = (isEditing: boolean, productId?: string) => {

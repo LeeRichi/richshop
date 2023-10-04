@@ -14,6 +14,7 @@ import CategoryPage from './page/CategoryPage';
 import LoginForm from './page/LoginForm';
 import Dashboard from './page/Dashboard/Dashboard';
 import ProductManage from './page/Dashboard/manage/ProductManage';
+import UserManage from './page/Dashboard/manage/UserManage';
 
 const App = () =>
 {
@@ -32,7 +33,8 @@ const App = () =>
           <Route path='/auth' element={<LoginForm />} />
           <Route path='/dashboard' element={<Dashboard />} />
 
-          <Route path='product-manage' element={<ProductManage />}></Route>
+          <Route path='manage-products' element={<ProductManage />}></Route>
+          <Route path='manage-users' element={<UserManage />}></Route>
 
           {categories.map(category => (
             <Route key={category} path={`/category/${category}`} element={<CategoryPage category={category} />} />

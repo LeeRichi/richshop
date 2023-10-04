@@ -17,6 +17,7 @@ const ManageBar = () => {
 
     return location.pathname.includes(option.toLowerCase().replace(' ', '-'));
   };
+    
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', width: '100%', borderBottom: '1px solid #ccc' }}>
@@ -28,8 +29,10 @@ const ManageBar = () => {
             margin: '15px',
             color: isCurrentPage(option) ? 'inherit' : '#ccc',
           }}
-        >
+          >
           <Link to={`/${option.toLowerCase().replace(' ', '-')}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+
+          {/* <Link to={`/${option.toLowerCase().replace(' ', '-')}`} style={{ color: 'inherit', textDecoration: 'none' }}> */}
             {option}
           </Link>
         </Typography>

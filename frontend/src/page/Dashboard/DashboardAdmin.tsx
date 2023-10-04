@@ -24,7 +24,7 @@ const DashboardAdmin: React.FC<DashboardAdminProps> = ({ userDetails }) => {
       <IconButton
           color="primary"
           sx={{ borderRadius: 8, marginBottom: "1rem" }}
-          component={Link} to="/product-manage"
+          component={Link} to="/manage-products"
       >
           <EditIcon fontSize="large" />
           <Typography variant="h5" align="center" gutterBottom>
@@ -34,7 +34,7 @@ const DashboardAdmin: React.FC<DashboardAdminProps> = ({ userDetails }) => {
       <IconButton
           color="primary"
           sx={{ borderRadius: 8, marginBottom: "1rem" }}
-          component={Link} to="/users"
+          component={Link} to="/manage-users"
       >
           <PersonIcon fontSize="large" />
           <Typography variant="h5" align="center" gutterBottom>
@@ -44,7 +44,7 @@ const DashboardAdmin: React.FC<DashboardAdminProps> = ({ userDetails }) => {
       <IconButton
           color="primary"
           sx={{ borderRadius: 8, marginBottom: "1rem" }}
-          component={Link} to="/orders"
+          component={Link} to="/manage-orders"
       >
           <ShoppingBasketIcon fontSize="large" />
           <Typography variant="h5" align="center" gutterBottom>
