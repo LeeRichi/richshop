@@ -38,7 +38,6 @@ const App = () =>
           <Route path='manage-users' element={<UserManage />}></Route>
           <Route path='manage-orders' element={<OrderManage />}></Route>
 
-
           {categories.map(category => (
             <Route key={category} path={`/category/${category}`} element={<CategoryPage category={category} />} />
           ))}
