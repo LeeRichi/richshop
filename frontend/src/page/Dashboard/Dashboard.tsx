@@ -4,7 +4,7 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import getUserDetails from '../../utils/api/getUserDetails'; //API call
+import getUserDetails from '../../utils/api/getUserDetails';
 import UserDetails from '../../interface/UserInterface';
 import DashboardAdmin from './DashboardAdmin';
 import DashboardUser from './DashboardUser';
@@ -34,7 +34,6 @@ const Dashboard = () => {
         }
       }
     };
-
     fetchUserDetails();
   }, [token]);
 

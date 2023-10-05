@@ -158,18 +158,20 @@ const UserManage = () => {
           </Box>
           <List>
             {users?.map((user: UserInterface) => (
-              <ListItem key={user.id} sx={{ marginBottom: '1rem' }}>
-                <ListItemAvatar>
-                  <Avatar alt={user.name} src={user.avatar} />
-                </ListItemAvatar>
-                <ListItemText primary={user.name} secondary={`ID: ${user.id}`} />
-                <IconButton color="primary">
-                  <EditIcon onClick={() => user.id && handleOpenDialog(true, user.id)} />
-                </IconButton>
-                <IconButton color="secondary" onClick={() => onHandleDelete(user.id)}>
-                  <DeleteOutlineIcon />
-                </IconButton>
-              </ListItem>
+              <Link key={user.id} to={`/users/${user.id}`} style={{ textDecoration: 'none' }}>
+                <ListItem key={user.id} sx={{ marginBottom: '1rem' } }>
+                  <ListItemAvatar>
+                    <Avatar alt={user.name} src={user.avatar} />
+                  </ListItemAvatar>
+                  <ListItemText primary={user.name} secondary={`ID: ${user.id}`} />
+                  <IconButton color="primary">
+                    <EditIcon onClick={() => user.id && handleOpenDialog(true, user.id)} />
+                  </IconButton>
+                  <IconButton color="secondary" onClick={() => onHandleDelete(user.id)}>
+                    <DeleteOutlineIcon />
+                  </IconButton>
+                </ListItem>
+              </Link>
             ))}
           </List>
           <Dialog open={isDialogOpen} onClose={handleCloseDialog}>

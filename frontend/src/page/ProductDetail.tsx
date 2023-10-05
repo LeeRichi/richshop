@@ -51,8 +51,8 @@ const ProductDetail = () =>
   return (
     <div style={{ padding: '20px' }}>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <img src={product.images[0]} alt={product.title} style={{ width: '50%' }} />
+        <Grid item xs={12} md={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <img src={product.images[0]} alt={product.title} style={{ maxWidth: '50%', height: 'auto' }} />
         </Grid>
         <Grid item xs={12} md={6}>
           <Typography variant="h5" gutterBottom>

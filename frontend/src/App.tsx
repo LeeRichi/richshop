@@ -16,6 +16,7 @@ import Dashboard from './page/Dashboard/Dashboard';
 import ProductManage from './page/Dashboard/manage/ProductManage';
 import UserManage from './page/Dashboard/manage/UserManage';
 import OrderManage from './page/Dashboard/manage/OrderManage';
+import UserDetail from './page/UserDetail';
 
 const App = () =>
 {
@@ -37,6 +38,8 @@ const App = () =>
           <Route path='manage-products' element={<ProductManage />}></Route>
           <Route path='manage-users' element={<UserManage />}></Route>
           <Route path='manage-orders' element={<OrderManage />}></Route>
+
+          <Route path='/users/:id' element={<UserDetail />} />
 
           {categories.map(category => (
             <Route key={category} path={`/category/${category}`} element={<CategoryPage category={category} />} />
