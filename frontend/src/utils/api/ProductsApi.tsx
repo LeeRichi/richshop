@@ -7,21 +7,15 @@ import { setProducts, selectProducts } from '../../features/product/productSlice
 
 
 const token = getToken()
-console.log(token)
 
-// export const fetchProducts = async () => {
-//   try {
-//     const response = await fetch(`${BASE_API_URL}/products`);
-    
-//     if (!response.ok) {
-//       throw new Error('Failed to fetch products.');
-//     }
-//     const products = await response.json();
-//     dispatch(updateProducts(products));
-//   } catch (error) {
-//     console.error('Error fetching products:', error);
-//   }
-// };
+export const fetchProducts = async () => {
+      try {
+        const response = await axios.get(`${BASE_API_URL}/products`);
+        return response.data;
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
 
 export const postProduct = async (product: Product) =>
 {

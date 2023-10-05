@@ -14,7 +14,7 @@ using Business.src.Implementations;
 
 namespace Controller.src.Controllers
 {
-    // [Authorize]
+    [Authorize]
     public class UserController: CrudController<User, UserReadDto, UserCreateDto, UserUpdateDto>
     {
         private readonly IUserService _userService;
@@ -25,7 +25,7 @@ namespace Controller.src.Controllers
         }
 
         // [AllowAnonymous]
-        // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost("admin")]
         public async Task<ActionResult<UserReadDto>> CreateAdmin([FromBody] UserCreateDto dto)
         {
@@ -49,6 +49,11 @@ namespace Controller.src.Controllers
         public override async Task<ActionResult<UserReadDto>> UpdateOneById([FromRoute] Guid id,[FromBody] UserUpdateDto update){
             var updateObj = await _userService.UpdateOneById(id, update);
             return Ok(updateObj);
+        }
+
+        [AllowAnonymous]
+        public override async Task<ActionResult<UserReadDto>> GetOneById ([FromRoute]Guid id){
+            return Ok(await _baseService.GetOneById(id));
         }
     }    
 }

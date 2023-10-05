@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Controller.src.Controllers
 {
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/v1/[controller]s")]
     public class CrudController<T, TReadDto, TCreateDto, TupdateDto> : ControllerBase
     {
-        private readonly IBaseService<T, TReadDto, TCreateDto, TupdateDto> _baseService;
+        protected IBaseService<T, TReadDto, TCreateDto, TupdateDto> _baseService;
 
         public CrudController(IBaseService<T, TReadDto, TCreateDto, TupdateDto> BaseService){
             _baseService = BaseService;

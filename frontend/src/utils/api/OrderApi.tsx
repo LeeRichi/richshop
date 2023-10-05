@@ -3,8 +3,14 @@ import axios from 'axios';
 import { getToken } from '../tokenStorage';
 import OrderInterface from '../../interface/OrderInterface';
 
+const token = getToken();
+
 export const fetchOrders = () => {
-  return axios.get(`${BASE_API_URL}/orders`)
+  return axios.get(`${BASE_API_URL}/orders`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    })
     .then(response => response.data)
     .catch(error => {
       console.error('Error fetching orders:', error);

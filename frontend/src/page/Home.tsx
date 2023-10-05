@@ -11,6 +11,7 @@ import { setProducts } from '../features/product/productSlice';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Link } from 'react-router-dom';
 import Category from '../components/Category';
+import { fetchProducts } from '../utils/api/ProductsApi';
 
 const footwearBanner = require('../assets/footwearBanner.png');
 
@@ -19,19 +20,13 @@ const Home = () => {
   const products = useSelector((state: RootState) => state.products);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await axios.get(`${BASE_API_URL}/products`);
-        console.log(response.data);
-        dispatch(setProducts(response.data));
-        console.log(products);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-
-    fetchProducts();
-  }, []);
+    fetchProducts().then(products => {
+      dispatch(setProducts(products));
+    })
+    .catch(error => {
+      console.error('Error fetching users:', error);
+    });
+  }, [dispatch]);
 
   return (
     <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -50,7 +45,7 @@ const Home = () => {
           </Button>
         </div>
         <div style={{ flex: 1, textAlign: 'right' }}>
-          <img src={footwearBanner} alt="Your Image" style={{ width: '60%', marginRight: '10%', marginBottom: '-25px' }} />
+          <img src="https://pbs.twimg.com/media/FgK636pX0AAhkjc?format=jpg&name=large" alt="Your Image" style={{ width: '60%', marginRight: '10%', marginBottom: '-25px' }} />
         </div>
       </div>
       <Grid container spacing={2}>

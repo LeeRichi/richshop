@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {BASE_API_URL} from '../constants'
     
-const getUserDetails = async (token: string | null | undefined) => {
+const getUserDetails = async (token: string | null | undefined) =>
+{
   if (!token) {
     throw new Error('Token is null or undefined.');
   }
@@ -13,8 +14,12 @@ const getUserDetails = async (token: string | null | undefined) => {
   }
 
   try {
-    const response = await axios.get(`${BASE_API_URL}/users/${userId}`);
-      return response.data;
+    const response = await axios.get(`${BASE_API_URL}/users/${userId}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    return response.data;
   } catch (error) {
     console.error('Error fetching user details:', error);
     throw new Error('Unable to fetch user details.');

@@ -11,7 +11,7 @@ using Domain.src.Entities;
 
 namespace Controller.src.Controllers
 {
-    [AllowAnonymous]
+    // [AllowAnonymous]
     public class OrderController : CrudController<Order, OrderReadDto, OrderCreateDto, OrderUpdateDto>
     {
         private readonly IAuthorizationService _authorizationService;
@@ -26,13 +26,22 @@ namespace Controller.src.Controllers
             _userService = userService;
         }
 
-        // [Authorize]
-        // [AllowAnonymous]
         public override async Task<ActionResult<OrderReadDto>> UpdateOneById([FromRoute] Guid id, [FromBody] OrderUpdateDto update)
         {
             var user = HttpContext.User;
             var order = await _orderService.GetOneById(id);
             return await base.UpdateOneById(id, update);
+        }
+
+        [AllowAnonymous]
+        public override async Task<ActionResult<OrderReadDto>> CreateOne([FromBody] OrderCreateDto dto){
+            var createObj = await _baseService.CreateOne(dto);
+            return CreatedAtAction(nameof(CreateOne), createObj);
+        }
+
+        [AllowAnonymous]
+        public override async Task<ActionResult<OrderReadDto>> GetOneById ([FromRoute]Guid id){
+            return Ok(await _baseService.GetOneById(id));
         }
     }
 }

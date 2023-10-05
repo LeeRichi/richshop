@@ -18,11 +18,13 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const userDetails = useSelector((state: RootState) => state.user.userDetails);
 
-  useEffect(() => {
+  useEffect(() =>
+  {
     const fetchUserDetails = async () => {
       if (token) {
         try {
           const userDetails = await getUserDetails(token);
+          console.log(userDetails)
           dispatch(updateUserDetails(userDetails));
           console.log(userDetails);
         } catch (error) {

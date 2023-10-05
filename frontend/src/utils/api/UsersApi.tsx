@@ -4,8 +4,17 @@ import { Product } from '../../interface/ProductInterface';
 import { getToken } from '../tokenStorage';
 import UserInterface from '../../interface/UserInterface';
 
+const token = getToken();
+
+
 export const fetchUsers = () => {
-  return axios.get(`${BASE_API_URL}/users`)
+  return axios.get(`${BASE_API_URL}/users`, 
+    {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    }
+  )
     .then(response => response.data)
     .catch(error => {
       console.error('Error fetching users:', error);
@@ -14,7 +23,7 @@ export const fetchUsers = () => {
 };
 
 export const postUser = (userData: UserInterface) => {
-  const token = getToken();
+  // const token = getToken();
   console.log(userData)
   return axios.post(`${BASE_API_URL}/users`, userData, {
     headers: {

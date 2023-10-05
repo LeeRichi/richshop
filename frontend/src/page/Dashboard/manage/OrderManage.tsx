@@ -32,7 +32,6 @@ import OrderInterface from '../../../interface/OrderInterface';
 
 const orderStatusOptions = ['Pending', 'Shipped', 'Arrived', 'PickedUp'];
 
-
 const OrderManage = () =>
 {
     const dispatch = useDispatch();
