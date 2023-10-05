@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Typography,
@@ -30,6 +30,7 @@ import { deleteProduct, postProduct, editProduct } from '../../../utils/api/Prod
 import { setProducts } from '../../../features/product/productSlice';
 import { Link } from 'react-router-dom';
 import ManageBar from '../../../components/ManageBar';
+import { fetchProducts } from '../../../utils/api/ProductsApi';
 
 const ProductManage = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,15 @@ const ProductManage = () => {
     images: [''],
     inventory: 0,
   });
+
+  useEffect(() => {
+    fetchProducts().then(products => {
+      dispatch(setProducts(products));
+    })
+    .catch(error => {
+      console.error('Error fetching users:', error);
+    });
+  }, [dispatch]);
 
   const products = useSelector((state: RootState) => state.products);
 
