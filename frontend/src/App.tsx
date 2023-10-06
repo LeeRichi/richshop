@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import Navbar from './components/Navbar'
 import Home from './page/Home'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
@@ -23,10 +23,26 @@ const App = () =>
   const products = useSelector((state: RootState) => state.products);
   const categories = Array.from(new Set(products.products.map((product: Product) => product.category)));
 
+
+  const userRole = useSelector((state: RootState) => state.user.userDetails?.role)
+  const [isAdmin, setIsAdmin] = useState(false)
+  
+  useEffect(() => {
+    if (userRole === "Admin") {
+      setIsAdmin(true);
+    }
+  }, [userRole]); 
+
+  console.log(isAdmin)
+
+  const appLogout = () => {
+    setIsAdmin(false); 
+  }
+
   return (
     <Router>
       <div>
-        <Navbar />
+        <Navbar appLogout={appLogout} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetail />} />
@@ -35,9 +51,19 @@ const App = () =>
           <Route path='/auth' element={<LoginForm />} />
           <Route path='/dashboard' element={<Dashboard />} />
 
-          <Route path='manage-products' element={<ProductManage />}></Route>
-          <Route path='manage-users' element={<UserManage />}></Route>
-          <Route path='manage-orders' element={<OrderManage />}></Route>
+           {isAdmin ? (
+          <>
+            <Route path='manage-products' element={<ProductManage />} />
+            <Route path='manage-users' element={<UserManage />} />
+            <Route path='manage-orders' element={<OrderManage />} />
+          </>
+          ) : (
+            <>
+              <Route path='manage-products' element={<Navigate to='/' />} />
+              <Route path='manage-users' element={<Navigate to='/' />} />
+              <Route path='manage-orders' element={<Navigate to='/' />} />
+            </>
+          )}
 
           <Route path='/users/:id' element={<UserDetail />} />
 

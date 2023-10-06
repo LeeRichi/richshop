@@ -42,7 +42,8 @@ const OrderManage = () =>
 
     useEffect(() => {
         fetchOrders()
-            .then(orders => {
+            .then(orders =>
+            {
                 dispatch(setAllOrders(orders));
             })
             .catch(error => {

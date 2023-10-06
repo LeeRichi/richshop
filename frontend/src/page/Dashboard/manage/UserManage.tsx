@@ -148,102 +148,93 @@ const UserManage = () => {
   return (
     <>
       <ManageBar />
-      <div style={{ display: 'flex' }}>
-        <Container maxWidth="md" sx={{ marginTop: '3rem' }}>
-          <Typography variant="h4" align="center" gutterBottom>
-            User List
-          </Typography>
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button onClick={() => handleOpenDialog(false)}>Add User</Button>
-          </Box>
-          <List>
-            {users?.map((user: UserInterface) => (
-              <Link key={user.id} to={`/users/${user.id}`} style={{ textDecoration: 'none' }}>
-                <ListItem key={user.id} sx={{ marginBottom: '1rem' } }>
-                  <ListItemAvatar>
-                    <Avatar alt={user.name} src={user.avatar} />
-                  </ListItemAvatar>
-                  <ListItemText primary={user.name} secondary={`ID: ${user.id}`} />
-                  <IconButton color="primary">
-                    <EditIcon onClick={() => user.id && handleOpenDialog(true, user.id)} />
-                  </IconButton>
-                  <IconButton color="secondary" onClick={() => onHandleDelete(user.id)}>
-                    <DeleteOutlineIcon />
-                  </IconButton>
-                </ListItem>
-              </Link>
-            ))}
-          </List>
-          <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
-            <DialogTitle>{isEditing ? 'Edit User' : 'Add a New User'}</DialogTitle>
-            <DialogContent>
-              <form>
-                <TextField
-                  label="Name"
-                  type="text"
-                  value={editedUser.name}
-                  onChange={(e) => handleInputChange('name', e.target.value)}
-                  fullWidth
-                  margin="normal"
-                />
-                <TextField
-                  label="Address"
-                  type="text"
-                  value={editedUser.address}
-                  onChange={(e) => handleInputChange('address', e.target.value)}
-                  fullWidth
-                  margin="normal"
-                />
-                <TextField
-                  label="Email"
-                  type="text"
-                  value={editedUser.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                  fullWidth
-                  margin="normal"
-                />
-                <TextField
-                  label="Avatar"
-                  type="text"
-                  value={editedUser.avatar}
-                  onChange={(e) => handleInputChange('avatar', e.target.value)}
-                  fullWidth
-                  margin="normal"
-                />
-                <TextField
-                  label="Password"
-                  type="text"
-                  value={editedUser.password}
-                  onChange={(e) => handleInputChange('password', e.target.value)}
-                  fullWidth
-                  margin="normal"
-                />
-                {/* <FormControl fullWidth margin="normal">
-                  <InputLabel id="category-label">Role</InputLabel>
-                  <Select
-                    labelId="Role-label"
-                    id="Role"
-                    value={editedUser.role}
-                    onChange={(e) => handleInputChange('role', e.target.value)}
-                    label="Role"
-                  >
-                    <MenuItem value="Footwear">Admin</MenuItem>
-                    <MenuItem value="Apparel">User</MenuItem>
-                  </Select>
-                </FormControl> */}
-              </form>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCloseDialog} color="primary">
-                Cancel
-              </Button>
-              <Button onClick={onHandleAddOrUpdate} color="primary">
-                {isEditing ? 'Update' : 'Add'}
-              </Button>
-            </DialogActions>
-          </Dialog>
-        </Container>
-      </div>
+      {!users ? <h1>loading...</h1> : 
+      <>
+          <div style={{ display: 'flex' }}>
+            <Container maxWidth="md" sx={{ marginTop: '3rem' }}>
+              <Typography variant="h4" align="center" gutterBottom>
+                User List
+              </Typography>
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Button onClick={() => handleOpenDialog(false)}>Add User</Button>
+              </Box>
+              <List>
+                {users?.map((user: UserInterface) => (
+                  <Link key={user.id} to={`/users/${user.id}`} style={{ textDecoration: 'none' }}>
+                    <ListItem key={user.id} sx={{ marginBottom: '1rem' } }>
+                      <ListItemAvatar>
+                        <Avatar alt={user.name} src={user.avatar} />
+                      </ListItemAvatar>
+                      <ListItemText primary={user.name} secondary={`ID: ${user.id}`} />
+                      <IconButton color="primary">
+                        <EditIcon onClick={() => user.id && handleOpenDialog(true, user.id)} />
+                      </IconButton>
+                      <IconButton color="secondary" onClick={() => onHandleDelete(user.id)}>
+                        <DeleteOutlineIcon />
+                      </IconButton>
+                    </ListItem>
+                  </Link>
+                ))}
+              </List>
+              <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
+                <DialogTitle>{isEditing ? 'Edit User' : 'Add a New User'}</DialogTitle>
+                <DialogContent>
+                  <form>
+                    <TextField
+                      label="Name"
+                      type="text"
+                      value={editedUser.name}
+                      onChange={(e) => handleInputChange('name', e.target.value)}
+                      fullWidth
+                      margin="normal"
+                    />
+                    <TextField
+                      label="Address"
+                      type="text"
+                      value={editedUser.address}
+                      onChange={(e) => handleInputChange('address', e.target.value)}
+                      fullWidth
+                      margin="normal"
+                    />
+                    <TextField
+                      label="Email"
+                      type="text"
+                      value={editedUser.email}
+                      onChange={(e) => handleInputChange('email', e.target.value)}
+                      fullWidth
+                      margin="normal"
+                    />
+                    <TextField
+                      label="Avatar"
+                      type="text"
+                      value={editedUser.avatar}
+                      onChange={(e) => handleInputChange('avatar', e.target.value)}
+                      fullWidth
+                      margin="normal"
+                    />
+                    <TextField
+                      label="Password"
+                      type="text"
+                      value={editedUser.password}
+                      onChange={(e) => handleInputChange('password', e.target.value)}
+                      fullWidth
+                      margin="normal"
+                    />
+                  </form>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleCloseDialog} color="primary">
+                    Cancel
+                  </Button>
+                  <Button onClick={onHandleAddOrUpdate} color="primary">
+                    {isEditing ? 'Update' : 'Add'}
+                  </Button>
+                </DialogActions>
+              </Dialog>
+            </Container>
+          </div>
+        </>
+      }
     </>
   );
 };

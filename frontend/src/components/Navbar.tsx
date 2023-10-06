@@ -15,8 +15,12 @@ import { Search as SearchIcon } from '@mui/icons-material';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../app/rootReducer';
 import { logoutUser } from '../features/user/userSlice';
+import { clearFavorite } from '../features/favorite/favoriteSlice';
+import { clearCart } from '../features/cart/cartSlice';
+import { setAllOrders } from '../features/order/orderSlice';
+import { setAllUsers } from '../features/user/allUserSlice';
 
-function Navbar()
+const Navbar = ({ appLogout }: { appLogout: () => void }) =>
 {
   const dispatch = useDispatch();
   const favoriteCount = useSelector((state: RootState) => state.favorites.favoriteCount);
@@ -32,7 +36,15 @@ function Navbar()
     setAnchorEl(null);
   };
 
-  const handleLogout = () => {
+  const handleLogout = () =>
+  {
+    dispatch(clearFavorite());
+    dispatch(clearCart())
+    dispatch(setAllUsers([]));
+    dispatch(setAllOrders([]));
+
+
+    appLogout();
     dispatch(logoutUser());
     localStorage.removeItem('token');
   };
