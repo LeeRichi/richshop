@@ -5,7 +5,6 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Domain.src.Abstraction;
-// using Business.src.RepoImplementations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
@@ -31,6 +30,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 // Add db context
 builder.Services.AddDbContext<DatabaseContext>();
+// builder.Services.AddDbContext<DatabaseContext>(ServiceLifetime.Scoped);
 
 // Add service DI
 builder.Services

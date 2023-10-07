@@ -33,8 +33,6 @@ const App = () =>
     }
   }, [userRole]); 
 
-  console.log(isAdmin)
-
   const appLogout = () => {
     setIsAdmin(false); 
   }

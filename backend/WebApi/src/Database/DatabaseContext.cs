@@ -33,7 +33,10 @@ namespace WebApi.src.Database
         {
             var builder = new NpgsqlDataSourceBuilder(_config.GetConnectionString("Default"));
             builder.MapEnum<Role>();
-            optionsBuilder.AddInterceptors(new TimeStampInterceptor());
+
+            var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+            optionsBuilder.UseLoggerFactory(loggerFactory);
+            // optionsBuilder.AddInterceptors(new TimeStampInterceptor());
             optionsBuilder.UseNpgsql(builder.Build()).UseSnakeCaseNamingConvention();
         }
 

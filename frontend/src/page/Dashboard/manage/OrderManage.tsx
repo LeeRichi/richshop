@@ -40,10 +40,13 @@ const OrderManage = () =>
     const [updatedOrderStatus, setUpdatedOrderStatus] = useState("");
     const [currentOrderId, setCurrentOrderId] = useState<undefined | string>("");
 
-    useEffect(() => {
+    useEffect(() =>
+    {
+        console.log('effect triggered')
         fetchOrders()
             .then(orders =>
             {
+                console.log('Orders fetched:', orders);
                 dispatch(setAllOrders(orders));
             })
             .catch(error => {
@@ -51,7 +54,10 @@ const OrderManage = () =>
             });
     }, [dispatch]);
      
+
     const orders = useSelector((state: RootState) => state.order.orders);
+
+    console.log(orders)
 
     const openDialog = (orderStatus: string, orderId: string | undefined) => {
         setUpdatedOrderStatus(orderStatus);
