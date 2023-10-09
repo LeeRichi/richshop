@@ -7,6 +7,7 @@ using Business.src.Abstractions;
 using Business.src.Dtos;
 using Domain.src.Entities;
 using AutoMapper;
+using Business.src.Shared;
 
 
 
@@ -30,6 +31,15 @@ namespace Business.src.Implemetations
             // foundUser.Password = hashedPassword;
             // foundUser.Salt = salt;
             return _mapper.Map<UserReadDto>(await _userRepo.UpdatePassword(foundUser, newPassword));
+        }
+
+        public override async Task<UserReadDto> CreateOne(UserCreateDto dto){
+            var entity = _mapper.Map<User>(dto);
+            PasswordService.HashPassword(dto.Password, out var hashedPassword, out var salt);
+            entity.Password = hashedPassword;
+            entity.Salt = salt;
+            var created = await _userRepo.CreateOne(entity);
+            return _mapper.Map<UserReadDto>(created); 
         }
     }
 }
