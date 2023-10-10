@@ -32,4 +32,19 @@ namespace Domain.src.Entities
         L,
         XL
     }
+
+    public enum Color
+    {
+        Red,
+        Blue,
+        Green,
+        Yellow,
+        Purple,
+        Orange,
+        Pink,
+        Brown,
+        Black,
+        White
+    }
+
 }

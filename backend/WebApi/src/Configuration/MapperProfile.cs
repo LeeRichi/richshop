@@ -28,9 +28,6 @@ namespace WebApi.src.Configuration
         CreateMap<OrderCreateDto, Order>()
             .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.OrderProducts));
 
-        // CreateMap<Order, OrderCreateDto>()
-        //     .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.OrderProducts));
-
         CreateMap<OrderCreateDto, Order>()
             .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.OrderProducts));
 

@@ -27,9 +27,9 @@ namespace Business.src.Implemetations
             if (foundUser == null) {
                 throw new Exception ("user not found");
             }
-            // PasswordService.HashPassword(newPassword, out var hashedPassword, out var salt);
-            // foundUser.Password = hashedPassword;
-            // foundUser.Salt = salt;
+            PasswordService.HashPassword(newPassword, out var hashedPassword, out var salt);
+            foundUser.Password = hashedPassword;
+            foundUser.Salt = salt;
             return _mapper.Map<UserReadDto>(await _userRepo.UpdatePassword(foundUser, newPassword));
         }
 

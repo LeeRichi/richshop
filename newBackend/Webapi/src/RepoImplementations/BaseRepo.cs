@@ -9,8 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Domain.src.Entities;
 using Domain.src.Shared;
 
-
-
 namespace Webapi.src.RepoImplementations
 {
     public class BaseRepo<T>: IBaseRepo<T> where T : class

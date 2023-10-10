@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Domain.src.Entities;
 using Npgsql;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+
 
 using WebApi.src.Database;
 
@@ -38,6 +40,10 @@ namespace WebApi.src.Database
             optionsBuilder.UseLoggerFactory(loggerFactory);
             // optionsBuilder.AddInterceptors(new TimeStampInterceptor());
             optionsBuilder.UseNpgsql(builder.Build()).UseSnakeCaseNamingConvention();
+
+            optionsBuilder.ConfigureWarnings(warnings => {
+                warnings.Log(CoreEventId.ManyServiceProvidersCreatedWarning);
+            });
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

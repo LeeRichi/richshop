@@ -3,8 +3,26 @@ using Swashbuckle.AspNetCore.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Webapi.src.Database;
+
+using Business.src.Abstractions;
+using Business.src.Implemetations;
+
+using Domain.src.Abstractions;
+using WebApi.src.RepoImplementations;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+// Add Automapper DI
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
+builder.Services.AddDbContext<DatabaseContext>();
+
+builder.Services
+.AddScoped<IUserRepo, UserRepo>()
+.AddScoped<IUserService, UserService>();
 
 // Add services to the container.
 

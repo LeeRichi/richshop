@@ -9,7 +9,7 @@ namespace Domain.src.Entities
     {
         public Order Order { get; set; }
         public Product Product { get; set; }
-        public float Price { get; set; }
-        public int Inventory{ get; set; }
+        // public float Price { get; set; }
+        public int Amount{ get; set; }
     }
 }
