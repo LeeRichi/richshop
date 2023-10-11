@@ -45,7 +45,7 @@ const CategoryPage: React.FC<{ category: string }> = ({ category }) => {
         <Grid container spacing={2} style={{ margin: '5rem', flexGrow: 1 }}>
           {sortedProducts.map((product: any) => (
             <Grid item key={product.id} xs={12} sm={6} md={4} lg={3} style={{ width: '100%', boxSizing: 'border-box' }}>
-              <ProductCard product={product} style={{ width: '100%' }} />
+              <ProductCard product={product}  />
             </Grid>
           ))}
         </Grid>

@@ -12,6 +12,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Link } from 'react-router-dom';
 import Category from '../components/Category';
 import { fetchProducts } from '../utils/api/ProductsApi';
+import Footer from '../components/Footer';
 
 const footwearBanner = require('../assets/footwearBanner.png');
 
@@ -57,6 +58,7 @@ const Home = () => {
           ))}
         </Grid>
       </Container>}
+      <Footer />
     </>
   );
 };

@@ -11,10 +11,9 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 interface ProductCardProps {
   product: Product;
-  style?: React.CSSProperties;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, style }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const dispatch = useDispatch();
   const favorites = useSelector(selectFavorites);
   const isFavorite = favorites.some((favProduct) => favProduct.id === product.id);
@@ -25,7 +24,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, style }) => {
         dispatch(removeFromFavorites(product.id));
       } else {
         dispatch(addToFavorites(product));
-        console.log('fired');
       }
     }
   };
@@ -34,7 +32,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, style }) => {
   dispatch(setFavoriteCount(newFavoriteCount));
 
   return (
-    <Card style={{ height: '100%', display: 'flex', flexDirection: 'column', position: 'relative', ...style }}>
+    <Card style={{ height: '100%', display: 'flex', flexDirection: 'column', position: 'relative' }}>
       <Link to={`/product/${product.id}`}>
         <div style={{ height: '250px', overflow: 'hidden' }}>
           <img src={product.images[0]} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />

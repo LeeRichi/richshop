@@ -1,7 +1,7 @@
 import { BASE_API_URL } from '../constants';
 import axios from 'axios';
 import { getToken } from '../tokenStorage';
-import OrderInterface from '../../interface/OrderInterface';
+import {OrderInterface, OrderPostInterface} from '../../interface/OrderInterface';
 
 const token = getToken();
 console.log(token)
@@ -22,7 +22,7 @@ export const fetchOrders = () =>
     });
 };
 
-export const postOrder = (orderData: OrderInterface) => {
+export const postOrder = (orderData: OrderPostInterface) => {
   const token = getToken();
   return axios.post(`${BASE_API_URL}/orders`, orderData, {
     headers: {

@@ -1,5 +1,5 @@
 interface OrderProductsInterface {
-  orderId: string;
+  orderId?: string;
   productId: string;
   amount: number;
 }

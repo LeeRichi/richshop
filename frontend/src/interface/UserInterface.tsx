@@ -1,4 +1,4 @@
-import OrderInterface from "./OrderInterface";
+import {OrderInterface} from "./OrderInterface";
 
 type Role = "Admin" | "User";
 

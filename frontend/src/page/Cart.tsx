@@ -1,10 +1,12 @@
-import React from 'react';
+import React,{useCallback} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectCartItems, setCartCount } from '../features/cart/cartSlice';
+import { selectCartItems, setCartCount, clearCart } from '../features/cart/cartSlice';
+import { selectUserDetails } from '../features/user/userSlice';
 import { Button, Grid, Typography, TextField } from '@mui/material';
 import CartItem from '../components/CartItem';
 import Category from '../components/Category';
 import { Product } from '../interface/ProductInterface';
+import { postOrder } from '../utils/api/OrderApi';
 
 const calculateSubtotal = (cartItems: Product[]) => {
   return cartItems.reduce((total, item) => total + item.price * (item.quantity || 1), 0);
@@ -18,6 +20,7 @@ const calculateOrderTotal = (cartItems: Product[]) => {
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const id = useSelector(selectUserDetails)?.id
   const cartItems = useSelector(selectCartItems);
 
   const subtotal = calculateSubtotal(cartItems);
@@ -27,6 +30,32 @@ const Cart = () => {
   {
     alert('Promotion code not found')
   }
+
+  const onHandleCheckOut = useCallback(async () => {
+    try {
+      const orderProducts = cartItems.map((item) => ({
+        productId: item.id || '',  
+        amount: item.quantity || 1,
+      }));
+
+      const orderData = {
+        orderStatus: 'Pending',
+        orderProducts,
+        userId: id || '', 
+      };
+
+      await postOrder(orderData);
+
+      dispatch(setCartCount(0));
+      dispatch(clearCart());
+
+      // Provide any additional actions you want after successful checkout
+      // e.g., redirect to a confirmation page
+    } catch (error) {
+      console.error('Error during checkout:', error);
+      // Handle any errors during checkout
+    }
+  }, [cartItems, dispatch]);
 
   return (
     <>
@@ -62,7 +91,7 @@ const Cart = () => {
                 <Typography variant="body1">Subtotal: ${subtotal.toFixed(2)}</Typography>
                 <Typography variant="body1">Shipping: $10.00</Typography>
                 <Typography variant="h5">Order Total: ${orderTotal.toFixed(2)}</Typography>
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" onClick={onHandleCheckOut}>
                     Checkout
                 </Button>
             </Grid>

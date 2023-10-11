@@ -28,7 +28,7 @@ import { deleteOrder, fetchOrders, editOrder } from '../../../utils/api/OrderApi
 import { setAllOrders } from '../../../features/order/orderSlice';
 import { RootState } from '../../../app/rootReducer';
 import OrderProductsInterface from '../../../interface/OrderProductsInterface';
-import OrderInterface from '../../../interface/OrderInterface';
+import {OrderInterface} from '../../../interface/OrderInterface';
 
 const orderStatusOptions = ['Pending', 'Shipped', 'Arrived', 'PickedUp'];
 

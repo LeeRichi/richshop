@@ -20,9 +20,6 @@ using WebApi.src.MiddleWare;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add Automapper DI
@@ -91,14 +88,6 @@ builder.Services.Configure<RouteOptions>(options =>{
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options => {
     options.TokenValidationParameters = new TokenValidationParameters{
-        //pre
-        // ValidateIssuer = true,
-        // ValidIssuer = "ecommerce-backend",
-        // // SignatureValidator = new JsonWebKey("my-secret-key");
-        // // IssuerSigningKey = new JsonWebKey("my-secret-key"),
-        // IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my-secret-key-fkwpkfpwkrfkrwpkgfgergr")),
-        // ValidateIssuerSigningKey = true  
-
         ValidateIssuer = true,
         ValidIssuer = "ecommerce-backend",
         ValidateAudience = false,

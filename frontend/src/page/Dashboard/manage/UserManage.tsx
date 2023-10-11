@@ -42,7 +42,7 @@ const UserManage = () => {
     avatar: '',
     role: 'User',
     orders: [],
-    password: '',
+    // password: '',
   });
 
   useEffect(() => {
@@ -81,7 +81,7 @@ const UserManage = () => {
       avatar: '',
       role: 'User',
       orders: [],
-      password: '',
+      // password: '',
     });
   };
 
@@ -91,7 +91,7 @@ const UserManage = () => {
       address: editedUser.address,
       email: editedUser.email,
       avatar: editedUser.avatar,
-      password: editedUser.password,
+      // password: editedUser.password,
     };
 
     if (isEditing && editingUserId) {
@@ -114,7 +114,7 @@ const UserManage = () => {
       address: '',
       email: '',
       avatar: '',
-      password: '',
+      // password: '',
       orders: [],
     });
   };
@@ -160,20 +160,24 @@ const UserManage = () => {
               </Box>
               <List>
                 {users?.map((user: UserInterface) => (
-                  <Link key={user.id} to={`/users/${user.id}`} style={{ textDecoration: 'none' }}>
-                    <ListItem key={user.id} sx={{ marginBottom: '1rem' } }>
+                  <ListItem key={user.id} sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginBottom: '1rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
                       <ListItemAvatar>
                         <Avatar alt={user.name} src={user.avatar} />
                       </ListItemAvatar>
-                      <ListItemText primary={user.name} secondary={`ID: ${user.id}`} />
+                      <Link key={user.id} to={`/users/${user.id}`} style={{ textDecoration: 'none' }}>
+                        <ListItemText primary={user.name} secondary={`ID: ${user.id}`} />
+                      </Link>
+                    </div>
+                    <div>
                       <IconButton color="primary">
                         <EditIcon onClick={() => user.id && handleOpenDialog(true, user.id)} />
                       </IconButton>
                       <IconButton color="secondary" onClick={() => onHandleDelete(user.id)}>
                         <DeleteOutlineIcon />
                       </IconButton>
-                    </ListItem>
-                  </Link>
+                    </div>
+                  </ListItem>
                 ))}
               </List>
               <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
@@ -212,14 +216,14 @@ const UserManage = () => {
                       fullWidth
                       margin="normal"
                     />
-                    <TextField
+                    {/* <TextField
                       label="Password"
                       type="text"
                       value={editedUser.password}
                       onChange={(e) => handleInputChange('password', e.target.value)}
                       fullWidth
                       margin="normal"
-                    />
+                    /> */}
                   </form>
                 </DialogContent>
                 <DialogActions>

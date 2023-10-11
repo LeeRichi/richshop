@@ -1,14 +1,19 @@
 import OrderProductsInterface from "./OrderProductsInterface";
 import UserInterface from "./UserInterface";
 
-interface OrderInterface {
+export interface OrderInterface {
   id?: string;
   orderStatus: string;
   orderProducts: OrderProductsInterface[];
   userId: string;
-  user: UserInterface;
+  user?: UserInterface;
   createAt?: string;
   updatedAt?: string;
 }
 
-export default OrderInterface;
+export interface OrderPostInterface
+{
+  orderStatus: string;
+  orderProducts: OrderProductsInterface[];
+  userId: string;
+}
