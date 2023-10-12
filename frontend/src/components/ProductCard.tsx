@@ -16,10 +16,10 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const dispatch = useDispatch();
   const favorites = useSelector(selectFavorites);
-  const isFavorite = favorites.some((favProduct) => favProduct.id === product.id);
+  const isFavorite = favorites.some((favProduct) => favProduct.id === product?.id);
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
-    if (product.id) {
+    if (product?.id) {
       if (isFavorite) {
         dispatch(removeFromFavorites(product.id));
       } else {
@@ -33,14 +33,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <Card style={{ height: '100%', display: 'flex', flexDirection: 'column', position: 'relative' }}>
-      <Link to={`/product/${product.id}`}>
+      <Link to={`/product/${product?.id}`}>
         <div style={{ height: '250px', overflow: 'hidden' }}>
-          <img src={product.images[0]} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <img src={product?.images[0]} alt={product?.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
         <CardContent style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Typography variant="h6">{product.title}</Typography>
-          <Typography variant="subtitle1">{`$${product.price}`}</Typography>
-          <Typography>{product.description}</Typography>
+          <Typography variant="h6">{product?.title}</Typography>
+          <Typography variant="subtitle1">{`$${product?.price}`}</Typography>
+          <Typography>{product?.description}</Typography>
         </CardContent>
         <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', position: 'absolute', bottom: '10px', right: '10px' }}>
           <Button className="buttonContainer" endIcon={<ArrowForwardIcon />}>

@@ -2,6 +2,9 @@ import React from 'react'
 import {
   Typography,
   IconButton,
+  Box,
+  Avatar,
+  Button
 } from "@mui/material";
 import { IoMdHand } from 'react-icons/io';
 import UserDetails from '../../interface/UserInterface';
@@ -17,6 +20,34 @@ interface DashboardAdminProps {
 const DashboardAdmin: React.FC<DashboardAdminProps> = ({ userDetails }) => {
   return (
     <>
+      <Box display="flex">
+        <Box
+            width={300}
+            padding={2}
+            style={{
+                borderRight: '1px solid #ccc',
+                minHeight: '100vh',
+                boxSizing: 'border-box',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+            }}
+            >
+            <Avatar alt={userDetails.name} src={userDetails.avatar} style={{ width: '150px', height: '150px', margin: '10px 0' }} />
+            <Typography variant="h6">{userDetails.name}</Typography>
+            <Typography variant="body1">User ID: {userDetails.id}</Typography>
+            <Typography variant="body1">Name: {userDetails.name}</Typography>
+            <Typography variant="body1">Address: {userDetails.address}</Typography>
+            <Typography variant="body1">Email: {userDetails.email}</Typography>
+
+            <div style={{ marginTop: '10px', display: 'flex', gap: '10px' }}>
+                <Button variant="contained" color="primary">Edit</Button>
+                <Button variant="contained" color="secondary">Log Out</Button>
+            </div>
+        </Box>
+        
+      </Box>
+
       <Typography variant="h4" align="center" gutterBottom sx={{ marginBottom: "3rem" }}>
           <IoMdHand /> Hi, <img src={userDetails.avatar} alt={`avatar`} width="50" style={{ verticalAlign: 'middle',  borderRadius: '50%' }} />
           {userDetails.name}, what are you thinking?

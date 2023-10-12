@@ -63,3 +63,20 @@ export const deleteOrder = (orderId: string) => {
       throw error;
     });
 };
+
+
+
+export const fetchOrderProduct = () =>
+{
+  console.log(token)
+  return axios.get(`${BASE_API_URL}/orderProducts`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+    })
+    .then(response => response.data)
+    .catch(error => {
+      console.error('Error fetching orders:', error);
+      throw error;
+    });
+}

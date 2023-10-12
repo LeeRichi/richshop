@@ -14,7 +14,7 @@ const calculateSubtotal = (cartItems: Product[]) => {
 
 const calculateOrderTotal = (cartItems: Product[]) => {
   const subtotal = calculateSubtotal(cartItems);
-  const shipping = 10;
+  const shipping = 0;
   return subtotal + shipping;
 };
 
