@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Card, CardContent, Typography, CardActions, Button } from '@mui/material';
 import { Product } from '../interface/ProductInterface';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -31,8 +31,33 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const newFavoriteCount = favorites.length;
   dispatch(setFavoriteCount(newFavoriteCount));
 
+  
+    // Ref to store the initial position of the drag
+  const dragStartRef = useRef(0);
+  
+  // State to track the current drag position
+  const [dragPosition, setDragPosition] = useState(0);
+
+  const handleDragStart = (e: React.DragEvent) => {
+    dragStartRef.current = e.clientX;
+  };
+
+  const handleDrag = (e: React.DragEvent) => {
+    // Calculate the drag distance
+    const dragDistance = e.clientX - dragStartRef.current;
+
+    // Update the drag position
+    setDragPosition(dragDistance);
+  };
+
+  const handleDragEnd = () => {
+    // Reset the drag position on drag end
+    setDragPosition(0);
+  };
   return (
-    <Card style={{ height: '100%', display: 'flex', flexDirection: 'column', position: 'relative' }}>
+    <Card
+      style={{ height: '100%', display: 'flex', flexDirection: 'column', position: 'relative' }}
+    >
       <Link to={`/product/${product?.id}`}>
         <div style={{ height: '250px', overflow: 'hidden' }}>
           <img src={product?.images[0]} alt={product?.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />

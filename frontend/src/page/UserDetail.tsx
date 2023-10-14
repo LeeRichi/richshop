@@ -2,11 +2,13 @@ import React, {useEffect} from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button, Typography, Box, Grid, Avatar, List, ListItem, ListItemAvatar, ListItemText, Divider, Paper } from "@mui/material";
 import { RootState } from '../app/rootReducer';
-import { fetchOrderProduct } from '../utils/api/OrderApi';
+import { fetchOrderProduct, fetchOrders } from '../utils/api/OrderApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOrderProducts } from '../features/order/orderProductSlice';
 import { Product } from '../interface/ProductInterface';
 import ProductCard from '../components/ProductCard';
+import DetailSidebar from '../components/DetailSidebar';
+import { setAllOrders } from '../features/order/orderSlice';
 
 interface MatchedProduct {
   amount: number;
@@ -40,6 +42,13 @@ const UserDetail = () =>
         .catch(error => {
             console.error('Error fetching users:', error);
         });
+
+        fetchOrders().then(orders => {
+            dispatch(setAllOrders(orders));
+        })
+        .catch(error => {
+            console.error('Error fetching users:', error);
+        }); 
     }, [dispatch]);
 
     const orderProducts = useSelector((state: RootState) => state.orderProduct.orderProducts)
@@ -70,36 +79,9 @@ const UserDetail = () =>
         return <Typography variant="body1" align="center">User not found.</Typography>;
     }
 
-    // const handleShowMoreFavorites = () => {
-    //     history.push('/favorites');
-    // };
-
     return (
         <Box display="flex">
-            <Box
-                width={300}
-                padding={2}
-                style={{
-                    borderRight: '1px solid #ccc',
-                    minHeight: '100vh',
-                    boxSizing: 'border-box',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
-                >
-                <Avatar alt={user.name} src={user.avatar} style={{ width: '150px', height: '150px', margin: '10px 0' }} />
-                <Typography variant="h6">{user.name}</Typography>
-                <Typography variant="body1">User ID: {user.id}</Typography>
-                <Typography variant="body1">Name: {user.name}</Typography>
-                <Typography variant="body1">Address: {user.address}</Typography>
-                <Typography variant="body1">Email: {user.email}</Typography>
-
-                <div style={{ marginTop: '10px', display: 'flex', gap: '10px' }}>
-                    <Button variant="contained" color="primary">Edit</Button>
-                    <Button variant="contained" color="secondary">Log Out</Button>
-                </div>
-            </Box>
+            <DetailSidebar user={user} />
             <Box flex={1} padding={2}>
                 <Paper style={{ padding: '20px', marginBottom: '20px' }}>
                     <Typography variant="h6">Order History</Typography>
@@ -128,7 +110,7 @@ const UserDetail = () =>
                     </List>
                 </Paper>
                 <Paper style={{ padding: '20px', marginBottom: '20px' }}>
-                    <Typography variant="h6">Your Favorites</Typography>
+                    <Typography variant="h6">Favorites</Typography>
                     <Grid container spacing={2}>
                         {favorites.slice(0, 4).map((product: any) => (
                             <Grid item key={product.id} xs={12} sm={6} md={4} lg={2.5}>
@@ -137,15 +119,28 @@ const UserDetail = () =>
                         ))}
                     </Grid>
                     {favorites.length > 4 && (
-                        <Link to="/favorites">
-                            <Button variant="outlined" color="primary">
-                                Show more
-                            </Button>
-                        </Link>
+                        <div style={{ alignSelf: 'flex-end' }}>
+                            <Link to="/favorite">
+                                <Button variant="outlined" color="primary">
+                                    See All
+                                </Button>
+                            </Link>
+                        </div>
+                        
                     )}
                 </Paper>
                 <Paper style={{ padding: '20px', marginBottom: '20px' }}>
                     <Typography variant="h6">Cart</Typography>
+                    <Grid container spacing={2}>
+                        {cart.map((product: any) => (
+                            <Grid item key={product.id} xs={12} sm={6} md={4} lg={2.5}>
+                                <ProductCard product={product} />
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Paper>
+                <Paper style={{ padding: '20px', marginBottom: '20px' }}>
+                    <Typography variant="h6">You might also like</Typography>
                     <Grid container spacing={2}>
                         {cart.map((product: any) => (
                             <Grid item key={product.id} xs={12} sm={6} md={4} lg={2.5}>
