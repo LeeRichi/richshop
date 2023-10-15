@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Container,
   Typography,
@@ -28,7 +29,9 @@ import { deleteOrder, fetchOrders, editOrder } from '../../../utils/api/OrderApi
 import { setAllOrders } from '../../../features/order/orderSlice';
 import { RootState } from '../../../app/rootReducer';
 import OrderProductsInterface from '../../../interface/OrderProductsInterface';
-import {OrderInterface} from '../../../interface/OrderInterface';
+import { OrderInterface } from '../../../interface/OrderInterface';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+
 
 const orderStatusOptions = ['Pending', 'Shipped', 'Arrived', 'PickedUp'];
 
@@ -130,10 +133,10 @@ const OrderManage = () =>
                 <Table>
                 <TableHead sx={{ backgroundColor: 'darkgray' }}>
                     <TableRow>
-                    <TableCell>ID</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>User</TableCell>
-                    <TableCell align="center">Actions</TableCell>
+                        <TableCell>ID</TableCell>
+                        <TableCell>Status</TableCell>
+                        <TableCell>User</TableCell>
+                        <TableCell align="center">Actions</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -143,10 +146,13 @@ const OrderManage = () =>
                         <TableCell>{order.orderStatus}</TableCell>
                         <TableCell>{order.userId}</TableCell>
                         <TableCell align="center">
-                        <Edit color="primary" onClick={() => openDialog(order.orderStatus, order.id)} />
-                        <Delete color="error" onClick={() => onHandleDelete(order.id)} />
+                            <Edit color="primary" onClick={() => openDialog(order.orderStatus, order.id)} />
+                            <Delete color="error" onClick={() => onHandleDelete(order.id)} />
+                            <Link to={`/orders/${order.id}`} style={{ textDecoration: 'none', color: 'inherit' }} key={order.id}>
+                                <VisibilityIcon style={{ color: 'grey' }} />
+                            </Link>
                         </TableCell>
-                    </TableRow>
+                    </TableRow> 
                     ))}
                 </TableBody>
                 </Table>
