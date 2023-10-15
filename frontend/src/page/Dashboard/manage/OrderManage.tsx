@@ -122,8 +122,7 @@ const OrderManage = () =>
     
   return (
     <>
-        {/* <ManageBar /> */}
-        <Container>
+        <Container style={{flex:'1', marginTop: '10vh'}}>
             <Typography variant="h4" gutterBottom>
                 Orders
             </Typography>

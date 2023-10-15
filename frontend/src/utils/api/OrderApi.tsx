@@ -4,12 +4,9 @@ import { getToken } from '../tokenStorage';
 import {OrderInterface, OrderPostInterface} from '../../interface/OrderInterface';
 
 const token = getToken();
-console.log(token)
 
 export const fetchOrders = () =>
 {
-  console.log('triggered in fetchOrders')
-  console.log(token)
   return axios.get(`${BASE_API_URL}/orders`, {
       headers: {
         'Authorization': `Bearer ${token}`

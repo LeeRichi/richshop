@@ -85,13 +85,13 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
             total: (amount || 0) * (product?.price || 0),
     }));
 
-    if (!currentUser) {
+    if (!user) {
         return <Typography variant="body1" align="center">User not found.</Typography>;
     }
 
     return (
         <Box display="flex">
-            <DetailSidebar user={currentUser} appLogout={appLogout} setIsProductManageOpen={setIsProductManageOpen} setIsUserManageOpen={setIsUserManageOpen} setIsOrderManageOpen={setIsOrderManageOpen} />
+            <DetailSidebar user={user} appLogout={appLogout} setIsProductManageOpen={setIsProductManageOpen} setIsUserManageOpen={setIsUserManageOpen} setIsOrderManageOpen={setIsOrderManageOpen} />
             {isProductManageOpen && (
                 <ProductManage />
             )}

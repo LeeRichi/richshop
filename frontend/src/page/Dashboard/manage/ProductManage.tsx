@@ -142,101 +142,106 @@ const ProductManage = () => {
 
   return (
     <>
-    {/* <ManageBar /> */}
-    <div style={{ display: 'flex', flex: '1'}}>
-      <Container maxWidth="md" sx={{ marginTop: '3rem' }}>
-        <Typography variant="h4" align="center" gutterBottom>
-          Product List
-        </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button onClick={() => handleOpenDialog(false)}>Add Product</Button>
-        </Box>
-        <List>
-          {products.products.map((product) => (
-            <ListItem key={product.id} sx={{ marginBottom: '1rem' }} component={Link} to={`/product/${product.id}`}>
-              <ListItemAvatar>
-                <Avatar alt={product.title} src={product.images[0]} style={{borderRadius: '0'}} />
-              </ListItemAvatar>
-              <ListItemText primary={product.title} secondary={`ID: ${product.id}`} />
-              <IconButton color="primary">
-                <EditIcon onClick={() => product.id && handleOpenDialog(true, product.id)} />
-              </IconButton>
-              <IconButton color="secondary" onClick={() => onHandleDelete(product.id)}>
-                <DeleteOutlineIcon />
-              </IconButton>
-            </ListItem>
-          ))}
-        </List>
-        <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
-          <DialogTitle>{isEditing ? 'Edit Product' : 'Add a New Product'}</DialogTitle>
-          <DialogContent>
-            <form>
-              <TextField
-                label="Title"
-                type="text"
-                value={editedProduct.title}
-                onChange={(e) => handleInputChange('title', e.target.value)}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Description"
-                type="text"
-                value={editedProduct.description}
-                onChange={(e) => handleInputChange('description', e.target.value)}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Price"
-                type="number"
-                value={editedProduct.price}
-                onChange={(e) => handleInputChange('price', parseFloat(e.target.value))}
-                fullWidth
-                margin="normal"
-              />
-              <FormControl fullWidth margin="normal">
-                <InputLabel id="category-label">Category</InputLabel>
-                <Select
-                  labelId="category-label"
-                  id="category"
-                  value={editedProduct.category}
-                  onChange={(e) => handleInputChange('category', e.target.value)}
-                  label="Category"
-                >
-                  <MenuItem value="Footwear">Footwear</MenuItem>
-                  <MenuItem value="Apparel">Apparel</MenuItem>
-                  <MenuItem value="Accessories">Accessories</MenuItem>
-                </Select>
-              </FormControl>
-              <TextField
-                label="Image URL"
-                type="text"
-                value={editedProduct.images[0]}
-                onChange={(e) => handleInputChange('images', [e.target.value])}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Inventory"
-                type="number"
-                value={editedProduct.inventory}
-                onChange={(e) => handleInputChange('inventory', parseFloat(e.target.value))}
-                fullWidth
-                margin="normal"
-              />
-            </form>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseDialog} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={onHandleAddOrUpdate} color="primary">
-              {isEditing ? 'Update' : 'Add'}
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Container>
+      <div style={{ display: 'flex', flex: '1'}}>
+        <Container maxWidth="md" sx={{ marginTop: '3rem' }}>
+          <Typography variant="h4" align="center" gutterBottom>
+            Product List
+          </Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Button onClick={() => handleOpenDialog(false)}>Add Product</Button>
+          </Box>
+          <List>
+            {products.products.map((product) => (
+              <ListItem key={product.id} sx={{ display: 'flex', width: '100%', marginBottom: '1rem' }}>
+                <ListItemAvatar style={{ marginRight: '1rem' }}>
+                  <Avatar alt={product.title} src={product.images[0]} style={{ borderRadius: '0' }} />
+                </ListItemAvatar>
+                <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                  <Link key={product.id} to={`/product/${product.id}`} style={{ textDecoration: 'none' }}>
+                    <ListItemText primary={product.title} secondary={`ID: ${product.id}`} />
+                  </Link>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <IconButton color="primary">
+                    <EditIcon onClick={() => product.id && handleOpenDialog(true, product.id)} />
+                  </IconButton>
+                  <IconButton color="secondary" onClick={() => onHandleDelete(product.id)}>
+                    <DeleteOutlineIcon />
+                  </IconButton>
+                </div>
+              </ListItem>
+            ))}
+          </List>
+          <Dialog open={isDialogOpen} onClose={handleCloseDialog}>
+            <DialogTitle>{isEditing ? 'Edit Product' : 'Add a New Product'}</DialogTitle>
+            <DialogContent>
+              <form>
+                <TextField
+                  label="Title"
+                  type="text"
+                  value={editedProduct.title}
+                  onChange={(e) => handleInputChange('title', e.target.value)}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Description"
+                  type="text"
+                  value={editedProduct.description}
+                  onChange={(e) => handleInputChange('description', e.target.value)}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Price"
+                  type="number"
+                  value={editedProduct.price}
+                  onChange={(e) => handleInputChange('price', parseFloat(e.target.value))}
+                  fullWidth
+                  margin="normal"
+                />
+                <FormControl fullWidth margin="normal">
+                  <InputLabel id="category-label">Category</InputLabel>
+                  <Select
+                    labelId="category-label"
+                    id="category"
+                    value={editedProduct.category}
+                    onChange={(e) => handleInputChange('category', e.target.value)}
+                    label="Category"
+                  >
+                    <MenuItem value="Footwear">Footwear</MenuItem>
+                    <MenuItem value="Apparel">Apparel</MenuItem>
+                    <MenuItem value="Accessories">Accessories</MenuItem>
+                  </Select>
+                </FormControl>
+                <TextField
+                  label="Image URL"
+                  type="text"
+                  value={editedProduct.images[0]}
+                  onChange={(e) => handleInputChange('images', [e.target.value])}
+                  fullWidth
+                  margin="normal"
+                />
+                <TextField
+                  label="Inventory"
+                  type="number"
+                  value={editedProduct.inventory}
+                  onChange={(e) => handleInputChange('inventory', parseFloat(e.target.value))}
+                  fullWidth
+                  margin="normal"
+                />
+              </form>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseDialog} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={onHandleAddOrUpdate} color="primary">
+                {isEditing ? 'Update' : 'Add'}
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </Container>
       </div>
     </>
   );

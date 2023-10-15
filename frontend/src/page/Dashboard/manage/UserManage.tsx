@@ -49,6 +49,7 @@ const UserManage = () => {
     fetchUsers()
       .then(users => {
         dispatch(setAllUsers(users)); 
+        console.log('say hi')
       })
       .catch(error => {
         console.error('Error fetching users:', error);
@@ -143,11 +144,10 @@ const UserManage = () => {
   };
 
   return (
-    <>
-      {/* <ManageBar /> */}
+    <div style={{ display: 'flex' , flex: '1'}}>
       {!users ? <h1>loading...</h1> : 
       <>
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex' , flex: '1'}}>
             <Container maxWidth="md" sx={{ marginTop: '3rem' }}>
               <Typography variant="h4" align="center" gutterBottom>
                 User List
@@ -228,7 +228,7 @@ const UserManage = () => {
           </div>
         </>
       }
-    </>
+    </div>
   );
 };
 
