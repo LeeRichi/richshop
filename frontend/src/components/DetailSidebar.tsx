@@ -6,8 +6,6 @@ import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import EditIcon from '@mui/icons-material/Edit';
 import { Link } from 'react-router-dom';
 
- 
-
 const DetailSidebar = ({ user }: { user: UserInterface }) => 
 {
   return (
@@ -33,41 +31,21 @@ const DetailSidebar = ({ user }: { user: UserInterface }) =>
         <div style={{ marginTop: '10px', display: 'flex', gap: '10px' }}>
             <Button variant="contained" color="primary">Edit</Button>
             <Button variant="contained" color="secondary">Log Out</Button>
-          </div>
+        </div>
           
-          {user.role == 'Admin' ?
-              <>
-                <Button
-                    color="primary"
-                    sx={{ borderRadius: 8, marginBottom: "1rem" }}
-                    component={Link} to="/manage-products"
-                >
-                    <Typography variant="h5" align="center" gutterBottom>
-                        Manage Products
-                    </Typography>
-                </Button><br />
-                <IconButton
-                    color="primary"
-                    sx={{ borderRadius: 8, marginBottom: "1rem" }}
-                    component={Link} to="/manage-users"
-                >
-                    <Typography variant="h5" align="center" gutterBottom>
-                        Manage Users
-                    </Typography>
-                </IconButton><br />
-                <IconButton
-                    color="primary"
-                    sx={{ borderRadius: 8, marginBottom: "1rem" }}
-                    component={Link} to="/manage-orders"
-                >
-                    <Typography variant="h5" align="center" gutterBottom>
-                        Manage Orders
-                    </Typography>
-                </IconButton>
-              </>
-              :
-              <div> </div>
-    }
+        {user.role === 'Admin' && (
+            <Box marginTop="50px" display="flex" flexDirection="column" gap="20px">
+                <Button variant="contained" color="primary" >
+                    Manage Products
+                </Button>
+                <Button variant="contained" color="primary">
+                    Manage Users
+                </Button>
+                <Button variant="contained" color="primary">
+                    Manage Orders
+                </Button>
+            </Box>
+        )}
     </Box>
   )
 }

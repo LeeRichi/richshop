@@ -96,7 +96,7 @@ const Navbar = ({ appLogout }: { appLogout: () => void }) =>
                 >
                   <MenuItem
                     component={Link}
-                    to="/dashboard"
+                    to={`/users/${userAvatar.id}`}
                     onClick={handleMenuClose}
                   >
                     Dashboard
