@@ -122,7 +122,7 @@ const OrderManage = () =>
     
   return (
     <>
-        <ManageBar />
+        {/* <ManageBar /> */}
         <Container>
             <Typography variant="h4" gutterBottom>
                 Orders

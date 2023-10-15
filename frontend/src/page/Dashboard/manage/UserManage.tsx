@@ -29,6 +29,7 @@ import { Link } from 'react-router-dom';
 import ManageBar from '../../../components/ManageBar';
 import { setAllUsers } from '../../../features/user/allUserSlice';
 import UserInterface from '../../../interface/UserInterface';
+import DetailSidebar from '../../../components/DetailSidebar';
 
 const UserManage = () => {
   const dispatch = useDispatch();
@@ -42,7 +43,6 @@ const UserManage = () => {
     avatar: '',
     role: 'User',
     orders: [],
-    // password: '',
   });
 
   useEffect(() => {
@@ -81,7 +81,6 @@ const UserManage = () => {
       avatar: '',
       role: 'User',
       orders: [],
-      // password: '',
     });
   };
 
@@ -91,7 +90,6 @@ const UserManage = () => {
       address: editedUser.address,
       email: editedUser.email,
       avatar: editedUser.avatar,
-      // password: editedUser.password,
     };
 
     if (isEditing && editingUserId) {
@@ -114,7 +112,6 @@ const UserManage = () => {
       address: '',
       email: '',
       avatar: '',
-      // password: '',
       orders: [],
     });
   };
@@ -147,7 +144,7 @@ const UserManage = () => {
 
   return (
     <>
-      <ManageBar />
+      {/* <ManageBar /> */}
       {!users ? <h1>loading...</h1> : 
       <>
           <div style={{ display: 'flex' }}>
@@ -216,14 +213,6 @@ const UserManage = () => {
                       fullWidth
                       margin="normal"
                     />
-                    {/* <TextField
-                      label="Password"
-                      type="text"
-                      value={editedUser.password}
-                      onChange={(e) => handleInputChange('password', e.target.value)}
-                      fullWidth
-                      margin="normal"
-                    /> */}
                   </form>
                 </DialogContent>
                 <DialogActions>

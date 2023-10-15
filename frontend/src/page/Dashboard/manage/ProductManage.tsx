@@ -142,8 +142,8 @@ const ProductManage = () => {
 
   return (
     <>
-    <ManageBar />
-    <div style={{ display: 'flex' }}>
+    {/* <ManageBar /> */}
+    <div style={{ display: 'flex', flex: '1'}}>
       <Container maxWidth="md" sx={{ marginTop: '3rem' }}>
         <Typography variant="h4" align="center" gutterBottom>
           Product List

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Box, Avatar, Typography, Button, IconButton, } from '@mui/material'
 import UserInterface from '../interface/UserInterface'
 import { useDispatch } from 'react-redux'
@@ -8,9 +8,19 @@ import { clearCart } from '../features/cart/cartSlice';
 import { setAllOrders } from '../features/order/orderSlice';
 import { setAllUsers } from '../features/user/allUserSlice';
 
-const DetailSidebar = ({ user, appLogout }: { user: UserInterface, appLogout: () => void }) => 
+interface DetailSidebarProps {
+  user: UserInterface;
+  appLogout: () => void;
+  setIsProductManageOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsUserManageOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsOrderManageOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsProductManageOpen, setIsUserManageOpen, setIsOrderManageOpen }) =>
 {
     const dispatch = useDispatch();
+    const [activeButton, setActiveButton] = useState<'product' | 'user' | 'order' | null>(null);
+
 
     const HandleLogOut = () =>
     {
@@ -23,6 +33,31 @@ const DetailSidebar = ({ user, appLogout }: { user: UserInterface, appLogout: ()
         dispatch(logoutUser());
         localStorage.removeItem('token');
     }
+
+    const handleButtonClick = (button: 'product' | 'user' | 'order' | null) => {
+    setActiveButton(button);
+    
+    // Set other buttons to false
+    if (button === 'product') {
+      setIsProductManageOpen(true)
+      setIsUserManageOpen(false);
+      setIsOrderManageOpen(false);
+    } else if (button === 'user') {
+      setIsUserManageOpen(true)
+      setIsProductManageOpen(false);
+      setIsOrderManageOpen(false);
+    } else if (button === 'order') {
+      setIsOrderManageOpen(true);
+      setIsProductManageOpen(false);
+      setIsUserManageOpen(false);
+    } else {
+      setIsOrderManageOpen(false);
+      setIsProductManageOpen(false);
+      setIsUserManageOpen(false);
+    }
+  };
+
+
    
   return (
     <Box
@@ -46,22 +81,42 @@ const DetailSidebar = ({ user, appLogout }: { user: UserInterface, appLogout: ()
 
         <div style={{ marginTop: '10px', display: 'flex', gap: '10px' }}>
             <Button variant="contained" color="primary">Edit</Button>
-            <Button variant="contained" color="secondary" onClick={HandleLogOut}>Log Out</Button>
+            <Button variant="contained" color="primary" onClick={() => handleButtonClick(null)}>Dashboard</Button>
         </div>
           
         {user.role === 'Admin' && (
             <Box marginTop="50px" display="flex" flexDirection="column" gap="20px">
-                <Button variant="contained" color="primary" >
+                <Button
+                    variant="contained"
+                    color={activeButton === 'product' ? 'secondary' : 'primary'}
+                    onClick={() => handleButtonClick('product')}
+                >
                     Manage Products
                 </Button>
-                <Button variant="contained" color="primary">
+                <Button
+                    variant="contained"
+                    color={activeButton === 'user' ? 'secondary' : 'primary'}
+                    onClick={() => handleButtonClick('user')}
+                >
                     Manage Users
                 </Button>
-                <Button variant="contained" color="primary">
+                <Button
+                    variant="contained"
+                    color={activeButton === 'order' ? 'secondary' : 'primary'}
+                    onClick={() => handleButtonClick('order')}
+                >
                     Manage Orders
                 </Button>
             </Box>
         )}
+        <Button
+            variant="contained" color="secondary"
+            onClick={HandleLogOut}
+            style={{ marginTop: '30vh' }}
+        >
+            log out
+        </Button>
+
     </Box>
   )
 }
