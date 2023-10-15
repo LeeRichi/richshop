@@ -23,7 +23,6 @@ export const fetchUsers = () => {
 };
 
 export const postUser = (userData: UserInterface) => {
-  // const token = getToken();
   console.log(userData)
   return axios.post(`${BASE_API_URL}/users`, userData, {
     headers: {

@@ -63,7 +63,7 @@ const App = () =>
             </>
           )}
 
-          <Route path='/users/:id' element={<UserDetail />} />
+          <Route path='/users/:id' element={<UserDetail appLogout={appLogout}/>} />
 
           {categories.map(category => (
             <Route key={category} path={`/category/${category}`} element={<CategoryPage category={category} />} />

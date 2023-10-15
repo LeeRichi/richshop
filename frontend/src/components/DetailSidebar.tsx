@@ -1,13 +1,29 @@
 import React from 'react'
 import { Box, Avatar, Typography, Button, IconButton, } from '@mui/material'
 import UserInterface from '../interface/UserInterface'
-import PersonIcon from '@mui/icons-material/Person';
-import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import EditIcon from '@mui/icons-material/Edit';
-import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux'
+import { logoutUser } from '../features/user/userSlice';
+import { clearFavorite } from '../features/favorite/favoriteSlice';
+import { clearCart } from '../features/cart/cartSlice';
+import { setAllOrders } from '../features/order/orderSlice';
+import { setAllUsers } from '../features/user/allUserSlice';
 
-const DetailSidebar = ({ user }: { user: UserInterface }) => 
+const DetailSidebar = ({ user, appLogout }: { user: UserInterface, appLogout: () => void }) => 
 {
+    const dispatch = useDispatch();
+
+    const HandleLogOut = () =>
+    {
+      dispatch(clearFavorite());
+        dispatch(clearCart())
+        dispatch(setAllUsers([]));
+        dispatch(setAllOrders([]));
+
+        appLogout();
+        dispatch(logoutUser());
+        localStorage.removeItem('token');
+    }
+   
   return (
     <Box
         width={300}
@@ -30,7 +46,7 @@ const DetailSidebar = ({ user }: { user: UserInterface }) =>
 
         <div style={{ marginTop: '10px', display: 'flex', gap: '10px' }}>
             <Button variant="contained" color="primary">Edit</Button>
-            <Button variant="contained" color="secondary">Log Out</Button>
+            <Button variant="contained" color="secondary" onClick={HandleLogOut}>Log Out</Button>
         </div>
           
         {user.role === 'Admin' && (

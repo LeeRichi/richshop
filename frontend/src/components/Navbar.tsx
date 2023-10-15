@@ -43,7 +43,6 @@ const Navbar = ({ appLogout }: { appLogout: () => void }) =>
     dispatch(setAllUsers([]));
     dispatch(setAllOrders([]));
 
-
     appLogout();
     dispatch(logoutUser());
     localStorage.removeItem('token');

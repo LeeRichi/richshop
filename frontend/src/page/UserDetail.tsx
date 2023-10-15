@@ -23,7 +23,7 @@ interface OrderTotalPrice {
   total: number;
 }
 
-const UserDetail = () =>
+const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
 {
     const dispatch = useDispatch();
     const { id } = useParams();
@@ -34,6 +34,8 @@ const UserDetail = () =>
     const products = useSelector((state: RootState) => state.products.products);
     const favorites = useSelector((state: RootState) => state.favorites.favorites);
     const cart = useSelector((state: RootState) => state.cart.cartItems);
+
+    const currentUser = useSelector((state: RootState) => state.user.userDetails);
 
     useEffect(() => {
         fetchOrderProduct().then(products => {
@@ -75,13 +77,13 @@ const UserDetail = () =>
             total: (amount || 0) * (product?.price || 0),
     }));
 
-    if (!user) {
+    if (!currentUser) {
         return <Typography variant="body1" align="center">User not found.</Typography>;
     }
 
     return (
         <Box display="flex">
-            <DetailSidebar user={user} />
+            <DetailSidebar user={currentUser} appLogout={appLogout}/>
             <Box flex={1} padding={2}>
                 <Paper style={{ padding: '20px', marginBottom: '20px' }}>
                     <Typography variant="h6">Order History</Typography>

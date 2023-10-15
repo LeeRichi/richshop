@@ -3,12 +3,18 @@ import axios from 'axios';
 import { Container, Typography, TextField, Button } from "@mui/material";
 import { storeToken } from '../utils/tokenStorage';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../app/rootReducer';
+import getUserDetails from '../utils/api/getUserDetails';
+import { updateUserDetails } from '../features/user/userSlice';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');  // State to hold the error message
+  const [error, setError] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,8 +34,12 @@ const LoginForm = () => {
       console.log('Login successful:', response.data);
       console.log(response)
       const token = response.data;
+      const user = await getUserDetails(token);
+      dispatch(updateUserDetails(user))
       storeToken(token);
-      navigate('/dashboard');
+      if (user) {
+        navigate(`/users/${user.id}`);  
+      }
     } catch (error) {
       console.error('Login failed:', error);
       setError('Login failed. Please check your credentials.');
