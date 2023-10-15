@@ -17,6 +17,7 @@ import ProductManage from './page/Dashboard/manage/ProductManage';
 import UserManage from './page/Dashboard/manage/UserManage';
 import OrderManage from './page/Dashboard/manage/OrderManage';
 import UserDetail from './page/UserDetail';
+import OrderDetail from './page/OrderDetail';
 
 const App = () =>
 {
@@ -63,7 +64,8 @@ const App = () =>
             </>
           )}
 
-          <Route path='/users/:id' element={<UserDetail appLogout={appLogout}/>} />
+          <Route path='/users/:id' element={<UserDetail appLogout={appLogout} />} />         
+          <Route path='/orders/:id' element={<OrderDetail />} />
 
           {categories.map(category => (
             <Route key={category} path={`/category/${category}`} element={<CategoryPage category={category} />} />
