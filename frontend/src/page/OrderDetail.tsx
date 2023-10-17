@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Typography, Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
+import { Typography, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TableHead } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/rootReducer';
 
@@ -62,37 +62,30 @@ const OrderDetail = () => {
           Product Detail
         </Typography>
 
-        <TableContainer component={Paper}>
-          
+         <TableContainer component={Paper}>
           <Table>
-           <TableBody>
+            <TableHead>
+              <TableRow>
+                <TableCell>Product ID</TableCell>
+                <TableCell>Title</TableCell>
+                <TableCell>Price</TableCell>
+                <TableCell>Amount</TableCell>
+                <TableCell>Images</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
               {filteredProducts?.map((product) => {
                 const matchingOrder = matchingOrders?.find(order => order.productId === product.id);
                 return (
-                  <React.Fragment key={product.id}>
-                    <TableRow>
-                      <TableCell>Product ID</TableCell>
-                      <TableCell>{product.id}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Title</TableCell>
-                      <TableCell>{product.title}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Price</TableCell>
-                      <TableCell>{product.price}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Amount</TableCell>
-                      <TableCell>{matchingOrder?.amount}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Images</TableCell>
-                      <TableCell>
-                        <img src={product.images[0]} alt="Product" style={{ maxWidth: '100px' }} />
-                      </TableCell>
-                    </TableRow>
-                  </React.Fragment>
+                  <TableRow key={product.id}>
+                    <TableCell>{product.id}</TableCell>
+                    <TableCell>{product.title}</TableCell>
+                    <TableCell>{product.price}</TableCell>
+                    <TableCell>{matchingOrder?.amount}</TableCell>
+                    <TableCell>
+                      <img src={product.images[0]} alt="Product" style={{ maxWidth: '100px' }} />
+                    </TableCell>
+                  </TableRow>
                 );
               })}
             </TableBody>
