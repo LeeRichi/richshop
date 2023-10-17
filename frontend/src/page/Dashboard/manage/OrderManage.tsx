@@ -43,19 +43,35 @@ const OrderManage = () =>
     const [updatedOrderStatus, setUpdatedOrderStatus] = useState("");
     const [currentOrderId, setCurrentOrderId] = useState<undefined | string>("");
 
-    useEffect(() =>
-    {
-        console.log('effect triggered')
-        fetchOrders()
-            .then(orders =>
-            {
+    // useEffect(() =>
+    // {
+    //     console.log('effect triggered')
+    //     fetchOrders()
+    //         .then(orders =>
+    //         {
+    //             console.log('Orders fetched:', orders);
+    //             dispatch(setAllOrders(orders));
+    //         })
+    //         .catch(error => {
+    //             console.error('Error fetching users:', error);
+    //         });
+    // }, [dispatch]);
+
+    useEffect(() => {
+        console.log('effect triggered');
+        const fetchData = async () => {
+            try {
+                const orders = await fetchOrders();
                 console.log('Orders fetched:', orders);
                 dispatch(setAllOrders(orders));
-            })
-            .catch(error => {
-                console.error('Error fetching users:', error);
-            });
+            } catch (error) {
+                console.error('Error fetching orders:', error);
+            }
+        };
+
+        fetchData();
     }, [dispatch]);
+
      
 
     const orders = useSelector((state: RootState) => state.order.orders);

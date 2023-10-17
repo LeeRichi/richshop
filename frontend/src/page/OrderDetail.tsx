@@ -10,15 +10,21 @@ const OrderDetail = () => {
     const orderProducts = useSelector((state: RootState) => state.orderProduct.orderProducts);
 
     const order = orders?.find(order => order.id === id);
-    const orderProduct = orderProducts?.find(order => order.orderId === id);
+    // const orderProduct = orderProducts?.find(order => order.orderId === id);
+    
+    const matchingOrders = orderProducts?.filter(order => order.orderId === id);
 
     const products = useSelector((state: RootState) => state.products.products)
-    const matchedProducts = products?.find(product => product.id === orderProduct?.productId)
+    const matchingProductIds = matchingOrders?.map(order => order.productId);
+    console.log(matchingOrders)
 
-    console.log(matchedProducts)
-
-
-  
+    const filteredProducts = products?.filter(product => {
+      if (typeof product.id === 'string') {
+        return matchingProductIds?.includes(product.id);
+      }
+      return false; 
+    });
+  console.log(filteredProducts)
 
   return (
     <div style={{ padding: '20px' }}>
@@ -57,34 +63,38 @@ const OrderDetail = () => {
         </Typography>
 
         <TableContainer component={Paper}>
+          
           <Table>
-            <TableBody>
-              <TableRow>
-                <TableCell>Product ID</TableCell>
-                <TableCell>{orderProduct?.productId}</TableCell>
-              </TableRow>
-    <TableRow>
-                <TableCell>Title</TableCell>
-                <TableCell>{matchedProducts?.title}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Description</TableCell>
-                <TableCell>{matchedProducts?.description}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Price</TableCell>
-                <TableCell>{matchedProducts?.price}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Category</TableCell>
-                <TableCell>{matchedProducts?.category}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>Images</TableCell>
-                <TableCell>
-                  <img src={matchedProducts?.images[0]} alt="Product" style={{ maxWidth: '100px' }} />
-                </TableCell>
-              </TableRow>
+           <TableBody>
+              {filteredProducts?.map((product) => {
+                const matchingOrder = matchingOrders?.find(order => order.productId === product.id);
+                return (
+                  <React.Fragment key={product.id}>
+                    <TableRow>
+                      <TableCell>Product ID</TableCell>
+                      <TableCell>{product.id}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Title</TableCell>
+                      <TableCell>{product.title}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Price</TableCell>
+                      <TableCell>{product.price}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Amount</TableCell>
+                      <TableCell>{matchingOrder?.amount}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>Images</TableCell>
+                      <TableCell>
+                        <img src={product.images[0]} alt="Product" style={{ maxWidth: '100px' }} />
+                      </TableCell>
+                    </TableRow>
+                  </React.Fragment>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>
