@@ -32,6 +32,7 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
     const { id } = useParams();
     const users = useSelector((state: RootState) => state.allUser.users);
     const user = users?.find((user) => user.id === id);
+
     const orders = useSelector((state: RootState) => state.order.orders)
     const userOrders = orders?.filter(order => order.userId === id);
     const products = useSelector((state: RootState) => state.products.products);
@@ -39,7 +40,7 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
     const cart = useSelector((state: RootState) => state.cart.cartItems);
 
     const currentUser = useSelector((state: RootState) => state.user.userDetails);
-
+    console.log(currentUser)
 
     const [isProductManageOpen, setIsProductManageOpen] = useState(false);
     const [isUserManageOpen, setIsUserManageOpen] = useState(false);
@@ -85,13 +86,13 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
             total: (amount || 0) * (product?.price || 0),
     }));
 
-    if (!user) {
+    if (!currentUser) {
         return <Typography variant="body1" align="center">User not found.</Typography>;
     }
 
     return (
         <Box display="flex">
-            <DetailSidebar user={user} appLogout={appLogout} setIsProductManageOpen={setIsProductManageOpen} setIsUserManageOpen={setIsUserManageOpen} setIsOrderManageOpen={setIsOrderManageOpen} />
+            <DetailSidebar user={currentUser} appLogout={appLogout} setIsProductManageOpen={setIsProductManageOpen} setIsUserManageOpen={setIsUserManageOpen} setIsOrderManageOpen={setIsOrderManageOpen} />
             {isProductManageOpen && (
                 <ProductManage />
             )}
