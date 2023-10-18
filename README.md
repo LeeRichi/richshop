@@ -68,13 +68,4 @@ Visualizable detail in http://localhost:5052/swagger/index.html.
 
 Frontend: in folder /frontend, run npm start
 It will start server running on http://localhost:3000
-
-[The Links that I deployed, view here](#links)
-
-## ERD diagram
-<img width="986" alt="Screen Shot 2023-08-31 at 9 20 37 AM" src="https://github.com/LeeRichi/full_stack_project/assets/86901868/ae39c64c-9085-467f-a73a-e511edbfba7e">
-
-
-## Backend design
-![backend_design](https://github.com/LeeRichi/fs15_Fullstack/assets/86901868/23648c54-68c3-4ddc-9f91-fc4a5bcfee23)
-
+Or visit the Links that I deployed, view [ here](#links)
