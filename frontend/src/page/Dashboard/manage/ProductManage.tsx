@@ -51,7 +51,7 @@ const ProductManage = () => {
       dispatch(setProducts(products));
     })
     .catch(error => {
-      console.error('Error fetching users:', error);
+      console.error('Error fetching products:', error);
     });
   }, [dispatch]);
 

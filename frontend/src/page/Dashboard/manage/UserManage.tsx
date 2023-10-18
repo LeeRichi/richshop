@@ -26,10 +26,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../app/rootReducer';
 import { fetchUsers, deleteUser, postUser, editUser } from '../../../utils/api/UsersApi';
 import { Link } from 'react-router-dom';
-import ManageBar from '../../../components/ManageBar';
 import { setAllUsers } from '../../../features/user/allUserSlice';
 import UserInterface from '../../../interface/UserInterface';
-import DetailSidebar from '../../../components/DetailSidebar';
 
 const UserManage = () => {
   const dispatch = useDispatch();
@@ -45,17 +43,26 @@ const UserManage = () => {
     orders: [],
   });
 
-  useEffect(() => {
-    const fetchData = async () => {
-        try {
-            const users = await fetchUsers();
-            console.log('Users fetched:', users);
-            dispatch(setAllUsers(users));
-        } catch (error) {
-            console.error('Error fetching users:', error);
-        }
-    };
-    fetchData();
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //           const users = await fetchUsers();
+  //           console.log('Users fetched:', users);
+  //           dispatch(setAllUsers(users));
+  //       } catch (error) {
+  //           console.error('Error fetching users:', error);
+  //       }
+  //   };
+  //   fetchData();
+  // }, [dispatch]);
+
+   useEffect(() => {
+    fetchUsers().then(users => {
+      dispatch(setAllUsers(users));
+    })
+    .catch(error => {
+      console.error('Error fetching users:', error);
+    });
   }, [dispatch]);
   
   const users = useSelector((state: RootState) => state.allUser.users);
@@ -118,7 +125,6 @@ const UserManage = () => {
       orders: [],
     });
   };
-
 
   const handleInputChange = (property: keyof UserInterface, value: string | number) => {
     setEditedUser(prevUser => ({

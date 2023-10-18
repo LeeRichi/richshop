@@ -12,6 +12,8 @@ import { setAllOrders } from '../features/order/orderSlice';
 import ProductManage from './Dashboard/manage/ProductManage';
 import OrderManage from './Dashboard/manage/OrderManage';
 import UserManage from './Dashboard/manage/UserManage';
+import { fetchUsers } from '../utils/api/UsersApi';
+import { setAllUsers } from '../features/user/allUserSlice';
 
 interface MatchedProduct {
   amount: number;
@@ -40,7 +42,6 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
     const cart = useSelector((state: RootState) => state.cart.cartItems);
 
     const currentUser = useSelector((state: RootState) => state.user.userDetails);
-    console.log(currentUser)
 
     const [isProductManageOpen, setIsProductManageOpen] = useState(false);
     const [isUserManageOpen, setIsUserManageOpen] = useState(false);
@@ -60,6 +61,13 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
         .catch(error => {
             console.error('Error fetching users:', error);
         }); 
+
+        fetchUsers().then(users => {
+            dispatch(setAllUsers(users));
+        })
+        .catch(error => {
+            console.error('Error fetching users:', error);
+        });
     }, [dispatch]);
 
     const orderProducts = useSelector((state: RootState) => state.orderProduct.orderProducts)
@@ -135,43 +143,50 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
                         </Paper>
                         <Paper style={{ padding: '20px', marginBottom: '20px' }}>
                             <Typography variant="h6">Favorites</Typography>
-                            <Grid container spacing={2}>
-                                {favorites.slice(0, 4).map((product: any) => (
+                            {favorites.length === 0 ? (
+                                <Typography style={{ fontSize: '12px', color: 'grey' }}>
+                                Your favorites are still empty.
+                                </Typography>
+                            ) : (
+                                <>
+                                <Grid container spacing={2}>
+                                    {favorites.slice(0, 4).map((product: any) => (
                                     <Grid item key={product.id} xs={12} sm={6} md={4} lg={2.5}>
                                         <ProductCard product={product} />
                                     </Grid>
-                                ))}
-                            </Grid>
-                            {favorites.length > 4 && (
-                                <div style={{ alignSelf: 'flex-end' }}>
+                                    ))}
+                                </Grid>
+                                {favorites.length > 4 && (
+                                    <div style={{ alignSelf: 'flex-end' }}>
                                     <Link to="/favorite">
                                         <Button variant="outlined" color="primary">
-                                            See All
+                                        See All
                                         </Button>
                                     </Link>
-                                </div>
-                        
+                                    </div>
+                                )}
+                                </>
                             )}
                         </Paper>
                         <Paper style={{ padding: '20px', marginBottom: '20px' }}>
                             <Typography variant="h6">Cart</Typography>
-                            <Grid container spacing={2}>
-                                {cart.map((product: any) => (
-                                    <Grid item key={product.id} xs={12} sm={6} md={4} lg={2.5}>
-                                        <ProductCard product={product} />
-                                    </Grid>
-                                ))}
-                            </Grid>
+                            {cart.length === 0 ? (
+                                <Typography style={{ fontSize: '12px', color: 'grey' }}>
+                                    Your favorites are still empty.
+                                </Typography>
+                            ) : (
+                                <Grid container spacing={2}>
+                                    {cart.map((product: any) => (
+                                        <Grid item key={product.id} xs={12} sm={6} md={4} lg={2.5}>
+                                            <ProductCard product={product} />
+                                        </Grid>
+                                    ))}
+                            </Grid>)
+                            }
                         </Paper>
                         <Paper style={{ padding: '20px', marginBottom: '20px' }}>
                             <Typography variant="h6">You might also like</Typography>
-                            <Grid container spacing={2}>
-                                {cart.map((product: any) => (
-                                    <Grid item key={product.id} xs={12} sm={6} md={4} lg={2.5}>
-                                        <ProductCard product={product} />
-                                    </Grid>
-                                ))}
-                            </Grid>
+                            <Typography style={{ fontSize: '12px', color: 'grey' }}>Upcoming feature</Typography>
                         </Paper>
                     </Box>
                 )}

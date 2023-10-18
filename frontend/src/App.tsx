@@ -5,11 +5,9 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import ProductDetail from './page/ProductDetail';
 import Favorite from './page/Favorite'
 import Cart from '../src/page/Cart'
-
 import { useSelector } from 'react-redux';
 import { RootState } from '../src/app/rootReducer';
 import { Product } from '../src/interface/ProductInterface';
-
 import CategoryPage from './page/CategoryPage';
 import LoginForm from './page/LoginForm';
 import Dashboard from './page/Dashboard/Dashboard';
@@ -19,6 +17,7 @@ import OrderManage from './page/Dashboard/manage/OrderManage';
 import UserDetail from './page/UserDetail';
 import OrderDetail from './page/OrderDetail';
 
+
 const App = () =>
 {
   const products = useSelector((state: RootState) => state.products);
@@ -26,6 +25,9 @@ const App = () =>
 
   const userRole = useSelector((state: RootState) => state.user.userDetails?.role)
   const [isAdmin, setIsAdmin] = useState(false)
+
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
+
   
   useEffect(() => {
     if (userRole === "Admin") {
@@ -40,9 +42,9 @@ const App = () =>
   return (
     <Router>
       <div>
-        <Navbar appLogout={appLogout} />
+        <Navbar appLogout={appLogout} products={products.products} onSearchResultsChange={setSearchResults}/>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home searchResults={searchResults}/>} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path='/favorite' element={<Favorite />} />
           <Route path='/cart' element={<Cart />} />
@@ -78,3 +80,8 @@ const App = () =>
 }
 
 export default App
+
+// function dispatch(arg0: any)
+// {
+//   throw new Error('Function not implemented.');
+// }

@@ -19,14 +19,32 @@ import { clearFavorite } from '../features/favorite/favoriteSlice';
 import { clearCart } from '../features/cart/cartSlice';
 import { setAllOrders } from '../features/order/orderSlice';
 import { setAllUsers } from '../features/user/allUserSlice';
+import { Product } from '../interface/ProductInterface';
 
-const Navbar = ({ appLogout }: { appLogout: () => void }) =>
+const Navbar = ({ appLogout, products, onSearchResultsChange }: { appLogout: () => void, products: Product[], onSearchResultsChange: (results: Product[]) => void;  }) =>
 {
   const dispatch = useDispatch();
   const favoriteCount = useSelector((state: RootState) => state.favorites.favoriteCount);
   const cartCount = useSelector((state: RootState) => state.cart.cartCount);
   const userAvatar = useSelector((state: RootState) => state.user.userDetails);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const query = event.target.value.toLowerCase();
+    setSearchQuery(query);
+
+    const filteredResults = products.filter((product) =>
+      product.title.toLowerCase().includes(query)
+    );
+    setSearchResults(filteredResults);
+    onSearchResultsChange(filteredResults);  
+  };
+
+  const handleSearchSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+  };
 
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -55,11 +73,20 @@ const Navbar = ({ appLogout }: { appLogout: () => void }) =>
           <IconButton color="inherit">
             <SearchIcon />
           </IconButton>
-          <InputBase
-            placeholder="Search..."
-            inputProps={{ 'aria-label': 'search' }}
-            style={{ borderBottom: '1px solid white', width: '300px', backgroundColor: 'transparent', color: 'white' }}
-          />
+          <form onSubmit={handleSearchSubmit}>
+            <InputBase
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              inputProps={{ 'aria-label': 'search' }}
+              style={{
+                borderBottom: '1px solid white',
+                width: '300px',
+                backgroundColor: 'transparent',
+                color: 'white',
+              }}
+            />
+          </form>
         </div>
         <Typography variant="h6" component={Link} to="/" style={{ backgroundColor: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', color: 'white', border: '1px solid white', marginRight: '15rem', padding: '5px'}}>
           <span style={{ verticalAlign: 'middle' }}>RICH</span>

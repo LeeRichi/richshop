@@ -24,16 +24,14 @@ namespace Controller.src.Controllers
             _userService = baseService;
         }
 
-        // [AllowAnonymous]
-        [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
+        // [Authorize(Roles = "Admin")]
         [HttpPost("admin")]
         public async Task<ActionResult<UserReadDto>> CreateAdmin([FromBody] UserCreateDto dto)
         {
             return CreatedAtAction(nameof(CreateAdmin), await _userService.CreateAdmin(dto));
         }
-
-
-        // [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         public override async Task<ActionResult<IEnumerable<UserReadDto>>> GetAll([FromQuery] QueryOptions queryOptions)
         {
             return Ok(await _userService.GetAll(queryOptions));

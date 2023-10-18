@@ -25,9 +25,7 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
     const [editedUser, setEditedUser] = useState<UserInterface>({
       ...user,
     });
-  
-  console.log(editedUser)
-  
+    
     useEffect(() => {
       setEditedUser(user);
     }, [user]);
@@ -48,7 +46,6 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
         console.error('User ID is undefined');
       }
     };
-
 
     const handleInputChange = (property: keyof UserInterface, value: string) => {
       setEditedUser((prevUser) => ({

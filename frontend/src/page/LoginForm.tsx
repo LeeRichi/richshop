@@ -35,6 +35,7 @@ const LoginForm = () => {
       console.log(response)
       const token = response.data;
       const user = await getUserDetails(token);
+      console.log(user)
       dispatch(updateUserDetails(user))
       storeToken(token);
       if (user) {

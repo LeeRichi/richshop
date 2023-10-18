@@ -16,7 +16,7 @@ import Footer from '../components/Footer';
 
 const footwearBanner = require('../assets/footwearBanner.png');
 
-const Home = () => {
+const Home = ({ searchResults }: { searchResults: Product[] }) => {
   const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.products);
 
@@ -28,6 +28,8 @@ const Home = () => {
       console.error('Error fetching users:', error);
     });
   }, [dispatch]);
+
+  console.log(searchResults)
 
   return (
     <>
@@ -51,7 +53,7 @@ const Home = () => {
           </div>
         </div>
         <Grid container spacing={2}>
-          {products.products.map((product: any) => (
+          {searchResults.map((product: any) => (
             <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
                 <ProductCard product={product} />
             </Grid>
