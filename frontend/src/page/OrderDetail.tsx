@@ -9,8 +9,8 @@ const OrderDetail = () => {
     const orders = useSelector((state: RootState) => state.order.orders);
     const orderProducts = useSelector((state: RootState) => state.orderProduct.orderProducts);
 
-    const order = orders?.find(order => order.id === id);
-    // const orderProduct = orderProducts?.find(order => order.orderId === id);
+  const order = orders?.find(order => order.id === id);
+  console.log(order)
     
     const matchingOrders = orderProducts?.filter(order => order.orderId === id);
 
@@ -24,7 +24,6 @@ const OrderDetail = () => {
       }
       return false; 
     });
-  console.log(filteredProducts)
 
   return (
     <div style={{ padding: '20px' }}>

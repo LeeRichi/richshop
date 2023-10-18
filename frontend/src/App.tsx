@@ -24,7 +24,6 @@ const App = () =>
   const products = useSelector((state: RootState) => state.products);
   const categories = Array.from(new Set(products.products.map((product: Product) => product.category)));
 
-
   const userRole = useSelector((state: RootState) => state.user.userDetails?.role)
   const [isAdmin, setIsAdmin] = useState(false)
   

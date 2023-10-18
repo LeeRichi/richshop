@@ -46,14 +46,16 @@ const UserManage = () => {
   });
 
   useEffect(() => {
-    fetchUsers()
-      .then(users => {
-        dispatch(setAllUsers(users)); 
-        console.log('say hi')
-      })
-      .catch(error => {
-        console.error('Error fetching users:', error);
-      });
+    const fetchData = async () => {
+        try {
+            const users = await fetchUsers();
+            console.log('Users fetched:', users);
+            dispatch(setAllUsers(users));
+        } catch (error) {
+            console.error('Error fetching users:', error);
+        }
+    };
+    fetchData();
   }, [dispatch]);
   
   const users = useSelector((state: RootState) => state.allUser.users);

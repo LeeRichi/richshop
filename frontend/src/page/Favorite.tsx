@@ -29,21 +29,23 @@ const ProductDetail = () => {
   return (
     <div style={{marginLeft: '6%'}}>
       <h2>Favorites</h2>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-        {favorites.map((favorite) => (
-          <div key={favorite.id} style={{ flex: '0 0 30%', position: 'relative' }}>
-            <img src={favorite.images[0]} alt={favorite.title} style={{ width: '100%' }} />
-            <div style={{ position: 'absolute', top: '5px', right: '5px', border: '1px solid black', cursor: 'pointer' }}>
-              <CloseIcon onClick={() => handleToggleFavorite(favorite)} />
+      {newFavoriteCount ?
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+          {favorites.map((favorite) => (
+            <div key={favorite.id} style={{ flex: '0 0 30%', position: 'relative' }}>
+              <img src={favorite.images[0]} alt={favorite.title} style={{ width: '100%' }} />
+              <div style={{ position: 'absolute', top: '5px', right: '5px', border: '1px solid black', cursor: 'pointer' }}>
+                <CloseIcon onClick={() => handleToggleFavorite(favorite)} />
+              </div>
+              <div style={{ marginTop: '10px' }}>
+                <Typography variant="h6">{favorite.title}</Typography>
+                <Typography>{favorite.description}</Typography>
+                <Typography variant="subtitle1">{`$${favorite.price}`}</Typography>
+              </div>
             </div>
-            <div style={{ marginTop: '10px' }}>
-              <Typography variant="h6">{favorite.title}</Typography>
-              <Typography>{favorite.description}</Typography>
-              <Typography variant="subtitle1">{`$${favorite.price}`}</Typography>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      : <div>your do not have favorite items yet</div>}
     </div>
   );
 };

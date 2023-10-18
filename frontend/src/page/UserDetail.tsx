@@ -116,16 +116,17 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
                                     );
                                     return (
                                         <React.Fragment key={order.id}>
-                                            <ListItem>
-                                                <ListItemAvatar>
+                                            <Link to={`/orders/${order.id}`} style={{ textDecoration: 'none' }}>
+                                                <ListItem>
+                                                    <ListItemAvatar>
                                                     <Avatar>{order.id}</Avatar>
-                                                </ListItemAvatar>
-                                                <ListItemText
+                                                    </ListItemAvatar>
+                                                    <ListItemText
                                                     primary={`Order ${order.id}`}
-                                                    secondary={`Date: ${order.updatedAt}, Total: $${total ? total.total : 0
-                                                        }`}
-                                                />
-                                            </ListItem>
+                                                    secondary={`Date: ${order.updatedAt}, Total: $${total ? total.total : 0}`}
+                                                    />
+                                                </ListItem>
+                                            </Link>
                                             <Divider />
                                         </React.Fragment>
                                     );
