@@ -1,5 +1,16 @@
+Lastest update at Oct.18 :dizzy:
+1. Frontend updates
+New frontend layouts that filter and sort the products using Redux toolkit.
+User-friendly dashboard for admin user to manage the entities.
+Here is a test account.
+email: admin@gmail.com, password: 123
+visit: https://richshop.netlify.app/
+
+:speech_balloon:	
+The backend is currently being optimized. Stay tuned!
+
 # Links
-backend: https://fullstackshop.azurewebsites.net/swagger/index.html<br>
+backend: https://richshop.azurewebsites.net/swagger/index.html<br>
 frontend: https://richshop.netlify.app/
 
 # Accounts for testing
@@ -7,8 +18,7 @@ Admin user(with authroity to Crud users, products and orders):
 Email: admin@gmail.com password: 123
 
 Normal user(with basic user functions):
-Email: user@gmail.com   password
-
+Email: user@gmail.com   password: 123
 
 # Fullstack Project
 ![TypeScript](https://img.shields.io/badge/TypeScript-v.4-green)
@@ -18,37 +28,26 @@ Email: user@gmail.com   password
 ![.NET Core](https://img.shields.io/badge/.NET%20Core-v.7-purple)
 ![EF Core](https://img.shields.io/badge/EF%20Core-v.7-cyan)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-v.14-drakblue)
+![elephantSQL]
+![mui-material]
 
 ## Key Concepts
 This project involves creating a Fullstack project with React and Redux on the frontend and ASP.NET Core 7 on the backend. The goal is to provide a seamless experience for users, along with robust management system for administrators.
-
-31.8 Update:
-Redux will be implemented befroe 10.9.
 
 ## Tech Stack
 - Frontend: SASS, TypeScript, React, Redux Toolkit
 - Backend: ASP .NET Core, Entity Framework Core, PostgreSQL
 
-## Table of Contents
-1. [Features](#features)
-   - [Mandatory features](#mandatory-features)
-   - [Extra features](#extra-features)
-2. [Getting Started](#getting-started)
-
-
 ## Features
 
-### Mandatory features
 
 #### User Functionalities
-
 1. User Management: Users should be able to register for an account and log in. Users cannot register themselves as admin.[done]
 2. Browse Products: Users should be able to view all available products and single product, search and sort products.[done]
 3. Add to Cart: Users should be able to add products to a shopping cart, and manage cart.[done]
 4. Checkout: Users should be able to place order.[done]
 
 #### Admin Functionalities
-
 1. User Management: Admins should be able to view and delete users.[done]
 2. Product Management: Admins should be able to view, edit, delete and add new products.[done]
 3. Order Management: Admins should be able to view all orders [done]
@@ -61,14 +60,16 @@ Redux will be implemented befroe 10.9.
 1. User Management: Admins should be able to edit users' role and create new users.
 2. Order Management: Admins should be able to update order status, view order details, handle returns/refunds, and cancel orders.
 
-
 ## Getting Started
+Maunully:
 Backend: in folder /backend/WebApi, run dotnet watch.
 It will start server running and we can access api endpoint http://localhost:5052/api/v1/
 Detail in http://localhost:5052/swagger/index.html .
 
 Frontend: in folder /frontend, run npm start
 It will start server running on http://localhost:3000
+
+[The Links that I deployed, view here](#links)
 
 ## ERD diagram
 <img width="986" alt="Screen Shot 2023-08-31 at 9 20 37 AM" src="https://github.com/LeeRichi/full_stack_project/assets/86901868/ae39c64c-9085-467f-a73a-e511edbfba7e">
