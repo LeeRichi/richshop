@@ -1,9 +1,9 @@
 Lastest update at Oct.18 :dizzy:
 1. Frontend updates
-New frontend layouts that filter and sort the products using Redux toolkit.
-User-friendly dashboard for admin user to manage the entities.
-Here is a test account.
-email: admin@gmail.com, password: 123
+New frontend layouts that filter and sort the products using Redux toolkit.<br>
+User-friendly dashboard for admin user to manage the entities.<br>
+Here is a test account.<br>
+email: admin@gmail.com, password: 123<br>
 visit: https://richshop.netlify.app/
 
 :speech_balloon:	
