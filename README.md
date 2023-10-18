@@ -63,8 +63,8 @@ This project involves creating a Fullstack project with React and Redux on the f
 ## Getting Started
 Maunully:
 Backend: in folder /backend/WebApi, run dotnet watch.
-It will start server running and we can access api endpoint http://localhost:5052/api/v1/
-Detail in http://localhost:5052/swagger/index.html .
+It will start server running and we can access api endpoint http://localhost:5052/api/v1/<br>
+Visualizable detail in http://localhost:5052/swagger/index.html.
 
 Frontend: in folder /frontend, run npm start
 It will start server running on http://localhost:3000
