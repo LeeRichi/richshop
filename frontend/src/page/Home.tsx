@@ -53,11 +53,17 @@ const Home = ({ searchResults }: { searchResults: Product[] }) => {
           </div>
         </div>
         <Grid container spacing={2}>
-          {searchResults.map((product: any) => (
-            <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
-                <ProductCard product={product} />
-            </Grid>
-          ))}
+          {searchResults.length > 0
+              ? searchResults.map((product: any) => (
+                  <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
+                    <ProductCard product={product} />
+                  </Grid>
+                ))
+              : products.products.map((product: any) => (
+                  <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
+                    <ProductCard product={product} />
+                  </Grid>
+                ))}
         </Grid>
       </Container>}
       <Footer />
