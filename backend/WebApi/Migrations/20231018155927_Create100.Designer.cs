@@ -14,8 +14,8 @@ using WebApi.src.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230829183323_Create")]
-    partial class Create
+    [Migration("20231018155927_Create100")]
+    partial class Create100
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,10 +99,10 @@ namespace WebApi.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("create_at");
 
-                    b.Property<string>("Descreption")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("descreption");
+                        .HasColumnName("description");
 
                     b.Property<List<string>>("Images")
                         .IsRequired()
