@@ -65,7 +65,6 @@ export const deleteOrder = (orderId: string) => {
 
 export const fetchOrderProduct = () =>
 {
-  console.log(token)
   return axios.get(`${BASE_API_URL}/orderProducts`, {
       headers: {
         'Authorization': `Bearer ${token}`

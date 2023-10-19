@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../app/rootReducer';
 import getUserDetails from '../utils/api/getUserDetails';
 import { updateUserDetails } from '../features/user/userSlice';
+import { BASE_API_URL } from '../utils/constants';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -20,7 +21,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://localhost:5052/api/v1/auth',
+        `${BASE_API_URL}/auth`,
         {
           email: email,
           password: password,

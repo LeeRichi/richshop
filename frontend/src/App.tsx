@@ -27,8 +27,6 @@ const App = () =>
   const [isAdmin, setIsAdmin] = useState(false)
 
   const [searchResults, setSearchResults] = useState<Product[]>(products.products);
-  console.log(products.products)
-  console.log(searchResults)
   
   useEffect(() => {
     if (userRole === "Admin") {

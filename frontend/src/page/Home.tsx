@@ -14,8 +14,6 @@ import Category from '../components/Category';
 import { fetchProducts } from '../utils/api/ProductsApi';
 import Footer from '../components/Footer';
 
-const footwearBanner = require('../assets/footwearBanner.png');
-
 const Home = ({ searchResults }: { searchResults: Product[] }) => {
   const dispatch = useDispatch();
   const products = useSelector((state: RootState) => state.products);
@@ -28,8 +26,6 @@ const Home = ({ searchResults }: { searchResults: Product[] }) => {
       console.error('Error fetching users:', error);
     });
   }, [dispatch]);
-
-  console.log(searchResults)
 
   return (
     <>

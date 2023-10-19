@@ -43,21 +43,10 @@ const UserManage = () => {
     orders: [],
   });
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //           const users = await fetchUsers();
-  //           console.log('Users fetched:', users);
-  //           dispatch(setAllUsers(users));
-  //       } catch (error) {
-  //           console.error('Error fetching users:', error);
-  //       }
-  //   };
-  //   fetchData();
-  // }, [dispatch]);
-
    useEffect(() => {
-    fetchUsers().then(users => {
+     fetchUsers().then(users =>
+     {
+      console.log('Users fetched:', users);
       dispatch(setAllUsers(users));
     })
     .catch(error => {

@@ -50,22 +50,23 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
     useEffect(() => {
         fetchOrderProduct().then(products => {
             dispatch(setOrderProducts(products));
-        })
-        .catch(error => {
-            console.error('Error fetching users:', error);
+        }).catch(error => {
+            console.error('Error fetching order products:', error);
         });
+    }, [dispatch]);
 
+    useEffect(() => {
         fetchOrders().then(orders => {
             dispatch(setAllOrders(orders));
-        })
-        .catch(error => {
-            console.error('Error fetching users:', error);
-        }); 
+        }).catch(error => {
+            console.error('Error fetching orders:', error);
+        });
+    }, [dispatch]);
 
+    useEffect(() => {
         fetchUsers().then(users => {
             dispatch(setAllUsers(users));
-        })
-        .catch(error => {
+        }).catch(error => {
             console.error('Error fetching users:', error);
         });
     }, [dispatch]);

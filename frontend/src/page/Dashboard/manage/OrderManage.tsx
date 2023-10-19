@@ -22,13 +22,10 @@ import {
   FormControl,
   InputLabel,
 } from '@mui/material';import { Delete, Edit } from '@mui/icons-material';
-
-import ManageBar from '../../../components/ManageBar'
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteOrder, fetchOrders, editOrder } from '../../../utils/api/OrderApi';
 import { setAllOrders } from '../../../features/order/orderSlice';
 import { RootState } from '../../../app/rootReducer';
-import OrderProductsInterface from '../../../interface/OrderProductsInterface';
 import { OrderInterface } from '../../../interface/OrderInterface';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
@@ -38,27 +35,11 @@ const orderStatusOptions = ['Pending', 'Shipped', 'Arrived', 'PickedUp'];
 const OrderManage = () =>
 {
     const dispatch = useDispatch();
-    const [orderProducts, setOrderProducts] = useState<OrderProductsInterface[]>([]);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [updatedOrderStatus, setUpdatedOrderStatus] = useState("");
     const [currentOrderId, setCurrentOrderId] = useState<undefined | string>("");
 
-    // useEffect(() =>
-    // {
-    //     console.log('effect triggered')
-    //     fetchOrders()
-    //         .then(orders =>
-    //         {
-    //             console.log('Orders fetched:', orders);
-    //             dispatch(setAllOrders(orders));
-    //         })
-    //         .catch(error => {
-    //             console.error('Error fetching users:', error);
-    //         });
-    // }, [dispatch]);
-
     useEffect(() => {
-        console.log('effect triggered');
         const fetchData = async () => {
             try {
                 const orders = await fetchOrders();
@@ -68,15 +49,10 @@ const OrderManage = () =>
                 console.error('Error fetching orders:', error);
             }
         };
-
         fetchData();
     }, [dispatch]);
 
-     
-
     const orders = useSelector((state: RootState) => state.order.orders);
-
-    console.log(orders)
 
     const openDialog = (orderStatus: string, orderId: string | undefined) => {
         setUpdatedOrderStatus(orderStatus);

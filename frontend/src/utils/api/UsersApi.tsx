@@ -5,7 +5,6 @@ import { getToken } from '../tokenStorage';
 import UserInterface from '../../interface/UserInterface';
 
 const token = getToken();
-console.log(token)
 
 export const fetchUsers = () => {
   return axios.get(`${BASE_API_URL}/users`, 
