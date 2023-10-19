@@ -28,8 +28,10 @@ Email: user@gmail.com   password: 123
 ![.NET Core](https://img.shields.io/badge/.NET%20Core-v.7-purple)
 ![EF Core](https://img.shields.io/badge/EF%20Core-v.7-cyan)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-v.14-drakblue)
-![elephantSQL](https://img.shields.io/badge/elephantSQL-green)
+![elephantSQL](https://img.shields.io/badge/elephantSQL-v-green)
 ![mui-material](https://img.shields.io/badge/mui-v.5-green)
+![neon](https://img.shields.io/badge/neon-v-grey)
+
 
 ## Key Concepts
 This project involves creating a Fullstack project with React and Redux on the frontend and ASP.NET Core 7 on the backend. The goal is to provide a seamless experience for users, along with robust management system for administrators.
