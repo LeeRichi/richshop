@@ -14,8 +14,8 @@ using WebApi.src.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231018155927_Create100")]
-    partial class Create100
+    [Migration("20231019121328_CreateNeon")]
+    partial class CreateNeon
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -38,7 +38,8 @@ namespace WebApi.src.Database
 
             var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
             optionsBuilder.UseLoggerFactory(loggerFactory);
-            // optionsBuilder.AddInterceptors(new TimeStampInterceptor());
+
+            optionsBuilder.AddInterceptors(new TimeStampInterceptor());
             optionsBuilder.UseNpgsql(builder.Build()).UseSnakeCaseNamingConvention();
 
             optionsBuilder.ConfigureWarnings(warnings => {
