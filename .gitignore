@@ -132,4 +132,4 @@ backend/infrastructure/bin/
 *.http
 
 
-*.appsettings.json
+appsettings.json
