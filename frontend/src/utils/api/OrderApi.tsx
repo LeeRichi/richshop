@@ -3,10 +3,9 @@ import axios from 'axios';
 import { getToken } from '../tokenStorage';
 import {OrderInterface, OrderPostInterface} from '../../interface/OrderInterface';
 
-const token = getToken();
-
 export const fetchOrders = () =>
 {
+  const token = getToken();
   return axios.get(`${BASE_API_URL}/orders`, {
       headers: {
         'Authorization': `Bearer ${token}`
@@ -61,10 +60,9 @@ export const deleteOrder = (orderId: string) => {
     });
 };
 
-
-
 export const fetchOrderProduct = () =>
 {
+  const token = getToken();
   return axios.get(`${BASE_API_URL}/orderProducts`, {
       headers: {
         'Authorization': `Bearer ${token}`

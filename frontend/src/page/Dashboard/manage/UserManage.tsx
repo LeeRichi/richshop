@@ -160,7 +160,7 @@ const UserManage = () => {
                         <Avatar alt={user.name} src={user.avatar} />
                       </ListItemAvatar>
                       <Link key={user.id} to={`/users/${user.id}`} style={{ textDecoration: 'none' }}>
-                        <ListItemText primary={user.name} secondary={`ID: ${user.id}`} />
+                        <ListItemText primary={user.name} secondary={`ID: ${user.id}`} style={{color:'black'}} />
                       </Link>
                     </div>
                     <div>

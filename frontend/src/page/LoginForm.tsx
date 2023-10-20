@@ -16,7 +16,6 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -32,15 +31,16 @@ const LoginForm = () => {
           },
         }
       );
-      console.log('Login successful:', response.data);
-      console.log(response)
       const token = response.data;
-      const user = await getUserDetails(token);
-      console.log(user)
-      dispatch(updateUserDetails(user))
-      storeToken(token);
-      if (user) {
-        navigate(`/users/${user.id}`);  
+      console.log(token)
+      if (token) {
+        const user = await getUserDetails(token);
+        console.log(user)
+        dispatch(updateUserDetails(user))
+        storeToken(token);
+        if (user) {
+          navigate(`/users/${user.id}`);  
+        }
       }
     } catch (error) {
       console.error('Login failed:', error);

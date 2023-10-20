@@ -130,3 +130,6 @@ backend/infrastructure/obj/
 backend/infrastructure/bin/
 
 *.http
+
+
+*.appsettings.json

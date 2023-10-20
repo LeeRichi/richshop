@@ -101,7 +101,7 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
 
     return (
         <Box display="flex">
-            <DetailSidebar user={currentUser} appLogout={appLogout} setIsProductManageOpen={setIsProductManageOpen} setIsUserManageOpen={setIsUserManageOpen} setIsOrderManageOpen={setIsOrderManageOpen} />
+            <DetailSidebar user={user || currentUser} appLogout={appLogout} setIsProductManageOpen={setIsProductManageOpen} setIsUserManageOpen={setIsUserManageOpen} setIsOrderManageOpen={setIsOrderManageOpen} />
             {isProductManageOpen && (
                 <ProductManage />
             )}
@@ -128,11 +128,11 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
                                             <Link to={`/orders/${order.id}`} style={{ textDecoration: 'none' }}>
                                                 <ListItem>
                                                     <ListItemAvatar>
-                                                    <Avatar>{order.id}</Avatar>
+                                                    <Avatar>{order.updatedAt}</Avatar>
                                                     </ListItemAvatar>
                                                     <ListItemText
-                                                    primary={`Order ${order.id}`}
-                                                    secondary={`Date: ${order.updatedAt}, Total: $${total ? total.total : 0}`}
+                                                        primary={<span style={{ color: 'black' }}>{`Order ${order.id}`}</span>}
+                                                        secondary={`Date: ${order.updatedAt}, Total: $${total ? total.total : 0}`}
                                                     />
                                                 </ListItem>
                                             </Link>

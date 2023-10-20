@@ -29,7 +29,6 @@ import { RootState } from '../../../app/rootReducer';
 import { deleteProduct, postProduct, editProduct } from '../../../utils/api/ProductsApi';
 import { setProducts } from '../../../features/product/productSlice';
 import { Link } from 'react-router-dom';
-import ManageBar from '../../../components/ManageBar';
 import { fetchProducts } from '../../../utils/api/ProductsApi';
 
 const ProductManage = () => {
@@ -158,7 +157,7 @@ const ProductManage = () => {
                 </ListItemAvatar>
                 <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
                   <Link key={product.id} to={`/product/${product.id}`} style={{ textDecoration: 'none' }}>
-                    <ListItemText primary={product.title} secondary={`ID: ${product.id}`} />
+                    <ListItemText primary={product.title} secondary={`ID: ${product.id}`} style={{color: 'black'}}/>
                   </Link>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center' }}>

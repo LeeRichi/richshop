@@ -48,8 +48,8 @@ namespace Controller.src.Controllers
             var updateObj = await _userService.UpdateOneById(id, update);
             return Ok(updateObj);
         }
-
-        [Authorize(Roles = "Admin")]
+        
+        [AllowAnonymous]
         public override async Task<ActionResult<UserReadDto>> GetOneById ([FromRoute]Guid id){
             return Ok(await _baseService.GetOneById(id));
         }

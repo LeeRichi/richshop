@@ -16,11 +16,15 @@ using WebApi.src.Database;
 using WebApi.src.RepoImplementations;
 using WebApi.src.AuthorizationRequirement;
 using WebApi.src.MiddleWare;
+using DotNetEnv;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+DotNetEnv.Env.Load();
+
 
 // Add Automapper DI
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
@@ -51,14 +55,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontend", builder =>
     {
         builder.SetIsOriginAllowed(_ => true)
-        // builder.WithOrigins("http://localhost:3000/")
-        // builder.WithOrigins("https://richshop.netlify.app") // Add your frontend URL here
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
 });
-
-
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
