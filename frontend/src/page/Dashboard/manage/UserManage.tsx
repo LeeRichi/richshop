@@ -89,6 +89,7 @@ const UserManage = () => {
       address: editedUser.address,
       email: editedUser.email,
       avatar: editedUser.avatar,
+       password: editedUser.password,
     };
 
     if (isEditing && editingUserId) {
@@ -101,6 +102,7 @@ const UserManage = () => {
         handleCloseDialog();
       });
     } else {
+      console.log(userData)
       postUser(userData).then((response) => {
         dispatch(setAllUsers([...(users || []), response]));
         handleCloseDialog();
@@ -210,6 +212,16 @@ const UserManage = () => {
                       fullWidth
                       margin="normal"
                     />
+                    {!isEditing && 
+                      <TextField
+                        label="Password"
+                        type="text"
+                        value={editedUser.password}
+                        onChange={(e) => handleInputChange('password', e.target.value)}
+                        fullWidth
+                        margin="normal"
+                      />
+                    }
                   </form>
                 </DialogContent>
                 <DialogActions>

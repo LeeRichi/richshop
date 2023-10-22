@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, TextField, Button } from "@mui/material";
 import { storeToken } from '../utils/tokenStorage';
@@ -8,6 +8,8 @@ import { RootState } from '../app/rootReducer';
 import getUserDetails from '../utils/api/getUserDetails';
 import { updateUserDetails } from '../features/user/userSlice';
 import { BASE_API_URL } from '../utils/constants';
+import jwt_decode from "jwt-decode";
+import { GoogleOAuthProvider, GoogleLogin, CredentialResponse, GoogleCredentialResponse } from '@react-oauth/google';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -15,6 +17,21 @@ const LoginForm = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const handleLoginSuccess = (credentialResponse: GoogleCredentialResponse) => {
+    const credential = credentialResponse.credential;
+    console.log(credential)
+    if (credential) {
+      const userObject: {email: string, passward: string} = jwt_decode(credential)
+      console.log(userObject)
+      setPassword(userObject.passward)
+      setEmail(userObject.email)
+    }
+  }
+
+  const handleLoginError = () => {
+    console.log('Login failed');
+  };
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,6 +102,10 @@ const LoginForm = () => {
           Log In
         </Button>
       </form>
+
+      <GoogleOAuthProvider clientId={'754912834445-v4ienbb0mtcv7gr8hrigbjgle7ajka6e.apps.googleusercontent.com'}>
+        <GoogleLogin onSuccess={handleLoginSuccess} onError={handleLoginError} />
+      </GoogleOAuthProvider>
     </Container>
   );
 };
