@@ -1,16 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Business.src.Abstraction;
 using Business.src.Dtos;
+using Business.src.Implementations;
 using Domain.src.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Domain.src.Shared;
 using Microsoft.AspNetCore.Mvc;
-using Business.src.Implementations;
-
-
 
 namespace Controller.src.Controllers
 {
@@ -52,6 +46,15 @@ namespace Controller.src.Controllers
         [AllowAnonymous]
         public override async Task<ActionResult<UserReadDto>> GetOneById ([FromRoute]Guid id){
             return Ok(await _baseService.GetOneById(id));
+        }
+
+        [HttpGet("checkEmailExists")]
+        [AllowAnonymous]
+        public IActionResult CheckEmailExists([FromQuery] string email)
+        {
+            var userWithEmail = _userService.CheckEmailExists(email);
+
+            return Ok(new { exists = userWithEmail });
         }
     }    
 }

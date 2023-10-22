@@ -4,9 +4,6 @@ import { Product } from '../../interface/ProductInterface';
 import { getToken } from '../tokenStorage';
 import UserInterface from '../../interface/UserInterface';
 
-// const token = getToken();
-// console.log(token)
-
 export const fetchUsers = () =>
 {
   const token = getToken();
@@ -70,3 +67,18 @@ export const deleteUser = (userId: string) =>
       throw error;
     });
 };
+
+
+export const CheckEmailExists = (email: string) =>
+{
+  return axios.get(`${BASE_API_URL}/users/checkemailexists?email=${email}`)
+    .then(response => {
+          console.log("Response data:", response.data);
+          return response.data;
+    })
+    .catch(error =>
+    {
+      console.error(`Error checking user with ${email}:`, error);
+      throw error;
+    });
+}

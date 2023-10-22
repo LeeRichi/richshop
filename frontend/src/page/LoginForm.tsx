@@ -10,6 +10,8 @@ import { updateUserDetails } from '../features/user/userSlice';
 import { BASE_API_URL } from '../utils/constants';
 import jwt_decode from "jwt-decode";
 import { GoogleOAuthProvider, GoogleLogin, CredentialResponse, GoogleCredentialResponse } from '@react-oauth/google';
+import { CheckEmailExists, fetchUsers, postUser } from '../utils/api/UsersApi';
+import UserInterface from '../interface/UserInterface';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -20,12 +22,43 @@ const LoginForm = () => {
 
   const handleLoginSuccess = (credentialResponse: GoogleCredentialResponse) => {
     const credential = credentialResponse.credential;
-    console.log(credential)
     if (credential) {
-      const userObject: {email: string, passward: string} = jwt_decode(credential)
-      console.log(userObject)
-      setPassword(userObject.passward)
-      setEmail(userObject.email)
+      const userObject: {email: string, name: string, picture: string} = jwt_decode(credential)
+
+      CheckEmailExists(userObject.email)
+        .then(emailExists =>
+        {
+          console.log(emailExists.exists.result.exists)
+          if (emailExists.exists.result.exists === false) {
+            //if user is new
+            const userData = {
+              "name": userObject.name,
+              "address": "none",
+              "email": userObject.email,
+              "avatar": userObject.picture,
+              "password": "test",
+            }
+            postUser(userData)
+            navigate(`/users/${emailExists.exists.result.userId}`);  
+          } else {
+            //old user loging in
+            const userData:UserInterface = {
+              "id": emailExists.exists.result.userId,
+              "name": userObject.name,
+              "address": "none",
+              "email": userObject.email,
+              "avatar": userObject.picture,
+              "password": "test",
+              "role": "User",
+              "orders": []
+            }
+            dispatch(updateUserDetails(userData))
+            navigate(`/users/${emailExists.exists.result.userId}`);  
+          }
+        })
+      .catch(error => {
+        console.error('Error checking email:', error);
+      });
     }
   }
 

@@ -81,6 +81,8 @@ const UserManage = () => {
       role: 'User',
       orders: [],
     });
+
+    console.log('test')
   };
 
   const onHandleAddOrUpdate = () => {
@@ -102,7 +104,6 @@ const UserManage = () => {
         handleCloseDialog();
       });
     } else {
-      console.log(userData)
       postUser(userData).then((response) => {
         dispatch(setAllUsers([...(users || []), response]));
         handleCloseDialog();

@@ -1,6 +1,7 @@
 using Business.src.Dtos;
 using Domain.src.Entities;
 using Business.src.Abstraction;
+using Business.src.Shared;
 
 namespace Business.src.Abstraction
 {
@@ -9,5 +10,6 @@ namespace Business.src.Abstraction
         Task<UserReadDto> UpdatePassword(Guid id, string newPassword);
         Task<UserReadDto> CreateAdmin(UserCreateDto dto);
         Task<bool> DeleteOneById(Guid id);
+        Task<CheckEmailResult> CheckEmailExists(string email);
     }
 }

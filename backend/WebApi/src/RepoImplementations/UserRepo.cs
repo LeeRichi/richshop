@@ -8,8 +8,6 @@ using WebApi.src.Database;
 using Domain.src.Abstraction;
 using Microsoft.EntityFrameworkCore;
 
-
-
 namespace WebApi.src.RepoImplementations
 {
     public class UserRepo : BaseRepo<User>, IUserRepo
@@ -49,6 +47,12 @@ namespace WebApi.src.RepoImplementations
         {
             entity.Role = Role.User;
             return base.CreateOne(entity);
+        }
+
+        public async Task<bool> CheckEmailExists(string email)
+        {
+            var user = await _users.FirstOrDefaultAsync(u => u.Email == email);
+            return user != null;
         }
     }
 }

@@ -89,7 +89,7 @@ const Cart = () => {
                 >
                 <Typography variant="h4">Summary</Typography>
                 <Typography variant="body1">Subtotal: ${subtotal.toFixed(2)}</Typography>
-                <Typography variant="body1">Shipping: $10.00</Typography>
+                {/* <Typography variant="body1">Shipping: $10.00</Typography> */}
                 <Typography variant="h5">Order Total: ${orderTotal.toFixed(2)}</Typography>
                 <Button variant="contained" color="primary" onClick={onHandleCheckOut}>
                     Checkout

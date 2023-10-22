@@ -47,5 +47,15 @@ namespace Business.src.Implementations
             var created = await _userRepo.CreateAdmin(entity);
             return _mapper.Map<UserReadDto>(created); 
         }
+
+        public async Task<CheckEmailResult> CheckEmailExists(string email)
+        {
+            var user = await _userRepo.FindOneByEmail(email);
+            if (user != null)
+            {
+                return new CheckEmailResult { Exists = true, UserId = user.Id };
+            }
+            return new CheckEmailResult { Exists = false, UserId = null };
+        }
     } 
 }

@@ -36,7 +36,7 @@ export const editOrder = (orderId: string, updatedOrderData: OrderInterface) => 
     const token = getToken();
     return axios.patch(`${BASE_API_URL}/orders/${orderId}`, updatedOrderData, {
         headers: {
-        'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`
         }
     })
     .then(response => response.data)
