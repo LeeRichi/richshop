@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Text.Json.Serialization;
-
 
 namespace Domain.src.Entities
 {
@@ -15,12 +10,39 @@ namespace Domain.src.Entities
         public int Inventory { get; set; }
         public Category Category { get; set; }
         public List<string> Images { get; set; }
+        public Size Size { get; set; }
+        public Color Color { get; set; }
+        public bool IsOnSale { get; set; }
+        public string Brand{ get; set; }
     }
-
+    
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum Category {
         Footwear,
         Apparel,
         Accessories,
+    }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum Size{
+        S,
+        M,
+        L,
+        XL
+    }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum Color
+    {
+        Red,
+        Blue,
+        Green,
+        Yellow,
+        Purple,
+        Orange,
+        Pink,
+        Brown,
+        Black,
+        White
     }
 }

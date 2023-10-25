@@ -16,6 +16,7 @@ import UserManage from './page/Dashboard/manage/UserManage';
 import OrderManage from './page/Dashboard/manage/OrderManage';
 import UserDetail from './page/UserDetail';
 import OrderDetail from './page/OrderDetail';
+import CheckOut from './page/CheckOut';
 
 
 const App = () =>
@@ -47,6 +48,7 @@ const App = () =>
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path='/favorite' element={<Favorite />} />
           <Route path='/cart' element={<Cart />} />
+          <Route path='/checkOut' element={<CheckOut />} />
           <Route path='/auth' element={<LoginForm />} />
           <Route path='/dashboard' element={<Dashboard />} />
 

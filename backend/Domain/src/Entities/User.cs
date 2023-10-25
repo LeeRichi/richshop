@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Text.Json.Serialization;
-
 
 namespace Domain.src.Entities
 {
@@ -16,7 +11,9 @@ namespace Domain.src.Entities
         public string Password { get; set; }
         public byte[] Salt { get; set; }
         public Role Role { get; set; }
-        public ICollection<Order> Orders { get; set; } = new List<Order>();
+        public List<Order> Orders { get; set; }
+        public List<Product> Cart { get; set; }
+        public List<Product> Favorites { get; set; }
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]

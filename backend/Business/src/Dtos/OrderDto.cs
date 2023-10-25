@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Domain.src.Entities;
 
 namespace Business.src.Dtos
@@ -12,7 +8,6 @@ namespace Business.src.Dtos
         public OrderStatus OrderStatus { get; set; }        
         public List<OrderProductReadDto> OrderProducts { get; set; }
         public Guid UserId {get; set;}
-        public User User {get; set;}
         public DateTime CreateAt { get; set; }
         public DateTime UpdatedAt { get; set; }
     }

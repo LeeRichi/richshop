@@ -20,6 +20,7 @@ export const fetchOrders = () =>
 
 export const postOrder = (orderData: OrderPostInterface) => {
   const token = getToken();
+  console.log(orderData)
   return axios.post(`${BASE_API_URL}/orders`, orderData, {
     headers: {
       'Authorization': `Bearer ${token}`

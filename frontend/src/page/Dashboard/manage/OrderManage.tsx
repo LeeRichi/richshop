@@ -104,12 +104,12 @@ const OrderManage = () =>
         if (confirmDelete) {
             deleteOrder(orderId);
             if (orders) {
-            const deletedOrder = orders?.find((order) => order.id === orderId);
-            const updatedOrders = orders?.filter((order) => order.id !== orderId);
-            dispatch(setAllOrders(updatedOrders));
-            if (deletedOrder) {
-                alert(`Order ID:"${deletedOrder?.id}" has been deleted.`);
-            }
+                const deletedOrder = orders?.find((order) => order.id === orderId);
+                const updatedOrders = orders?.filter((order) => order.id !== orderId);
+                dispatch(setAllOrders(updatedOrders));
+                if (deletedOrder) {
+                    alert(`Order ID:"${deletedOrder?.id}" has been deleted.`);
+                }
             }
         }
         }

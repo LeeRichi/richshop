@@ -15,6 +15,10 @@ namespace Business.src.Dtos
         public Category Category { get; set; }
         public List<string> Images { get; set; }
         public int Inventory { get; set; }
+        public Size Size { get; set; }
+        public Color Color { get; set; }
+        public bool IsOnSale { get; set; }
+        public string Brand{ get; set; }
     }
 
     public class ProductCreateDto
@@ -25,6 +29,10 @@ namespace Business.src.Dtos
         public Category Category { get; set; }
         public List<string> Images { get; set; }
         public int Inventory { get; set; }
+        public Size Size { get; set; }
+        public Color Color { get; set; }
+        public bool IsOnSale { get; set; }
+        public string Brand{ get; set; }
     }
 
     public class ProductUpdateDto
@@ -35,5 +43,9 @@ namespace Business.src.Dtos
         public Category Category { get; set; }
         public List<string> Images { get; set; }
         public int Inventory { get; set; }
+        public Size Size { get; set; }
+        public Color Color { get; set; }
+        public bool IsOnSale { get; set; }
+        public string Brand{ get; set; }
     }
 }

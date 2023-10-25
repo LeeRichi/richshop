@@ -11,6 +11,8 @@ namespace Business.src.Dtos
         public string Avatar { get; set; }
         public Role Role { get; set; }
         public ICollection<OrderReadDto> Orders { get; set; } // Include orders here
+        public List<Product> Cart { get; set; }
+        public List<Product> Favorites { get; set; }
     }
 
     public class UserCreateDto
@@ -20,6 +22,8 @@ namespace Business.src.Dtos
         public string Email { get; set; }
         public string Avatar { get; set; }
         public string Password { get; set; }
+        public List<Product> Cart { get; set; }
+        public List<Product> Favorites { get; set; }
     }
 
     public class UserUpdateDto
@@ -27,6 +31,8 @@ namespace Business.src.Dtos
         public string Name { get; set; }
         public string Address { get; set; }
         public string Avatar { get; set; }
+        public List<Product> Cart { get; set; }
+        public List<Product> Favorites { get; set; }
     }
 
     public class UserCredentialsDto

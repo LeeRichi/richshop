@@ -22,16 +22,18 @@ namespace WebApi.src.Configuration
         CreateMap<ProductCreateDto, Product>();
         CreateMap<ProductUpdateDto, Product>();
 
-        CreateMap<Order, OrderReadDto>()
-            .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.OrderProducts));
-
-        CreateMap<OrderCreateDto, Order>()
-            .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.OrderProducts));
-
-        CreateMap<OrderCreateDto, Order>()
-            .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.OrderProducts));
-
+        CreateMap<Order, OrderReadDto>();
+        CreateMap<OrderCreateDto, Order>();
         CreateMap<OrderUpdateDto, Order>();
+
+        // CreateMap<Order, OrderReadDto>()
+        //     .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.OrderProducts));
+
+        // CreateMap<OrderCreateDto, Order>()
+        //     .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.OrderProducts));
+
+        // CreateMap<OrderCreateDto, Order>()
+        //     .ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.OrderProducts));
 
         CreateMap<OrderProduct, OrderProductReadDto>();
         CreateMap<OrderProductReadDto, OrderProduct>();

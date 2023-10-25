@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Controller.src.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/v1/[controller]s")]
     public class CrudController<T, TReadDto, TCreateDto, TupdateDto> : ControllerBase

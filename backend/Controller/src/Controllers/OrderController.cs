@@ -33,11 +33,11 @@ namespace Controller.src.Controllers
             return await base.UpdateOneById(id, update);
         }
 
-        [AllowAnonymous]
-        public override async Task<ActionResult<OrderReadDto>> CreateOne([FromBody] OrderCreateDto dto){
-            var createObj = await _baseService.CreateOne(dto);
-            return CreatedAtAction(nameof(CreateOne), createObj);
-        }
+        // [AllowAnonymous]
+        // public override async Task<ActionResult<OrderReadDto>> CreateOne([FromBody] OrderCreateDto dto){
+        //     var createObj = await _baseService.CreateOne(dto);
+        //     return CreatedAtAction(nameof(CreateOne), createObj);
+        // }
 
         [AllowAnonymous]
         public override async Task<ActionResult<OrderReadDto>> GetOneById ([FromRoute]Guid id){

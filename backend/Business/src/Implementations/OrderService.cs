@@ -19,12 +19,12 @@ namespace Business.src.Implementations
             _orderRepo = orderRepo;
         }
 
-        public override async Task<OrderReadDto> CreateOne(OrderCreateDto dto)
-        {
-            var entity = _mapper.Map<Order>(dto);
-            var created = await _orderRepo.CreateOne(entity);
-            return _mapper.Map<OrderReadDto>(created); 
-        }
+        // public override async Task<OrderReadDto> CreateOne(OrderCreateDto dto)
+        // {
+        //     var entity = _mapper.Map<Order>(dto);
+        //     var created = await _orderRepo.CreateOne(entity);
+        //     return _mapper.Map<OrderReadDto>(created); 
+        // }
     }
 }
 

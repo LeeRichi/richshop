@@ -8,32 +8,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateNeon : Migration
+    public partial class Create : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
                 .Annotation("Npgsql:Enum:role", "admin,user");
-
-            migrationBuilder.CreateTable(
-                name: "products",
-                columns: table => new
-                {
-                    id = table.Column<Guid>(type: "uuid", nullable: false),
-                    title = table.Column<string>(type: "text", nullable: false),
-                    description = table.Column<string>(type: "text", nullable: false),
-                    price = table.Column<float>(type: "real", nullable: false),
-                    inventory = table.Column<int>(type: "integer", nullable: false),
-                    category = table.Column<string>(type: "text", nullable: false),
-                    images = table.Column<List<string>>(type: "text[]", nullable: false),
-                    create_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_products", x => x.id);
-                });
 
             migrationBuilder.CreateTable(
                 name: "users",
@@ -73,7 +54,42 @@ namespace WebApi.Migrations
                         column: x => x.user_id,
                         principalTable: "users",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "products",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    title = table.Column<string>(type: "text", nullable: false),
+                    description = table.Column<string>(type: "text", nullable: false),
+                    price = table.Column<float>(type: "real", nullable: false),
+                    inventory = table.Column<int>(type: "integer", nullable: false),
+                    category = table.Column<string>(type: "text", nullable: false),
+                    images = table.Column<List<string>>(type: "text[]", nullable: false),
+                    size = table.Column<int>(type: "integer", nullable: false),
+                    color = table.Column<int>(type: "integer", nullable: false),
+                    is_on_sale = table.Column<bool>(type: "boolean", nullable: false),
+                    brand = table.Column<string>(type: "text", nullable: false),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    user_id1 = table.Column<Guid>(type: "uuid", nullable: true),
+                    create_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_products", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_products_users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "users",
+                        principalColumn: "id");
+                    table.ForeignKey(
+                        name: "fk_products_users_user_id1",
+                        column: x => x.user_id1,
+                        principalTable: "users",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -98,7 +114,7 @@ namespace WebApi.Migrations
                         column: x => x.product_id,
                         principalTable: "products",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -110,6 +126,16 @@ namespace WebApi.Migrations
                 name: "ix_orders_user_id",
                 table: "orders",
                 column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_products_user_id",
+                table: "products",
+                column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_products_user_id1",
+                table: "products",
+                column: "user_id1");
 
             migrationBuilder.CreateIndex(
                 name: "ix_users_email",

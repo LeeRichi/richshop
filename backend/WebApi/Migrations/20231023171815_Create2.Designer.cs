@@ -14,8 +14,8 @@ using WebApi.src.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231019121328_CreateNeon")]
-    partial class CreateNeon
+    [Migration("20231023171815_Create2")]
+    partial class Create2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,10 +90,19 @@ namespace WebApi.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("brand");
+
                     b.Property<string>("Category")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("category");
+
+                    b.Property<int>("Color")
+                        .HasColumnType("integer")
+                        .HasColumnName("color");
 
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("timestamp without time zone")
@@ -113,9 +122,17 @@ namespace WebApi.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("inventory");
 
+                    b.Property<bool>("IsOnSale")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_on_sale");
+
                     b.Property<float>("Price")
                         .HasColumnType("real")
                         .HasColumnName("price");
+
+                    b.Property<int>("Size")
+                        .HasColumnType("integer")
+                        .HasColumnName("size");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -126,8 +143,22 @@ namespace WebApi.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");
 
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id1");
+
                     b.HasKey("Id")
                         .HasName("pk_products");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_products_user_id");
+
+                    b.HasIndex("UserId1")
+                        .HasDatabaseName("ix_products_user_id1");
 
                     b.ToTable("products", (string)null);
                 });
@@ -196,7 +227,7 @@ namespace WebApi.Migrations
                     b.HasOne("Domain.src.Entities.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_orders_users_user_id");
 
@@ -215,13 +246,26 @@ namespace WebApi.Migrations
                     b.HasOne("Domain.src.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_order_products_products_product_id");
 
                     b.Navigation("Order");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Domain.src.Entities.Product", b =>
+                {
+                    b.HasOne("Domain.src.Entities.User", null)
+                        .WithMany("Cart")
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("fk_products_users_user_id");
+
+                    b.HasOne("Domain.src.Entities.User", null)
+                        .WithMany("Favorites")
+                        .HasForeignKey("UserId1")
+                        .HasConstraintName("fk_products_users_user_id1");
                 });
 
             modelBuilder.Entity("Domain.src.Entities.Order", b =>
@@ -231,6 +275,10 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("Domain.src.Entities.User", b =>
                 {
+                    b.Navigation("Cart");
+
+                    b.Navigation("Favorites");
+
                     b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
