@@ -4,12 +4,9 @@ using Domain.src.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-
-
-
 namespace Controller.src.Controllers
 {
-    [Authorize]
+    // [Authorize]
     public class UserController: CrudController<User, UserReadDto, UserCreateDto, UserUpdateDto>
     {
         private readonly IUserService _userService;
@@ -29,6 +26,25 @@ namespace Controller.src.Controllers
             var createObj = await _userService.CreateOne(dto);
             return CreatedAtAction(nameof(CreateOne), createObj);
         }
-        
+
+
+        [HttpPost("favorite")]
+        public async Task<ActionResult<ProductReadDto>> CreateFavorite([FromBody] FavoriteCreateDto favoriteDto)
+        {
+            // Extract the userId and productId from the dto
+            // Guid productId = dto.Id;
+
+            // Call the service to create a favorite
+            try
+            {
+                var favorite = await _userService.CreateFavorite(favoriteDto);
+                return CreatedAtAction(nameof(CreateFavorite), favorite);
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception, for example, returning a BadRequest result
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@ using Domain.src.Entities;
 using WebApi.src.Database;
 using Domain.src.Abstractions;
 using Microsoft.EntityFrameworkCore;
+using Domain.src.Shared;
 
 namespace WebApi.src.RepoImplementations
 {
@@ -26,8 +27,6 @@ namespace WebApi.src.RepoImplementations
 
         public async Task<User?> FindOneByEmail(string email)
         {
-            /* Where, FirstOrDefault, Find */
-            // _users.FindAsync(email);
             return await _users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
         }
 
@@ -48,6 +47,29 @@ namespace WebApi.src.RepoImplementations
         {
             var user = await _users.FirstOrDefaultAsync(u => u.Email == email);
             return user != null;
+        }
+
+        public async override Task<IEnumerable<User>> GetAll(QueryOptions queryOptions)
+        {
+            return await _users
+                .Include(c => c.Orders)
+                    .ThenInclude(o => o.OrderProducts)
+                .Include(c => c.Favorites) // Include the Favorites navigation property
+                .ToListAsync();
+        }
+
+        public async Task<Product> CreateFavorite(Product favorite)
+        {
+            await _context.Favorites.AddAsync(favorite);
+            await _context.SaveChangesAsync();
+            return favorite;
+        }
+
+        public async Task<bool> CheckIfFavoriteExists(Guid productId)
+        {
+            return await _context.Favorites
+                // .AnyAsync(f => f.UserId == userId && f.ProductId == productId);
+                .AnyAsync(f => f.Id == productId);                
         }
     }
 }

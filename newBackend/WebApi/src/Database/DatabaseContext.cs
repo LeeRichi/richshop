@@ -16,6 +16,8 @@ namespace WebApi.src.Database
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
 
+        public DbSet<Product> Favorites{ get; set; }
+
         public DatabaseContext(DbContextOptions options, IConfiguration config) : base(options)
         {
             _config = config;

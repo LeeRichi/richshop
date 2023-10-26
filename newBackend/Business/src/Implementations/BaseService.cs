@@ -9,11 +9,13 @@ namespace Business.src.Implementations
     public class BaseService<T, TReadDto, TCreateDto, TUpdateDto> : IBaseService<T, TReadDto, TCreateDto, TUpdateDto>
     {
         private readonly IBaseRepo<T> _baseRepo;
+        private readonly IProductRepo _productRepo;
         protected readonly IMapper _mapper;
 
-        public BaseService(IBaseRepo<T> baseRepo, IMapper mapper)
+        public BaseService(IBaseRepo<T> baseRepo, IMapper mapper, IProductRepo productRepo = null)
         {
             _baseRepo = baseRepo;
+            _productRepo = productRepo; // Store the product repository
             _mapper = mapper;
         }
 

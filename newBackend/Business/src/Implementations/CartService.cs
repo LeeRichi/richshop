@@ -20,12 +20,12 @@ namespace Business.src.Implementations
             _cartRepo = cartRepo;
             _mapper = mapper;
         }
+        
+        //resolve the mapping issue
         public async Task<CartReadDto> CreateOne(CartCreateDto cartCreateDto)
         {
             // Use AutoMapper to map the CartCreateDto to a Cart entity
             var cart = _mapper.Map<CartCreateDto, Cart>(cartCreateDto);
-
-            // Perform any additional logic you need for cart creation
 
             // Save the cart entity to the database
             var createdCart = await _cartRepo.CreateOne(cart);
