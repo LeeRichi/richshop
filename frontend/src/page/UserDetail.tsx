@@ -14,6 +14,7 @@ import OrderManage from './Dashboard/manage/OrderManage';
 import UserManage from './Dashboard/manage/UserManage';
 import { fetchUsers } from '../utils/api/UsersApi';
 import { setAllUsers } from '../features/user/allUserSlice';
+import UserInterface from '../interface/UserInterface';
 
 interface MatchedProduct {
   amount: number;
@@ -46,14 +47,19 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
     const [isProductManageOpen, setIsProductManageOpen] = useState(false);
     const [isUserManageOpen, setIsUserManageOpen] = useState(false);
     const [isOrderManageOpen, setIsOrderManageOpen] = useState(false);
+    const [editedUser, setEditedUser] = useState<UserInterface | undefined>(user);
 
-    useEffect(() => {
-        fetchOrderProduct().then(products => {
-            dispatch(setOrderProducts(products));
-        }).catch(error => {
-            console.error('Error fetching order products:', error);
-        });
-    }, [dispatch]);
+    const updateUser = (updatedUser: UserInterface) => {
+        setEditedUser(updatedUser);
+    };
+    
+    // useEffect(() => {
+    //     fetchOrderProduct().then(products => {
+    //         dispatch(setOrderProducts(products));
+    //     }).catch(error => {
+    //         console.error('Error fetching order products:', error);
+    //     });
+    // }, [dispatch]);
 
     useEffect(() => {
         fetchOrders().then(orders => {
@@ -101,7 +107,8 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
 
     return (
         <Box display="flex">
-            <DetailSidebar user={user || currentUser} appLogout={appLogout} setIsProductManageOpen={setIsProductManageOpen} setIsUserManageOpen={setIsUserManageOpen} setIsOrderManageOpen={setIsOrderManageOpen} />
+            <DetailSidebar user={user ?? currentUser} appLogout={appLogout} setIsProductManageOpen={setIsProductManageOpen} setIsUserManageOpen={setIsUserManageOpen} setIsOrderManageOpen={setIsOrderManageOpen} updateUser={updateUser}
+            />
             {isProductManageOpen && (
                 <ProductManage />
             )}

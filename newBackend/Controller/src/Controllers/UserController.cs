@@ -27,7 +27,6 @@ namespace Controller.src.Controllers
             return CreatedAtAction(nameof(CreateOne), createObj);
         }
 
-
         [HttpPost("add-favorite")]
         public async Task<ActionResult<ProductReadDto>> CreateFavorite([FromBody] FavoriteCreateDto favoriteDto)
         {
@@ -82,5 +81,15 @@ namespace Controller.src.Controllers
 
             return Ok(result);
         }
+        
+        [HttpGet("checkEmailExists")]
+        [AllowAnonymous]
+        public IActionResult CheckEmailExists([FromQuery] string email)
+        {
+            var userWithEmail = _userService.CheckEmailExists(email);
+
+            return Ok(new { exists = userWithEmail });
+        }
+
     }
 }

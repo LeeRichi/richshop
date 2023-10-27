@@ -39,11 +39,14 @@ export const postUser = (userData: UserInterface) =>
     });
 };
 
-export const editUser = (userId: string, updatedUserData: UserInterface) => {
+export const editUser = (userId: string, { name, address, avatar }: Partial<UserInterface>) => {
   const token = getToken();
+  const updatedUserData = { name, address, avatar };
+  
   return axios.patch(`${BASE_API_URL}/users/${userId}`, updatedUserData, {
     headers: {
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'multipart/form-data',
     }
   })
     .then(response => response.data)
@@ -67,7 +70,6 @@ export const deleteUser = (userId: string) =>
       throw error;
     });
 };
-
 
 export const CheckEmailExists = (email: string) =>
 {

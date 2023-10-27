@@ -9,7 +9,7 @@ using Domain.src.Shared;
 namespace Controller.src.Controllers
 {
     [ApiController]
-    [Route("api/v1/[controller]")]
+    [Route("api/v1/[controller]s")]
     public class CrudController<T, TReadDto, TCreateDto, TUpdateDto>: ControllerBase
     {
         protected IBaseService<T, TReadDto, TCreateDto, TUpdateDto> _baseService;

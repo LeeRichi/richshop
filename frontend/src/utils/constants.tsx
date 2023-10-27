@@ -1,4 +1,4 @@
-const BASE_API_URL = 'http://localhost:5052/api/v1';
+const BASE_API_URL = 'http://localhost:5215/api/v1';
 // const BASE_API_URL = 'https://richshop.azurewebsites.net/api/v1';
 
 

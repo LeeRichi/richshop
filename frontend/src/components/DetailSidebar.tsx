@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import { Box, Avatar, Typography, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from '@mui/material';
 import UserInterface from '../interface/UserInterface'
-import { useDispatch } from 'react-redux'
-import { logoutUser } from '../features/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux'
+import { logoutUser, updateUserDetails } from '../features/user/userSlice';
 import { clearFavorite } from '../features/favorite/favoriteSlice';
 import { clearCart } from '../features/cart/cartSlice';
 import { setAllOrders } from '../features/order/orderSlice';
 import { setAllUsers } from '../features/user/allUserSlice';
 import { editUser } from '../utils/api/UsersApi';
+import { useNavigate } from 'react-router-dom';
 
 interface DetailSidebarProps {
   user: UserInterface;
@@ -15,19 +16,25 @@ interface DetailSidebarProps {
   setIsProductManageOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsUserManageOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsOrderManageOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  updateUser: (updatedUser: UserInterface) => void;
 }
 
-const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsProductManageOpen, setIsUserManageOpen, setIsOrderManageOpen }) =>
+const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsProductManageOpen, setIsUserManageOpen, setIsOrderManageOpen, updateUser }) =>
 {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [activeButton, setActiveButton] = useState<'product' | 'user' | 'order' | 'avatar'| null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [editedUser, setEditedUser] = useState<UserInterface>({
       ...user,
     });
+    const [newUser, setNewUser] = useState<UserInterface>({
+      ...user,
+    });
     
     useEffect(() => {
-      setEditedUser(user);
+      setNewUser(user);
+      console.log(user)
     }, [user]);
 
     const handleEditDialogOpen = () => {
@@ -40,7 +47,14 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
 
     const handleEdit = () => {
       if (user.id) {
-        editUser(user.id, editedUser);
+        editUser(user.id, editedUser)
+        .then((updatedUserData) => {
+          setNewUser(updatedUserData);
+          dispatch(updateUserDetails(updatedUserData))
+          updateUser(updatedUserData);
+          console.log(user)
+          console.log(editedUser)
+      })
         setIsDialogOpen(false);
       } else {
         console.error('User ID is undefined');
@@ -64,6 +78,7 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
       appLogout();
       dispatch(logoutUser());
       localStorage.removeItem('token');
+      navigate('/');
     }
 
     const handleButtonClick = (button: 'product' | 'user' | 'order' | null) => {
@@ -101,7 +116,7 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
       }}
       >
         <Avatar alt={user.name} src={user.avatar} style={{ width: '150px', height: '150px', margin: '10px 0' }} />
-        <Typography variant="h6">{user.name}</Typography>
+        <Typography variant="h6">{newUser.name}</Typography>
         <Typography variant="body1">User ID: {user.id}</Typography>
         <Typography variant="body1">Name: {user.name}</Typography>
         <Typography variant="body1">Address: {user.address}</Typography>
@@ -127,14 +142,6 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
                 type="text"
                 value={editedUser.address}
                 onChange={(e) => handleInputChange('address', e.target.value)}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Email"
-                type="text"
-                value={editedUser.email}
-                onChange={(e) => handleInputChange('email', e.target.value)}
                 fullWidth
                 margin="normal"
               />
