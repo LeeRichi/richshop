@@ -55,6 +55,7 @@ namespace WebApi.src.RepoImplementations
                 .Include(c => c.Orders)
                     .ThenInclude(o => o.OrderProducts)
                 .Include(c => c.Favorites) // Include the Favorites navigation property
+                .Include(c => c.Carts)
                 .ToListAsync();
         }
 
@@ -70,6 +71,20 @@ namespace WebApi.src.RepoImplementations
             return await _context.Favorites
                 // .AnyAsync(f => f.UserId == userId && f.ProductId == productId);
                 .AnyAsync(f => f.Id == productId);                
+        }
+
+        public async Task<CartItem> CreateCartItem(CartItem cartItem)
+        {
+            await _context.Carts.AddAsync(cartItem);
+            await _context.SaveChangesAsync();
+            return cartItem;
+        }
+
+        public async Task<bool> CheckIfCartItemExists(Guid productId)
+        {
+            return await _context.Carts
+                // .AnyAsync(f => f.UserId == userId && f.ProductId == productId);
+                .AnyAsync(f => f.Product.Id == productId);                
         }
     }
 }

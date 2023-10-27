@@ -12,7 +12,7 @@ namespace Domain.src.Entities
         public byte[] Salt { get; set; }
         public Role Role { get; set; }
         public List<Order> Orders { get; set; }
-        // public List<Product> Cart { get; set; }
+        public List<CartItem> Carts { get; set; }
         public List<Product> Favorites { get; set; }
     }
 

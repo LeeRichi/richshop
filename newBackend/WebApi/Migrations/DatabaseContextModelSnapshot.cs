@@ -25,7 +25,7 @@ namespace Webapi.Migrations
             NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "role", new[] { "admin", "user" });
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.src.Entities.Cart", b =>
+            modelBuilder.Entity("Domain.src.Entities.CartItem", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -35,6 +35,14 @@ namespace Webapi.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("product_id");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp without time zone")
@@ -47,30 +55,13 @@ namespace Webapi.Migrations
                     b.HasKey("Id")
                         .HasName("pk_carts");
 
-                    b.ToTable("carts", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.src.Entities.CartItem", b =>
-                {
-                    b.Property<Guid>("CartId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("cart_id");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("product_id");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer")
-                        .HasColumnName("quantity");
-
-                    b.HasKey("CartId", "ProductId")
-                        .HasName("pk_cart_items");
-
                     b.HasIndex("ProductId")
-                        .HasDatabaseName("ix_cart_items_product_id");
+                        .HasDatabaseName("ix_carts_product_id");
 
-                    b.ToTable("cart_items", (string)null);
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_carts_user_id");
+
+                    b.ToTable("carts", (string)null);
                 });
 
             modelBuilder.Entity("Domain.src.Entities.Order", b =>
@@ -262,23 +253,23 @@ namespace Webapi.Migrations
 
             modelBuilder.Entity("Domain.src.Entities.CartItem", b =>
                 {
-                    b.HasOne("Domain.src.Entities.Cart", "Cart")
-                        .WithMany("CartItems")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_cart_items_carts_cart_id");
-
                     b.HasOne("Domain.src.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_cart_items_product_product_id");
+                        .HasConstraintName("fk_carts_product_product_id");
 
-                    b.Navigation("Cart");
+                    b.HasOne("Domain.src.Entities.User", "User")
+                        .WithMany("Carts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_carts_users_user_id");
 
                     b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.src.Entities.Order", b =>
@@ -322,11 +313,6 @@ namespace Webapi.Migrations
                         .HasConstraintName("fk_product_users_user_id");
                 });
 
-            modelBuilder.Entity("Domain.src.Entities.Cart", b =>
-                {
-                    b.Navigation("CartItems");
-                });
-
             modelBuilder.Entity("Domain.src.Entities.Order", b =>
                 {
                     b.Navigation("OrderProducts");
@@ -334,6 +320,8 @@ namespace Webapi.Migrations
 
             modelBuilder.Entity("Domain.src.Entities.User", b =>
                 {
+                    b.Navigation("Carts");
+
                     b.Navigation("Favorites");
 
                     b.Navigation("Orders");

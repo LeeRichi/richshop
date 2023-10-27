@@ -62,15 +62,10 @@ namespace Business.src.Implementations
             return new CheckEmailResult { Exists = false, UserId = null };
         }
 
-        public async Task<ProductReadDto> CreateFavorite(FavoriteCreateDto favoriteDto)
+        public async Task<ProductReadDto> ManageFavorite(FavoriteCreateDto favoriteDto, bool addFavorite)
         {
-            // Retrieve the user and product entities based on the IDs provided in the DTO
             var user = await _userRepo.GetOneById(favoriteDto.UserId);
             var product = await _productRepo.GetOneById(favoriteDto.ProductId);
-
-            Console.WriteLine("favoriteDto");
-            Console.WriteLine($"favo: {favoriteDto.UserId}");
-            System.Console.WriteLine(user.Favorites);
 
             if (user == null || product == null)
             {
@@ -79,17 +74,69 @@ namespace Business.src.Implementations
             }
 
             if (user.Favorites == null)
-{
-    user.Favorites = new List<Product>(); // Initialize the Favorites property if it's null
-}
+            {
+                user.Favorites = new List<Product>();
+            }
 
-            user.Favorites.Add(product);
+            if (addFavorite)
+            {
+                user.Favorites.Add(product);
+            }
+            else
+            {
+                user.Favorites.Remove(product);
+            }
 
-            // Update the user entity in the database
             await _userRepo.UpdateOneById(user);
 
-            // Return the product or any other appropriate response
             return _mapper.Map<ProductReadDto>(product);
         }
+
+        public async Task<ProductReadDto> ManageCart(CartItemDto cartItemDto, bool addToCart)
+        {
+            var user = await _userRepo.GetOneById(cartItemDto.UserId);
+            var product = await _productRepo.GetOneById(cartItemDto.ProductId);
+
+            if (user == null || product == null)
+            {
+                Console.WriteLine("User or product not found");
+                return null;
+            }
+
+            if (user.Carts == null)
+            {
+                user.Carts = new List<CartItem>();
+            }
+
+            var existingCartItem = user.Carts.FirstOrDefault(c => c.Product.Id == product.Id);
+
+            if (addToCart)
+            {
+                if (existingCartItem != null)
+                {
+                    existingCartItem.Quantity++;
+                }
+                else
+                {
+                    user.Carts.Add(new CartItem { Product = product, Quantity = 1 });
+                }
+            }
+            else
+            {
+                if (existingCartItem != null)
+                {
+                    existingCartItem.Quantity--;
+                    if (existingCartItem.Quantity <= 0)
+                    {
+                        user.Carts.Remove(existingCartItem);
+                    }
+                }
+            }
+
+            await _userRepo.UpdateOneById(user);
+
+            return _mapper.Map<ProductReadDto>(product);
+        }
+
     } 
 }

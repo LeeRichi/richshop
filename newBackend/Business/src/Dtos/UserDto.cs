@@ -12,6 +12,7 @@ namespace Business.src.Dtos
         public Role Role { get; set; }
         public ICollection<OrderReadDto> Orders { get; set; }
         public List<ProductReadDto> Favorites { get; set; }
+        public List<CartItemDto> Carts { get; set; }
     }
 
     public class UserCreateDto

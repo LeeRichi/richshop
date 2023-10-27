@@ -17,20 +17,6 @@ namespace Webapi.Migrations
                 .Annotation("Npgsql:Enum:role", "admin,user");
 
             migrationBuilder.CreateTable(
-                name: "carts",
-                columns: table => new
-                {
-                    id = table.Column<Guid>(type: "uuid", nullable: false),
-                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_carts", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "users",
                 columns: table => new
                 {
@@ -72,7 +58,7 @@ namespace Webapi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "products",
+                name: "product",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -92,35 +78,38 @@ namespace Webapi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_products", x => x.id);
+                    table.PrimaryKey("pk_product", x => x.id);
                     table.ForeignKey(
-                        name: "fk_products_users_user_id",
+                        name: "fk_product_users_user_id",
                         column: x => x.user_id,
                         principalTable: "users",
                         principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "cart_items",
+                name: "carts",
                 columns: table => new
                 {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
                     product_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    cart_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    quantity = table.Column<int>(type: "integer", nullable: false)
+                    quantity = table.Column<int>(type: "integer", nullable: false),
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_cart_items", x => new { x.cart_id, x.product_id });
+                    table.PrimaryKey("pk_carts", x => x.id);
                     table.ForeignKey(
-                        name: "fk_cart_items_carts_cart_id",
-                        column: x => x.cart_id,
-                        principalTable: "carts",
+                        name: "fk_carts_product_product_id",
+                        column: x => x.product_id,
+                        principalTable: "product",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "fk_cart_items_products_product_id",
-                        column: x => x.product_id,
-                        principalTable: "products",
+                        name: "fk_carts_users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -135,6 +124,7 @@ namespace Webapi.Migrations
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("pk_order_products", x => new { x.order_id, x.product_id });
                     table.ForeignKey(
                         name: "fk_order_products_orders_order_id",
                         column: x => x.order_id,
@@ -142,22 +132,22 @@ namespace Webapi.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "fk_order_products_products_product_id",
+                        name: "fk_order_products_product_product_id",
                         column: x => x.product_id,
-                        principalTable: "products",
+                        principalTable: "product",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "ix_cart_items_product_id",
-                table: "cart_items",
+                name: "ix_carts_product_id",
+                table: "carts",
                 column: "product_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_order_products_order_id",
-                table: "order_products",
-                column: "order_id");
+                name: "ix_carts_user_id",
+                table: "carts",
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_order_products_product_id",
@@ -170,8 +160,8 @@ namespace Webapi.Migrations
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_products_user_id",
-                table: "products",
+                name: "ix_product_user_id",
+                table: "product",
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
@@ -185,19 +175,16 @@ namespace Webapi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "cart_items");
+                name: "carts");
 
             migrationBuilder.DropTable(
                 name: "order_products");
 
             migrationBuilder.DropTable(
-                name: "carts");
-
-            migrationBuilder.DropTable(
                 name: "orders");
 
             migrationBuilder.DropTable(
-                name: "products");
+                name: "product");
 
             migrationBuilder.DropTable(
                 name: "users");

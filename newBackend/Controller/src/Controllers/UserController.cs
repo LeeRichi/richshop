@@ -28,23 +28,59 @@ namespace Controller.src.Controllers
         }
 
 
-        [HttpPost("favorite")]
+        [HttpPost("add-favorite")]
         public async Task<ActionResult<ProductReadDto>> CreateFavorite([FromBody] FavoriteCreateDto favoriteDto)
         {
-            // Extract the userId and productId from the dto
-            // Guid productId = dto.Id;
-
-            // Call the service to create a favorite
             try
             {
-                var favorite = await _userService.CreateFavorite(favoriteDto);
+                var favorite = await _userService.ManageFavorite(favoriteDto, addFavorite: true);
                 return CreatedAtAction(nameof(CreateFavorite), favorite);
             }
             catch (Exception ex)
             {
-                // Handle the exception, for example, returning a BadRequest result
                 return BadRequest(new { message = ex.Message });
             }
+        }
+
+        [HttpPost("remove-favorite")]
+        public async Task<ActionResult<ProductReadDto>> RemoveFavorite([FromBody] FavoriteCreateDto favoriteDto)
+        {
+            var result = await _userService.ManageFavorite(favoriteDto, addFavorite: false);
+            System.Console.WriteLine(result);
+            
+            if (result == null)
+            {
+                return BadRequest(new { message = "Failed to remove favorite." });
+            }
+
+            return Ok(result);
+        }
+
+        [HttpPost("add-to-cart")]
+        public async Task<ActionResult<ProductReadDto>> AddToCart([FromBody] CartItemDto cartItem)
+        {
+            try
+            {
+                var cartResult = await _userService.ManageCart(cartItem, addCart: true);
+                return CreatedAtAction(nameof(AddToCart), cartResult);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpPost("remove-from-cart")]
+        public async Task<ActionResult<ProductReadDto>> RemoveFromCart([FromBody] CartItemDto cartItem)
+        {
+            var result = await _userService.ManageCart(cartItem, addCart: false);
+
+            if (result == null)
+            {
+                return BadRequest(new { message = "Failed to remove item from cart." });
+            }
+
+            return Ok(result);
         }
     }
 }

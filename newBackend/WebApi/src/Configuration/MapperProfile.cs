@@ -24,15 +24,16 @@ namespace Webapi.src.Configuration
             CreateMap<OrderProductReadDto, OrderProduct>();
             CreateMap<OrderProductCreateDto, OrderProduct>();
 
-            CreateMap<Cart, CartReadDto>();
-            CreateMap<CartReadDto, Cart>();
-            CreateMap<CartCreateDto, Cart>()
-                .ForMember(dest => dest.CartItems, opt => opt.MapFrom(src => src.CartItems));
-            CreateMap<CartItemDto, CartItem>();
+            // CreateMap<Cart, CartReadDto>();
+            // CreateMap<CartReadDto, Cart>();
+            // CreateMap<CartCreateDto, Cart>()
+            //     .ForMember(dest => dest.CartItems, opt => opt.MapFrom(src => src.CartItems));
+            // CreateMap<CartItemDto, CartItem>();
 
-            CreateMap<CartItem, CartItemReadDto>();
-            CreateMap<CartItemCreateDto, CartItem>();
-            CreateMap<CartItemUpdateDto, CartItem>();
+            // CreateMap<CartItem, CartItemReadDto>();
+            // CreateMap<CartItemCreateDto, CartItem>();
+            // CreateMap<CartItemUpdateDto, CartItem>();
+            CreateMap<CartItem, CartItemDto>(); 
         }
     }
 }

@@ -42,13 +42,13 @@ builder.Services
 .AddScoped<IProductRepo, ProductRepo>()
 
 .AddScoped<IOrderService, OrderService>()
-.AddScoped<IOrderRepo, OrderRepo>()
+.AddScoped<IOrderRepo, OrderRepo>();
 
 // .AddScoped<IOrderProductService, OrderProductService>()
 // .AddScoped<IOrderProductRepo, OrderProductRepo>()
 
-.AddScoped<ICartService, CartService>()
-.AddScoped<ICartRepo, CartRepo>();
+// .AddScoped<ICartService, CartService>()
+// .AddScoped<ICartRepo, CartRepo>();
 
 
 // Configure CORS

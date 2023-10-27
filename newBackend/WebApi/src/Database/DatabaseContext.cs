@@ -13,8 +13,8 @@ namespace WebApi.src.Database
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderProduct> OrderProducts { get; set; }
 
-        public DbSet<Cart> Carts { get; set; }
-        public DbSet<CartItem> CartItems { get; set; }
+        // public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> Carts { get; set; }
 
         public DbSet<Product> Favorites{ get; set; }
 
@@ -49,18 +49,18 @@ namespace WebApi.src.Database
         {
             modelBuilder.HasPostgresEnum<Role>();
 
-            modelBuilder.Entity<Cart>()
-                .HasMany(c => c.CartItems)
-                .WithOne(ci => ci.Cart)
-                .HasForeignKey(ci => ci.CartId);
+            // modelBuilder.Entity<Cart>()
+            //     .HasMany(c => c.CartItems)
+            //     .WithOne(ci => ci.Cart)
+            //     .HasForeignKey(ci => ci.CartId);
 
-            // Configure the relationship between CartItem and Product
-            modelBuilder.Entity<CartItem>()
-                .HasKey(ci => new { ci.CartId, ci.ProductId }); // Composite key
-            modelBuilder.Entity<CartItem>()
-                .HasOne(ci => ci.Product)
-                .WithMany()
-                .HasForeignKey(ci => ci.ProductId);
+            // // Configure the relationship between CartItem and Product
+            // modelBuilder.Entity<CartItem>()
+            //     .HasKey(ci => new { ci.CartId, ci.ProductId }); // Composite key
+            // modelBuilder.Entity<CartItem>()
+            //     .HasOne(ci => ci.Product)
+            //     .WithMany()
+            //     .HasForeignKey(ci => ci.ProductId);
             
             modelBuilder.Entity<Order>()
                 .HasMany(o => o.OrderProducts)
@@ -78,6 +78,21 @@ namespace WebApi.src.Database
                 .HasMany(u => u.Orders)
                 .WithOne(o => o.User)
                 .HasForeignKey(o => o.UserId);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Carts)
+                .WithOne(c => c.User)
+                .HasForeignKey(c => c.UserId);
+
+            modelBuilder.Entity<CartItem>()
+                .HasOne(c => c.User)
+                .WithMany(u => u.Carts)
+                .HasForeignKey(c => c.UserId);
+
+            modelBuilder.Entity<CartItem>()
+                .HasOne(c => c.Product)
+                .WithMany()
+                .HasForeignKey(c => c.ProductId);
 
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
 
