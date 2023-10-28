@@ -115,12 +115,14 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
           alignItems: 'center',
       }}
       >
-        <Avatar alt={user.name} src={user.avatar} style={{ width: '150px', height: '150px', margin: '10px 0' }} />
-        <Typography variant="h6">{newUser.name}</Typography>
-        <Typography variant="body1">User ID: {user.id}</Typography>
-        <Typography variant="body1">Name: {user.name}</Typography>
-        <Typography variant="body1">Address: {user.address}</Typography>
-        <Typography variant="body1">Email: {user.email}</Typography>
+        <Avatar alt={newUser.name} src={newUser.avatar} style={{ width: '150px', height: '150px', margin: '20px 0' }} />
+        <Typography variant="h6" style={{ margin: '10px 0' }}>{newUser.name}</Typography>
+        <Typography variant="body2" style={{ textAlign: 'center', margin: '20px 0' }}>
+          User ID: <br/>{newUser.id}
+        </Typography>
+        <Typography variant="body1" style={{ margin: '10px 0' }}>Address: {newUser.address}</Typography>
+        <Typography variant="body1" style={{ margin: '10px 0' }}>Email: {newUser.email}</Typography>
+
 
         <div style={{ marginTop: '10px', display: 'flex', gap: '10px' }}>
           <Button variant="contained" color="primary" onClick={handleEditDialogOpen}>
@@ -136,6 +138,7 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
                 onChange={(e) => handleInputChange('name', e.target.value)}
                 fullWidth
                 margin="normal"
+                required
               />
               <TextField
                 label="Address"
@@ -144,6 +147,7 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
                 onChange={(e) => handleInputChange('address', e.target.value)}
                 fullWidth
                 margin="normal"
+                required
               />
               <TextField
                   label="Avatar"
@@ -152,13 +156,18 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
                   onChange={(e) => handleInputChange('avatar', e.target.value)}
                   fullWidth
                   margin="normal"
+                  required
                 />
             </DialogContent>
             <DialogActions>
               <Button onClick={handleEditDialogClose} color="primary">
                 Cancel
               </Button>
-              <Button onClick={handleEdit} color="primary">
+            <Button
+              onClick={handleEdit}
+              disabled={!editedUser.name || !editedUser.address || !editedUser.avatar}
+              color="primary"
+            >
                 Save
               </Button>
             </DialogActions>

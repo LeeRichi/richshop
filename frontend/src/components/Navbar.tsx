@@ -101,9 +101,10 @@ const Navbar = ({ appLogout, products, onSearchResultsChange }: { appLogout: () 
             <>
               <IconButton color="inherit" onClick={handleMenuClick}>
                 <img
-                  src={userAvatar.avatar}
-                  alt="User Avatar"
+                  src={userAvatar.avatar ? userAvatar.avatar : "https://gravatar.com/avatar/00000000000000000000000000000000?d=mp"}
+                  alt={userAvatar.name}
                   width="32px"
+                  height="32px"
                   style={{ borderRadius: '50%' }}
                 />
               </IconButton>
