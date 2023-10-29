@@ -9,6 +9,7 @@ using Business.src.Abstraction;
 using Domain.src.Abstractions;
 using Business.src.Shared;
 
+
 namespace Business.src.Implementations
 {
     public class UserService : BaseService<User, UserReadDto, UserCreateDto, UserUpdateDto>, IUserService
@@ -17,7 +18,7 @@ namespace Business.src.Implementations
         private readonly IProductRepo _productRepo;
 
         public UserService(IUserRepo userRepo, IProductRepo productRepo, IMapper mapper) : base(userRepo, mapper, productRepo)
-        // public UserService(IUserRepo userRepo, IMapper mapper) : base(userRepo, mapper)
+        // public UserService(IUserRepo userRepo, IProductRepo productRepo, IMapper mapper) : base(userRepo, mapper)
         {
             _userRepo = userRepo;
             _productRepo = productRepo;
@@ -62,12 +63,12 @@ namespace Business.src.Implementations
             return new CheckEmailResult { Exists = false, UserId = null };
         }
 
-        public async Task<ProductReadDto> ManageFavorite(FavoriteCreateDto favoriteDto, bool addFavorite)
+        public async Task<CartItemReadDto> ManageFavorite(CartItemCreateDto productDto, bool addFavorite)
         {
-            var user = await _userRepo.GetOneById(favoriteDto.UserId);
-            var product = await _productRepo.GetOneById(favoriteDto.ProductId);
+            var user = await _userRepo.GetOneById(productDto.UserId);
+            var product = await _productRepo.GetOneById(productDto.ProductId);
 
-            if (user == null || product == null)
+            if (user == null)
             {
                 Console.WriteLine("User or product not found");
                 return null;
@@ -78,26 +79,49 @@ namespace Business.src.Implementations
                 user.Favorites = new List<Product>();
             }
 
+            var existingProduct = user.Favorites.FirstOrDefault(c => c.Id == productDto.ProductId);
+
+
             if (addFavorite)
             {
-                user.Favorites.Add(product);
+                if (existingProduct != null)
+                {
+                    System.Console.WriteLine("This favorite is already exists");
+                }                
+                else
+                {
+                    var trackedProduct = await _productRepo.FindAsync(product.Id);
+
+                    user.Favorites.Add(product);
+                }
             }
             else
             {
-                user.Favorites.Remove(product);
+                if (existingProduct != null)
+                {
+                    var trackedProduct = await _productRepo.FindAsync(product.Id);
+
+                    if (trackedProduct != null)
+                    {
+                        user.Favorites.Remove(trackedProduct);
+                    }
+                    else
+                    {
+                        user.Favorites.Remove(existingProduct);
+                    }
+                }
             }
 
             await _userRepo.UpdateOneById(user);
 
-            return _mapper.Map<ProductReadDto>(product);
+            return _mapper.Map<CartItemReadDto>(productDto);
         }
 
-        public async Task<ProductReadDto> ManageCart(CartItemDto cartItemDto, bool addToCart)
+        public async Task<CartItemReadDto> ManageCart(CartItemCreateDto cartItemDto, bool addToCart)
         {
             var user = await _userRepo.GetOneById(cartItemDto.UserId);
-            var product = await _productRepo.GetOneById(cartItemDto.ProductId);
 
-            if (user == null || product == null)
+            if (user == null)
             {
                 Console.WriteLine("User or product not found");
                 return null;
@@ -108,34 +132,35 @@ namespace Business.src.Implementations
                 user.Carts = new List<CartItem>();
             }
 
-            var existingCartItem = user.Carts.FirstOrDefault(c => c.Product.Id == product.Id);
-
+            var existingCartItem = user.Carts.FirstOrDefault(c => c.Product.Id == cartItemDto.ProductId);
+            System.Console.WriteLine("hi" + existingCartItem.Quantity);
+            
             if (addToCart)
             {
                 if (existingCartItem != null)
                 {
-                    existingCartItem.Quantity++;
-                }
+                    existingCartItem.Quantity = existingCartItem.Quantity + 1;
+                }                
                 else
                 {
-                    user.Carts.Add(new CartItem { Product = product, Quantity = 1 });
+                    user.Carts.Add(new CartItem { ProductId = cartItemDto.ProductId, Quantity = 1 });
                 }
             }
             else
             {
                 if (existingCartItem != null)
                 {
-                    existingCartItem.Quantity--;
-                    if (existingCartItem.Quantity <= 0)
-                    {
+                    if (existingCartItem.Quantity == 1){
                         user.Carts.Remove(existingCartItem);
+                    } else {
+                        existingCartItem.Quantity--;
                     }
                 }
             }
 
             await _userRepo.UpdateOneById(user);
 
-            return _mapper.Map<ProductReadDto>(product);
+            return _mapper.Map<CartItemReadDto>(existingCartItem);
         }
 
     } 

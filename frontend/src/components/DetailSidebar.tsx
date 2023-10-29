@@ -115,15 +115,17 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
           alignItems: 'center',
       }}
       >
-        <Avatar alt={newUser.name} src={newUser.avatar} style={{ width: '150px', height: '150px', margin: '20px 0' }} />
+      <Avatar
+        alt={newUser.name}
+        src={newUser.avatar ? newUser.avatar : "https://gravatar.com/avatar/00000000000000000000000000000000?d=mp"}
+        style={{ width: '150px', height: '150px', margin: '20px 0' }}
+      />
         <Typography variant="h6" style={{ margin: '10px 0' }}>{newUser.name}</Typography>
         <Typography variant="body2" style={{ textAlign: 'center', margin: '20px 0' }}>
           User ID: <br/>{newUser.id}
         </Typography>
         <Typography variant="body1" style={{ margin: '10px 0' }}>Address: {newUser.address}</Typography>
         <Typography variant="body1" style={{ margin: '10px 0' }}>Email: {newUser.email}</Typography>
-
-
         <div style={{ marginTop: '10px', display: 'flex', gap: '10px' }}>
           <Button variant="contained" color="primary" onClick={handleEditDialogOpen}>
             Edit

@@ -11,6 +11,8 @@ interface UserInterface {
   orders?: OrderInterface[];
   role?: Role;
   password?: string
+  favorites?: [];
+  carts?: [];
 }
 
 export default UserInterface;

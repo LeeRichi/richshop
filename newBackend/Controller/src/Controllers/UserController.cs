@@ -28,7 +28,7 @@ namespace Controller.src.Controllers
         }
 
         [HttpPost("add-favorite")]
-        public async Task<ActionResult<ProductReadDto>> CreateFavorite([FromBody] FavoriteCreateDto favoriteDto)
+        public async Task<ActionResult<ProductReadDto>> CreateFavorite([FromBody] CartItemCreateDto favoriteDto)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace Controller.src.Controllers
         }
 
         [HttpPost("remove-favorite")]
-        public async Task<ActionResult<ProductReadDto>> RemoveFavorite([FromBody] FavoriteCreateDto favoriteDto)
+        public async Task<ActionResult<ProductReadDto>> RemoveFavorite([FromBody] CartItemCreateDto favoriteDto)
         {
             var result = await _userService.ManageFavorite(favoriteDto, addFavorite: false);
             System.Console.WriteLine(result);
@@ -56,10 +56,11 @@ namespace Controller.src.Controllers
         }
 
         [HttpPost("add-to-cart")]
-        public async Task<ActionResult<ProductReadDto>> AddToCart([FromBody] CartItemDto cartItem)
+        public async Task<ActionResult<ProductReadDto>> AddToCart([FromBody] CartItemCreateDto cartItem)
         {
             try
             {
+
                 var cartResult = await _userService.ManageCart(cartItem, addCart: true);
                 return CreatedAtAction(nameof(AddToCart), cartResult);
             }
@@ -70,7 +71,7 @@ namespace Controller.src.Controllers
         }
 
         [HttpPost("remove-from-cart")]
-        public async Task<ActionResult<ProductReadDto>> RemoveFromCart([FromBody] CartItemDto cartItem)
+        public async Task<ActionResult<ProductReadDto>> RemoveFromCart([FromBody] CartItemCreateDto cartItem)
         {
             var result = await _userService.ManageCart(cartItem, addCart: false);
 

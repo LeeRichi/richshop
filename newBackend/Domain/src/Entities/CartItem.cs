@@ -1,6 +1,6 @@
 namespace Domain.src.Entities
 {
-    public class CartItem: BaseEntityWithId
+    public class CartItem
     {
         public Guid UserId { get; set; }
         public User User { get; set; }

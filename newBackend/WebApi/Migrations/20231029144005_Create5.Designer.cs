@@ -14,8 +14,8 @@ using WebApi.src.Database;
 namespace Webapi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20231027100452_Create")]
-    partial class Create
+    [Migration("20231029144005_Create5")]
+    partial class Create5
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,14 +30,9 @@ namespace Webapi.Migrations
 
             modelBuilder.Entity("Domain.src.Entities.CartItem", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("created_at");
+                        .HasColumnName("user_id");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid")
@@ -47,22 +42,18 @@ namespace Webapi.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("quantity");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("updated_at");
-
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId1")
                         .HasColumnType("uuid")
-                        .HasColumnName("user_id");
+                        .HasColumnName("user_id1");
 
-                    b.HasKey("Id")
+                    b.HasKey("UserId", "ProductId")
                         .HasName("pk_carts");
 
                     b.HasIndex("ProductId")
                         .HasDatabaseName("ix_carts_product_id");
 
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_carts_user_id");
+                    b.HasIndex("UserId1")
+                        .HasDatabaseName("ix_carts_user_id1");
 
                     b.ToTable("carts", (string)null);
                 });
@@ -270,6 +261,11 @@ namespace Webapi.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_carts_users_user_id");
 
+                    b.HasOne("Domain.src.Entities.User", null)
+                        .WithMany("Favorites")
+                        .HasForeignKey("UserId1")
+                        .HasConstraintName("fk_carts_users_user_id1");
+
                     b.Navigation("Product");
 
                     b.Navigation("User");
@@ -311,7 +307,7 @@ namespace Webapi.Migrations
             modelBuilder.Entity("Domain.src.Entities.Product", b =>
                 {
                     b.HasOne("Domain.src.Entities.User", null)
-                        .WithMany("Favorites")
+                        .WithMany("BrowseHistory")
                         .HasForeignKey("UserId")
                         .HasConstraintName("fk_product_users_user_id");
                 });
@@ -323,6 +319,8 @@ namespace Webapi.Migrations
 
             modelBuilder.Entity("Domain.src.Entities.User", b =>
                 {
+                    b.Navigation("BrowseHistory");
+
                     b.Navigation("Carts");
 
                     b.Navigation("Favorites");

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCartItems, setCartCount, clearCart } from '../features/cart/cartSlice';
-import { selectUserDetails } from '../features/user/userSlice';
+import { selectUserDetails, updateUserDetails } from '../features/user/userSlice';
 import { Button, Grid, Typography, TextField } from '@mui/material';
 import CartItem from '../components/CartItem';
 import Category from '../components/Category';
@@ -10,43 +10,48 @@ import { postOrder } from '../utils/api/OrderApi';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const calculateSubtotal = (cartItems: Product[]) => {
-  return cartItems.reduce((total, item) => total + item.price * (item.quantity || 1), 0);
-};
-
-const calculateOrderTotal = (cartItems: Product[]) => {
-  const subtotal = calculateSubtotal(cartItems);
-  const shipping = 0;
-  return subtotal + shipping;
-};
+import { RootState } from '../app/rootReducer';
+import getUserDetails from '../utils/api/getUserDetails';
+import { getToken } from '../utils/tokenStorage';
+import { CartItemInterface } from '../interface/CartItemInterface';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector(selectUserDetails);
   const id = useSelector(selectUserDetails)?.id;
-  const cartItems = useSelector(selectCartItems);
+  const token = getToken();
 
-  const subtotal = calculateSubtotal(cartItems);
-  const orderTotal = calculateOrderTotal(cartItems);
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const userDetails = await getUserDetails(token);
+        dispatch(updateUserDetails(userDetails));
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+      }
+    };
+    fetchUserDetails();
+  }, [token, dispatch]);
+
+  const cartItems = useSelector((state: RootState) => state.user.userDetails?.carts);
+  console.log(cartItems)
 
   const handlePromotionButton = () => {
     alert('Promotion code not found');
   };
 
   const onHandleCheckOut = async () => {
-    if (cartItems.length === 0) {
+    if (cartItems?.length === 0) {
       toast.error("Your cart is still empty 😅", {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1500,
       });
-      return; // Don't proceed with checkout if the cart is empty
+      return;
     }
-    console.log('fired');
-    console.log(id)
     try {
-      const orderProducts = cartItems.map((item) => ({
-        productId: item.id || '',
+        const orderProducts = (cartItems || []).map((item: CartItemInterface) => ({
+        productId: item.productId || '',
         amount: item.quantity || 1,
       }));
 
@@ -62,12 +67,9 @@ const Cart = () => {
       dispatch(setCartCount(0));
       dispatch(clearCart());
       navigate('/checkOut');
-
-      // Provide any additional actions you want after successful checkout
-      // e.g., redirect to a confirmation page
     } catch (error) {
       console.error('Error during checkout:', error);
-      throw error; // Throw the error to stop further execution
+      throw error;
     }
   };
 
@@ -103,11 +105,11 @@ const Cart = () => {
               }}
             >
               <Typography variant="h4">Summary</Typography>
-              <Typography variant="body1">Subtotal: ${subtotal.toFixed(2)}</Typography>
+              {/* <Typography variant="body1">Subtotal: ${subtotal.toFixed(2)}</Typography>
               <Typography variant="h5">Order Total: ${orderTotal.toFixed(2)}</Typography>
               <Button variant="contained" color="primary" onClick={onHandleCheckOut}>
                 Checkout
-              </Button>
+              </Button> */}
             </Grid>
             <Grid
               item

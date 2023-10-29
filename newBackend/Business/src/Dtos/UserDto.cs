@@ -11,8 +11,9 @@ namespace Business.src.Dtos
         public string Avatar { get; set; }
         public Role Role { get; set; }
         public ICollection<OrderReadDto> Orders { get; set; }
-        public List<ProductReadDto> Favorites { get; set; }
-        public List<CartItemDto> Carts { get; set; }
+        public ICollection<ProductReadDto> Favorites { get; set; }
+        public List<CartItemReadDto> Carts { get; set; }
+        public List<ProductReadDto> BrowseHistory { get; set; }
     }
 
     public class UserCreateDto

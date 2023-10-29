@@ -5,9 +5,9 @@ import { Button, Typography, Grid, Divider } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import { addToFavorites, removeFromFavorites, selectFavorites } from '../features/favorite/favoriteSlice';
-import { addToCart } from '../features/cart/cartSlice';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { setFavoriteCount } from '../features/favorite/favoriteSlice';
+import { addToCart } from '../utils/api/CartApi';
 
 const ProductDetail = () =>
 {
@@ -19,6 +19,8 @@ const ProductDetail = () =>
 
   const favorites = useSelector(selectFavorites);
   const isFavorite = favorites.some((favProduct) => favProduct.id === id);
+
+  const user = useSelector((state: RootState)=>state.user.userDetails)
 
   if (!id) {
     return <div>No product ID provided.</div>;
@@ -36,9 +38,9 @@ const ProductDetail = () =>
     }
   };
 
-  const handleAddToCart = () =>
-  {
-    dispatch(addToCart(product))
+  const handleAddToCart = () => {
+    const dataProps = { userId: user?.id, productId: id, quantity: 1 };
+    addToCart(dataProps);
   }
 
   const newFavoriteCount = favorites.length;

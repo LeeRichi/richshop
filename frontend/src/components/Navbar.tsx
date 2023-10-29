@@ -105,8 +105,28 @@ const Navbar = ({ appLogout, products, onSearchResultsChange }: { appLogout: () 
                   alt={userAvatar.name}
                   width="32px"
                   height="32px"
-                  style={{ borderRadius: '50%' }}
+                  style={{
+                    borderRadius: '50%',
+                    border: userAvatar.role === 'Admin' ? '1px solid white' : 'none'
+                  }}
                 />
+                {/* admin badge */}
+                {userAvatar.role === 'Admin' && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      right: 0,
+                      borderRadius: '50%',
+                      padding: '2px',
+                      color: 'white',
+                      fontSize: '20px',
+                      lineHeight: '1',
+                    }}
+                  >
+                    👑
+                  </div>
+                )}
               </IconButton>
               <Menu
                   anchorEl={anchorEl}

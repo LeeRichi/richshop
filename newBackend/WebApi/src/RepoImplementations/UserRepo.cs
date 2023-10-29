@@ -54,9 +54,24 @@ namespace WebApi.src.RepoImplementations
             return await _users
                 .Include(c => c.Orders)
                     .ThenInclude(o => o.OrderProducts)
-                .Include(c => c.Favorites) // Include the Favorites navigation property
+                // .Include(c => c.Favorites)
                 .Include(c => c.Carts)
-                .ToListAsync();
+                    .ThenInclude(o => o.Product)
+                .ToListAsync();                            
+        }
+
+        public async Task<User> GetOneById(Guid id)
+        {
+            return await _users
+                .AsNoTracking()
+                .Include(c => c.Orders)
+                    .ThenInclude(o => o.OrderProducts)
+                .Include(c => c.Favorites) 
+                    .AsNoTracking()
+                .Include(c => c.Carts)
+                    .ThenInclude(o => o.Product)
+                    .AsNoTracking()
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task<Product> CreateFavorite(Product favorite)
@@ -66,25 +81,25 @@ namespace WebApi.src.RepoImplementations
             return favorite;
         }
 
-        public async Task<bool> CheckIfFavoriteExists(Guid productId)
-        {
-            return await _context.Favorites
-                // .AnyAsync(f => f.UserId == userId && f.ProductId == productId);
-                .AnyAsync(f => f.Id == productId);                
-        }
+        // public async Task<bool> CheckIfFavoriteExists(Guid productId)
+        // {
+        //     return await _context.Favorites
+        //         // .AnyAsync(f => f.UserId == userId && f.ProductId == productId);
+        //         .AnyAsync(f => f.Id == productId);                
+        // }
 
-        public async Task<CartItem> CreateCartItem(CartItem cartItem)
-        {
-            await _context.Carts.AddAsync(cartItem);
-            await _context.SaveChangesAsync();
-            return cartItem;
-        }
+        // public async Task<CartItem> CreateCartItem(CartItem cartItem)
+        // {
+        //     await _context.Carts.AddAsync(cartItem);
+        //     await _context.SaveChangesAsync();
+        //     return cartItem;
+        // }
 
-        public async Task<bool> CheckIfCartItemExists(Guid productId)
-        {
-            return await _context.Carts
-                // .AnyAsync(f => f.UserId == userId && f.ProductId == productId);
-                .AnyAsync(f => f.Product.Id == productId);                
-        }
+        // public async Task<bool> CheckIfCartItemExists(Guid productId)
+        // {
+        //     return await _context.Carts
+        //         // .AnyAsync(f => f.UserId == userId && f.ProductId == productId);
+        //         .AnyAsync(f => f.Product.Id == productId);                
+        // }
     }
 }

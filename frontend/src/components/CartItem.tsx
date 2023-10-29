@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Product } from '../interface/ProductInterface';
+import {CartItemInterface} from '../interface/CartItemInterface';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteFromCart, setCartCount, selectCartItems } from '../features/cart/cartSlice';
 import { Grid, Typography, Button, IconButton } from '@mui/material';
@@ -8,8 +9,11 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { updateProductQuantity } from '../features/cart/cartSlice';
 
-const CartItem: React.FC<{ item: Product }> = ({ item }) =>
-{
+interface CartItemProps {
+  item: CartItemInterface;
+}
+
+const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
 
@@ -24,8 +28,8 @@ const CartItem: React.FC<{ item: Product }> = ({ item }) =>
     const newQuantity = quantity + amount;
     if (newQuantity > 0) {
       setQuantity(newQuantity);
-      if (item.id) {
-            dispatch(updateProductQuantity({ productId: item.id, quantity: newQuantity }));
+      if (item.productId) {
+        dispatch(updateProductQuantity({ productId: item.productId, quantity: newQuantity }));
       }
     }
   };

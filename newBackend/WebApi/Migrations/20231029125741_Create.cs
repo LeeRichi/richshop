@@ -90,16 +90,14 @@ namespace Webapi.Migrations
                 name: "carts",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uuid", nullable: false),
                     user_id = table.Column<Guid>(type: "uuid", nullable: false),
                     product_id = table.Column<Guid>(type: "uuid", nullable: false),
                     quantity = table.Column<int>(type: "integer", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    user_id1 = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("pk_carts", x => x.id);
+                    table.PrimaryKey("pk_carts", x => new { x.user_id, x.product_id });
                     table.ForeignKey(
                         name: "fk_carts_product_product_id",
                         column: x => x.product_id,
@@ -112,6 +110,11 @@ namespace Webapi.Migrations
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_carts_users_user_id1",
+                        column: x => x.user_id1,
+                        principalTable: "users",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -145,9 +148,9 @@ namespace Webapi.Migrations
                 column: "product_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_carts_user_id",
+                name: "ix_carts_user_id1",
                 table: "carts",
-                column: "user_id");
+                column: "user_id1");
 
             migrationBuilder.CreateIndex(
                 name: "ix_order_products_product_id",

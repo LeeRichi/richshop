@@ -13,6 +13,7 @@ namespace Business.src.Implementations
         protected readonly IMapper _mapper;
 
         public BaseService(IBaseRepo<T> baseRepo, IMapper mapper, IProductRepo productRepo = null)
+        // public BaseService(IBaseRepo<T> baseRepo, IMapper mapper)
         {
             _baseRepo = baseRepo;
             _productRepo = productRepo; // Store the product repository

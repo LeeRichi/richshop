@@ -23,6 +23,6 @@ namespace Business.src.Dtos
     public class OrderUpdateDto
     {
         public OrderStatus OrderStatus { get; set; }
-        public List<OrderProductUpdateDto> OrderProducts { get; set; }
+        // public List<OrderProductUpdateDto> OrderProducts { get; set; }
     }
 }

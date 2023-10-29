@@ -21,30 +21,5 @@
 //             _mapper = mapper;
 //         }
         
-//         //resolve the mapping issue
-//         public async Task<CartReadDto> CreateOne(CartCreateDto cartCreateDto)
-//         {
-//             // Use AutoMapper to map the CartCreateDto to a Cart entity
-//             var cart = _mapper.Map<CartCreateDto, Cart>(cartCreateDto);
-
-//             // Save the cart entity to the database
-//             var createdCart = await _cartRepo.CreateOne(cart);
-
-//             // Use AutoMapper to map the created Cart entity to a CartReadDto
-//             var cartReadDto = _mapper.Map<Cart, CartReadDto>(createdCart);
-
-//             return cartReadDto;
-//         }
-
-//         public async Task<IEnumerable<CartReadDto>> GetAllCartsWithCartItems()
-//         {       
-//             // Get all carts and include CartItems for each cart
-//             var carts = await _cartRepo.GetAllCartsWithCartItems();
-
-//             // Use AutoMapper to map the Cart entities to CartDto entities
-//             var cartDtos = _mapper.Map<IEnumerable<Cart>, IEnumerable<CartReadDto>>((IEnumerable<Cart>)carts);
-
-//             return cartDtos;
-//         }
 //     }
 // }

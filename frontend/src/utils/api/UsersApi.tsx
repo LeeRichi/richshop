@@ -1,13 +1,11 @@
 import { BASE_API_URL } from '../constants';
 import axios from 'axios';
-import { Product } from '../../interface/ProductInterface';
 import { getToken } from '../tokenStorage';
 import UserInterface from '../../interface/UserInterface';
 
 export const fetchUsers = () =>
 {
   const token = getToken();
-  console.log(token)
   return axios.get(`${BASE_API_URL}/users`, 
     {
       headers: {
@@ -25,7 +23,6 @@ export const fetchUsers = () =>
 export const postUser = (userData: UserInterface) =>
 {
   const token = getToken();
-  console.log(token)
   console.log(userData)
   return axios.post(`${BASE_API_URL}/users`, userData, {
     headers: {

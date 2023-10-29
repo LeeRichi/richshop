@@ -13,7 +13,8 @@ namespace Domain.src.Entities
         public Role Role { get; set; }
         public List<Order> Orders { get; set; }
         public List<CartItem> Carts { get; set; }
-        public List<Product> Favorites { get; set; }
+        public List<Product> Favorites { get; set; } = new List<Product>();
+        public List<Product> BrowseHistory { get; set; }
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]

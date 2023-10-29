@@ -9,6 +9,8 @@ namespace Domain.src.Abstractions
 {
     public interface IProductRepo : IBaseRepo<Product>
     {
-       
+        bool IsEntityTracked(Product product);
+        void DetachEntity(Product product);
+        Task<Product> FindAsync(Guid id);
     }
 }
