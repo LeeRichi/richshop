@@ -27,8 +27,22 @@ namespace Controller.src.Controllers
             return CreatedAtAction(nameof(CreateOne), createObj);
         }
 
+        // [HttpPost("add-favorite")]
+        // public async Task<ActionResult<ProductReadDto>> CreateFavorite([FromBody] CartItemCreateDto favoriteDto)
+        // {
+        //     try
+        //     {
+        //         var favorite = await _userService.ManageFavorite(favoriteDto, addFavorite: true);
+        //         return CreatedAtAction(nameof(CreateFavorite), favorite);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return BadRequest(new { message = ex.Message });
+        //     }
+        // }
+
         [HttpPost("add-favorite")]
-        public async Task<ActionResult<ProductReadDto>> CreateFavorite([FromBody] CartItemCreateDto favoriteDto)
+        public async Task<ActionResult<FavoriteReadDto>> CreateFavorite([FromBody] FavoriteCreateDto favoriteDto)
         {
             try
             {
@@ -42,7 +56,7 @@ namespace Controller.src.Controllers
         }
 
         [HttpPost("remove-favorite")]
-        public async Task<ActionResult<ProductReadDto>> RemoveFavorite([FromBody] CartItemCreateDto favoriteDto)
+        public async Task<ActionResult<FavoriteReadDto>> RemoveFavorite([FromBody] FavoriteCreateDto favoriteDto)
         {
             var result = await _userService.ManageFavorite(favoriteDto, addFavorite: false);
             System.Console.WriteLine(result);
@@ -60,7 +74,6 @@ namespace Controller.src.Controllers
         {
             try
             {
-
                 var cartResult = await _userService.ManageCart(cartItem, addCart: true);
                 return CreatedAtAction(nameof(AddToCart), cartResult);
             }

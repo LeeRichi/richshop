@@ -13,7 +13,7 @@ namespace WebApi.src.Database
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderProduct> OrderProducts { get; set; }
         public DbSet<CartItem> Carts { get; set; }
-        public DbSet<Product> Favorites{ get; set; }
+        public DbSet<Favorite> Favorites{ get; set; }
 
         public DatabaseContext(DbContextOptions options, IConfiguration config) : base(options)
         {
@@ -76,6 +76,9 @@ namespace WebApi.src.Database
                 .HasOne(c => c.Product)
                 .WithMany()
                 .HasForeignKey(c => c.ProductId);
+
+            modelBuilder.Entity<Favorite>()
+                .HasKey(op => new { op.UserId, op.ProductId });
 
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
 

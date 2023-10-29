@@ -63,11 +63,10 @@ namespace Business.src.Implementations
             return new CheckEmailResult { Exists = false, UserId = null };
         }
 
-        public async Task<CartItemReadDto> ManageFavorite(CartItemCreateDto productDto, bool addFavorite)
+        public async Task<FavoriteReadDto> ManageFavorite(FavoriteCreateDto favoriteDto, bool addFavorite)
         {
-            var user = await _userRepo.GetOneById(productDto.UserId);
-            var product = await _productRepo.GetOneById(productDto.ProductId);
-
+            var user = await _userRepo.GetOneById(favoriteDto.UserId);
+            System.Console.WriteLine("test2");
             if (user == null)
             {
                 Console.WriteLine("User or product not found");
@@ -76,11 +75,10 @@ namespace Business.src.Implementations
 
             if (user.Favorites == null)
             {
-                user.Favorites = new List<Product>();
+                user.Favorites = new List<Favorite>();
             }
 
-            var existingProduct = user.Favorites.FirstOrDefault(c => c.Id == productDto.ProductId);
-
+            var existingProduct = user.Favorites.FirstOrDefault(c => c.ProductId == favoriteDto.ProductId);
 
             if (addFavorite)
             {
@@ -90,31 +88,26 @@ namespace Business.src.Implementations
                 }                
                 else
                 {
-                    var trackedProduct = await _productRepo.FindAsync(product.Id);
-
-                    user.Favorites.Add(product);
+                    user.Favorites.Add(new Favorite { ProductId = favoriteDto.ProductId });
+                    System.Console.WriteLine("fired on creating" + existingProduct);
                 }
             }
             else
             {
                 if (existingProduct != null)
                 {
-                    var trackedProduct = await _productRepo.FindAsync(product.Id);
-
-                    if (trackedProduct != null)
-                    {
-                        user.Favorites.Remove(trackedProduct);
-                    }
-                    else
-                    {
-                        user.Favorites.Remove(existingProduct);
-                    }
+                    user.Favorites.Remove(existingProduct);
+                    System.Console.WriteLine("fired on deleteing" + existingProduct);
                 }
+                else
+                {
+                    System.Console.WriteLine("nothing to remove");
+                }                
             }
 
             await _userRepo.UpdateOneById(user);
 
-            return _mapper.Map<CartItemReadDto>(productDto);
+            return _mapper.Map<FavoriteReadDto>(favoriteDto);
         }
 
         public async Task<CartItemReadDto> ManageCart(CartItemCreateDto cartItemDto, bool addToCart)

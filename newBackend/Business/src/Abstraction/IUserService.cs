@@ -13,7 +13,7 @@ namespace Business.src.Abstraction
         Task<CheckEmailResult> CheckEmailExists(string email);
         // Task<ProductReadDto> CreateFavorite(FavoriteCreateDto favorite);
         // Task<ProductReadDto> RemoveFavorite(FavoriteCreateDto favorite);
-        Task<CartItemReadDto> ManageFavorite(CartItemCreateDto favorite,  bool addFavorite);
+        Task<FavoriteReadDto> ManageFavorite(FavoriteCreateDto favorite,  bool addFavorite);
         Task<CartItemReadDto> ManageCart(CartItemCreateDto favorite,  bool addCart);
     }
 }

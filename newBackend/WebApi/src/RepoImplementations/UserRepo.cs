@@ -54,7 +54,8 @@ namespace WebApi.src.RepoImplementations
             return await _users
                 .Include(c => c.Orders)
                     .ThenInclude(o => o.OrderProducts)
-                // .Include(c => c.Favorites)
+                .Include(c => c.Favorites)
+                    .ThenInclude(o => o.Product)
                 .Include(c => c.Carts)
                     .ThenInclude(o => o.Product)
                 .ToListAsync();                            
@@ -67,6 +68,7 @@ namespace WebApi.src.RepoImplementations
                 .Include(c => c.Orders)
                     .ThenInclude(o => o.OrderProducts)
                 .Include(c => c.Favorites) 
+                    .ThenInclude(o => o.Product)
                     .AsNoTracking()
                 .Include(c => c.Carts)
                     .ThenInclude(o => o.Product)
@@ -74,7 +76,7 @@ namespace WebApi.src.RepoImplementations
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public async Task<Product> CreateFavorite(Product favorite)
+        public async Task<Favorite> CreateFavorite(Favorite favorite)
         {
             await _context.Favorites.AddAsync(favorite);
             await _context.SaveChangesAsync();
