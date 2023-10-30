@@ -32,14 +32,14 @@ namespace WebApi.src.RepoImplementations
             return entry != null && entry.State != EntityState.Detached;
         }
 
-        public void DetachEntity(Product product)
-        {
-            var entityEntry = _context.Entry(product);
-            if (entityEntry.State != EntityState.Detached)
-            {
-                entityEntry.State = EntityState.Detached;
-            }
-        }
+        // public void DetachEntity(Favorite product)
+        // {
+        //     var entityEntry = _context.Entry(product);
+        //     if (entityEntry.State != EntityState.Detached)
+        //     {
+        //         entityEntry.State = EntityState.Detached;
+        //     }
+        // }
         public async Task<Product> FindAsync(Guid id)
         {
             return await _products.FirstOrDefaultAsync(p => p.Id == id);

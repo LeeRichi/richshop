@@ -59,7 +59,6 @@ namespace Controller.src.Controllers
         public async Task<ActionResult<FavoriteReadDto>> RemoveFavorite([FromBody] FavoriteCreateDto favoriteDto)
         {
             var result = await _userService.ManageFavorite(favoriteDto, addFavorite: false);
-            System.Console.WriteLine(result);
             
             if (result == null)
             {

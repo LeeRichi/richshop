@@ -30,11 +30,11 @@ namespace Webapi.src.Configuration
             CreateMap<CartItemCreateDto, CartItem>(); 
 
             CreateMap<Favorite, FavoriteReadDto>();
-            CreateMap<FavoriteReadDto, Favorite>();
-            CreateMap<FavoriteCreateDto, Favorite>();
             CreateMap<Favorite, FavoriteCreateDto>();
+            CreateMap<FavoriteCreateDto, Favorite>();
 
             CreateMap<FavoriteCreateDto, FavoriteReadDto>();
+
         }
     }
 }

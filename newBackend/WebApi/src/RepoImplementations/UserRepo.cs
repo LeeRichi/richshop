@@ -64,24 +64,24 @@ namespace WebApi.src.RepoImplementations
         public async Task<User> GetOneById(Guid id)
         {
             return await _users
-                .AsNoTracking()
+                // .AsNoTracking()
                 .Include(c => c.Orders)
                     .ThenInclude(o => o.OrderProducts)
                 .Include(c => c.Favorites) 
                     .ThenInclude(o => o.Product)
-                    .AsNoTracking()
+                    // .AsNoTracking()
                 .Include(c => c.Carts)
                     .ThenInclude(o => o.Product)
-                    .AsNoTracking()
+                    // .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public async Task<Favorite> CreateFavorite(Favorite favorite)
-        {
-            await _context.Favorites.AddAsync(favorite);
-            await _context.SaveChangesAsync();
-            return favorite;
-        }
+        // public async Task<Favorite> CreateFavorite(Favorite favorite)
+        // {
+        //     await _context.Favorites.AddAsync(favorite);
+        //     await _context.SaveChangesAsync();
+        //     return favorite;
+        // }
 
         // public async Task<bool> CheckIfFavoriteExists(Guid productId)
         // {

@@ -18,7 +18,6 @@ namespace Business.src.Implementations
         private readonly IProductRepo _productRepo;
 
         public UserService(IUserRepo userRepo, IProductRepo productRepo, IMapper mapper) : base(userRepo, mapper, productRepo)
-        // public UserService(IUserRepo userRepo, IProductRepo productRepo, IMapper mapper) : base(userRepo, mapper)
         {
             _userRepo = userRepo;
             _productRepo = productRepo;
@@ -66,7 +65,6 @@ namespace Business.src.Implementations
         public async Task<FavoriteReadDto> ManageFavorite(FavoriteCreateDto favoriteDto, bool addFavorite)
         {
             var user = await _userRepo.GetOneById(favoriteDto.UserId);
-            System.Console.WriteLine("test2");
             if (user == null)
             {
                 Console.WriteLine("User or product not found");
@@ -79,7 +77,7 @@ namespace Business.src.Implementations
             }
 
             var existingProduct = user.Favorites.FirstOrDefault(c => c.ProductId == favoriteDto.ProductId);
-
+                        
             if (addFavorite)
             {
                 if (existingProduct != null)
@@ -133,10 +131,13 @@ namespace Business.src.Implementations
                 if (existingCartItem != null)
                 {
                     existingCartItem.Quantity = existingCartItem.Quantity + 1;
-                }                
+                    System.Console.WriteLine("or here?");
+
+                } 
                 else
                 {
                     user.Carts.Add(new CartItem { ProductId = cartItemDto.ProductId, Quantity = 1 });
+                    System.Console.WriteLine("is it here?");
                 }
             }
             else
@@ -145,6 +146,8 @@ namespace Business.src.Implementations
                 {
                     if (existingCartItem.Quantity == 1){
                         user.Carts.Remove(existingCartItem);
+                        System.Console.WriteLine(existingCartItem);
+                        System.Console.WriteLine("trying to remove");
                     } else {
                         existingCartItem.Quantity--;
                     }
@@ -153,7 +156,7 @@ namespace Business.src.Implementations
 
             await _userRepo.UpdateOneById(user);
 
-            return _mapper.Map<CartItemReadDto>(existingCartItem);
+            return _mapper.Map<CartItemReadDto>(cartItemDto);
         }
 
     } 

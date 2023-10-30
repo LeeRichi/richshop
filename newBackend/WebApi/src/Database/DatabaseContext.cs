@@ -79,6 +79,14 @@ namespace WebApi.src.Database
 
             modelBuilder.Entity<Favorite>()
                 .HasKey(op => new { op.UserId, op.ProductId });
+            modelBuilder.Entity<Favorite>()
+                .HasOne(c => c.User)
+                .WithMany(u => u.Favorites)
+                .HasForeignKey(c => c.UserId);
+            modelBuilder.Entity<Favorite>()
+                .HasOne(c => c.Product)
+                .WithMany()
+                .HasForeignKey(c => c.ProductId);
 
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
 

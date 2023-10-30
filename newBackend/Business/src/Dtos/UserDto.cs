@@ -11,7 +11,7 @@ namespace Business.src.Dtos
         public string Avatar { get; set; }
         public Role Role { get; set; }
         public ICollection<OrderReadDto> Orders { get; set; }
-        public ICollection<ProductReadDto> Favorites { get; set; }
+        public ICollection<FavoriteReadDto> Favorites { get; set; }
         public List<CartItemReadDto> Carts { get; set; }
         public List<ProductReadDto> BrowseHistory { get; set; }
     }
