@@ -28,13 +28,12 @@ namespace Webapi.src.Configuration
             CreateMap<CartItem, CartItemReadDto>(); 
             CreateMap<CartItem, CartItemCreateDto>();
             CreateMap<CartItemCreateDto, CartItem>(); 
+            CreateMap<CartItemCreateDto, CartItemReadDto>();
 
             CreateMap<Favorite, FavoriteReadDto>();
             CreateMap<Favorite, FavoriteCreateDto>();
             CreateMap<FavoriteCreateDto, Favorite>();
-
             CreateMap<FavoriteCreateDto, FavoriteReadDto>();
-
         }
     }
 }

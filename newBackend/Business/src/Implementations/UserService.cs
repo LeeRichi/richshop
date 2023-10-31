@@ -65,6 +65,8 @@ namespace Business.src.Implementations
         public async Task<FavoriteReadDto> ManageFavorite(FavoriteCreateDto favoriteDto, bool addFavorite)
         {
             var user = await _userRepo.GetOneById(favoriteDto.UserId);
+            var product = await _productRepo.GetOneById(favoriteDto.ProductId);
+
             if (user == null)
             {
                 Console.WriteLine("User or product not found");
@@ -86,8 +88,9 @@ namespace Business.src.Implementations
                 }                
                 else
                 {
-                    user.Favorites.Add(new Favorite { ProductId = favoriteDto.ProductId });
-                    System.Console.WriteLine("fired on creating" + existingProduct);
+                    var newFavorite = new Favorite { Product = product };
+                    user.Favorites.Add(newFavorite);
+                    System.Console.WriteLine("fired on creating" + newFavorite);
                 }
             }
             else
@@ -105,12 +108,20 @@ namespace Business.src.Implementations
 
             await _userRepo.UpdateOneById(user);
 
-            return _mapper.Map<FavoriteReadDto>(favoriteDto);
+            var favoriteReadDto = new FavoriteReadDto
+            {
+                ProductId = product.Id,
+                UserId = user.Id,
+                Product = product,
+            };
+
+            return _mapper.Map<FavoriteReadDto>(favoriteReadDto);
         }
 
         public async Task<CartItemReadDto> ManageCart(CartItemCreateDto cartItemDto, bool addToCart)
         {
             var user = await _userRepo.GetOneById(cartItemDto.UserId);
+            var product = await _productRepo.GetOneById(cartItemDto.ProductId);
 
             if (user == null)
             {
@@ -124,7 +135,6 @@ namespace Business.src.Implementations
             }
 
             var existingCartItem = user.Carts.FirstOrDefault(c => c.Product.Id == cartItemDto.ProductId);
-            System.Console.WriteLine("hi" + existingCartItem.Quantity);
             
             if (addToCart)
             {
@@ -132,11 +142,10 @@ namespace Business.src.Implementations
                 {
                     existingCartItem.Quantity = existingCartItem.Quantity + 1;
                     System.Console.WriteLine("or here?");
-
                 } 
                 else
                 {
-                    user.Carts.Add(new CartItem { ProductId = cartItemDto.ProductId, Quantity = 1 });
+                    user.Carts.Add(new CartItem { ProductId = cartItemDto.ProductId, Product = product, Quantity = 1 });
                     System.Console.WriteLine("is it here?");
                 }
             }
@@ -156,7 +165,14 @@ namespace Business.src.Implementations
 
             await _userRepo.UpdateOneById(user);
 
-            return _mapper.Map<CartItemReadDto>(cartItemDto);
+            var cartItemReadDto = new CartItemReadDto
+            {
+                UserId = user.Id,
+                Product = product,
+                Quantity = addToCart ? (existingCartItem != null ? existingCartItem.Quantity : 0) + 1 : (existingCartItem != null && existingCartItem.Quantity > 1 ? existingCartItem.Quantity - 1 : 0)
+            };
+
+            return _mapper.Map<CartItemReadDto>(cartItemReadDto);
         }
 
     } 

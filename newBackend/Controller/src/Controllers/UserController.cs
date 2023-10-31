@@ -47,6 +47,7 @@ namespace Controller.src.Controllers
             try
             {
                 var favorite = await _userService.ManageFavorite(favoriteDto, addFavorite: true);
+                System.Console.WriteLine("controller:" + favorite);
                 return CreatedAtAction(nameof(CreateFavorite), favorite);
             }
             catch (Exception ex)
