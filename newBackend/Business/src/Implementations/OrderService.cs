@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using AutoMapper;
 using Business.src.Abstraction;
 using Business.src.Dtos;
@@ -19,12 +18,11 @@ namespace Business.src.Implementations
         public override async Task<OrderReadDto> CreateOne(OrderCreateDto orderCreateDto)
         {
             var order = _mapper.Map<Order>(orderCreateDto);
-        
+
             foreach (var orderProductCreateDto in orderCreateDto.OrderProducts)
             {
-                System.Console.WriteLine("Processing order product: " + orderProductCreateDto.ProductId);
-
-                var productId = orderProductCreateDto.ProductId; // Assuming ProductId is of type Guid
+                var productId = orderProductCreateDto.ProductId; 
+                var size = orderProductCreateDto.Size;
 
                 if (productId == Guid.Empty)
                 {
@@ -32,7 +30,6 @@ namespace Business.src.Implementations
                 }
                 else
                 {
-                    System.Console.WriteLine("in else");
                     var product = await _productRepo.GetOneById(productId);
 
                     if (product == null)
@@ -41,13 +38,21 @@ namespace Business.src.Implementations
                     }
                     else
                     {
-                        // Process the product as needed
-                        System.Console.WriteLine("Product found:");
-                        System.Console.WriteLine($"Product ID: {product.Id}");
-                        System.Console.WriteLine($"Product Title: {product.Title}");
-                        System.Console.WriteLine($"Product Inventory: {product.Inventory}");
-                        
-                        // Check inventory, etc.
+                        // Check if the selected size exists in the product's inventory
+                        int availableQuantity = GetAvailableQuantity(product.Inventory, size);
+
+                        if (availableQuantity >= orderProductCreateDto.Amount)
+                        {
+                            System.Console.WriteLine("Product found:");
+                            System.Console.WriteLine($"Product ID: {product.Id}");
+                            System.Console.WriteLine($"Product Title: {product.Title}");
+                            System.Console.WriteLine($"Selected Size: {size}");
+                            System.Console.WriteLine($"Available Quantity: {availableQuantity}");
+                        }
+                        else
+                        {
+                            System.Console.WriteLine($"Not enough inventory for size {size}");
+                        }
                     }
                 }
             }
@@ -56,6 +61,24 @@ namespace Business.src.Implementations
 
             var orderReadDto = _mapper.Map<OrderReadDto>(createdOrder);
             return orderReadDto;
+        }
+
+        private int GetAvailableQuantity(Inventory inventory, Size size)
+        {
+            string sizeString = size.ToString();
+            switch (sizeString)
+            {
+                case "S":
+                    return inventory.S;
+                case "M":
+                    return inventory.M;
+                case "L":
+                    return inventory.L;
+                case "XL":
+                    return inventory.XL;
+                default:
+                    return 0; // Size not found in inventory
+            }
         }
     }
 }

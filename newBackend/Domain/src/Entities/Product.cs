@@ -21,7 +21,6 @@ namespace Domain.src.Entities
         Apparel,
         Accessories,
     }
-
     public class Inventory {
         public int S { get; set; }
         public int M { get; set; }
