@@ -38,7 +38,6 @@ namespace Business.src.Implementations
                     }
                     else
                     {
-                        // Check if the selected size exists in the product's inventory
                         int availableQuantity = GetAvailableQuantity(product.Inventory, size);
 
                         if (availableQuantity >= orderProductCreateDto.Amount)
@@ -51,7 +50,7 @@ namespace Business.src.Implementations
                         }
                         else
                         {
-                            System.Console.WriteLine($"Not enough inventory for size {size}");
+                            throw new Exception($"Not enough inventory for size {size}");
                         }
                     }
                 }
@@ -77,7 +76,7 @@ namespace Business.src.Implementations
                 case "XL":
                     return inventory.XL;
                 default:
-                    return 0; // Size not found in inventory
+                    return 0;
             }
         }
     }
