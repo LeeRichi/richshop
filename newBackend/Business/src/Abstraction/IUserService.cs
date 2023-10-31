@@ -11,8 +11,6 @@ namespace Business.src.Abstraction
         Task<UserReadDto> CreateAdmin(UserCreateDto dto);
         Task<bool> DeleteOneById(Guid id);
         Task<CheckEmailResult> CheckEmailExists(string email);
-        // Task<ProductReadDto> CreateFavorite(FavoriteCreateDto favorite);
-        // Task<ProductReadDto> RemoveFavorite(FavoriteCreateDto favorite);
         Task<FavoriteReadDto> ManageFavorite(FavoriteCreateDto favorite,  bool addFavorite);
         Task<CartItemReadDto> ManageCart(CartItemCreateDto favorite,  bool addCart);
     }

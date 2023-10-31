@@ -12,15 +12,18 @@ namespace Business.src.Dtos
         public Guid OrderId { get; set; }
         public Guid ProductId { get; set; }
         public int Amount { get; set; }
+        public Size Size { get; set; }
     }
     public class OrderProductCreateDto
     {
         public Guid ProductId { get; set; }
         public int Amount { get; set; }
+        public Size Size { get; set; }
     }
     public class OrderProductUpdateDto
     {
         public Guid ProductId { get; set; }
         public int Amount { get; set; }
+        public Size Size { get; set; }
     }
 }

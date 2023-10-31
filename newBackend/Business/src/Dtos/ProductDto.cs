@@ -1,4 +1,6 @@
 using Domain.src.Entities;
+using System.Text.Json.Serialization;
+
 
 namespace Business.src.Dtos
 {
@@ -10,8 +12,9 @@ namespace Business.src.Dtos
         public float Price { get; set; }
         public Category Category { get; set; }
         public List<string> Images { get; set; }
-        public int Inventory { get; set; }
-        public Size Size { get; set; }
+        // public int Inventory { get; set; }
+        // public Size Size { get; set; }
+        public Inventory Inventory { get; set; }
         public Color Color { get; set; }
         public bool IsOnSale { get; set; }
         public string Brand{ get; set; }
@@ -24,8 +27,9 @@ namespace Business.src.Dtos
         public float Price { get; set; }
         public Category Category { get; set; }
         public List<string> Images { get; set; }
-        public int Inventory { get; set; }
-        public Size Size { get; set; }
+        public Inventory Inventory { get; set; }
+        //public int Inventory { get; set; }
+        // public Size Size { get; set; }    
         public Color Color { get; set; }
         public bool IsOnSale { get; set; }
         public string Brand{ get; set; }
@@ -38,8 +42,9 @@ namespace Business.src.Dtos
         public float Price { get; set; }
         public Category Category { get; set; }
         public List<string> Images { get; set; }
-        public int Inventory { get; set; }
-        public Size Size { get; set; }
+        public Inventory Inventory { get; set; }
+        // public int Inventory { get; set; }
+        // public Size Size { get; set; }
         public Color Color { get; set; }
         public bool IsOnSale { get; set; }
         public string Brand{ get; set; }

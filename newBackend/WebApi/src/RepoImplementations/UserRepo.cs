@@ -64,15 +64,12 @@ namespace WebApi.src.RepoImplementations
         public async Task<User> GetOneById(Guid id)
         {
             return await _users
-                // .AsNoTracking()
                 .Include(c => c.Orders)
                     .ThenInclude(o => o.OrderProducts)
                 .Include(c => c.Favorites) 
                     .ThenInclude(o => o.Product)
-                    // .AsNoTracking()
                 .Include(c => c.Carts)
                     .ThenInclude(o => o.Product)
-                    // .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Id == id);
         }
 

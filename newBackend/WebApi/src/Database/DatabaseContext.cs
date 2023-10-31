@@ -94,6 +94,15 @@ namespace WebApi.src.Database
                 .Property(p => p.Category)
                 .HasConversion<string>(); 
 
+            modelBuilder.Entity<Product>()
+                .OwnsOne(p => p.Inventory, si =>
+                {
+                    si.Property<int>(nameof(Inventory.S));
+                    si.Property<int>(nameof(Inventory.M));
+                    si.Property<int>(nameof(Inventory.L));
+                    si.Property<int>(nameof(Inventory.XL));
+                });
+
             base.OnModelCreating(modelBuilder);
         }        
     }

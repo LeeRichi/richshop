@@ -21,9 +21,11 @@ namespace Business.src.Implementations
             var productEntity = _mapper.Map<Product>(dto);
 
             var createdProduct = await _productRepo.CreateOne(productEntity);
-
+            
             var createdProductDto = _mapper.Map<ProductReadDto>(createdProduct);
             return createdProductDto;
         }
+
+        
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Domain.src.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebApi.src.Database;
@@ -13,9 +14,11 @@ using WebApi.src.Database;
 namespace Webapi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231031134056_Create23")]
+    partial class Create23
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,10 +115,6 @@ namespace Webapi.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("integer")
                         .HasColumnName("amount");
-
-                    b.Property<int>("Size")
-                        .HasColumnType("integer")
-                        .HasColumnName("size");
 
                     b.HasKey("OrderId", "ProductId")
                         .HasName("pk_order_products");
@@ -332,7 +331,7 @@ namespace Webapi.Migrations
                         .HasForeignKey("UserId")
                         .HasConstraintName("fk_products_users_user_id");
 
-                    b.OwnsOne("Domain.src.Entities.Inventory", "Inventory", b1 =>
+                    b.OwnsOne("System.Collections.Generic.Dictionary<Domain.src.Entities.Size, int>", "Inventory", b1 =>
                         {
                             b1.Property<Guid>("ProductId")
                                 .HasColumnType("uuid")
