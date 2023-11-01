@@ -13,7 +13,8 @@ interface CartItemProps {
   item: CartItemInterface;
 }
 
-const CartItem: React.FC<CartItemProps> = ({ item }) => {
+const CartItem: React.FC<CartItemProps> = ({ item }) =>
+{
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
 
@@ -42,11 +43,11 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
     <div style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '10px', position: 'relative' }}>
       <Grid container>
         <Grid item xs={4}>
-          <img src={item.images[0]} alt={item.title} style={{ width: '100%', height: 'auto' }} />
+          <img src={item.product?.images[0]} alt={item.product?.title} style={{ width: '100%', height: 'auto' }} />
         </Grid>
         <Grid item xs={5} style={{ paddingLeft: '10px' }}>
-          <Typography variant="subtitle1">{item.title}</Typography>
-          <Typography variant="body2">Price: ${item.price}</Typography>
+          <Typography variant="subtitle1">{item.product?.title}</Typography>
+          <Typography variant="body2">Price: ${item.product?.price}</Typography>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <IconButton onClick={() => handleQuantityChange(-1)}>
               <RemoveIcon />
@@ -64,7 +65,13 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
           </div>
         </Grid>
         <Grid item xs={3} style={{ position: 'relative', textAlign: 'right' }}>
-          <Typography variant="body2">Total: ${item.price * quantity}</Typography>
+          {/* <Typography variant="body2">Total: ${item.product.price * quantity}</Typography> */}
+          <Typography variant="subtitle1">{item.product?.title}</Typography>
+          {item.product && (
+            <>
+              <Typography variant="body2">Price: ${item.product.price}</Typography>
+            </>
+          )}
           <Button onClick={handleDeleteFromCart} style={{ position: 'absolute', bottom: 0, right: 0 }}>
             <DeleteOutlineIcon />
           </Button>

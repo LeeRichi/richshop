@@ -36,13 +36,25 @@ const ProductManage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editingProductId, setEditingProductId] = useState('');
+  const [selectedSize, setSelectedSize] = useState<string>('');
+  const [quantity, setQuantity] = useState<number | undefined>(undefined);
+  const [quantityChanged, setQuantityChanged] = useState<number | undefined>(undefined);
   const [editedProduct, setEditedProduct] = useState({
     title: '',
     description: '',
     price: 0,
     category: 'Footwear',
     images: [''],
-    inventory: 0,
+    inventory: {
+      S: 0,
+      M: 0,
+      L: 0,
+      XL: 0,
+    },
+    selectedSize: '',
+    color: '',
+    isOnSale: false,
+    brand: '',
   });
 
   useEffect(() => {
@@ -63,7 +75,10 @@ const ProductManage = () => {
       setEditingProductId(productId);
       const productToEdit = products.products.find(product => product.id === productId);
       if (productToEdit) {
-        setEditedProduct(productToEdit);
+        setEditedProduct({
+          ...productToEdit,
+          selectedSize: '',
+        });
       }
     }
   };
@@ -78,11 +93,21 @@ const ProductManage = () => {
       price: 0,
       category: 'Footwear',
       images: [''],
-      inventory: 0,
+      inventory: {
+        S: 0,
+        M: 0,
+        L: 0,
+        XL: 0,
+      },
+      selectedSize: '',
+      color: '',
+      isOnSale: false,
+      brand: '',
     });
   };
 
-  const onHandleAddOrUpdate = () => {
+  const onHandleAddOrUpdate = () =>
+  {
     const productData = {
       title: editedProduct.title,
       description: editedProduct.description,
@@ -90,6 +115,9 @@ const ProductManage = () => {
       category: editedProduct.category,
       images: [editedProduct.images[0]],
       inventory: editedProduct.inventory,
+      color: editedProduct.color,
+      isOnSale: editedProduct.isOnSale,
+      brand: editedProduct.brand,
     };
 
     if (isEditing && editingProductId) {
@@ -113,17 +141,38 @@ const ProductManage = () => {
       price: 0,
       category: 'Footwear',
       images: [''],
-      inventory: 0,
+      inventory: {
+        S: 0,
+        M: 0,
+        L: 0,
+        XL: 0,
+      },
+      selectedSize: '',
+      color: '',
+      isOnSale: false,
+      brand: '',
     });
   };
-
-  const handleInputChange = (property: string, value: string | number | string[]) => {
-    setEditedProduct({
-      ...editedProduct,
-      [property]: Array.isArray(value) ? [...value] : value,
-    });
+  
+  const handleInputChange = (property: string, value: any) => {
+    if (property === 'inventory' && selectedSize) {
+      // Update the quantity for the selected size
+      setEditedProduct((prevProduct) => ({
+        ...prevProduct,
+        inventory: {
+          ...prevProduct.inventory,
+          [selectedSize]: parseInt(value),
+        },
+      }));
+    } else {
+      // Handle other property changes
+      setEditedProduct((prevProduct) => ({
+        ...prevProduct,
+        [property]: value,
+      }));
+    }
   };
-
+  
   const onHandleDelete = (productId?: string) => {
     if (productId) {
       const confirmDelete = window.confirm('Are you sure you want to delete this product?');
@@ -220,12 +269,61 @@ const ProductManage = () => {
                   onChange={(e) => handleInputChange('images', [e.target.value])}
                   fullWidth
                   margin="normal"
-                />
+                />               
+                <FormControl fullWidth margin="normal">
+                  <InputLabel id="inventory-label">Inventory</InputLabel>
+                  <Select
+                    labelId="inventory-label"
+                    id="inventory"
+                    value={selectedSize}
+                    onChange={(e) => {
+                      setSelectedSize(e.target.value as string);
+                    }}
+                    label="Inventory"
+                  >
+                    {Object.keys(editedProduct.inventory).map((size) => (
+                      <MenuItem key={size} value={size}>
+                        {size}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                {selectedSize && (
+                  <TextField
+                    label={`Quantity for ${selectedSize}`}
+                    type="number"
+                    value={(editedProduct.inventory as Record<string, number>)[selectedSize] || 0}
+                    onChange={(e) => handleInputChange('inventory', e.target.value)}
+                    fullWidth
+                    margin="normal"
+                  />
+                )}
                 <TextField
-                  label="Inventory"
-                  type="number"
-                  value={editedProduct.inventory}
-                  onChange={(e) => handleInputChange('inventory', parseFloat(e.target.value))}
+                  label="Color"
+                  type="text"
+                  value={editedProduct.color}
+                  onChange={(e) => handleInputChange('color', parseFloat(e.target.value))}
+                  fullWidth
+                  margin="normal"
+                />
+                <FormControl fullWidth margin="normal">
+                  <InputLabel id="isOnSale-label">Is On Sale</InputLabel>
+                  <Select
+                    labelId="isOnSale-label"
+                    id="isOnSale"
+                    value={editedProduct.isOnSale ? 'true' : 'false'}
+                    onChange={(e) => handleInputChange('isOnSale', e.target.value === 'true')}
+                    label="Is On Sale"
+                  >                                 
+                    <MenuItem value="true">True</MenuItem>
+                    <MenuItem value="false">False</MenuItem>
+                  </Select>
+                </FormControl>
+                <TextField
+                  label="Brand"
+                  type="text"
+                  value={editedProduct.brand}
+                  onChange={(e) => handleInputChange('brand', parseFloat(e.target.value))}
                   fullWidth
                   margin="normal"
                 />

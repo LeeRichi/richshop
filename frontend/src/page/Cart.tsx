@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCartItems, setCartCount, clearCart } from '../features/cart/cartSlice';
 import { selectUserDetails, updateUserDetails } from '../features/user/userSlice';
@@ -18,7 +18,6 @@ import { CartItemInterface } from '../interface/CartItemInterface';
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector(selectUserDetails);
   const id = useSelector(selectUserDetails)?.id;
   const token = getToken();
 
@@ -79,7 +78,7 @@ const Cart = () => {
       <ToastContainer />
       <div style={{ padding: '20px', marginLeft: '10rem', display: 'flex' }}>
         <div style={{ width: '60%' }}>
-          {cartItems.length === 0 ? (
+          {cartItems?.length === 0 ? (
             <>
               <p>Your cart is empty.</p>
               <Button variant="outlined" color="primary" onClick={() => { navigate('/') }}>
@@ -88,8 +87,8 @@ const Cart = () => {
             </>
           ) : (
             <div style={{}}>
-              {cartItems.map((item) => (
-                <CartItem key={item.id} item={item} />
+              {cartItems?.map((item: CartItemInterface ) => (
+                <CartItem key={item.productId} item={item} />
               ))}
             </div>
           )}

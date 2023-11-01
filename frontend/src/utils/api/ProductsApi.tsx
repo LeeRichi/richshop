@@ -28,7 +28,10 @@ export const postProduct = async (product: Product) =>
   }
 };
 
-export const editProduct = async (productId: string, updatedProductData: Partial<Product>) => {
+export const editProduct = async (productId: string, updatedProductData: Partial<Product>) =>
+{
+  console.log(productId)
+  console.log(updatedProductData)
   try {
       const response = await axios.patch(`${BASE_API_URL}/products/${productId}`, updatedProductData);
       console.log('Response:', response);

@@ -8,6 +8,14 @@ export interface Product
   price: number;
   category: string;
   images: string[]; 
-  inventory: number;
+  inventory: {
+    S: number;
+    M: number;
+    L: number;
+    XL: number;
+  };
   quantity?: number;
+  color: string;
+  isOnSale: boolean;
+  brand: string;
 }
