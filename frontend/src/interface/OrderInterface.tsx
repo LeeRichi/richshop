@@ -9,6 +9,7 @@ export interface OrderInterface {
   user?: UserInterface;
   createAt?: string;
   updatedAt?: string;
+  quantity: number;
 }
 
 export interface OrderPostInterface

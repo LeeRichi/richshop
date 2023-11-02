@@ -18,7 +18,6 @@ import UserDetail from './page/UserDetail';
 import OrderDetail from './page/OrderDetail';
 import CheckOut from './page/CheckOut';
 
-
 const App = () =>
 {
   const products = useSelector((state: RootState) => state.products);

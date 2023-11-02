@@ -25,8 +25,9 @@ const Navbar = ({ appLogout, products, onSearchResultsChange }: { appLogout: () 
 {
   const dispatch = useDispatch();
   const favoriteCount = useSelector((state: RootState) => state.favorites.favoriteCount);
-  const cartCount = useSelector((state: RootState) => state.cart.cartCount);
-  const userAvatar = useSelector((state: RootState) => state.user.userDetails);
+  // const cartCount = useSelector((state: RootState) => state.user.cartCount);
+  const user = useSelector((state: RootState) => state.user.userDetails);
+  const cartCount = user?.carts?.length;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Product[]>([]);
@@ -97,21 +98,21 @@ const Navbar = ({ appLogout, products, onSearchResultsChange }: { appLogout: () 
               <FavoriteBorderIcon />
             </Badge>
           </IconButton>
-          {userAvatar ? (
+          {user ? (
             <>
               <IconButton color="inherit" onClick={handleMenuClick}>
                 <img
-                  src={userAvatar.avatar ? userAvatar.avatar : "https://gravatar.com/avatar/00000000000000000000000000000000?d=mp"}
-                  alt={userAvatar.name}
+                  src={user.avatar ? user.avatar : "https://gravatar.com/avatar/00000000000000000000000000000000?d=mp"}
+                  alt={user.name}
                   width="32px"
                   height="32px"
                   style={{
                     borderRadius: '50%',
-                    border: userAvatar.role === 'Admin' ? '1px solid white' : 'none'
+                    border: user.role === 'Admin' ? '1px solid white' : 'none'
                   }}
                 />
                 {/* admin badge */}
-                {userAvatar.role === 'Admin' && (
+                {user.role === 'Admin' && (
                   <div
                     style={{
                       position: 'absolute',
@@ -143,7 +144,7 @@ const Navbar = ({ appLogout, products, onSearchResultsChange }: { appLogout: () 
                 >
                   <MenuItem
                     component={Link}
-                    to={`/users/${userAvatar.id}`}
+                    to={`/users/${user.id}`}
                     onClick={handleMenuClose}
                   >
                     Dashboard

@@ -10,7 +10,7 @@ interface UserInterface {
   avatar: string;
   orders?: OrderInterface[];
   role?: Role;
-  password?: string
+  password?: string;
   favorites?: [];
   carts?: [];
 }

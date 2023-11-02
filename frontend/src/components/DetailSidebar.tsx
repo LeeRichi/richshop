@@ -34,7 +34,6 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
     
     useEffect(() => {
       setNewUser(user);
-      console.log(user)
     }, [user]);
 
     const handleEditDialogOpen = () => {

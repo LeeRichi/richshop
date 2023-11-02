@@ -60,7 +60,7 @@ const Cart = () => {
         userId: id || '',
       };
 
-      await postOrder(orderData);
+      // await postOrder(orderData);
       console.log(orderData);
 
       dispatch(setCartCount(0));

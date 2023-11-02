@@ -8,6 +8,8 @@ import { addToFavorites, removeFromFavorites, selectFavorites, setFavoriteCount 
 import { Link } from 'react-router-dom'; // Import Link from React Router
 import './index.css';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { CartItemInterface } from '../interface/CartItemInterface';
+import { OrderInterface } from '../interface/OrderInterface';
 
 interface ProductCardProps {
   product: Product;
@@ -17,6 +19,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const dispatch = useDispatch();
   const favorites = useSelector(selectFavorites);
   const isFavorite = favorites.some((favProduct) => favProduct.id === product?.id);
+  console.log(product)
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
     if (product?.id) {
@@ -31,7 +34,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const newFavoriteCount = favorites.length;
   dispatch(setFavoriteCount(newFavoriteCount));
 
-  
     // Ref to store the initial position of the drag
   const dragStartRef = useRef(0);
   
@@ -58,9 +60,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     <Card
       style={{ height: '100%', display: 'flex', flexDirection: 'column', position: 'relative' }}
     >
-      <Link to={`/product/${product?.id}`} style={{textDecoration: 'none'}}>
+      <Link to={`/product/${product.id}`} style={{textDecoration: 'none'}}>
         <div style={{ height: '250px', overflow: 'hidden' }}>
-          <img src={product?.images[0]} alt={product?.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <img src={product.images[0]} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
         <CardContent style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <Typography variant="h6" style={{color: 'black'}}>{product?.title}</Typography>

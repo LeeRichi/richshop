@@ -19,12 +19,10 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Grid,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { useSelector, useDispatch } from 'react-redux';
-import { Product } from '../../../interface/ProductInterface';
 import { RootState } from '../../../app/rootReducer';
 import { deleteProduct, postProduct, editProduct } from '../../../utils/api/ProductsApi';
 import { setProducts } from '../../../features/product/productSlice';
@@ -37,8 +35,6 @@ const ProductManage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingProductId, setEditingProductId] = useState('');
   const [selectedSize, setSelectedSize] = useState<string>('');
-  const [quantity, setQuantity] = useState<number | undefined>(undefined);
-  const [quantityChanged, setQuantityChanged] = useState<number | undefined>(undefined);
   const [editedProduct, setEditedProduct] = useState({
     title: '',
     description: '',
@@ -120,7 +116,8 @@ const ProductManage = () => {
       brand: editedProduct.brand,
     };
 
-    if (isEditing && editingProductId) {
+    if (isEditing && editingProductId) {      
+
       editProduct(editingProductId, productData).then(() => {
         const updatedProducts = products.products.map((product) =>
           product.id === editingProductId ? { ...product, ...productData } : product
@@ -156,7 +153,6 @@ const ProductManage = () => {
   
   const handleInputChange = (property: string, value: any) => {
     if (property === 'inventory' && selectedSize) {
-      // Update the quantity for the selected size
       setEditedProduct((prevProduct) => ({
         ...prevProduct,
         inventory: {
@@ -165,7 +161,6 @@ const ProductManage = () => {
         },
       }));
     } else {
-      // Handle other property changes
       setEditedProduct((prevProduct) => ({
         ...prevProduct,
         [property]: value,
@@ -292,7 +287,7 @@ const ProductManage = () => {
                   <TextField
                     label={`Quantity for ${selectedSize}`}
                     type="number"
-                    value={(editedProduct.inventory as Record<string, number>)[selectedSize] || 0}
+                    value={(editedProduct.inventory as Record<string, number>)[selectedSize] || 0}                
                     onChange={(e) => handleInputChange('inventory', e.target.value)}
                     fullWidth
                     margin="normal"
@@ -302,7 +297,7 @@ const ProductManage = () => {
                   label="Color"
                   type="text"
                   value={editedProduct.color}
-                  onChange={(e) => handleInputChange('color', parseFloat(e.target.value))}
+                  onChange={(e) => handleInputChange('color', e.target.value)}
                   fullWidth
                   margin="normal"
                 />
@@ -323,7 +318,7 @@ const ProductManage = () => {
                   label="Brand"
                   type="text"
                   value={editedProduct.brand}
-                  onChange={(e) => handleInputChange('brand', parseFloat(e.target.value))}
+                  onChange={(e) => handleInputChange('brand', e.target.value)}
                   fullWidth
                   margin="normal"
                 />
