@@ -19,6 +19,8 @@ namespace Business.src.Implementations
         {
             var order = _mapper.Map<Order>(orderCreateDto);
 
+            float orderTotal = 0; 
+
             foreach (var orderProductCreateDto in orderCreateDto.OrderProducts)
             {
                 var productId = orderProductCreateDto.ProductId; 
@@ -42,11 +44,8 @@ namespace Business.src.Implementations
 
                         if (availableQuantity >= orderProductCreateDto.Amount)
                         {
-                            System.Console.WriteLine("Product found:");
-                            System.Console.WriteLine($"Product ID: {product.Id}");
-                            System.Console.WriteLine($"Product Title: {product.Title}");
-                            System.Console.WriteLine($"Selected Size: {size}");
-                            System.Console.WriteLine($"Available Quantity: {availableQuantity}");
+                            float orderProductTotal = product.Price * orderProductCreateDto.Amount;
+                            orderTotal += orderProductTotal;
                         }
                         else
                         {
@@ -55,6 +54,7 @@ namespace Business.src.Implementations
                     }
                 }
             }
+            order.OrderTotal = orderTotal;
 
             var createdOrder = await _orderRepo.CreateOne(order);
 

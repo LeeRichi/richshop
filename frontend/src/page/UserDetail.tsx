@@ -55,14 +55,6 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
     const updateUser = (updatedUser: UserInterface) => {
         setEditedUser(updatedUser);
     };
-    
-    // useEffect(() => {
-    //     fetchOrderProduct().then(products => {
-    //         dispatch(setOrderProducts(products));
-    //     }).catch(error => {
-    //         console.error('Error fetching order products:', error);
-    //     });
-    // }, [dispatch]);
 
     useEffect(() => {
         fetchOrders().then(orders => {
@@ -105,10 +97,7 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
                             <Typography variant="h6">Order History</Typography>
                             <List>
                                 {userOrders?.map((order) =>
-                                {
-                                    // const total = orderTotalPrices.find(
-                                    //     (item) => item.orderId === order.id
-                                    // );
+                                {                                
                                     return (
                                         <React.Fragment key={order.id}>
                                             <Link to={`/orders/${order.id}`} style={{ textDecoration: 'none' }}>
@@ -118,7 +107,7 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
                                                     </ListItemAvatar>
                                                     <ListItemText
                                                         primary={<span style={{ color: 'black' }}>{`Order ${order.id}`}</span>}
-                                                        // secondary={`Date: ${order.updatedAt}, Total: $${total ? total.total : 0}`}
+                                                        secondary={`Date: ${order.updatedAt}, Total: $${order.orderTotal ? order.orderTotal : 0}`}
                                                     />
                                                 </ListItem>
                                             </Link>

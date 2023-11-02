@@ -8,6 +8,7 @@ namespace Domain.src.Entities
         public List<OrderProduct> OrderProducts { get; set; }
         public User User {get; set;}
         public Guid UserId { get; set; }
+        public float OrderTotal { get; set; }
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]

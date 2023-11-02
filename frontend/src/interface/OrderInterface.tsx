@@ -10,6 +10,7 @@ export interface OrderInterface {
   createAt?: string;
   updatedAt?: string;
   quantity: number;
+  orderTotal: number;
 }
 
 export interface OrderPostInterface

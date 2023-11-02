@@ -11,6 +11,7 @@ namespace Business.src.Dtos
         // public User User {get; set;}
         public DateTime CreateAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public float OrderTotal { get; set; }
     }
 
     public class OrderCreateDto
