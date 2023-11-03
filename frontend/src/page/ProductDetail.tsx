@@ -4,9 +4,9 @@ import { RootState } from '../app/rootReducer';
 import { Button, Typography, Grid, Divider } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-import { addToFavorites, removeFromFavorites, selectFavorites } from '../features/favorite/favoriteSlice';
+// import { addToFavorites, removeFromFavorites, selectFavorites } from '../features/favorite/favoriteSlice';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { setFavoriteCount } from '../features/favorite/favoriteSlice';
+// import { setFavoriteCount } from '../features/favorite/favoriteSlice';
 import { addToCart } from '../utils/api/CartApi';
 
 const ProductDetail = () =>
@@ -17,8 +17,8 @@ const ProductDetail = () =>
   const products = useSelector((state: RootState) => state.products.products);
   const product = products.find((product) => product.id === id);
 
-  const favorites = useSelector(selectFavorites);
-  const isFavorite = favorites.some((favProduct) => favProduct.id === id);
+  // const favorites = useSelector(selectFavorites);
+  // const isFavorite = favorites.some((favProduct) => favProduct.id === id);
 
   const user = useSelector((state: RootState)=>state.user.userDetails)
 
@@ -30,21 +30,21 @@ const ProductDetail = () =>
     return <div>No product provided.</div>;
   }
 
-  const handleToggleFavorite = () => {
-    if (isFavorite) {
-      dispatch(removeFromFavorites(id));
-    } else {
-      dispatch(addToFavorites(product));
-    }
-  };
+  // const handleToggleFavorite = () => {
+  //   if (isFavorite) {
+  //     dispatch(removeFromFavorites(id));
+  //   } else {
+  //     dispatch(addToFavorites(product));
+  //   }
+  // };
 
   const handleAddToCart = () => {
     const dataProps = { userId: user?.id, productId: id, quantity: 1 };
     addToCart(dataProps);
   }
 
-  const newFavoriteCount = favorites.length;
-  dispatch(setFavoriteCount(newFavoriteCount));
+  // const newFavoriteCount = favorites.length;
+  // dispatch(setFavoriteCount(newFavoriteCount));
 
   if (!product) {
     return <div>Product not found</div>;
@@ -70,7 +70,7 @@ const ProductDetail = () =>
           <Button variant="contained" color="primary" onClick={handleAddToCart}>
             Add to Cart
           </Button>
-          <Button style={{ backgroundColor: 'white', color: 'black', marginTop: '-35px' }}>
+          {/* <Button style={{ backgroundColor: 'white', color: 'black', marginTop: '-35px' }}>
             {isFavorite ? (
             <FavoriteIcon style={{ position: 'absolute', top: '5px', right: '5px', color: 'red' }}
               className="heartIcon"
@@ -80,7 +80,7 @@ const ProductDetail = () =>
               className='heartIcon'
               onClick={handleToggleFavorite} />
             )}
-          </Button>
+          </Button> */}
         </Grid>
       </Grid>
     </div>

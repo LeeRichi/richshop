@@ -14,7 +14,7 @@ namespace Domain.src.Entities
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum OrderStatus {
         Pending,
-        Shipped,
+        Shipping,
         Arrived,
         PickedUp,
     }

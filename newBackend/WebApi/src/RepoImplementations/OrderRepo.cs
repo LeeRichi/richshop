@@ -27,16 +27,8 @@ namespace WebApi.src.RepoImplementations
         {
             return await _orders
                 .Include(c => c.OrderProducts)
+                    .ThenInclude(p => p.Product)
                 .ToListAsync();
         }
-
-//example
-        // public async Task<IEnumerable<Cart>> GetAllCartsWithCartItems()
-        // {
-        //     return await _carts
-        //         .Include(c => c.CartItems)
-        //         .ToListAsync();
-        // }
-
     }
 }

@@ -15,7 +15,7 @@ import { Search as SearchIcon } from '@mui/icons-material';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../app/rootReducer';
 import { logoutUser } from '../features/user/userSlice';
-import { clearFavorite } from '../features/favorite/favoriteSlice';
+// import { clearFavorite } from '../features/favorite/favoriteSlice';
 import { clearCart } from '../features/cart/cartSlice';
 import { setAllOrders } from '../features/order/orderSlice';
 import { setAllUsers } from '../features/user/allUserSlice';
@@ -24,7 +24,7 @@ import { Product } from '../interface/ProductInterface';
 const Navbar = ({ appLogout, products, onSearchResultsChange }: { appLogout: () => void, products: Product[], onSearchResultsChange: (results: Product[]) => void;  }) =>
 {
   const dispatch = useDispatch();
-  const favoriteCount = useSelector((state: RootState) => state.favorites.favoriteCount);
+  // const favoriteCount = useSelector((state: RootState) => state.favorites.favoriteCount);
   // const cartCount = useSelector((state: RootState) => state.user.cartCount);
   const user = useSelector((state: RootState) => state.user.userDetails);
   const cartCount = user?.carts?.length;
@@ -57,7 +57,7 @@ const Navbar = ({ appLogout, products, onSearchResultsChange }: { appLogout: () 
 
   const handleLogout = () =>
   {
-    dispatch(clearFavorite());
+    // dispatch(clearFavorite());
     dispatch(clearCart())
     dispatch(setAllUsers([]));
     dispatch(setAllOrders([]));
@@ -94,9 +94,9 @@ const Navbar = ({ appLogout, products, onSearchResultsChange }: { appLogout: () 
         </Typography>
         <div>
           <IconButton color="inherit" component={Link} to="/favorite">
-            <Badge badgeContent={favoriteCount} color="secondary">
+            {/* <Badge badgeContent={favoriteCount} color="secondary">
               <FavoriteBorderIcon />
-            </Badge>
+            </Badge> */}
           </IconButton>
           {user ? (
             <>
@@ -125,7 +125,7 @@ const Navbar = ({ appLogout, products, onSearchResultsChange }: { appLogout: () 
                       lineHeight: '1',
                     }}
                   >
-                    👑
+                    ☑️
                   </div>
                 )}
               </IconButton>

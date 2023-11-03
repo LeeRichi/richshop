@@ -10,7 +10,7 @@ import { RootState } from '../src/app/rootReducer';
 import { Product } from '../src/interface/ProductInterface';
 import CategoryPage from './page/CategoryPage';
 import LoginForm from './page/LoginForm';
-import Dashboard from './page/Dashboard/Dashboard';
+// import Dashboard from './page/Dashboard/Dashboard';
 import ProductManage from './page/Dashboard/manage/ProductManage';
 import UserManage from './page/Dashboard/manage/UserManage';
 import OrderManage from './page/Dashboard/manage/OrderManage';
@@ -49,21 +49,21 @@ const App = () =>
           <Route path='/cart' element={<Cart />} />
           <Route path='/checkOut' element={<CheckOut />} />
           <Route path='/auth' element={<LoginForm />} />
-          <Route path='/dashboard' element={<Dashboard />} />
+          {/* <Route path='/dashboard' element={<Dashboard />} /> */}
 
-           {isAdmin ? (
+          {/* {isAdmin ? (
           <>
             <Route path='manage-products' element={<ProductManage />} />
             <Route path='manage-users' element={<UserManage />} />
-            <Route path='manage-orders' element={<OrderManage />} />
+            <Route path='manage-orders' element={<OrderManage />} />              
           </>
           ) : (
             <>
               <Route path='manage-products' element={<Navigate to='/' />} />
               <Route path='manage-users' element={<Navigate to='/' />} />
-              <Route path='manage-orders' element={<Navigate to='/' />} />
+              <Route path='manage-orders' element={<Navigate to='/' />} />                
             </>
-          )}
+          )} */}
 
           <Route path='/users/:id' element={<UserDetail appLogout={appLogout} />} />         
           <Route path='/orders/:id' element={<OrderDetail />} />

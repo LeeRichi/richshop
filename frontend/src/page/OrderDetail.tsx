@@ -1,30 +1,20 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Typography, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TableHead } from '@mui/material';
+import { Typography, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TableHead, Box } from '@mui/material';
+import { Stepper, Step, StepLabel } from '@mui/material';
+
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/rootReducer';
+import OrderProductsInterface from '../interface/OrderProductsInterface';
+
+const statusOptions = ['Pending', 'Shipping', 'Arrived', 'PickedUp'];
 
 const OrderDetail = () => {
     const { id } = useParams();
     const orders = useSelector((state: RootState) => state.order.orders);
-    const orderProducts = useSelector((state: RootState) => state.orderProduct.orderProducts);
 
   const order = orders?.find(order => order.id === id);
-  console.log(order)
-    
-    const matchingOrders = orderProducts?.filter(order => order.orderId === id);
-
-    const products = useSelector((state: RootState) => state.products.products)
-    const matchingProductIds = matchingOrders?.map(order => order.productId);
-    console.log(matchingOrders)
-
-    const filteredProducts = products?.filter(product => {
-      if (typeof product.id === 'string') {
-        return matchingProductIds?.includes(product.id);
-      }
-      return false; 
-    });
-
+  
   return (
     <div style={{ padding: '20px' }}>
       <Typography variant="h4" gutterBottom>
@@ -36,7 +26,7 @@ const OrderDetail = () => {
           Order Information
         </Typography>
 
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} style={{ marginBottom: '20px' }}>
           <Table>
             <TableBody>
               <TableRow>
@@ -44,17 +34,26 @@ const OrderDetail = () => {
                 <TableCell>{order?.id}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>Order Status</TableCell>
-                <TableCell>{order?.orderStatus}</TableCell>
-              </TableRow>
-              <TableRow>
                 <TableCell>User ID</TableCell>
                 <TableCell>{order?.userId}</TableCell>
               </TableRow>
             </TableBody>
           </Table>
+          <Box display="flex" alignItems="center" justifyContent="center" style={{ minHeight: '8rem' }}>
+            <TableCell style={{backgroundColor: 'white',  height: '8rem' }}>Order Status:</TableCell>
+            <div style={{ flex: 1 }}>
+             <Stepper activeStep={statusOptions.indexOf(order?.orderStatus ?? 'Pending')} alternativeLabel>
+              {statusOptions.map((status, index) => (
+                <Step key={status}>
+                  <StepLabel>{status}</StepLabel>
+                </Step>
+              ))}
+              </Stepper>
+            </div>
+          </Box>
         </TableContainer>
       </Paper>
+
 
       <Paper variant="outlined" style={{ padding: '20px' }}>
         <Typography variant="h6" gutterBottom>
@@ -67,26 +66,32 @@ const OrderDetail = () => {
               <TableRow>
                 <TableCell>Product ID</TableCell>
                 <TableCell>Title</TableCell>
-                <TableCell>Price</TableCell>
                 <TableCell>Amount</TableCell>
+                <TableCell>Price</TableCell>
                 <TableCell>Images</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredProducts?.map((product) => {
-                const matchingOrder = matchingOrders?.find(order => order.productId === product.id);
+              {order?.orderProducts?.map((product: OrderProductsInterface) =>
+              {
                 return (
-                  <TableRow key={product.id}>
-                    <TableCell>{product.id}</TableCell>
-                    <TableCell>{product.title}</TableCell>
-                    <TableCell>{product.price}</TableCell>
-                    <TableCell>{matchingOrder?.amount}</TableCell>
+                  <>
+                  <TableRow key={product.productId}>
+                    <TableCell>{product.productId}</TableCell>
+                    <TableCell>{product.product.title}</TableCell>
+                    <TableCell>{product?.amount}</TableCell>
+                    <TableCell>{product.product.price}</TableCell>
                     <TableCell>
-                      <img src={product.images[0]} alt="Product" style={{ maxWidth: '100px' }} />
+                      <img src={product.product.images[0]} alt="Product" style={{ maxWidth: '100px' }} />
                     </TableCell>
                   </TableRow>
+                  </>
                 );
               })}
+              <TableCell>Total Price</TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
+              <TableCell>{order?.orderTotal}</TableCell>
             </TableBody>
           </Table>
         </TableContainer>

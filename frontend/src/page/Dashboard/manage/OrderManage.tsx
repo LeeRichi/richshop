@@ -30,7 +30,7 @@ import { OrderInterface } from '../../../interface/OrderInterface';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
 
-const orderStatusOptions = ['Pending', 'Shipped', 'Arrived', 'PickedUp'];
+const orderStatusOptions = ['Pending', 'Shipping', 'Arrived', 'PickedUp'];
 
 const OrderManage = () =>
 {

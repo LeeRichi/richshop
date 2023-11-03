@@ -4,12 +4,17 @@ import { Product } from '../interface/ProductInterface';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToFavorites, removeFromFavorites, selectFavorites, setFavoriteCount } from '../features/favorite/favoriteSlice';
+// import { addToFavorites, removeFromFavorites, selectFavorites, setFavoriteCount } from '../features/favorite/favoriteSlice';
 import { Link } from 'react-router-dom'; // Import Link from React Router
 import './index.css';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { CartItemInterface } from '../interface/CartItemInterface';
 import { OrderInterface } from '../interface/OrderInterface';
+import { RootState } from '../app/rootReducer';
+import { FavoriteInterface } from '../interface/FavoriteInterface';
+import { addToFavorites, removeFromFavorites } from '../utils/api/FavoriteApi';
+import { updateUserDetails } from '../features/user/userSlice'; 
+import UserInterface from '../interface/UserInterface';
 
 interface ProductCardProps {
   product: Product;
@@ -17,22 +22,57 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const dispatch = useDispatch();
-  const favorites = useSelector(selectFavorites);
-  const isFavorite = favorites.some((favProduct) => favProduct.id === product?.id);
-  console.log(product)
+  const favorites = useSelector((state: RootState) => state.user.userDetails?.favorites)
+  const user = useSelector((state: RootState) => state.user.userDetails)
+  const userId = user?.id;
+  const isFavorite = favorites?.some((favProduct: FavoriteInterface) => {
+    return product && favProduct.productId === product.id;
+  });
 
-  const handleToggleFavorite = (e: React.MouseEvent) => {
+  const handleToggleFavorite = (productId: string | undefined) => {
     if (product?.id) {
+      const favoriteData = { userId, productId }
       if (isFavorite) {
-        dispatch(removeFromFavorites(product.id));
+        removeFromFavorites(favoriteData).then((updatedUserDetails: FavoriteInterface) =>
+        {          
+          const updatedFavorites = user?.favorites?.filter(
+            (favorite: FavoriteInterface) => favorite.productId !== updatedUserDetails.productId
+          );
+          console.log(updatedFavorites)
+          const updatedUser: UserInterface= {
+            ...(user as UserInterface), 
+            favorites: updatedFavorites,
+          };
+          console.log(updatedUser)
+          dispatch(updateUserDetails(updatedUser));
+        })
+        .catch((error) => {
+          console.error('Failed to remove from favorites:', error);
+        });
       } else {
-        dispatch(addToFavorites(product));
+        addToFavorites(favoriteData).then((updatedUserDetails: FavoriteInterface) =>
+        {
+          if (user?.favorites) {
+            const updatedFavorites = [...user.favorites, updatedUserDetails];
+            const updatedUser = {
+              ...user,
+              favorites: updatedFavorites,
+            };
+            console.log(updatedUser)
+            dispatch(updateUserDetails(updatedUser));
+          } else {
+            console.error('User favorites is undefined');
+          }
+        })
+        .catch((error) => {
+          console.error('Failed to add from favorites:', error);
+        });
       }
     }
   };
   
-  const newFavoriteCount = favorites.length;
-  dispatch(setFavoriteCount(newFavoriteCount));
+  // const newFavoriteCount = favorites.length;
+  // dispatch(setFavoriteCount(newFavoriteCount));
 
     // Ref to store the initial position of the drag
   const dragStartRef = useRef(0);
@@ -85,14 +125,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               className="heartIcon"
               style={{color: 'red'}}
               onClick={(e) => {
-                handleToggleFavorite(e);
+                e.stopPropagation(); 
+                handleToggleFavorite(product.id);
               }}
             />
           ) : (
             <FavoriteBorderIcon
               className="heartIcon"
-              onClick={(e) => {
-                handleToggleFavorite(e);
+                onClick={(e) => {
+                e.stopPropagation(); 
+                  handleToggleFavorite(product.id);
               }}
             />
           )}

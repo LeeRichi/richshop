@@ -16,20 +16,7 @@ import { fetchUsers } from '../utils/api/UsersApi';
 import { setAllUsers } from '../features/user/allUserSlice';
 import UserInterface from '../interface/UserInterface';
 import { OrderInterface } from '../interface/OrderInterface';
-import OrderProductsInterface from '../interface/OrderProductsInterface';
-
-interface MatchedProduct {
-  amount: number;
-  orderProductId: string;
-  product: Product;
-  orderId?: string;
-}
-
-interface OrderTotalPrice {
-  productId: string;
-  orderId: string;
-  total: number;
-}
+import Favorite from '../page/Favorite';
 
 const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
 {
@@ -37,19 +24,17 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
     const { id } = useParams();
     const users = useSelector((state: RootState) => state.allUser.users);
     const user = users?.find((user) => user.id === id);
-
     const orders = useSelector((state: RootState) => state.order.orders)
-    const products = useSelector((state: RootState) => state.products.products);
-    const favorites = useSelector((state: RootState) => state.favorites.favorites);
+    // const favorites = useSelector((state: RootState) => state.favorites.favorites);
     const cart = user?.carts;
     const userOrders: OrderInterface[] = (orders ?? []).filter(order => order.userId === id);
-    console.log(userOrders)
 
     const currentUser = useSelector((state: RootState) => state.user.userDetails);
 
     const [isProductManageOpen, setIsProductManageOpen] = useState(false);
     const [isUserManageOpen, setIsUserManageOpen] = useState(false);
     const [isOrderManageOpen, setIsOrderManageOpen] = useState(false);
+    const [isFavoriteOpen, setIsFavoriteOpen] = useState(false)
     const [editedUser, setEditedUser] = useState<UserInterface | undefined>(user);
 
     const updateUser = (updatedUser: UserInterface) => {
@@ -78,7 +63,7 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
 
     return (
         <Box display="flex">
-            <DetailSidebar user={user ?? currentUser} appLogout={appLogout} setIsProductManageOpen={setIsProductManageOpen} setIsUserManageOpen={setIsUserManageOpen} setIsOrderManageOpen={setIsOrderManageOpen} updateUser={updateUser}
+            <DetailSidebar user={user ?? currentUser} appLogout={appLogout} setIsProductManageOpen={setIsProductManageOpen} setIsUserManageOpen={setIsUserManageOpen} setIsOrderManageOpen={setIsOrderManageOpen} setIsFavoriteOpen={setIsFavoriteOpen} updateUser={updateUser}
             />
             {isProductManageOpen && (
                 <ProductManage />
@@ -89,35 +74,46 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
             {isOrderManageOpen && (
                 <OrderManage />
             )}
+            {isFavoriteOpen && (
+                <Favorite />
+            )}
 
-            {!isProductManageOpen && !isUserManageOpen && !isOrderManageOpen &&
+            {!isProductManageOpen && !isUserManageOpen && !isOrderManageOpen && !isFavoriteOpen &&
                 (
                     <Box flex={1} padding={2}>
                         <Paper style={{ padding: '20px', marginBottom: '20px' }}>
                             <Typography variant="h6">Order History</Typography>
                             <List>
-                                {userOrders?.map((order) =>
-                                {                                
-                                    return (
-                                        <React.Fragment key={order.id}>
-                                            <Link to={`/orders/${order.id}`} style={{ textDecoration: 'none' }}>
-                                                <ListItem>
-                                                    <ListItemAvatar>
-                                                    <Avatar>{order.updatedAt}</Avatar>
-                                                    </ListItemAvatar>
-                                                    <ListItemText
-                                                        primary={<span style={{ color: 'black' }}>{`Order ${order.id}`}</span>}
-                                                        secondary={`Date: ${order.updatedAt}, Total: $${order.orderTotal ? order.orderTotal : 0}`}
-                                                    />
-                                                </ListItem>
-                                            </Link>
-                                            <Divider />
-                                        </React.Fragment>
-                                    );
-                                })}
+                                {userOrders?.map((order) => {
+                                return (
+                                    <React.Fragment key={order.id}>
+                                        <Link to={`/orders/${order.id}`} style={{ textDecoration: 'none' }}>
+                                            <ListItem>
+                                                <ListItemText
+                                                    primary={<span style={{ color: 'black' }}>{`Order ${order.id}`}</span>}
+                                                    secondary={`Date: ${order.updatedAt}, Total: $${order.orderTotal ? order.orderTotal : 0}`}
+                                                />
+                                                <ListItemAvatar>
+                                                    <div style={{ display: 'flex' }}>
+                                                        {order.orderProducts.map((product) => (
+                                                            <img
+                                                                key={product.product.id}
+                                                                src={product.product.images[0]}
+                                                                alt={`Product Image for Order ${order.id}`}
+                                                                style={{ width: '128px', height: '100px', margin: '5px' }}
+                                                            />
+                                                        ))}
+                                                    </div>
+                                                </ListItemAvatar>
+                                            </ListItem>
+                                        </Link>
+                                        <Divider />
+                                    </React.Fragment>
+                                );
+                            })}
                             </List>
                         </Paper>
-                        <Paper style={{ padding: '20px', marginBottom: '20px' }}>
+                        {/* <Paper style={{ padding: '20px', marginBottom: '20px' }}>
                             <Typography variant="h6">Favorites</Typography>
                             {favorites.length === 0 ? (
                                 <Typography style={{ fontSize: '12px', color: 'grey' }}>
@@ -143,7 +139,7 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
                                 )}
                                 </>
                             )}
-                        </Paper>
+                        </Paper> */}
                         <Paper style={{ padding: '20px', marginBottom: '20px' }}>
                             <Typography variant="h6">Cart</Typography>
                         {cart?.length === 0 ? (
