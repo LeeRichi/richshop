@@ -62,7 +62,7 @@ const Home = ({ searchResults }: { searchResults: Product[] }) => {
                 ))}
         </Grid>
       </Container>}
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

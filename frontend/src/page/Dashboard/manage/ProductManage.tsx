@@ -63,6 +63,7 @@ const ProductManage = () => {
   }, [dispatch]);
 
   const products = useSelector((state: RootState) => state.products);
+  console.log(products)
 
   const handleOpenDialog = (isEditing: boolean, productId?: string) => {
     setIsDialogOpen(true);

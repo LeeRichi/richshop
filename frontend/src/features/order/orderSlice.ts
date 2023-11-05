@@ -13,8 +13,9 @@ const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
-    setAllOrders: (state, action: PayloadAction<OrderInterface[]>) => {
-        state.orders = action.payload;
+    setAllOrders: (state, action: PayloadAction<OrderInterface[]>) =>
+    {
+      state.orders = action.payload;
     },
   },
 });

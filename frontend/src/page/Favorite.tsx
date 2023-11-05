@@ -1,55 +1,36 @@
-import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../app/rootReducer';
-import { Product } from '../interface/ProductInterface';
-// import { addToFavorites, removeFromFavorites, selectFavorites } from '../features/favorite/favoriteSlice';
-import CloseIcon from '@mui/icons-material/Close';
-import { Typography } from '@mui/material';
-// import { setFavoriteCount } from '../features/favorite/favoriteSlice';
+import { Box, Button, Grid } from '@mui/material';
 import { FavoriteInterface } from '../interface/FavoriteInterface';
+import React from 'react';
+import ProductCard from '../components/ProductCard';
 
-const ProductDetail = () => {
+const Favorites = () => {
   const dispatch = useDispatch();
-  const favorites = useSelector((state: RootState) => state.user.userDetails?.favorites)
-  console.log(favorites)
-  // const favorites = useSelector(selectFavorites);
-  // const isFavorite = (product: Product) => favorites.some((favProduct) => favProduct.id === product.id);
-
-  // const handleToggleFavorite = (product: Product) => {
-  //   if (product.id) {
-  //     if (isFavorite(product)) {
-  //       dispatch(removeFromFavorites(product.id));
-  //     } else {
-  //       dispatch(addToFavorites(product));
-  //     }
-  //   }
-  // };
-
-  const newFavoriteCount = favorites?.length;
-  // dispatch(setFavoriteCount(newFavoriteCount));
+  const favorites = useSelector((state: RootState) => state.user.userDetails?.favorites);
+  console.log(favorites);
 
   return (
-    <div style={{marginLeft: '6%'}}>
+    <Box flex={1} padding={2}>
       <h2>Favorites</h2>
-      {newFavoriteCount ?
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-          {favorites?.map((favorite: FavoriteInterface) => (
-            <div key={favorite.product?.id} style={{ flex: '0 0 30%', position: 'relative' }}>
-              <img src={favorite.product?.images[0]} alt={favorite.product?.title} style={{ width: '100%' }} />
-              <div style={{ position: 'absolute', top: '5px', right: '5px', border: '1px solid black', cursor: 'pointer' }}>
-                {/* <CloseIcon onClick={() => handleToggleFavorite(favorite)} /> */}
-              </div>
-              <div style={{ marginTop: '10px' }}>
-                <Typography variant="h6">{favorite.product?.title}</Typography>
-                <Typography>{favorite.product?.description}</Typography>
-                <Typography variant="subtitle1">{`$${favorite.product?.price}`}</Typography>
-              </div>
-            </div>
-          ))}
-        </div>
-      : <div>your do not have favorite items yet</div>}
-    </div>
+      <Grid container spacing={2}>
+        {favorites?.map((favorite) => (
+          favorite.product ? (
+            <Grid item key={favorite.product.id} xs={12} sm={6} md={4} lg={3} style={{ margin: '2rem 3rem 7rem'}}>
+              <ProductCard product={favorite.product} />
+              <Button
+                variant="contained"
+                color='primary'
+                style={{width: '100%', marginTop: '15px'}}
+              >
+                Add to Card
+              </Button>            
+            </Grid>
+          ) : null
+        ))}
+      </Grid>
+    </Box>
   );
 };
 
-export default ProductDetail;
+export default Favorites;

@@ -7,29 +7,33 @@ import PaymentIcon from '@mui/icons-material/Payment';
 
 const Footer: React.FC = () => {
   return (
-    <footer style={{ borderTop: '1px solid #ccc', padding: '20px', marginTop: '20px' }}>
-      <Grid container spacing={3}>
+    <footer style={{
+      borderTop: '1px solid #ccc',
+      padding: '20px',
+      marginTop: '5vh',
+      height: 'auto', // Change height to 'auto' to allow content to expand
+      backgroundColor: '#F4F4F4',
+    }}>
+      <Grid container spacing={3} style={{ marginTop: '5vh' }}>
         <Grid item xs={12} sm={6} md={3}>
           <Typography
             style={{
-              width: '10%',
-              backgroundColor: 'transparent',
+              width: '50px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               textDecoration: 'none',
               color: 'black',
               border: '1px solid black',
-              marginRight: '15rem',
-              padding: '5px',
+              marginBottom: '1rem',
             }}
           >
-            <span style={{ verticalAlign: 'middle' }}>RICH</span>
+            <span style={{ verticalAlign: 'middle'}}>RICH</span>
           </Typography>
-        <Typography variant="body2">"Empowering Your Style, One Click at a Time."</Typography>
-            <IconButton color="inherit">
+          <Typography variant="body2">"Empowering Your Style, One Click at a Time."</Typography>
+          <IconButton color="inherit">
             <PaymentIcon />
-        </IconButton>
+          </IconButton>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <Typography variant="h6" gutterBottom>
@@ -37,7 +41,7 @@ const Footer: React.FC = () => {
           </Typography>
           <Typography variant="body2">Email: info@example.com</Typography>
           <Typography variant="body2">Phone: 123-456-7890</Typography>
-          <Typography variant="body2">1234 Elm St, City, State, 12345</Typography> 
+          <Typography variant="body2">1234 Elm St, City, State, 12345</Typography>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <Typography variant="h6" gutterBottom>

@@ -27,6 +27,7 @@ const Navbar = ({ appLogout, products, onSearchResultsChange }: { appLogout: () 
   // const favoriteCount = useSelector((state: RootState) => state.favorites.favoriteCount);
   // const cartCount = useSelector((state: RootState) => state.user.cartCount);
   const user = useSelector((state: RootState) => state.user.userDetails);
+  const favoriteCount = user?.favorites?.length;
   const cartCount = user?.carts?.length;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -93,10 +94,10 @@ const Navbar = ({ appLogout, products, onSearchResultsChange }: { appLogout: () 
           <span style={{ verticalAlign: 'middle' }}>RICH</span>
         </Typography>
         <div>
-          <IconButton color="inherit" component={Link} to="/favorite">
-            {/* <Badge badgeContent={favoriteCount} color="secondary">
+          <IconButton color="inherit" component={Link} to={`/users/${user?.id}/favorites`}>
+            <Badge badgeContent={favoriteCount} color="secondary">
               <FavoriteBorderIcon />
-            </Badge> */}
+            </Badge>
           </IconButton>
           {user ? (
             <>

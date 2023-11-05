@@ -119,18 +119,18 @@ const OrderManage = () =>
     <>
         <Container style={{flex:'1', marginTop: '10vh'}}>
             <Typography variant="h4" gutterBottom>
-                Orders
+                Order List
             </Typography>
             <TableContainer component={Paper}>
                 <Table>
-                <TableHead sx={{ backgroundColor: 'darkgray' }}>
-                    <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell>User</TableCell>
-                        <TableCell align="center">Actions</TableCell>
-                    </TableRow>
-                </TableHead>
+                    <TableHead sx={{ backgroundColor: 'darkgray' }}>
+                        <TableRow>
+                            <TableCell>ID</TableCell>
+                            <TableCell>Status</TableCell>
+                            <TableCell>User</TableCell>
+                            <TableCell align="center">Actions</TableCell>
+                        </TableRow>
+                    </TableHead>
                 <TableBody>
                     {orders?.map((order: OrderInterface) => (
                     <TableRow key={order.id} sx={{ '&:hover': { backgroundColor: '#f5f5f5' } }}>

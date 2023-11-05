@@ -17,6 +17,7 @@ import OrderManage from './page/Dashboard/manage/OrderManage';
 import UserDetail from './page/UserDetail';
 import OrderDetail from './page/OrderDetail';
 import CheckOut from './page/CheckOut';
+import Footer from './components/Footer';
 
 const App = () =>
 {
@@ -45,7 +46,7 @@ const App = () =>
         <Routes>
           <Route path="/" element={<Home searchResults={searchResults}/>} />
           <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path='/favorite' element={<Favorite />} />
+          <Route path='users/:id/favorites' element={<Favorite />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/checkOut' element={<CheckOut />} />
           <Route path='/auth' element={<LoginForm />} />
@@ -67,11 +68,11 @@ const App = () =>
 
           <Route path='/users/:id' element={<UserDetail appLogout={appLogout} />} />         
           <Route path='/orders/:id' element={<OrderDetail />} />
-
           {categories.map(category => (
             <Route key={category} path={`/category/${category}`} element={<CategoryPage category={category} />} />
           ))}
         </Routes>
+        <Footer />
       </div>
     </Router>
     

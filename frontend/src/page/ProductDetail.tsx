@@ -30,21 +30,10 @@ const ProductDetail = () =>
     return <div>No product provided.</div>;
   }
 
-  // const handleToggleFavorite = () => {
-  //   if (isFavorite) {
-  //     dispatch(removeFromFavorites(id));
-  //   } else {
-  //     dispatch(addToFavorites(product));
-  //   }
-  // };
-
   const handleAddToCart = () => {
     const dataProps = { userId: user?.id, productId: id, quantity: 1 };
     addToCart(dataProps);
   }
-
-  // const newFavoriteCount = favorites.length;
-  // dispatch(setFavoriteCount(newFavoriteCount));
 
   if (!product) {
     return <div>Product not found</div>;
