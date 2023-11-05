@@ -11,7 +11,7 @@ import { editUser } from '../utils/api/UsersApi';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../app/rootReducer';
 import './detailSidebar.css'
-import { closeOrderHistory, openOrderHistory } from '../features/DetailPages/DetailPagesSlice';
+import { closeCart, closeOrderHistory, openCart, openOrderHistory } from '../features/DetailPages/DetailPagesSlice';
 
 interface DetailSidebarProps {
   user: UserInterface;
@@ -29,7 +29,7 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
     const dispatch = useDispatch(); 
     const currentUser = useSelector((state: RootState) => state.user.userDetails);
 
-    const [activeButton, setActiveButton] = useState<'product' | 'user' | 'order' | 'avatar' | 'favorites' | null | 'orderHistory'>(null);
+    const [activeButton, setActiveButton] = useState<'product' | 'user' | 'order' | 'avatar' | 'favorites' | null | 'orderHistory' | 'cart'>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isManagementDropped, setisManagementDropped] = useState(false)
     const [editedUser, setEditedUser] = useState<UserInterface>({
@@ -85,7 +85,7 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
       navigate('/');
     }
 
-    const handleButtonClick = (button: 'product' | 'user' | 'order' | 'favorites' | null | 'orderHistory') => {
+    const handleButtonClick = (button: 'product' | 'user' | 'order' | 'favorites' | null | 'orderHistory' | 'cart') => {
       setActiveButton(button);
       if (button === 'product') {
         setIsProductManageOpen(true)
@@ -93,36 +93,49 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
         dispatch(closeOrderHistory());
         setIsFavoriteOpen(false);
         setIsOrderManageOpen(false);
+        dispatch(closeCart());
       } else if (button === 'user') {
         setIsUserManageOpen(true)
         setIsProductManageOpen(false);
         dispatch(closeOrderHistory());
         setIsFavoriteOpen(false);
         setIsOrderManageOpen(false);
+        dispatch(closeCart());
       } else if (button === 'order') {
         setIsOrderManageOpen(true);
         dispatch(closeOrderHistory());
         setIsProductManageOpen(false);
         setIsUserManageOpen(false);
         setIsFavoriteOpen(false);
+        dispatch(closeCart());
       } else if (button === 'favorites') {
         setIsFavoriteOpen(true);
         dispatch(closeOrderHistory());
         setIsProductManageOpen(false);
         setIsUserManageOpen(false);
         setIsOrderManageOpen(false);
+        dispatch(closeCart());
       } else if (button === 'orderHistory') {
         setIsFavoriteOpen(false);
         dispatch(openOrderHistory()); //true
         setIsProductManageOpen(false);
         setIsUserManageOpen(false);
         setIsOrderManageOpen(false);
+        dispatch(closeCart());
+      } else if (button === 'cart'){
+        setIsFavoriteOpen(false);
+        dispatch(closeOrderHistory()); //true
+        setIsProductManageOpen(false);
+        setIsUserManageOpen(false);
+        setIsOrderManageOpen(false);
+        dispatch(openCart());
       } else {
         dispatch(closeOrderHistory());
         setIsProductManageOpen(false);
         setIsUserManageOpen(false);
         setIsFavoriteOpen(false);
         setIsOrderManageOpen(false);
+        dispatch(closeCart());
       }
     };
     
@@ -244,7 +257,7 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
             backgroundColor: '#F3F2F1', 
           },
         }}
-        onClick={() => navigate('/cart')}
+        onClick={() => handleButtonClick('cart')}
       >
         Cart
     </Button>

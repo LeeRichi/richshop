@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectCartItems, setCartCount, clearCart } from '../features/cart/cartSlice';
 import { selectUserDetails, updateUserDetails } from '../features/user/userSlice';
-import { Button, Grid, Typography, TextField } from '@mui/material';
+import { Button, Grid, Typography, TextField, Box } from '@mui/material';
 import CartItem from '../components/CartItem';
 import Category from '../components/Category';
 import { Product } from '../interface/ProductInterface';
@@ -73,11 +73,11 @@ const Cart = () => {
   };
 
   return (
-    <>
-      <Category />
+    <Box flex={1} padding={2}>
+      <h2>Cart</h2>
       <ToastContainer />
-      <div style={{ padding: '20px', marginLeft: '10rem', display: 'flex' }}>
-        <div style={{ width: '60%' }}>
+      <Grid container style={{ margin: '2rem'}}>
+        <Grid sm={8} md={10} lg={5}>
           {cartItems?.length === 0 ? (
             <>
               <p>Your cart is empty.</p>
@@ -92,8 +92,8 @@ const Cart = () => {
               ))}
             </div>
           )}
-        </div>
-        <div style={{ marginLeft: '50px', padding: '10px', width: '60%' }}>
+        </Grid>
+        <Grid style={{ marginLeft: '50px', padding: '10px', width: '40%'}}>
           <Grid container spacing={2}>
             <Grid
               item
@@ -158,9 +158,9 @@ const Cart = () => {
               <Typography variant="body1">We accept Visa and Mastercard.</Typography>
             </Grid>
           </Grid>
-        </div>
-      </div>
-    </>
+        </Grid>
+      </Grid>      
+    </Box>
   );
 };
 

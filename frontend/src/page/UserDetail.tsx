@@ -17,9 +17,10 @@ import { setAllUsers } from '../features/user/allUserSlice';
 import UserInterface from '../interface/UserInterface';
 import { OrderInterface } from '../interface/OrderInterface';
 import Favorite from '../page/Favorite';
-import OrderHistory from './Orderhistory';
+import OrderHistory from './OrderHistory';
 import { openOrderHistory } from '../features/DetailPages/DetailPagesSlice';
 import CircularProgressWithLabel from '../components/CircularProgressWithLabel';
+import Cart from './Cart';
 
 const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
 {
@@ -41,6 +42,7 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
     const [isOrderManageOpen, setIsOrderManageOpen] = useState(false);
     const [isFavoriteOpen, setIsFavoriteOpen] = useState(false)
     const isOrderHistoryOpen = useSelector((state: RootState) => state.DetailPages.isOrderHistoryOpen);
+    const isCartOpen =  useSelector((state: RootState) => state.DetailPages.isCartOpen);
     const [editedUser, setEditedUser] = useState<UserInterface | undefined>(user);
 
     const updateUser = (updatedUser: UserInterface) => {
@@ -87,8 +89,11 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
             {isOrderHistoryOpen && (
                 <OrderHistory />
             )}
+            {isCartOpen && (
+                <Cart />
+            )}
 
-            {!isProductManageOpen && !isUserManageOpen && !isOrderManageOpen && !isFavoriteOpen && !isOrderHistoryOpen &&
+            {!isProductManageOpen && !isUserManageOpen && !isOrderManageOpen && !isFavoriteOpen && !isOrderHistoryOpen && !isCartOpen &&
                 (
                 <Box flex={1} padding={2}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>

@@ -67,7 +67,6 @@ const OrderHistory = () => {
               <Card sx={{ margin: '3rem', ...cardHoverStyles }}>
                 <CardContent style={{ display: 'flex', justifyContent: 'space-between'}}>
                  <Grid container spacing={2}>
-                    {/* <Grid item xs={12} sm={8}> */}
                     <Grid item xs={12} sm={12} md={12} lg={8}>
                       <div style={{ cursor: 'pointer' }} onClick={() => navigate(`/orders/${order.id}`)}>
                         <Typography variant="h5" component="div">
@@ -96,7 +95,7 @@ const OrderHistory = () => {
                                 <img
                                     src={product.product.images[0]}
                                     alt="Order Image"
-                                    style={{ width: 'auto', maxWidth: '200px', minHeight: '230px', margin: '5px', minWidth: '150px' }}
+                                    style={{ width: 'auto', maxWidth: '200px', minHeight: '230px', margin: '5px', minWidth: '150px', borderRadius: '10px' }}
                                 />
                                 <Typography>
                                     {product.product.title}
