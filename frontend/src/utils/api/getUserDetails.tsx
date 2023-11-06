@@ -8,6 +8,7 @@ const getUserDetails = async (token: string | null | undefined) =>
   }
 
   const userId = JSON.parse(atob(token.split('.')[1])).nameid;
+  console.log(userId)
   
   if (!userId) {
     throw new Error('User ID not found in token.');

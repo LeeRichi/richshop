@@ -5,16 +5,17 @@ using System.Threading.Tasks;
 using Business.src.Abstraction;
 using Microsoft.AspNetCore.Mvc;
 using Domain.src.Shared;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Controller.src.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/v1/[controller]s")]
     public class CrudController<T, TReadDto, TCreateDto, TUpdateDto>: ControllerBase
     {
         protected IBaseService<T, TReadDto, TCreateDto, TUpdateDto> _baseService;
         // private readonly IBaseService<T, TReadDto, TCreateDto, TUpdateDto> _baseService;
-
 
         public CrudController(IBaseService<T, TReadDto, TCreateDto, TUpdateDto> BaseService){
             _baseService = BaseService;

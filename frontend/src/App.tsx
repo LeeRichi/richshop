@@ -18,6 +18,7 @@ import UserDetail from './page/UserDetail';
 import OrderDetail from './page/OrderDetail';
 import CheckOut from './page/CheckOut';
 import Footer from './components/Footer';
+import SignUp from './page/SignUp';
 
 const App = () =>
 {
@@ -50,6 +51,7 @@ const App = () =>
           <Route path='/cart' element={<Cart />} />
           <Route path='/checkOut' element={<CheckOut />} />
           <Route path='/auth' element={<LoginForm />} />
+          <Route path='/signUp' element={<SignUp />} />
           {/* <Route path='/dashboard' element={<Dashboard />} /> */}
 
           {/* {isAdmin ? (

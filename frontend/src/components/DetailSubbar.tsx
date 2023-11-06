@@ -45,7 +45,7 @@ const DetailSubbar: React.FC<DetailSidebarProps> = ({ user, appLogout, updateUse
     const [newUser, setNewUser] = useState<UserInterface>({
       ...user,
     });
-     
+       
     useEffect(() => {
       setNewUser(user);
     }, [user]);
@@ -80,17 +80,17 @@ const DetailSubbar: React.FC<DetailSidebarProps> = ({ user, appLogout, updateUse
       }));
     };
 
-    const HandleLogOut = () =>
-    {
-      dispatch(clearCart())
-      dispatch(setAllUsers([]));
-      dispatch(setAllOrders([]));
+    // const HandleLogOut = () =>
+    // {
+    //   dispatch(clearCart())
+    //   dispatch(setAllUsers([]));
+    //   dispatch(setAllOrders([]));
 
-      appLogout();
-      dispatch(logoutUser());
-      localStorage.removeItem('token');
-      navigate('/');
-    }
+    //   appLogout();
+    //   dispatch(logoutUser());
+    //   localStorage.removeItem('token');
+    //   navigate('/');
+    // }
 
     const handleButtonClick = (button: 'product' | 'user' | 'order' | 'favorites' | null | 'orderHistory' | 'cart') => {
       setActiveButton(button);
@@ -148,7 +148,6 @@ const DetailSubbar: React.FC<DetailSidebarProps> = ({ user, appLogout, updateUse
     };
 
   const currentUser = useSelector((state: RootState) => state.user.userDetails);
-  console.log(currentUser);
 
   const handleToggleSidebar = () => {
     dispatch(toggleSidebar());
@@ -158,9 +157,9 @@ const DetailSubbar: React.FC<DetailSidebarProps> = ({ user, appLogout, updateUse
     <div
       style={{
         display: 'flex',
-        justifyContent: 'center', // Horizontally center the button
-        alignItems: 'center', // Keep the vertical alignment at the top
-        flexDirection: 'column', // Stack items vertically
+        justifyContent: 'center',
+        alignItems: 'center', 
+        flexDirection: 'column',
       }}
     >
       <IconButton onClick={handleToggleSidebar}>
@@ -169,12 +168,12 @@ const DetailSubbar: React.FC<DetailSidebarProps> = ({ user, appLogout, updateUse
       {isSidebarOpen ? (
         <>
           <Avatar
-            alt={currentUser?.name}
-            src={currentUser?.avatar ? currentUser?.avatar : 'https://gravatar.com/avatar/00000000000000000000000000000000?d=mp'}
+            alt={newUser?.name}
+            src={newUser?.avatar ? newUser?.avatar : 'https://gravatar.com/avatar/00000000000000000000000000000000?d=mp'}
             style={{ width: '150px', height: '150px', margin: '20px 0' }}
           />
           <Typography variant="h6" style={{ margin: '10px 0' }}>
-            {currentUser?.name}
+            {newUser?.name}
           </Typography>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
             <Button variant="contained" color="primary" onClick={handleEditDialogOpen}>

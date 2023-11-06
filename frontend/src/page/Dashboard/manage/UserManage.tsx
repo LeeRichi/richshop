@@ -141,39 +141,35 @@ const UserManage = () => {
     }
   };
 
+  //to be continue, need to add a server to host the image
+  // const handleAvatarUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const files = e.target.files;
 
-  const handleAvatarUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
+  //   if (files && files.length > 0) {
+  //     const file = files[0];
+  //     const MAX_FILE_SIZE = 2800 * 2800;
 
-    if (files && files.length > 0) {
-      const file = files[0];
-      const MAX_FILE_SIZE = 2800 * 2800;
+  //     if (file.type.startsWith('image/') && file.size <= MAX_FILE_SIZE) {
+  //       const formData = new FormData();
+  //       formData.append('avatar', file);
 
-      if (file.type.startsWith('image/') && file.size <= MAX_FILE_SIZE) {
-        // The selected file is a valid image within size limits.
-        // Proceed with the upload.
-        const formData = new FormData();
-        formData.append('avatar', file);
-
-        // Make a POST request to your server to upload the file.
-        fetch('/upload-avatar', {
-          method: 'POST',
-          body: formData,
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            const uploadedImageUrl = data.imageUrl;
-            // Update the editedUser's avatar property with the uploaded image URL.
-            handleInputChange('avatar', uploadedImageUrl);
-          })
-          .catch((error) => {
-            console.error('Error uploading the image:', error);
-          });
-      } else {
-        alert('Please select a valid image file within the allowed size.');
-      }
-    }
-  };
+  //       fetch('/upload-avatar', {
+  //         method: 'POST',
+  //         body: formData,
+  //       })
+  //         .then((response) => response.json())
+  //         .then((data) => {
+  //           const uploadedImageUrl = data.imageUrl;
+  //           handleInputChange('avatar', uploadedImageUrl);
+  //         })
+  //         .catch((error) => {
+  //           console.error('Error uploading the image:', error);
+  //         });
+  //     } else {
+  //       alert('Please select a valid image file within the allowed size.');
+  //     }
+  //   }
+  // };
 
   return (
     <div style={{ display: 'flex' , flex: '1'}}>

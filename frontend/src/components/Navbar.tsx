@@ -15,7 +15,6 @@ import { Search as SearchIcon } from '@mui/icons-material';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../app/rootReducer';
 import { logoutUser } from '../features/user/userSlice';
-// import { clearFavorite } from '../features/favorite/favoriteSlice';
 import { clearCart } from '../features/cart/cartSlice';
 import { setAllOrders } from '../features/order/orderSlice';
 import { setAllUsers } from '../features/user/allUserSlice';
@@ -25,14 +24,13 @@ import { closeCart, closeFavorite, closeOrderHistory, closeOrderManage, closePro
 const Navbar = ({ appLogout, products, onSearchResultsChange }: { appLogout: () => void, products: Product[], onSearchResultsChange: (results: Product[]) => void;  }) =>
 {
   const dispatch = useDispatch();
-  // const favoriteCount = useSelector((state: RootState) => state.favorites.favoriteCount);
-  // const cartCount = useSelector((state: RootState) => state.user.cartCount);
   const user = useSelector((state: RootState) => state.user.userDetails);
   const favoriteCount = user?.favorites?.length;
   const cartCount = user?.carts?.length;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Product[]>([]);
+
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value.toLowerCase();

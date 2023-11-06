@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from 'react';
 import axios from 'axios';
-import { Container, Typography, TextField, Button } from "@mui/material";
+import { Container, Typography, TextField, Button, Box } from "@mui/material";
 import { storeToken } from '../utils/tokenStorage';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,6 +12,9 @@ import jwt_decode from "jwt-decode";
 import { GoogleOAuthProvider, GoogleLogin, CredentialResponse, GoogleCredentialResponse } from '@react-oauth/google';
 import { CheckEmailExists, fetchUsers, postUser } from '../utils/api/UsersApi';
 import UserInterface from '../interface/UserInterface';
+
+
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -98,8 +101,12 @@ const LoginForm = () => {
     }
   };
 
+
+  const test = getUserDetails('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1Mjg4ODk5Zi0zN2Y2LTRiNzMtYTc1Yi02N2E1NmI5Y2MwMTgiLCJyb2xlIjoiVXNlciIsIm5iZiI6MTY5OTI3NTk5NSwiZXhwIjoxNjk5Mjc5NTk1LCJpYXQiOjE2OTkyNzU5OTUsImlzcyI6ImVjb21tZXJjZS1iYWNrZW5kIn0.j2x4BmpZUqgzpqtfHH3Z1BW7mtBFK_JNtqz74mBJsEE')
+  console.log(test)
+
   return (
-    <Container maxWidth="sm" style={{ marginTop: '10rem' }}>
+    <Container maxWidth="sm" style={{ marginTop: '10rem', height: '50vh' }}>
       <Typography variant="h4" align="center" gutterBottom>
         Login
       </Typography>
@@ -135,10 +142,19 @@ const LoginForm = () => {
           Log In
         </Button>
       </form>
-
-      <GoogleOAuthProvider clientId={'754912834445-v4ienbb0mtcv7gr8hrigbjgle7ajka6e.apps.googleusercontent.com'}>
-        <GoogleLogin onSuccess={handleLoginSuccess} onError={handleLoginError} />
-      </GoogleOAuthProvider>
+      <Box sx={{ display: 'flex', marginTop: '1rem' }}>
+        <GoogleOAuthProvider clientId={clientId || 'defaultClientId'}>
+          <GoogleLogin onSuccess={handleLoginSuccess} onError={handleLoginError} />
+        </GoogleOAuthProvider>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => navigate('/signUp')}
+          sx={{marginLeft: '10px'}}
+        >
+          Sign up
+        </Button>    
+      </Box>
     </Container>
   );
 };

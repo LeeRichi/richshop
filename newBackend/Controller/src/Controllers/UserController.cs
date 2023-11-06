@@ -16,6 +16,7 @@ namespace Controller.src.Controllers
         }
 
         [HttpPost("admin")]
+        [AllowAnonymous]
         public async Task<ActionResult<UserReadDto>> CreateAdmin([FromBody] UserCreateDto dto)
         {
             return CreatedAtAction(nameof(CreateAdmin), await _userService.CreateAdmin(dto));
@@ -27,19 +28,10 @@ namespace Controller.src.Controllers
             return CreatedAtAction(nameof(CreateOne), createObj);
         }
 
-        // [HttpPost("add-favorite")]
-        // public async Task<ActionResult<ProductReadDto>> CreateFavorite([FromBody] CartItemCreateDto favoriteDto)
-        // {
-        //     try
-        //     {
-        //         var favorite = await _userService.ManageFavorite(favoriteDto, addFavorite: true);
-        //         return CreatedAtAction(nameof(CreateFavorite), favorite);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return BadRequest(new { message = ex.Message });
-        //     }
-        // }
+        [AllowAnonymous]
+        public override async Task<ActionResult<UserReadDto>> GetOneById ([FromRoute]Guid id){
+            return Ok(await _baseService.GetOneById(id));
+        }
 
         [HttpPost("add-favorite")]
         public async Task<ActionResult<FavoriteReadDto>> CreateFavorite([FromBody] FavoriteCreateDto favoriteDto)
@@ -104,6 +96,5 @@ namespace Controller.src.Controllers
 
             return Ok(new { exists = userWithEmail });
         }
-
     }
 }
