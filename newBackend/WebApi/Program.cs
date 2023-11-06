@@ -13,17 +13,10 @@ using Business.src.Implementations;
 using Business.src.Shared;
 using WebApi.src.Database;
 using WebApi.src.RepoImplementations;
-// using WebApi.src.AuthorizationRequirement;
-// using WebApi.src.MiddleWare;
-// using DotNetEnv;
-
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// DotNetEnv.Env.Load();
-
 
 // Add Automapper DI
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
@@ -50,7 +43,6 @@ builder.Services
 // .AddScoped<ICartService, CartService>()
 // .AddScoped<ICartRepo, CartRepo>();
 
-
 // Configure CORS
 builder.Services.AddCors(options =>
 {
@@ -75,7 +67,6 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
 
-
 // builder.Services
 // // .AddSingleton<MinimumAgeRequirementHandler>()
 // .AddSingleton<ErrorHandlerMiddleware>();
@@ -98,7 +89,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     };
 });
 
-
 // builder.Services.AddAuthorization(options =>
 // {
 //     // options.AddPolicy("EmailWhiteList", policy => policy.RequireClaim(ClaimTypes.Email, "alia@mail.com", "john@mail.com", "dave@mail.com"));
@@ -120,9 +110,7 @@ app.UseHttpsRedirection();
 
 app.UseCors("AllowFrontend");
 
-
 // app.UseMiddleware<ErrorHandlerMiddleware>();
-
 
 app.UseAuthorization();
 

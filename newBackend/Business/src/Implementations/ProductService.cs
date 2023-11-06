@@ -11,7 +11,7 @@ namespace Business.src.Implementations
     {
         private readonly IProductRepo _productRepo;
 
-        public ProductService(IProductRepo productRepo, IMapper mapper) : base(productRepo, mapper)
+        public ProductService(IProductRepo productRepo, IMapper mapper) : base(productRepo, mapper, productRepo)
         {
             _productRepo = productRepo;
         }

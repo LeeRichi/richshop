@@ -10,7 +10,7 @@ visit: https://richshop.netlify.app/
 The backend is currently being optimized. Stay tuned!
 
 # Links
-backend: https://richshop.azurewebsites.net/swagger/index.html<br>
+backend: https://richstorev2.azurewebsites.net/swagger/index.html<br>
 frontend: https://richshop.netlify.app/
 
 # Accounts for testing

@@ -21,6 +21,7 @@ const Home = ({ searchResults }: { searchResults: Product[] }) => {
   useEffect(() => {
     fetchProducts().then(products => {
       dispatch(setProducts(products));
+      console.log(products.length)
     })
     .catch(error => {
       console.error('Error fetching users:', error);

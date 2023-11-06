@@ -24,6 +24,7 @@ namespace Controller.src.Controllers
         }
 
         // [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         public override async Task<ActionResult<ProductReadDto>> CreateOne([FromBody] ProductCreateDto dto){
             var createObj = await _productService.CreateOne(dto);
             return CreatedAtAction(nameof(CreateOne), createObj); //be aware for later

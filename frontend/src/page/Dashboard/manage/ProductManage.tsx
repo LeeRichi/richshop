@@ -63,7 +63,6 @@ const ProductManage = () => {
   }, [dispatch]);
 
   const products = useSelector((state: RootState) => state.products);
-  console.log(products)
 
   const handleOpenDialog = (isEditing: boolean, productId?: string) => {
     setIsDialogOpen(true);
@@ -118,7 +117,6 @@ const ProductManage = () => {
     };
 
     if (isEditing && editingProductId) {      
-
       editProduct(editingProductId, productData).then(() => {
         const updatedProducts = products.products.map((product) =>
           product.id === editingProductId ? { ...product, ...productData } : product
@@ -128,6 +126,7 @@ const ProductManage = () => {
         handleCloseDialog();
       });
     } else {
+      console.log(productData.category)
       postProduct(productData).then((response) => {
         dispatch(setProducts([...products.products, response]));
         handleCloseDialog();

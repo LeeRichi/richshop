@@ -9,28 +9,32 @@ import { setProducts, selectProducts } from '../../features/product/productSlice
 const token = getToken()
 
 export const fetchProducts = async () => {
-      try {
-        const response = await axios.get(`${BASE_API_URL}/products`);
-        return response.data;
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-
-export const postProduct = async (product: Product) =>
-{
   try {
-    const response = await axios.post(`${BASE_API_URL}/products`, product);
-    const newProduct = response.data;
-    return newProduct;
-  } catch (err) {
-    console.error(err);
+    const response = await axios.get(`${BASE_API_URL}/products`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching products:', error);
   }
+};
+
+export const postProduct = (product: Product) =>
+{
+  const token = getToken();
+  console.log(product)
+  return axios.post(`${BASE_API_URL}/products`, product, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  })
+    .then(response => response.data)
+    .catch(error => {
+      console.error('Error posting user:', error);
+      throw error;
+    });
 };
 
 export const editProduct = async (productId: string, updatedProductData: Partial<Product>) =>
 {
-  console.log(updatedProductData)
   try {
     const response = await axios.patch(`${BASE_API_URL}/products/${productId}`, updatedProductData,
       {

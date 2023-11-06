@@ -11,6 +11,6 @@ namespace Domain.src.Shared
         public string Order { get; set; } = "UpdatedAt";
         public bool OrderByDescendign { get; set; } = false;
         public int PageNumber { get; set; } = 1;
-        public int PerPage { get; set; } = 10;
+        public int PerPage { get; set; } = 30;
     }
 }
