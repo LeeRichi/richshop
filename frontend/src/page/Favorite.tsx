@@ -4,9 +4,11 @@ import { Box, Button, Grid, useMediaQuery } from '@mui/material';
 import { FavoriteInterface } from '../interface/FavoriteInterface';
 import React from 'react';
 import ProductCard from '../components/ProductCard';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const Favorites = () => {
+const Favorites = () =>
+{
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   // const favorites = useSelector((state: RootState) => state.user.userDetails?.favorites);
   const isSmallDevice = useMediaQuery('(max-width: 900px)');
@@ -22,6 +24,14 @@ const Favorites = () => {
       <h2 style={{ textAlign: isSmallDevice ? 'center' : 'initial' }}>
         Favorites</h2>
       <Grid container spacing={2}>
+        {favorites?.length === 0 ? (
+          <div style={{margin: '20px'}}>
+            <p>Your favorite is empty.</p><br/>
+              <Button variant="outlined" color="primary" onClick={() => { navigate('/') }}>
+                Go to Shop
+              </Button>
+          </div>
+        ) : null}
         {favorites?.map((favorite) => (
           favorite.product ? (
             <Grid item key={favorite.product.id} xs={12} sm={6} md={4} lg={3} style={{ margin: '2rem 3rem 7rem'}}>

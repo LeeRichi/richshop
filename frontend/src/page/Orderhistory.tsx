@@ -68,6 +68,14 @@ const OrderHistory = () => {
       <h2 style={{ textAlign: isSmallDevice ? 'center' : 'initial' }}>
         Order History
       </h2>
+      {userOrders?.length === 0 ? (
+          <div style={{margin: '20px'}}>
+            <p>Your order History is empty.</p><br/>
+              <Button variant="outlined" color="primary" onClick={() => { navigate('/') }}>
+                Go to Shop
+              </Button>
+          </div>
+        ): null}
       <Grid container spacing={2}>
         {userOrders?.map((order) => (
           order ? (
