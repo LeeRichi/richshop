@@ -40,14 +40,16 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
         .reduce((total, price) => total + price, 0)
     );    const currentUser = useSelector((state: RootState) => state.user.userDetails);
     const totalSum = userPoints.reduce((total, price) => total + price, 0);
-    const [isProductManageOpen, setIsProductManageOpen] = useState(false);
-    const [isUserManageOpen, setIsUserManageOpen] = useState(false);
-    const [isOrderManageOpen, setIsOrderManageOpen] = useState(false);
-    const [isFavoriteOpen, setIsFavoriteOpen] = useState(false)
+
+    const isProductManageOpen = useSelector((state: RootState) => state.DetailPages.isProductManageOpen);
+    const isUserManageOpen = useSelector((state: RootState) => state.DetailPages.isProductManageOpen);
+    const isOrderManageOpen = useSelector((state: RootState) => state.DetailPages.isProductManageOpen);
+    const isFavoriteOpen = useSelector((state: RootState) => state.DetailPages.isProductManageOpen);
     const isOrderHistoryOpen = useSelector((state: RootState) => state.DetailPages.isOrderHistoryOpen);
-    const isCartOpen =  useSelector((state: RootState) => state.DetailPages.isCartOpen);
+    const isCartOpen = useSelector((state: RootState) => state.DetailPages.isCartOpen);
+    
     const [editedUser, setEditedUser] = useState<UserInterface | undefined>(user);
-    const isSidebarOpen = useSelector((state: RootState) => state.DetailPages.isSidebarOpen);
+
     const updateUser = (updatedUser: UserInterface) => {
         setEditedUser(updatedUser);
     };
@@ -72,13 +74,11 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
         return <Typography variant="body1" align="center">User not found.</Typography>;
     }
 
-
     return (
         <>
             {isSmallDevice ? <SidebarBtn /> : null}
             <Box display="flex">            
-                <DetailSidebar user={user ?? currentUser} appLogout={appLogout} setIsProductManageOpen={setIsProductManageOpen} setIsUserManageOpen={setIsUserManageOpen} setIsFavoriteOpen={setIsFavoriteOpen} updateUser={updateUser}
-                    setIsOrderManageOpen={setIsOrderManageOpen}
+                <DetailSidebar user={user ?? currentUser} appLogout={appLogout} updateUser={updateUser}
                 />
                     {isProductManageOpen && (
                         <ProductManage />

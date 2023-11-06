@@ -11,19 +11,20 @@ import { editUser } from '../utils/api/UsersApi';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../app/rootReducer';
 import './detailSidebar.css'
-import { closeCart, closeOrderHistory, openCart, openOrderHistory } from '../features/DetailPages/DetailPagesSlice';
+import { closeCart, closeFavorite, closeOrderHistory, closeOrderManage, closeProductManage, closeUserManage, openCart, openFavorite, openOrderHistory, openOrderManage, openProductManage, openUserManage } from '../features/DetailPages/DetailPagesSlice';
 
 interface DetailSidebarProps {
   user: UserInterface;
   appLogout: () => void;
-  setIsProductManageOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsUserManageOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsOrderManageOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  // setIsProductManageOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  // setIsUserManageOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  // setIsOrderManageOpen: React.Dispatch<React.SetStateAction<boolean>>;
   updateUser: (updatedUser: UserInterface) => void;
-  setIsFavoriteOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  // setIsFavoriteOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsProductManageOpen, setIsUserManageOpen, updateUser, setIsFavoriteOpen, setIsOrderManageOpen }) =>
+// const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsProductManageOpen, setIsUserManageOpen, updateUser, setIsFavoriteOpen, setIsOrderManageOpen }) =>
+const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, updateUser }) =>
 {
     const navigate = useNavigate();
     const dispatch = useDispatch(); 
@@ -87,53 +88,54 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
     const handleButtonClick = (button: 'product' | 'user' | 'order' | 'favorites' | null | 'orderHistory' | 'cart') => {
       setActiveButton(button);
       if (button === 'product') {
-        setIsProductManageOpen(true)
-        setIsUserManageOpen(false);
+        dispatch(openProductManage());
+        dispatch(closeUserManage());
         dispatch(closeOrderHistory());
-        setIsFavoriteOpen(false);
-        setIsOrderManageOpen(false);
+        dispatch(closeFavorite());
+        dispatch(closeOrderManage());
         dispatch(closeCart());
       } else if (button === 'user') {
-        setIsUserManageOpen(true)
-        setIsProductManageOpen(false);
+        dispatch(closeProductManage());
+        dispatch(openUserManage());
         dispatch(closeOrderHistory());
-        setIsFavoriteOpen(false);
-        setIsOrderManageOpen(false);
+        dispatch(closeFavorite());
+        dispatch(closeOrderManage());
         dispatch(closeCart());
       } else if (button === 'order') {
-        setIsOrderManageOpen(true);
+        dispatch(closeProductManage());
+        dispatch(closeUserManage());
         dispatch(closeOrderHistory());
-        setIsProductManageOpen(false);
-        setIsUserManageOpen(false);
-        setIsFavoriteOpen(false);
+        dispatch(closeFavorite());
+        dispatch(openOrderManage());
+        dispatch(closeCart());
         dispatch(closeCart());
       } else if (button === 'favorites') {
-        setIsFavoriteOpen(true);
+        dispatch(closeProductManage());
+        dispatch(closeUserManage());
         dispatch(closeOrderHistory());
-        setIsProductManageOpen(false);
-        setIsUserManageOpen(false);
-        setIsOrderManageOpen(false);
+        dispatch(openFavorite());
+        dispatch(closeOrderManage());
         dispatch(closeCart());
       } else if (button === 'orderHistory') {
-        setIsFavoriteOpen(false);
-        dispatch(openOrderHistory()); //true
-        setIsProductManageOpen(false);
-        setIsUserManageOpen(false);
-        setIsOrderManageOpen(false);
+        dispatch(closeProductManage());
+        dispatch(closeUserManage());
+        dispatch(openOrderHistory());
+        dispatch(closeFavorite());
+        dispatch(closeOrderManage());
         dispatch(closeCart());
       } else if (button === 'cart'){
-        setIsFavoriteOpen(false);
-        dispatch(closeOrderHistory()); //true
-        setIsProductManageOpen(false);
-        setIsUserManageOpen(false);
-        setIsOrderManageOpen(false);
+        dispatch(closeProductManage());
+        dispatch(closeUserManage());
+        dispatch(closeOrderHistory());
+        dispatch(closeFavorite());
+        dispatch(closeOrderManage());
         dispatch(openCart());
       } else {
+        dispatch(closeProductManage());
+        dispatch(closeUserManage());
         dispatch(closeOrderHistory());
-        setIsProductManageOpen(false);
-        setIsUserManageOpen(false);
-        setIsFavoriteOpen(false);
-        setIsOrderManageOpen(false);
+        dispatch(closeFavorite());
+        dispatch(closeOrderManage());
         dispatch(closeCart());
       }
     };
