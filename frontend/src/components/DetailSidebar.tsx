@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
-import { Box, Avatar, Typography, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField,  } from '@mui/material';
+import { Box, Avatar, Typography, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, useMediaQuery, IconButton } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import UserInterface from '../interface/UserInterface'
 import { useDispatch, useSelector } from 'react-redux'
 import { logoutUser, updateUserDetails } from '../features/user/userSlice';
-// import { clearFavorite } from '../features/favorite/favoriteSlice';
 import { clearCart } from '../features/cart/cartSlice';
 import { setAllOrders } from '../features/order/orderSlice';
 import { setAllUsers } from '../features/user/allUserSlice';
@@ -28,7 +28,7 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
     const navigate = useNavigate();
     const dispatch = useDispatch(); 
     const currentUser = useSelector((state: RootState) => state.user.userDetails);
-
+    const isSidebarOpen = useSelector((state: RootState) => state.DetailPages.isSidebarOpen);
     const [activeButton, setActiveButton] = useState<'product' | 'user' | 'order' | 'avatar' | 'favorites' | null | 'orderHistory' | 'cart'>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isManagementDropped, setisManagementDropped] = useState(false)
@@ -38,7 +38,7 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
     const [newUser, setNewUser] = useState<UserInterface>({
       ...user,
     });
-    
+     
     useEffect(() => {
       setNewUser(user);
     }, [user]);
@@ -74,7 +74,6 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
 
     const HandleLogOut = () =>
     {
-      // dispatch(clearFavorite());
       dispatch(clearCart())
       dispatch(setAllUsers([]));
       dispatch(setAllOrders([]));
@@ -138,20 +137,24 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
         dispatch(closeCart());
       }
     };
+  
+  const isSmallDevice = useMediaQuery('(max-width:720px)');
     
   return (
+    <>
     <Box
-      width={300}
       padding={2}
       style={{
-          borderRight: '1px solid #ccc',
-          minHeight: '100vh',
-          boxSizing: 'border-box',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-      }}
-      >
+        transition: 'width 0.3s',
+        overflowX: 'hidden',
+        borderRight: '1px solid #ccc',
+        minHeight: '100vh',
+        boxSizing: 'border-box',
+        display: isSmallDevice ? 'none' : 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}        
+    >     
       <Avatar
         alt={newUser.name}
         src={newUser.avatar ? newUser.avatar : "https://gravatar.com/avatar/00000000000000000000000000000000?d=mp"}
@@ -330,7 +333,8 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsPro
     >
         log out
     </Button>
-  </Box>
+    </Box>
+    </>
   )
 }
 

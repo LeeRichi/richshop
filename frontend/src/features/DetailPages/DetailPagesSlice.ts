@@ -5,23 +5,40 @@ const detailPagesSlice = createSlice({
   initialState: {
     isOrderHistoryOpen: false,
     isCartOpen: false,
+    isSidebarOpen: true,
   },
   reducers: {
-    openOrderHistory: (state) => {
+    openOrderHistory: (state) =>
+    {
       state.isOrderHistoryOpen = true;
     },
-    closeOrderHistory: (state) => {
+    closeOrderHistory: (state) =>
+    {
       state.isOrderHistoryOpen = false;
-      },
-    openCart: (state) => {
+    },
+    openCart: (state) =>
+    {
       state.isCartOpen = true;
     },
-    closeCart: (state) => {
+    closeCart: (state) =>
+    {
       state.isCartOpen = false;
     },
-  },
+    // openSidebar: (state) =>
+    // {
+    //   state.isSidebarOpen = true;
+    // },
+    // closeSidebar: (state) =>
+    // {
+    //   state.isSidebarOpen = false;
+    // },
+    toggleSidebar: (state) =>
+    {
+      state.isSidebarOpen = !state.isSidebarOpen;
+    }
+  }
 });
 
-export const { openOrderHistory, closeOrderHistory, openCart, closeCart } = detailPagesSlice.actions;
+export const { openOrderHistory, closeOrderHistory, openCart, closeCart, toggleSidebar} = detailPagesSlice.actions;
 
 export default detailPagesSlice.reducer;

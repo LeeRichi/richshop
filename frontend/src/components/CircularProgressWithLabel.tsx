@@ -3,9 +3,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 
-// const circleColor = value === 0 ? 'grey' : 'primary'; // Use grey for 0% value
-
-
 const CircularProgressWithLabel = ({ value }: { value: number }) =>
 (
     <Box position="relative" display="inline-flex">

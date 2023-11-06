@@ -16,7 +16,6 @@ const rootReducer = combineReducers({
   allUser: allUserRudcer,
   order: orderReducer,
   orderProduct: orderProductReducer,
-
   DetailPages: detailPagesReducer
 });
 
