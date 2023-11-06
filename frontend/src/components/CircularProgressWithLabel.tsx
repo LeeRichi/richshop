@@ -34,7 +34,10 @@ const CircularProgressWithLabel = ({ value }: { value: number }) =>
         flexDirection="column"
     >
         <div>
-            <Typography variant="body2">{value} / 500</Typography>
+            <Typography variant="body2" style={{ fontSize: '2rem' }}>
+                {value}
+            </Typography>
+            <Typography variant="body2"> / 500</Typography>
         </div>
         <div>
             <Typography variant="body2">silver</Typography>

@@ -1,18 +1,26 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../app/rootReducer';
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Button, Grid, useMediaQuery } from '@mui/material';
 import { FavoriteInterface } from '../interface/FavoriteInterface';
 import React from 'react';
 import ProductCard from '../components/ProductCard';
+import { useParams } from 'react-router-dom';
 
 const Favorites = () => {
   const dispatch = useDispatch();
-  const favorites = useSelector((state: RootState) => state.user.userDetails?.favorites);
-  console.log(favorites);
+  // const favorites = useSelector((state: RootState) => state.user.userDetails?.favorites);
+  const isSmallDevice = useMediaQuery('(max-width: 900px)');
 
+  const { id } = useParams();
+  const users = useSelector((state: RootState) => state.allUser.users);
+  const user = users?.find((user) => user.id === id);
+
+  const favorites = user?.favorites;
+  
   return (
     <Box flex={1} padding={2}>
-      <h2>Favorites</h2>
+      <h2 style={{ textAlign: isSmallDevice ? 'center' : 'initial' }}>
+        Favorites</h2>
       <Grid container spacing={2}>
         {favorites?.map((favorite) => (
           favorite.product ? (

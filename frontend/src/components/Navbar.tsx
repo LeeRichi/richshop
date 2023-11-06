@@ -20,6 +20,7 @@ import { clearCart } from '../features/cart/cartSlice';
 import { setAllOrders } from '../features/order/orderSlice';
 import { setAllUsers } from '../features/user/allUserSlice';
 import { Product } from '../interface/ProductInterface';
+import { closeCart, closeFavorite, closeOrderHistory, closeOrderManage, closeProductManage, closeUserManage, openCart, openFavorite } from '../features/DetailPages/DetailPagesSlice';
 
 const Navbar = ({ appLogout, products, onSearchResultsChange }: { appLogout: () => void, products: Product[], onSearchResultsChange: (results: Product[]) => void;  }) =>
 {
@@ -58,7 +59,6 @@ const Navbar = ({ appLogout, products, onSearchResultsChange }: { appLogout: () 
 
   const handleLogout = () =>
   {
-    // dispatch(clearFavorite());
     dispatch(clearCart())
     dispatch(setAllUsers([]));
     dispatch(setAllOrders([]));
@@ -67,6 +67,32 @@ const Navbar = ({ appLogout, products, onSearchResultsChange }: { appLogout: () 
     dispatch(logoutUser());
     localStorage.removeItem('token');
   };
+
+  const onHandleClick = (btn: 'favorites' | null | 'cart') =>
+  {
+    if (btn === 'favorites') {
+      dispatch(openFavorite());
+      dispatch(closeCart());
+      dispatch(closeProductManage());
+      dispatch(closeUserManage());
+      dispatch(closeOrderHistory());
+      dispatch(closeOrderManage());
+    } else if (btn === 'cart') {
+      dispatch(closeFavorite());
+      dispatch(openCart());
+      dispatch(closeProductManage());
+      dispatch(closeUserManage());
+      dispatch(closeOrderHistory());
+      dispatch(closeOrderManage());
+    } else {
+      dispatch(closeCart());
+      dispatch(closeFavorite());
+      dispatch(closeProductManage());
+      dispatch(closeUserManage());
+      dispatch(closeOrderHistory());
+      dispatch(closeOrderManage());
+    }
+  }
 
   return (
     <AppBar position="static" style={{ backgroundColor: '#2d2d2d' }}>
@@ -94,7 +120,7 @@ const Navbar = ({ appLogout, products, onSearchResultsChange }: { appLogout: () 
           <span style={{ verticalAlign: 'middle' }}>RICH</span>
         </Typography>
         <div>
-          <IconButton color="inherit" component={Link} to={`/users/${user?.id}/favorites`}>
+          <IconButton color="inherit" component={Link} to={`/users/${user?.id}`} onClick={() => onHandleClick('favorites')}>
             <Badge badgeContent={favoriteCount} color="secondary">
               <FavoriteBorderIcon />
             </Badge>
@@ -165,7 +191,7 @@ const Navbar = ({ appLogout, products, onSearchResultsChange }: { appLogout: () 
               <AccountCircle style={{ fontSize: '32px' }} />
             </IconButton>
           )}
-          <IconButton color="inherit" component={Link} to="/cart">
+          <IconButton color="inherit" component={Link} to ={`/users/${user?.id}`} onClick={() => onHandleClick('cart')}>
             <Badge badgeContent={cartCount} color="primary">
               <ShoppingCart />
             </Badge>

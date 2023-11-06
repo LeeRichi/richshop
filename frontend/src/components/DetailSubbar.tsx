@@ -39,7 +39,6 @@ const DetailSubbar: React.FC<DetailSidebarProps> = ({ user, appLogout, updateUse
     const [isManagementDropped, setisManagementDropped] = useState(false);
     const [activeButton, setActiveButton] = useState<'product' | 'user' | 'order' | 'avatar' | 'favorites' | null | 'orderHistory' | 'cart'>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-    console.log(isDialogOpen)
     const [editedUser, setEditedUser] = useState<UserInterface>({
       ...user,
     });
@@ -318,6 +317,7 @@ const DetailSubbar: React.FC<DetailSidebarProps> = ({ user, appLogout, updateUse
           )}
         </>
       ) : null}
+      <div style={{borderBottom: '1px solid #B8B7B7', width: '100%'}}></div>
     </div>
   );
 };

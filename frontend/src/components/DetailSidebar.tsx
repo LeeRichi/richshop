@@ -10,26 +10,19 @@ import { setAllUsers } from '../features/user/allUserSlice';
 import { editUser } from '../utils/api/UsersApi';
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../app/rootReducer';
-import './detailSidebar.css'
 import { closeCart, closeFavorite, closeOrderHistory, closeOrderManage, closeProductManage, closeUserManage, openCart, openFavorite, openOrderHistory, openOrderManage, openProductManage, openUserManage } from '../features/DetailPages/DetailPagesSlice';
 
 interface DetailSidebarProps {
   user: UserInterface;
   appLogout: () => void;
-  // setIsProductManageOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  // setIsUserManageOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  // setIsOrderManageOpen: React.Dispatch<React.SetStateAction<boolean>>;
   updateUser: (updatedUser: UserInterface) => void;
-  // setIsFavoriteOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-// const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, setIsProductManageOpen, setIsUserManageOpen, updateUser, setIsFavoriteOpen, setIsOrderManageOpen }) =>
 const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, updateUser }) =>
 {
     const navigate = useNavigate();
     const dispatch = useDispatch(); 
     const currentUser = useSelector((state: RootState) => state.user.userDetails);
-    // const isSidebarOpen = useSelector((state: RootState) => state.DetailPages.isSidebarOpen);
     const [activeButton, setActiveButton] = useState<'product' | 'user' | 'order' | 'avatar' | 'favorites' | null | 'orderHistory' | 'cart'>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isManagementDropped, setisManagementDropped] = useState(false)
@@ -140,7 +133,7 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, updateUs
       }
     };
   
-  const isSmallDevice = useMediaQuery('(max-width:720px)');
+  const isSmallDevice = useMediaQuery('(max-width:900px)');
     
   return (
     <>
@@ -269,17 +262,12 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, updateUs
           gap="20px"
           style={{
             margin: '20px',
-            // transition: 'max-height 2s ease-in-out',
-            // overflow: 'hidden',
-            // maxHeight: isManagementDropped ? '1000px' : '0',
-            // border: '1px solid blakc'
           }}
         >          
         <Button
           sx={{
             backgroundColor: 'transparent',
             color: 'black',
-            // width: '100%',
             border: '3px solid #F7EE32', 
             margin: '5px',
             height: '60px',

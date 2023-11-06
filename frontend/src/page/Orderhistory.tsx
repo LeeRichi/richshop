@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../app/rootReducer';
-import { Box, Card, CardContent, Grid } from '@mui/material';
+import { Box, Card, CardContent, Grid, useMediaQuery } from '@mui/material';
 import {
   Container,
   Typography,
@@ -27,21 +27,27 @@ import { Delete, Edit } from '@mui/icons-material';
 import React from 'react';
 import ProductCard from '../components/ProductCard';
 import { OrderInterface } from '../interface/OrderInterface';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Product } from '../interface/ProductInterface';
 
 const OrderHistory = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const cardHoverStyles = {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isSmallDevice = useMediaQuery('(max-width: 900px)');
+  const cardHoverStyles = {
     transition: 'background-color 0.3s',
     '&:hover': {
-        backgroundColor: '#f5f5f5', // Change this to the desired hover background color
+        backgroundColor: '#f5f5f5',
     },
-    };
+  };
+  
+  const { id } = useParams();
+  const users = useSelector((state: RootState) => state.allUser.users);
+  const user = users?.find((user) => user.id === id);
 
-  const orders = useSelector((state: RootState) => state.user.userDetails?.orders);
-
+  const orders = useSelector((state: RootState) => state.order.orders);
+  const userOrders = orders?.filter((order) => order.userId === id);
+  
   function formatDateYearMonth(dateString: string | undefined) {
     if (!dateString) {
       return '';
@@ -59,12 +65,14 @@ const OrderHistory = () => {
 
   return (
     <Box flex={1} padding={2}>
-      <h2>Order History</h2>
+      <h2 style={{ textAlign: isSmallDevice ? 'center' : 'initial' }}>
+        Order History
+      </h2>
       <Grid container spacing={2}>
-        {orders?.map((order) => (
+        {userOrders?.map((order) => (
           order ? (
-            <Grid item xs={8} sm={8} md={8} lg={12}>
-              <Card sx={{ margin: '3rem', ...cardHoverStyles }}>
+            <Grid item xs={12} sm={12} md={12} lg={12}>
+              <Card sx={{ margin: '3rem', ...cardHoverStyles,  }}>
                 <CardContent style={{ display: 'flex', justifyContent: 'space-between'}}>
                  <Grid container spacing={2}>
                     <Grid item xs={12} sm={12} md={12} lg={8}>

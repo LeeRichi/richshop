@@ -28,7 +28,8 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
 {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const isSmallDevice = useMediaQuery('(max-width: 720px)');
+    const isSmallDevice = useMediaQuery('(max-width: 900px)');
+    const isMediumDevice = useMediaQuery('(max-width: 1080px')
     const users = useSelector((state: RootState) => state.allUser.users);
     const user = users?.find((user) => user.id === id);
     const orders = useSelector((state: RootState) => state.order.orders)
@@ -47,10 +48,6 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
     const isFavoriteOpen = useSelector((state: RootState) => state.DetailPages.isFavoriteOpen);
     const isOrderHistoryOpen = useSelector((state: RootState) => state.DetailPages.isOrderHistoryOpen);
     const isCartOpen = useSelector((state: RootState) => state.DetailPages.isCartOpen);
-
-    console.log(isOrderManageOpen)
-    console.log(isUserManageOpen)
-    console.log(isProductManageOpen)
     
     const [editedUser, setEditedUser] = useState<UserInterface | undefined>(user);
 
@@ -107,71 +104,81 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
                         (
                         <Box flex={1} padding={2}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
-                                <div style={{ flex: 1, marginRight: '10px', borderRadius:'10px', backgroundColor: '#E3E3E3'}}>
-                                    <Box display="flex" alignItems="center" style={{                              
+                            <div style={{ flex: 1, borderRadius: '10px', backgroundColor: '#E3E3E3', position: 'relative', maxHeight: '20rem', maxWidth: '40rem' }}>
+                                    <div style={{
+                                        position: 'absolute',
+                                        top: 10,
+                                        right: 10,
+                                        color: '#6C6C6C',
+                                        padding: '5px 10px',
+                                        borderRadius: '5px',
+                                        textAlign: 'right',
+                                        fontSize: '26px',
+                                    }}>
+                                        {user?.id}<br />
+                                        {user?.name}
+                                    </div>
+                                    <Box display="flex" alignItems="center" style={{
                                         margin: '3rem',
                                         borderRadius: '10px',
                                         height: '70%',
-                                    }}>                             
-                                        <CircularProgressWithLabel value={totalSum} />
-                                        <Typography style={{margin: '10px'}}>
+                                        maxHeight: '20rem'
+                                    }}>
+                                    <CircularProgressWithLabel value={totalSum} />
+                                    {isMediumDevice ? null :
+                                        <Typography style={{ margin: '10px', color: '#6C6C6C' }}>
                                             Collect € 500 until 29.02.2024 to unlock GOLD status.<br/>
-                                            While you’re a GOLD, you benefit from improved raffle chances. Learn more
-                                            GO TO LEVEL STATUS
+                                            While you’re a GOLD, you benefit from improved raffle chances. Learn more                   
                                         </Typography>
-                                    </Box>                          
+                                    }                                       
+                                    </Box>
                                 </div>
-                                
-                                <div style={{ flex: 1, marginRight: '10px' }}></div>
-                            </div>
-                            <div style={{display: 'flex'}}>
-                                
-                            </div>
-                                <Paper style={{ padding: '20px', marginBottom: '20px' }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                        <div>
-                                            <Typography variant="h6">Your Last Order</Typography>
-                                        </div>
-                                        <div>
-                                            <Button onClick={() => dispatch(openOrderHistory())}>View All</Button>
-                                        </div>
+                            </div>                       
+                            <Paper style={{ padding: '20px', marginBottom: '20px' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <div>
+                                        <Typography variant="h6">Your Last Order</Typography>
                                     </div>
-                                    <List>
-                                        {userOrders?.slice(0, 1).map((order) => {
-                                        return (
-                                            <React.Fragment key={order.id}>
-                                                <Link to={`/orders/${order.id}`} style={{ textDecoration: 'none' }}>
-                                                    <ListItem>
-                                                        <ListItemText
-                                                            primary={<span style={{ color: 'black' }}>{`Order ${order.updatedAt}`}</span>}
-                                                            secondary={`Date: ${order.id}, Total: $${order.orderTotal ? order.orderTotal : 0}`}
-                                                        />
-                                                        <ListItemAvatar>
-                                                            <div style={{ display: 'flex' }}>
-                                                                {order.orderProducts.map((product) => (
-                                                                    <img
-                                                                        key={product.product.id}
-                                                                        src={product.product.images[0]}
-                                                                        alt={`Product Image for Order ${order.id}`}
-                                                                        style={{ width: '128px', height: '100px', margin: '5px' }}
-                                                                    />
-                                                                ))}
-                                                            </div>
-                                                        </ListItemAvatar>
-                                                    </ListItem>
-                                                </Link>
-                                                <Divider />
-                                            </React.Fragment>
-                                            );
-                                        })}
-                                    </List>
-                                </Paper>                                          
-                                <Paper style={{ padding: '20px', marginBottom: '20px' }}>
-                                    <Typography variant="h6">You might also like</Typography>
-                                    <Typography style={{ fontSize: '12px', color: 'grey' }}>Upcoming feature</Typography>
-                                </Paper>
-                            </Box>
-                        )}
+                                    <div>
+                                        <Button onClick={() => dispatch(openOrderHistory())}>View All</Button>
+                                    </div>
+                                </div>
+                                <List>
+                                    {userOrders?.slice(0, 1).map((order) => {
+                                    return (
+                                        <React.Fragment key={order.id}>
+                                            <Link to={`/orders/${order.id}`} style={{ textDecoration: 'none' }}>
+                                                <ListItem>
+                                                    <ListItemText
+                                                        primary={<span style={{ color: 'black' }}>{`Order ${order.updatedAt}`}</span>}
+                                                        secondary={`Date: ${order.id}, Total: $${order.orderTotal ? order.orderTotal : 0}`}
+                                                    />
+                                                    <ListItemAvatar>
+                                                        <div style={{ display: 'flex' }}>
+                                                            {order.orderProducts.map((product) => (
+                                                                <img
+                                                                    key={product.product.id}
+                                                                    src={product.product.images[0]}
+                                                                    alt={`Product Image for Order ${order.id}`}
+                                                                    style={{ width: '128px', height: '100px', margin: '5px' }}
+                                                                />
+                                                            ))}
+                                                        </div>
+                                                    </ListItemAvatar>
+                                                </ListItem>
+                                            </Link>
+                                            <Divider />
+                                        </React.Fragment>
+                                        );
+                                    })}
+                                </List>
+                            </Paper>                                          
+                            <Paper style={{ padding: '20px', marginBottom: '20px' }}>
+                                <Typography variant="h6">You might also like</Typography>
+                                <Typography style={{ fontSize: '12px', color: 'grey' }}>Upcoming feature</Typography>
+                            </Paper>
+                        </Box>
+                    )}
                 </Box>
             </>        
         );
