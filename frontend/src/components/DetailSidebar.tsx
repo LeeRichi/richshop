@@ -29,7 +29,7 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, updateUs
     const navigate = useNavigate();
     const dispatch = useDispatch(); 
     const currentUser = useSelector((state: RootState) => state.user.userDetails);
-    const isSidebarOpen = useSelector((state: RootState) => state.DetailPages.isSidebarOpen);
+    // const isSidebarOpen = useSelector((state: RootState) => state.DetailPages.isSidebarOpen);
     const [activeButton, setActiveButton] = useState<'product' | 'user' | 'order' | 'avatar' | 'favorites' | null | 'orderHistory' | 'cart'>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isManagementDropped, setisManagementDropped] = useState(false)
@@ -163,11 +163,6 @@ const DetailSidebar: React.FC<DetailSidebarProps> = ({ user, appLogout, updateUs
         style={{ width: '150px', height: '150px', margin: '20px 0' }}
       />
       <Typography variant="h6" style={{ margin: '10px 0' }}>{newUser.name}</Typography>
-      {/* <Typography variant="body2" style={{ textAlign: 'center', margin: '20px 0' }}>
-        User ID: <br/>{newUser.id}
-      </Typography>
-      <Typography variant="body1" style={{ margin: '10px 0' }}>Address: {newUser.address}</Typography>
-      <Typography variant="body1" style={{ margin: '10px 0' }}>Email: {newUser.email}</Typography> */}
       <div style={{ marginTop: '10px', display: 'flex', gap: '10px', margin: '20px' }}>
         <Button variant="contained" color="primary" onClick={handleEditDialogOpen}>
           Edit

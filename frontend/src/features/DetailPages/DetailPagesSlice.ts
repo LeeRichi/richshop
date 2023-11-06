@@ -43,27 +43,27 @@ const detailPagesSlice = createSlice({
     },
     openProductManage: (state) =>
     {
-      state.isCartOpen = true;
+      state.isProductManageOpen = true;
     },
     closeProductManage: (state) =>
     {
-      state.isCartOpen = false;
+      state.isProductManageOpen = false;
     },
     openUserManage: (state) =>
     {
-      state.isCartOpen = true;
+      state.isUserManageOpen = true;
     },
     closeUserManage: (state) =>
     {
-      state.isCartOpen = false;
+      state.isUserManageOpen = false;
     },
     openOrderManage: (state) =>
     {
-      state.isCartOpen = true;
+      state.isOrderManageOpen = true;
     },
     closeOrderManage: (state) =>
     {
-      state.isCartOpen = false;
+      state.isOrderManageOpen = false;
     },
   }
 });

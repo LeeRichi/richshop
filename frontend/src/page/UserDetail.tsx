@@ -42,11 +42,15 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
     const totalSum = userPoints.reduce((total, price) => total + price, 0);
 
     const isProductManageOpen = useSelector((state: RootState) => state.DetailPages.isProductManageOpen);
-    const isUserManageOpen = useSelector((state: RootState) => state.DetailPages.isProductManageOpen);
-    const isOrderManageOpen = useSelector((state: RootState) => state.DetailPages.isProductManageOpen);
-    const isFavoriteOpen = useSelector((state: RootState) => state.DetailPages.isProductManageOpen);
+    const isUserManageOpen = useSelector((state: RootState) => state.DetailPages.isUserManageOpen);
+    const isOrderManageOpen = useSelector((state: RootState) => state.DetailPages.isOrderManageOpen);
+    const isFavoriteOpen = useSelector((state: RootState) => state.DetailPages.isFavoriteOpen);
     const isOrderHistoryOpen = useSelector((state: RootState) => state.DetailPages.isOrderHistoryOpen);
     const isCartOpen = useSelector((state: RootState) => state.DetailPages.isCartOpen);
+
+    console.log(isOrderManageOpen)
+    console.log(isUserManageOpen)
+    console.log(isProductManageOpen)
     
     const [editedUser, setEditedUser] = useState<UserInterface | undefined>(user);
 
@@ -76,7 +80,7 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
 
     return (
         <>
-            {isSmallDevice ? <SidebarBtn /> : null}
+            {isSmallDevice ? <DetailSubbar user={user ?? currentUser} appLogout={appLogout} updateUser={updateUser}/> : null}
             <Box display="flex">            
                 <DetailSidebar user={user ?? currentUser} appLogout={appLogout} updateUser={updateUser}
                 />
