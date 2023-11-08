@@ -11,7 +11,7 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { AccountCircle, FavoriteBorder, ShoppingCart, Search } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../app/rootReducer';
 import { logoutUser } from '../features/user/userSlice';
@@ -40,6 +40,7 @@ const Navbar = ({
   onSearchResultsChange: (results: Product[]) => void;
 }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.user.userDetails);
   const favoriteCount = user?.favorites?.length;
   const cartCount = user?.carts?.length;
@@ -79,29 +80,35 @@ const Navbar = ({
     dispatch(logoutUser());
     localStorage.removeItem('token');
   };
+  
+  console.log(user)
 
   const onHandleClick = (btn: 'favorites' | null | 'cart') => {
-    if (btn === 'favorites') {
-      dispatch(openFavorite());
-      dispatch(closeCart());
-      dispatch(closeProductManage());
-      dispatch(closeUserManage());
-      dispatch(closeOrderHistory());
-      dispatch(closeOrderManage());
-    } else if (btn === 'cart') {
-      dispatch(closeFavorite());
-      dispatch(openCart());
-      dispatch(closeProductManage());
-      dispatch(closeUserManage());
-      dispatch(closeOrderHistory());
-      dispatch(closeOrderManage());
+    if (user) {
+      if (btn === 'favorites') {
+        dispatch(openFavorite());
+        dispatch(closeCart());
+        dispatch(closeProductManage());
+        dispatch(closeUserManage());
+        dispatch(closeOrderHistory());
+        dispatch(closeOrderManage());
+      } else if (btn === 'cart') {
+        dispatch(closeFavorite());
+        dispatch(openCart());
+        dispatch(closeProductManage());
+        dispatch(closeUserManage());
+        dispatch(closeOrderHistory());
+        dispatch(closeOrderManage());
+      } else {
+        dispatch(closeCart());
+        dispatch(closeFavorite());
+        dispatch(closeProductManage());
+        dispatch(closeUserManage());
+        dispatch(closeOrderHistory());
+        dispatch(closeOrderManage());
+      }
     } else {
-      dispatch(closeCart());
-      dispatch(closeFavorite());
-      dispatch(closeProductManage());
-      dispatch(closeUserManage());
-      dispatch(closeOrderHistory());
-      dispatch(closeOrderManage());
+      navigate('/auth');
     }
   };
 

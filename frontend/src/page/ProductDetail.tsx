@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../app/rootReducer';
 import { Button, Typography, Grid, Divider, Container, ButtonGroup } from '@mui/material';
@@ -16,7 +16,7 @@ import SizeSelector from '../components/SizeSelector';
 const ProductDetail = () =>
 {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const { id } = useParams();
   const products = useSelector((state: RootState) => state.products.products);
   const product = products.find((product) => product.id === id);
@@ -34,7 +34,9 @@ const ProductDetail = () =>
     return <div>No product provided.</div>;
   }
 
-  const handleAddToCart = () => {
+  const handleAddToCart = () =>
+  {
+    if(user == null){navigate(`/auth`) }
     const dataProps = { userId: user?.id, productId: id, quantity: 1 };
     addToCart(dataProps);
   }
@@ -43,7 +45,9 @@ const ProductDetail = () =>
     return <div>Product not found</div>;
   }
 
-  const handleToggleFavorite = (productId: string | undefined) => {
+  const handleToggleFavorite = (productId: string | undefined) =>
+  {
+    if(user == null){navigate(`/auth`) }
     if (product?.id) {
       const favoriteData = { userId, productId }
       if (isFavorite) {

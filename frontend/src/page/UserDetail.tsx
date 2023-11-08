@@ -23,6 +23,7 @@ import CircularProgressWithLabel from '../components/CircularProgressWithLabel';
 import Cart from './Cart';
 import DetailSubbar from '../components/DetailSubbar';
 import Recommendation from '../components/Recommendation';
+import LoginForm from './LoginForm';
     
 const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
 {
@@ -72,7 +73,8 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
     }, [dispatch]);
 
     if (!currentUser) {
-        return <Typography variant="body1" align="center">User not found.</Typography>;
+        // return <Typography variant="body1" align="center">User not found.</Typography>;
+        return <LoginForm />
     }
 
     return (

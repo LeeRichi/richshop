@@ -4,7 +4,7 @@ import { Product } from '../interface/ProductInterface';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './index.css';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { CartItemInterface } from '../interface/CartItemInterface';
@@ -21,6 +21,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const favorites = useSelector((state: RootState) => state.user.userDetails?.favorites)
   const user = useSelector((state: RootState) => state.user.userDetails)
   const userId = user?.id;
@@ -28,7 +29,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     return product && favProduct.productId === product.id;
   });
 
-  const handleToggleFavorite = (productId: string | undefined) => {
+  const handleToggleFavorite = (productId: string | undefined) =>
+  {
+    if(user == null){navigate(`/auth`) }
     if (product?.id) {
       const favoriteData = { userId, productId }
       if (isFavorite) {
