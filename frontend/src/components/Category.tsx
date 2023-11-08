@@ -19,6 +19,11 @@ const Category = () =>
             </Link>
           </Typography>
         ))}
+        <Typography variant="h6" style={{ margin: '15px', color: 'red' }}>
+          <Link to={`/category/sale`} style={{ color: 'inherit', textDecoration: 'none' }}>
+            Sale
+          </Link>
+        </Typography>
     </div>
   )
 }

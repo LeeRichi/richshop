@@ -8,17 +8,20 @@ import ProductCard from '../components/ProductCard';
 import Category from '../components/Category';
 import { Product } from '../interface/ProductInterface';
 
-const CategoryPage: React.FC<{ category: string }> = ({ category }) => {
+const CategoryPage: React.FC<{ category?: string }> = ({ category }) => {
   const products = useSelector(selectProducts);
+  const onSaleProducts = products.filter((product: Product) => product.isOnSale === true);
 
   const [categoryProducts, setCategoryProducts] = useState<Product[]>([]);
   const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
   const [selectedPriceRange, setSelectedPriceRange] = useState<[number, number]>([0, 300]);
 
   useEffect(() => {
-    const filteredProducts = products.filter(product => product.category === category);
-    setCategoryProducts(filteredProducts);
-  }, [category, products]);
+    // const filteredProducts = products.filter(product => product.category === category);
+      const filteredProducts = category ? products.filter(product => product.category === category) : onSaleProducts;
+
+      setCategoryProducts(filteredProducts);
+    }, [category, products]);
 
   useEffect(() => {
     const productsWithinPriceRange = categoryProducts.filter((product) => {

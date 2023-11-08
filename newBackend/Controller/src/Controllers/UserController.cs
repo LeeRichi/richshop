@@ -16,7 +16,6 @@ namespace Controller.src.Controllers
         }
 
         [HttpPost("admin")]
-        [AllowAnonymous]
         public async Task<ActionResult<UserReadDto>> CreateAdmin([FromBody] UserCreateDto dto)
         {
             return CreatedAtAction(nameof(CreateAdmin), await _userService.CreateAdmin(dto));
@@ -33,6 +32,7 @@ namespace Controller.src.Controllers
             return Ok(await _baseService.GetOneById(id));
         }
 
+        [AllowAnonymous]
         [HttpPost("add-favorite")]
         public async Task<ActionResult<FavoriteReadDto>> CreateFavorite([FromBody] FavoriteCreateDto favoriteDto)
         {
@@ -48,6 +48,7 @@ namespace Controller.src.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost("remove-favorite")]
         public async Task<ActionResult<FavoriteReadDto>> RemoveFavorite([FromBody] FavoriteCreateDto favoriteDto)
         {
@@ -61,6 +62,7 @@ namespace Controller.src.Controllers
             return Ok(result);
         }
 
+        [AllowAnonymous]
         [HttpPost("add-to-cart")]
         public async Task<ActionResult<ProductReadDto>> AddToCart([FromBody] CartItemCreateDto cartItem)
         {
@@ -75,6 +77,7 @@ namespace Controller.src.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost("remove-from-cart")]
         public async Task<ActionResult<ProductReadDto>> RemoveFromCart([FromBody] CartItemCreateDto cartItem)
         {

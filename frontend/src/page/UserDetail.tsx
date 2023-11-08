@@ -22,8 +22,8 @@ import { openOrderHistory } from '../features/DetailPages/DetailPagesSlice';
 import CircularProgressWithLabel from '../components/CircularProgressWithLabel';
 import Cart from './Cart';
 import DetailSubbar from '../components/DetailSubbar';
-import SidebarBtn from '../components/DetailSubbar';
-
+import Recommendation from '../components/Recommendation';
+    
 const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
 {
     const dispatch = useDispatch();
@@ -142,8 +142,11 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
                                     <div>
                                         <Button onClick={() => dispatch(openOrderHistory())}>View All</Button>
                                     </div>
-                                </div>
+                                </div><Divider />
                                 <List>
+                                    {userOrders.length === 0 ? (
+                                        <div>You haven't placed any orders yet.</div>                                    
+                                    ) : null}
                                     {userOrders?.slice(0, 1).map((order) => {
                                     return (
                                         <React.Fragment key={order.id}>
@@ -172,11 +175,8 @@ const UserDetail = ({ appLogout }: { appLogout: () => void }) =>
                                         );
                                     })}
                                 </List>
-                            </Paper>                                          
-                            <Paper style={{ padding: '20px', marginBottom: '20px' }}>
-                                <Typography variant="h6">You might also like</Typography>
-                                <Typography style={{ fontSize: '12px', color: 'grey' }}>Upcoming feature</Typography>
-                            </Paper>
+                            </Paper>                                                          
+                            <Recommendation />
                         </Box>
                     )}
                 </Box>

@@ -4,8 +4,7 @@ import { Product } from '../interface/ProductInterface';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useDispatch, useSelector } from 'react-redux';
-// import { addToFavorites, removeFromFavorites, selectFavorites, setFavoriteCount } from '../features/favorite/favoriteSlice';
-import { Link } from 'react-router-dom'; // Import Link from React Router
+import { Link } from 'react-router-dom';
 import './index.css';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { CartItemInterface } from '../interface/CartItemInterface';
@@ -70,35 +69,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       }
     }
   };
-  
-  // const newFavoriteCount = favorites.length;
-  // dispatch(setFavoriteCount(newFavoriteCount));
 
-    // Ref to store the initial position of the drag
-  const dragStartRef = useRef(0);
-  
-  // State to track the current drag position
-  const [dragPosition, setDragPosition] = useState(0);
-
-  const handleDragStart = (e: React.DragEvent) => {
-    dragStartRef.current = e.clientX;
-  };
-
-  const handleDrag = (e: React.DragEvent) => {
-    // Calculate the drag distance
-    const dragDistance = e.clientX - dragStartRef.current;
-
-    // Update the drag position
-    setDragPosition(dragDistance);
-  };
-
-  const handleDragEnd = () => {
-    // Reset the drag position on drag end
-    setDragPosition(0);
-  };
   return (
     <Card
-      style={{ height: '100%', display: 'flex', flexDirection: 'column', position: 'relative' }}
+      style={{ height: '100%', display: 'flex', flexDirection: 'column', position: 'relative', border: '1px solid #CACACA' }}
     >
       <Link to={`/product/${product.id}`} style={{textDecoration: 'none'}}>
         <div style={{ height: '250px', overflow: 'hidden' }}>
@@ -107,7 +81,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <CardContent style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
           <Typography variant="h6" style={{color: 'black'}}>{product?.title}</Typography>
           <Typography style={{ color: 'grey', textDecoration: 'none' }}>
-            {product?.description}
+            {product?.brand}
           </Typography>
           <Typography variant="subtitle1" style={{ color: 'black', textDecoration: 'none' }}>
             {`$${product?.price}`}
@@ -134,7 +108,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               className="heartIcon"
                 onClick={(e) => {
                 e.stopPropagation(); 
-                  handleToggleFavorite(product.id);
+                handleToggleFavorite(product.id);
               }}
             />
           )}

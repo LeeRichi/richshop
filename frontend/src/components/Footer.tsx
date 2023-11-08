@@ -10,8 +10,7 @@ const Footer: React.FC = () => {
     <footer style={{
       borderTop: '1px solid #ccc',
       padding: '20px',
-      marginTop: '5vh',
-      height: 'auto', // Change height to 'auto' to allow content to expand
+      height: 'auto',
       backgroundColor: '#F4F4F4',
     }}>
       <Grid container spacing={3} style={{ marginTop: '5vh' }}>
@@ -30,7 +29,7 @@ const Footer: React.FC = () => {
           >
             <span style={{ verticalAlign: 'middle'}}>RICH</span>
           </Typography>
-          <Typography variant="body2">"Empowering Your Style, One Click at a Time."</Typography>
+          <Typography variant="body2">Shop Smart, Live Well!</Typography>
           <IconButton color="inherit">
             <PaymentIcon />
           </IconButton>

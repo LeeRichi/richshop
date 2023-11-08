@@ -10,10 +10,6 @@ import { RootState } from '../src/app/rootReducer';
 import { Product } from '../src/interface/ProductInterface';
 import CategoryPage from './page/CategoryPage';
 import LoginForm from './page/LoginForm';
-// import Dashboard from './page/Dashboard/Dashboard';
-import ProductManage from './page/Dashboard/manage/ProductManage';
-import UserManage from './page/Dashboard/manage/UserManage';
-import OrderManage from './page/Dashboard/manage/OrderManage';
 import UserDetail from './page/UserDetail';
 import OrderDetail from './page/OrderDetail';
 import CheckOut from './page/CheckOut';
@@ -51,40 +47,19 @@ const App = () =>
           <Route path='/cart' element={<Cart />} />
           <Route path='/checkOut' element={<CheckOut />} />
           <Route path='/auth' element={<LoginForm />} />
-          <Route path='/signUp' element={<SignUp />} />
-          {/* <Route path='/dashboard' element={<Dashboard />} /> */}
-
-          {/* {isAdmin ? (
-          <>
-            <Route path='manage-products' element={<ProductManage />} />
-            <Route path='manage-users' element={<UserManage />} />
-            <Route path='manage-orders' element={<OrderManage />} />              
-          </>
-          ) : (
-            <>
-              <Route path='manage-products' element={<Navigate to='/' />} />
-              <Route path='manage-users' element={<Navigate to='/' />} />
-              <Route path='manage-orders' element={<Navigate to='/' />} />                
-            </>
-          )} */}
+          <Route path='/signUp' element={<SignUp />} />         
 
           <Route path='/users/:id' element={<UserDetail appLogout={appLogout} />} />         
           <Route path='/orders/:id' element={<OrderDetail />} />
           {categories.map(category => (
             <Route key={category} path={`/category/${category}`} element={<CategoryPage category={category} />} />
           ))}
+          <Route path='/category/sale' element={<CategoryPage />} />
         </Routes>
         <Footer />
       </div>
-    </Router>
-    
-    
+    </Router>        
   )
 }
 
 export default App
-
-// function dispatch(arg0: any)
-// {
-//   throw new Error('Function not implemented.');
-// }

@@ -1,0 +1,23 @@
+.carousel-container {
+  border: 1px solid black;
+  height: 5vh;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.carousel-text {
+  display: inline-block;
+  animation: moveText 40s linear infinite;
+  transform: translateX(100%);
+  text-transform: uppercase;
+  font-size: 42px;
+}
+
+@keyframes moveText {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

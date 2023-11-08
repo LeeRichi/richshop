@@ -23,8 +23,7 @@ namespace Controller.src.Controllers
             return Ok(await _productService.GetAll(queryOptions));
         }
 
-        // [Authorize(Roles = "Admin")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public override async Task<ActionResult<ProductReadDto>> CreateOne([FromBody] ProductCreateDto dto){
             var createObj = await _productService.CreateOne(dto);
             return CreatedAtAction(nameof(CreateOne), createObj); //be aware for later
