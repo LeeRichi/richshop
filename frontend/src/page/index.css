@@ -21,3 +21,15 @@
     transform: translateX(-100%);
   }
 }
+
+@media screen and (max-width: 1700px) {
+  .carousel-container {
+    height: 6vh;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .carousel-container {
+    height: 7vh;
+  }
+}

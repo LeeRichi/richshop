@@ -87,7 +87,7 @@ const Home = ({ searchResults }: { searchResults: Product[] }) => {
       <div className="carousel-container">
         <div className="carousel-text">
           <span> Get the Rich App: App Store</span>
-          <span style={{padding: '0 10vw'}}>                           </span>
+          <span style={{padding: '0 10vw'}}></span>
           <span>📱 Get the Rich App: Google Play</span>
         </div>
       </div>

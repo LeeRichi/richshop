@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -45,9 +45,15 @@ const Navbar = ({
   const favoriteCount = user?.favorites?.length;
   const cartCount = user?.carts?.length;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [showSearch, setShowSearch] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Product[]>([]);
   const isSmallDevice = useMediaQuery('(max-width:900px)');
+
+  useEffect(() => {
+    setShowSearch(!isSmallDevice); // Set showSearch to true when not a small device
+  }, [isSmallDevice]);
+
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value.toLowerCase();
     setSearchQuery(query);
@@ -122,22 +128,23 @@ const Navbar = ({
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <IconButton color="inherit">
+          <IconButton color="inherit" onClick={() => setShowSearch(!showSearch)}>
             <Search />
           </IconButton>
           <form onSubmit={handleSearchSubmit} style={{ minWidth: 150 }}>
-            <InputBase
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-              inputProps={{ 'aria-label': 'search' }}
-              style={{
-                borderBottom: '1px solid white',
-                width: !isSmallDevice ? '180%' :'70%',
-                backgroundColor: 'transparent',
-                color: 'white',
-              }}
-            />
+            {showSearch && (
+              <InputBase
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={handleSearchChange}
+                inputProps={{ 'aria-label': 'search' }}
+                style={{
+                  borderBottom: '1px solid white',
+                  width: !isSmallDevice ? '180%' : '70%',
+                  backgroundColor: 'transparent',
+                  color: 'white',
+                }}
+            />)}
           </form>
         </div>
         <Typography
@@ -147,16 +154,17 @@ const Navbar = ({
           style={{
             backgroundColor: 'transparent',
             display: 'flex',
+            visibility: isSmallDevice && showSearch ? 'hidden' : 'visible',
             alignItems: 'center',
             justifyContent: 'center',
             textDecoration: 'none',
             color: 'white',
             border: '1px solid white',
             padding: '5px',
-            marginLeft: '-100px'
+            marginLeft: !isSmallDevice ? '-100px' : '-65px',            
           }}
         >
-          <span style={{ verticalAlign: 'middle' }}>RICH</span>
+          <span style={{ verticalAlign: 'middle'}}>RICH</span>
         </Typography>
         <div>
           <IconButton

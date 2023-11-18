@@ -73,11 +73,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     }
   };
 
+  const handleProductClick = () => {
+    // Your navigation logic here...
+    navigate(`/product/${product.id}`);
+
+    // Scroll to the top of the page
+    window.scrollTo(0, 0);
+  };
+
   return (
     <Card
       style={{ height: '100%', display: 'flex', flexDirection: 'column', position: 'relative', border: '1px solid #CACACA' }}
     >
-      <Link to={`/product/${product.id}`} style={{textDecoration: 'none'}}>
+      <div style={{textDecoration: 'none'}} onClick={handleProductClick}>
         <div style={{ height: '250px', overflow: 'hidden' }}>
           <img src={product.images[0]} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
@@ -94,7 +102,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <Button className="buttonContainer" endIcon={<ArrowForwardIcon />}>
           </Button>
         </div>
-      </Link>
+      </div>
       <CardActions>
         <div style={{ position: 'absolute', top: '10px', right: '10px', zIndex: '100' }}>
           {isFavorite ? (
